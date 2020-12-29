@@ -11758,7 +11758,6 @@ textarea.form-control {
 }
 
 .banner-area.banner-area-two {
-  background-image: url(images/banner/banner-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -11803,7 +11802,6 @@ textarea.form-control {
 }
 
 .banner-area.banner-area-three {
-  background-image: url(images/banner/banner-bg-3.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -17368,7 +17366,6 @@ textarea.form-control {
 .coming-soon-area {
   height: 100vh;
   position: relative;
-  background-image: url(images/coming-soon-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -17397,7 +17394,6 @@ textarea.form-control {
   margin-right: auto;
   z-index: 1;
   position: relative;
-  background-image: url(images/coming-soon-bg.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
