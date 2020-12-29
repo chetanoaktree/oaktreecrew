@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { login } from '../../actions/authActions';
 // import Loader from '../../components/Loader/Loader';
 import { withRouter } from "react-router-dom";
@@ -44,10 +44,6 @@ function LoginForm(props) {
 
     // const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
 
-    const redirectToHome = () => {
-        props.updateTitle('Home')
-        props.history.push('/');
-    }
     
     return(
         <section className="user-area ptb-100">

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Modal } from 'react-bootstrap';
+// import { Button, Modal } from 'react-bootstrap';
 import { subcribtion } from '../../actions/authActions';
 import {NotificationManager} from 'react-notifications';
 import logo from "../../assets/images/logo.png";

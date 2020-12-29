@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import PropTypes from 'prop-types';
@@ -23,7 +23,7 @@ class Header extends Component {
   }
 
   render() {
-    const { auth } = this.props;
+    // const { auth } = this.props;
     
     
     
