@@ -117,12 +117,12 @@ export function googleLogin(google_token) {
 export function login(loginData) {
   return dispatch => {
     dispatch(applicationIsLoading(true));
-    return axios.post(REACT_API_URL + '/authenticate', loginData)
+    return axios.post(REACT_API_URL + '/users/sign_in', loginData)
       .then(res => {
         dispatch(applicationIsLoading(false));
-        if (res.status === 200) { 
-          //console.log('res.data',res.data)
-          const token = res.data.token;
+        if (res.data.status === 200) { 
+          const token = res.data.data.token;
+          // console.log('res.data',res.data.data)
           localStorage.removeItem('accessToken');
           localStorage.removeItem('accessTokenDate');
           localStorage.removeItem('userDetail');
@@ -133,16 +133,15 @@ export function login(loginData) {
           localStorage.setItem('accessToken', token);
           localStorage.setItem('accessTokenDate', (new Date()).getTime());
 
-          localStorage.setItem('userDetail', JSON.stringify(res.data));
-          localStorage.setItem('firstName', res.data.firstname);
-          localStorage.setItem('PlanId', res.data.plan_id);
-          localStorage.setItem('PlanName', res.data.plan.name);
-          //cookie.set('accessToken', token);
-          // cookies.set('lead_tn', token, { path: '/' });
+          localStorage.setItem('userDetail', JSON.stringify(res.data.data.user));
+          localStorage.setItem('firstName', res.data.data.user.first_name);
+          
           dispatch(setCurrentUser(jwtdecode(token)));
           setAuthorizationToken(token);
           
-          return res;
+          return res.data;
+        }else{
+          return res.data;
         }
       }).catch((err) => {
         dispatch(applicationIsLoading(false));
