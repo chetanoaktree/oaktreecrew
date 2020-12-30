@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
+import axios from "axios";
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import LoginForm from './containers/Login/LoginForm';
+
+import HR from './containers/HR/HR';
+import AddFreelancer from './containers/HR/AddFreelancer';
+
 import Dashboard from './containers/Dashboard/Dashboard';
+import FreelancerSelect from './containers/Dashboard/FreelancerSelect';
+import ClientSignup from './containers/Dashboard/ClientSignup';
+
+import FreelancerDetail from './containers/Client/FreelancerDetail';
 import NoRouteFound from './components/NoRoute/NoRoute';
 
 import './assets/style.css';
@@ -52,20 +61,39 @@ function PrivateRoute ({component: Component, authed, ...rest}) {
 const App = class App extends Component {
 
   render() {
+    (function () {
+     const token = localStorage.getItem("accessToken");
+     if (token) {
+      axios.defaults.headers.common["Authorization"] = token;
+     } else {
+      axios.defaults.headers.common["Authorization"] = null;
+      /*if setting null does not remove `Authorization` header then try     
+              delete axios.defaults.headers.common['Authorization'];
+      */
+     }
+    })();
+
     let { location, history, auth } = this.props;
-    
+    // console.log("auth",auth)
     return (
       <ScrollToTop location={this.props.location}>
-          <NotificationContainer/>
-          <Header location={this.props.location} history={history}/>
-          <Switch>
-            <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/" exact component={Dashboard} />
-            <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/login" exact component={LoginForm} />
+          <React.Fragment>
+            <NotificationContainer/>
+            <Header location={this.props.location} authenticated={auth.isAuthenticated} history={history}/>
+            <Switch>
+              <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/" exact component={Dashboard} />
+              <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/login" exact component={LoginForm} />
+              <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancers" exact component={FreelancerSelect} />
+              <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/client-signup" exact component={ClientSignup} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/dashboard" exact component={HR} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelacner" exact component={AddFreelancer} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail" exact component={FreelancerDetail} />
 
-            <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/dashboard" exact component={Dashboard} />
-            <Route component={NoRouteFound} />
-          </Switch>
-          <Footer location={location} authenticated={auth.isAuthenticated}/>
+              <Route component={NoRouteFound} />
+            </Switch>
+            <Footer location={location} authenticated={auth.isAuthenticated}/>
+          </React.Fragment>
+        )}
       </ScrollToTop>
     )
   }

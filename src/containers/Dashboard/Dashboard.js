@@ -80,7 +80,7 @@ function Dashboard(props) {
                           
                           <div className="row">
                               <div className="col-lg-12 col-md-12 text-center">
-                                  <a href="/freelancers.html">
+                                  <a href="/freelancers">
                                       <button type="submit" className="default-btn">
                                           <span>Proceed</span>
                                       </button>

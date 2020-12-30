@@ -89,16 +89,14 @@ export function googleLogin(google_token) {
             localStorage.removeItem('accessTokenDate');
             localStorage.removeItem('userDetail');
             localStorage.removeItem('firstName');
-            localStorage.removeItem('PlanId');
-            localStorage.removeItem('PlanName');
+            localStorage.removeItem('role');
 
             localStorage.setItem('accessToken', token);
             localStorage.setItem('accessTokenDate', (new Date()).getTime());
 
             localStorage.setItem('userDetail', JSON.stringify(res.data.user));
             localStorage.setItem('firstName', res.data.user.firstname);
-            localStorage.setItem('PlanId', res.data.user.plan_id);
-            localStorage.setItem('PlanName', res.data.user.plan.name);
+            localStorage.setItem('role', res.data.user.current_role);
             //cookie.set('accessToken', token);
             // cookies.set('lead_tn', token, { path: '/' });
         
@@ -127,14 +125,14 @@ export function login(loginData) {
           localStorage.removeItem('accessTokenDate');
           localStorage.removeItem('userDetail');
           localStorage.removeItem('firstName');
-          localStorage.removeItem('PlanId');
-          localStorage.removeItem('PlanName');
+          localStorage.removeItem('role');
 
           localStorage.setItem('accessToken', token);
           localStorage.setItem('accessTokenDate', (new Date()).getTime());
 
           localStorage.setItem('userDetail', JSON.stringify(res.data.data.user));
           localStorage.setItem('firstName', res.data.data.user.first_name);
+          localStorage.setItem('role', res.data.data.user.current_role);
           
           dispatch(setCurrentUser(jwtdecode(token)));
           setAuthorizationToken(token);

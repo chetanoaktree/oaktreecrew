@@ -23,8 +23,8 @@ class Header extends Component {
   }
 
   render() {
-    // const { auth } = this.props;
-    
+    const { auth } = this.props;
+    // console.log("authh",auth)
     
     
     return (
@@ -49,50 +49,50 @@ class Header extends Component {
                                 <img src={logo} alt="logo" />
                             </a>
 
-                            <div className="collapse navbar-collapse mean-menu">
-                              {/* 
-                                <ul className="navbar-nav m-auto">
-                                    <li className="nav-item">
-                                        <a href="/index.html" className="nav-link active">
-                                            Home
-                                        </a>
-                                    </li>
+                            <div class="collapse navbar-collapse mean-menu" >
+                               {auth.isAuthenticated &&
+                                <React.Fragment>
+                                    <ul class="navbar-nav m-auto">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link active">
+                                                Dashboard
+                                            </a>
+                                        </li>
 
-                                    <li className="nav-item">
-                                        <a href="#" className="nav-link">
-                                            How it works
-                                        </a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                Freelancers
+                                            </a>
+                                        </li>
 
-                                    <li className="nav-item">
-                                        <a href="#" className="nav-link">
-                                            Talent
-                                        </a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                Clients
+                                            </a>
+                                        </li>
 
-                                    <li className="nav-item">
-                                        <a href="#" className="nav-link">
-                                            Resources
-                                            <i className="bx bx-chevron-down"></i>
-                                        </a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                Message
+                                            </a>
+                                        </li>
 
-                                    <li className="nav-item">
-                                        <a href="#" className="nav-link">
-                                            More
-                                            <i className="bx bx-chevron-down"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                                 
-                                <div className="others-option">
-                                    <div className="get-quote">
-                                        <a href="#" className="default-btn">
-                                            Get Started
-                                        </a>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                Settings
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    
+                                    <div class="others-option">
+                                        <div class="get-quote">
+                                            <a href="#" onClick={this.logout} class="default-btn">
+                                                Log Out
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                              */}  
+                                </React.Fragment>
+                               }
                             </div>
                         </nav>
                     </div>
