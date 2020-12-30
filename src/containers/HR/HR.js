@@ -1,12 +1,6 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 
-import salesforce from "../../assets/images/salesforce.png";
-import Ruby from "../../assets/images/Ruby.png";
-import ReactJS from "../../assets/images/ReactJS.png";
-import IOS from "../../assets/images/IOS.png";
-import NodeJS from "../../assets/images/NodeJS.png";
-// import logo from "../../assets/images/logo.png";
 
 
 function HR(props) {
