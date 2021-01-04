@@ -4,8 +4,6 @@ import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 
 
 function HR(props) {
-    
-    
     return(
             // Start Root Div
             <div>
@@ -581,9 +579,6 @@ function HR(props) {
               {/* End Freelancers List Area */}
             </div>
             // End Root Div
-    
-    
-    
     )
 }
 
