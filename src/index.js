@@ -19,6 +19,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import Popper from 'popper.js';
 // import { ActionCableProvider } from 'react-actioncable-provider';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 // import 'font-awesome/css/font-awesome.min.css';
 
 // import Cookies from 'universal-cookie';
