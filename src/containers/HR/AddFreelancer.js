@@ -3,11 +3,14 @@ import { useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { saveFreelancer } from '../../actions/hrActions';
+import {NotificationManager} from 'react-notifications';
 
 
 function AddFreelancer(props) {
     
     const [state , setState] = useState({
+        avatar: "",
         email:"",
         password:"",
         first_name: "",
@@ -19,13 +22,15 @@ function AddFreelancer(props) {
         marital_status: "",
         address: "",
         role_ids:[7],
+        skip_password_validation: true,
         additional_information_attributes: {
             notes:"", 
             presented_salary:"",
             expected_salary:"", 
             category:"",
             job_nature:"", 
-            job_level: ""
+            job_level: "",
+            attachment: ""
         },
         experience_informations_attributes: [
             {
@@ -52,6 +57,8 @@ function AddFreelancer(props) {
         ]
     })
 
+    const dispatch = useDispatch();
+
     const handleChange = (e) => {
       // console.log("----",e.target)
         const {name , value} = e.target   
@@ -71,12 +78,90 @@ function AddFreelancer(props) {
             }
         })
     }
+    // On file upload (click the upload button) 
+    const onFileUpload = (event) => { 
+    
+        const {name , value} = event.target   
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                [name] : event.target.files[0]
+            }
+        })
+      // Details of the uploaded file 
+      // console.log(this.state.selectedFile); 
+      
+    }; 
+
 
     const handleDateChange = (date) => {
         setState(prevState => ({
             ...prevState,
             dob : date
         }))
+    }
+
+    const addEducation = () => {
+        let edu = {
+                education_level: "", 
+                degree_title: "", 
+                group: "", 
+                institute_name: "", 
+                result: "", 
+                marks: "",
+                year_of_passing: "", 
+                duration: "" 
+            }
+        setState({...state,  
+            education_information_attributes: [...state.education_information_attributes, edu]
+        })
+    }
+    const handleEducation = (e, index) => {
+        // console.log(index,"----",e.target)
+
+        let newState = Object.assign(state);
+        let education = newState.education_information_attributes[index]
+        education[e.target.name] = e.target.value
+
+        setState(newState);
+    }
+    const addExperience = () => {
+        let exp = {
+                company_name:"", 
+                company_business: "", 
+                designation: "", 
+                department: "", 
+                responsebilities: "",
+                company_location: "",
+                employment_period: ""
+            }
+        setState({...state,  
+            experience_informations_attributes: [...state.experience_informations_attributes, exp]
+        })
+    }
+    const handleExperience = (e, index) => {
+        // console.log(index,"----",e.target)
+
+        let newState = Object.assign(state);
+        let experience = newState.experience_informations_attributes[index]
+        experience[e.target.name] = e.target.value
+
+        setState(newState);
+    }
+
+    const handleSave = () => {
+        var form_data = new FormData();
+        for ( var key in state ) {
+            console.log("form_data",key)
+            form_data.append(`user[${key}]`, state[key])          
+        }
+        dispatch(saveFreelancer(form_data)).then((res)=> {
+            if(res && res.status === 200) {
+               // props.history.push('/');
+            }else{
+               NotificationManager.error(res.message, 'Error');  
+            }
+        })
     }
     console.log("state",state)
     return(
@@ -277,7 +362,7 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="choose-img">
                                             <p>Upload (Resume)</p>
-                                            <input type="file" id="img" name="img" accept="image/*" />
+                                            <input type="file" id="attachment" name="attachment" onChange={onFileUpload}/>
                                             <p>Maximum file size: 2 MB</p>
                                         </div>
                                     </div>
@@ -398,158 +483,269 @@ function AddFreelancer(props) {
 
                                 <div className="row">
                                     <div className="col-lg-12 col-md-12">
-                                        <a href="#" className="default-btn float-right">
+                                        <a href="#" className="default-btn float-right" onClick={addEducation}>
                                             Add
                                         </a>
                                     </div>
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Level of Education</label>
-                                            <select>
-                                                <option value="1">Massachusetts</option>
-                                                <option value="2">Maryland</option>
-                                                <option value="3">Colorado</option>
-                                                <option value="4">Vermont</option>
-                                                <option value="5">Virginia</option>
-                                                <option value="6">Washington</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    {state.education_information_attributes.map((item, i) => {
+                                        return (
+                                        <React.Fragment>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Level of Education</label>
+                                                    <select name="education_level" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].education_level}>
+                                                        <option value="">Select</option>
+                                                        <option value="Massachusetts">Massachusetts</option>
+                                                        <option value="Maryland">Maryland</option>
+                                                        <option value="Colorado">Colorado</option>
+                                                        <option value="Vermont">Vermont</option>
+                                                        <option value="Virginia">Virginia</option>
+                                                        <option value="Washington">Washington</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Exam / Degree Title</label>
-                                            <select>
-                                                <option value="1">SEE</option>
-                                                <option value="2">M.A.</option>
-                                                <option value="3">Enginery of CSE</option>
-                                                <option value="4">Master</option>
-                                                <option value="5">Associate</option>
-                                                <option value="6">Graduate</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Exam / Degree Title</label>
+                                                    <select name="degree_title" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].degree_title}>
+                                                        <option value="">Select</option>
+                                                        <option value="engineer">Engineer of CSE</option>
+                                                        <option value="master">Master</option>
+                                                        <option value="associate">Associate</option>
+                                                        <option value="graduate">Graduate</option>
+                                                        <option value="post_graduate">Post Graduate</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Major/Group</label>
-                                            <input className="form-control" type="text" name="Major" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Major/Group</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="group" 
+                                                        onChange={(e) => handleEducation(e,i)} 
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Institute Name</label>
-                                            <input className="form-control" type="text" name="Institute" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Institute Name</label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="institute_name" 
+                                                        onChange={(e) => handleEducation(e,i)}
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Result</label>
-                                            <select className="height">
-                                                <option value="1">First Class</option>
-                                                <option value="2">Second Class</option>
-                                                <option value="3">Thread Class</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Result</label>
+                                                    <select className="height" name="result" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].result}>
+                                                        <option value="first_class">First Class</option>
+                                                        <option value="second_class">Second Class</option>
+                                                        <option value="third_class">Third Class</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Marks(%)</label>
-                                            <input className="form-control" type="text" name="Marks" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Marks(%)</label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="marks" 
+                                                        onChange={(e) => handleEducation(e,i)}
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Year of Passing</label>
-                                            <select>
-                                                <option value="1">2020</option>
-                                                <option value="2">2021</option>
-                                                <option value="3">2022</option>
-                                                <option value="4">2023</option>
-                                                <option value="5">2024</option>
-                                                <option value="6">2025</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Year of Passing</label>
+                                                    <select className="height" name="year_of_passing" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].year_of_passing}>
+                                                        <option value="2001">2001</option>
+                                                        <option value="2002">2002</option>
+                                                        <option value="2003">2003</option>
+                                                        <option value="2004">2004</option>
+                                                        <option value="2005">2005</option>
+                                                        <option value="2006">2006</option>
+                                                        <option value="2007">2007</option>
+                                                        <option value="2008">2008</option>
+                                                        <option value="2009">2009</option>
+                                                        <option value="2010">2010</option>
+                                                        <option value="2011">2011</option>
+                                                        <option value="2012">2012</option>
+                                                        <option value="2013">2013</option>
+                                                        <option value="2014">2014</option>
+                                                        <option value="2015">2015</option>
+                                                        <option value="2016">2016</option>
+                                                        <option value="2017">2017</option>
+                                                        <option value="2018">2018</option>
+                                                        <option value="2019">2019</option>
+                                                        <option value="2020">2020</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Duration (Years)</label>
-                                            <input className="form-control" type="text" name="Duration" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Duration (Years)</label>
+                                                    <input
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="duration" 
+                                                        onChange={(e) => handleEducation(e,i)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                        )
+                                    })}
                                 </div>
 
                                 <h3>Experience</h3>
 
                                 <div className="row">
                                     <div className="col-lg-12 col-md-12">
-                                        <a href="#" className="default-btn float-right">
+                                        <a href="#" className="default-btn float-right" onClick={addExperience}>
                                             Add
                                         </a>
                                     </div>
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Company Name</label>
-                                            <input className="form-control" type="text" name="Company" />
-                                        </div>
-                                    </div>
+                                    {state.experience_informations_attributes.map((item, i) => {
+                                        return (
+                                        <React.Fragment>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Company Name</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="company_name" 
+                                                        onChange={(e) => handleExperience(e,i)} 
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Company Business </label>
-                                            <input className="form-control" type="text" name="Business" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Company Business </label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="company_business" 
+                                                        onChange={(e) => handleExperience(e,i)} 
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Designation</label>
-                                            <input className="form-control" type="text" name="Designation" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Designation</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="designation" 
+                                                        onChange={(e) => handleExperience(e,i)} 
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Department</label>
-                                            <input className="form-control" type="text" name="Department" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Department</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="department" 
+                                                        onChange={(e) => handleExperience(e,i)} 
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Responsibilities</label>
-                                            <input className="form-control" type="text" name="Responsibilities" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Responsibilities</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="responsebilities" 
+                                                        onChange={(e) => handleExperience(e,i)} 
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6 col-md-6">
-                                        <div className="form-group">
-                                            <label>Company Location</label>
-                                            <input className="form-control" type="text" name="Location" />
-                                        </div>
-                                    </div>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Company Location</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="company_location" 
+                                                        onChange={(e) => handleExperience(e,i)} 
+                                                    />
+                                                </div>
+                                            </div>
 
-                                    <div className="col-lg-6">
-                                        <div className="form-group">
-                                            <label>Employment Period</label>
-                                            <select>
-                                                <option value="1">2020</option>
-                                                <option value="2">2021</option>
-                                                <option value="3">2022</option>
-                                                <option value="4">2023</option>
-                                                <option value="5">2024</option>
-                                                <option value="6">2025</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
+                                            <div className="col-lg-6">
+                                                <div className="form-group">
+                                                    <label>Employment Period Year</label>
+                                                    <select className="height" name="employment_period_year" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].employment_period_year}>
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="13">13</option>
+                                                        <option value="14">14</option>
+                                                        <option value="15">15</option>
+                                                        <option value="16">16</option>
+                                                        <option value="17">17</option>
+                                                        <option value="18">18</option>
+                                                        <option value="19">19</option>
+                                                        <option value="20">20</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-6">
+                                                <div className="form-group">
+                                                    <label>Month</label>
+                                                    <select className="height" name="employment_period_month" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].employment_period_month}>
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                        )
+                                    })}
                                     <div className="col-lg-12">
-                                        <a href="#" className="default-btn">Save</a>
+                                        <a href="#" className="default-btn" onClick={handleSave}>Save</a>
                                     </div>
                                 </div>
                             </form>
