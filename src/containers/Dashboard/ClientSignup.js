@@ -1,5 +1,8 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
+import Select from "react-dropdown-select";
+
+
 
 
 // import logo from "../../assets/images/logo.png";
@@ -56,13 +59,13 @@ function ClientSignup(props) {
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
                       <label>Timezone*</label>
-                      <select>
+                      <Select>
                         <option value="1">Dateline Standard Time, (GMT-12:00) International Date Line West</option>
                         <option value="2">Samoa Standard Time, (GMT-11:00) Midway Island, Samoa</option>
                         <option value="3">Hawaiian Standard Time, (GMT-10:00) Hawaii</option>
                         <option value="4">Alaskan Standard Time, (GMT-09:00) Alaska</option>
                         <option value="5">Pacific Standard Time, (GMT-08:00) Pacific Time (US and Canada); Tijuana</option>
-                      </select>
+                      </Select>
                     </div>
                   </div>
 

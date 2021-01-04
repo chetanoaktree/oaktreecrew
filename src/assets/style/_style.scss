@@ -48,19 +48,29 @@ Default Style
 body {
     font-size: 15px;
     font-family: 'Inter', sans-serif;
-    color: #454545;
+    color: $primary-body-font-color;
+
+    a{
+      text-decoration: none;
+      color: $primary-body-font-color;
+    }
+    a:hover {
+      text-decoration: none;
+      color: $primary-color;
+    }
+
   }
   
   a {
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
     text-decoration: none;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   a:hover {
     text-decoration: none;
-    color: #00b074;
+    color: $primary-color;
   }
   
   a:focus {
@@ -112,7 +122,7 @@ body {
   
   .form-control {
     height: 50px;
-    color: #00b074;
+    color: $primary-color;
     border: 1px solid #ebebeb;
     background-color: transparent;
     border-radius: 0;
@@ -143,7 +153,7 @@ body {
     -webkit-box-shadow: unset;
             box-shadow: unset;
     outline: 0;
-    border: 1px solid #00b074;
+    border: 1px solid $primary-color;
   }
   
   .form-control:hover:focus, .form-control:focus {
@@ -216,7 +226,7 @@ body {
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
     text-align: center;
-    background-color: #00b074;
+    background-color: $primary-color;
     position: relative;
     z-index: 1;
     overflow: hidden;
@@ -239,7 +249,7 @@ body {
   .read-more {
     font-weight: 600;
     font-size: 15px;
-    color: #00b074;
+    color: $primary-color;
   }
   
   .read-more i {
@@ -250,7 +260,7 @@ body {
   }
   
   .read-more:hover {
-    color: #00b074;
+    color: $primary-color;
     letter-spacing: 1px;
   }
   
@@ -265,7 +275,7 @@ body {
   
   .section-title span {
     font-size: 16px;
-    color: #00b074;
+    color: $primary-color;
     display: block;
     margin-bottom: 10px;
   }
@@ -290,7 +300,7 @@ body {
   }
   
   .section-title.white-title span {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .section-title.white-title h2 {
@@ -327,13 +337,13 @@ body {
   .top-header .header-left-content li {
     display: inline-block;
     margin-right: 30px;
-    color: #454545;
+    color: $primary-body-font-color;
     font-size: 14px;
     position: relative;
   }
   
   .top-header .header-left-content li span {
-    color: #00b074;
+    color: $primary-color;
     font-weight: 600;
     font-size: 16px;
     display: inline-block;
@@ -347,11 +357,11 @@ body {
   .top-header .header-left-content li a {
     font-weight: 600;
     font-size: 15px;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .top-header .header-left-content li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .top-header .header-right-content {
@@ -377,7 +387,7 @@ body {
     padding: 0;
     border: none;
     background-color: transparent;
-    color: #454545;
+    color: $primary-body-font-color;
     cursor: pointer;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
@@ -403,11 +413,11 @@ body {
   }
   
   .top-header .header-right-content .language .language-btn .dropdown-toggle:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .top-header .header-right-content .language .language-btn .dropdown-toggle:hover span i {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .top-header .header-right-content .language .language-btn .dropdown-menu {
@@ -431,7 +441,7 @@ body {
   
   .top-header .header-right-content .language .language-btn .dropdown-menu .dropdown-item {
     padding: 0;
-    color: #454545;
+    color: $primary-body-font-color;
     margin-bottom: 10px;
     font-weight: 600;
   }
@@ -461,7 +471,7 @@ body {
   }
   
   .top-header .header-right-content .language .language-btn .dropdown-menu .dropdown-item span:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .top-header .header-right-content .language .language-btn .dropdown-menu .dropdown-item:hover {
@@ -473,7 +483,7 @@ body {
   }
   
   .top-header .header-right-content .language .language-btn .dropdown-menu .dropdown-item.active {
-    color: #00b074;
+    color: $primary-color;
     background-color: transparent;
   }
   
@@ -503,7 +513,7 @@ body {
     right: -3px;
     width: 1px;
     height: 100%;
-    background-color: #454545;
+    background-color: $primary-body-font-color;
     -webkit-transform: rotate(18deg);
             transform: rotate(18deg);
   }
@@ -520,7 +530,7 @@ body {
   .top-header .header-right-content .log-in li a {
     font-weight: 600;
     font-size: 15px;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .top-header .header-right-content .log-in li a i {
@@ -531,7 +541,7 @@ body {
   }
   
   .top-header .header-right-content .log-in li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .top-header.top-header-two {
@@ -638,11 +648,11 @@ body {
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item a.active {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu {
@@ -662,7 +672,7 @@ body {
     transition: all 0.2s ease-in-out;
     -webkit-box-shadow: 0px 5px 20px 3px rgba(230, 233, 249, 0.9);
             box-shadow: 0px 5px 20px 3px rgba(230, 233, 249, 0.9);
-    border-top: 2px solid #00b074;
+    border-top: 2px solid $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li {
@@ -692,11 +702,11 @@ body {
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li a.active {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu {
@@ -733,15 +743,15 @@ body {
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a:focus {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li a.active {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .navbar-area .desktop-nav .navbar .navbar-nav .nav-item .dropdown-menu li .dropdown-menu li:last-child a {
@@ -889,7 +899,7 @@ body {
   }
   
   .others-option-for-responsive .dot-menu:hover .inner .circle {
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   .others-option-for-responsive .container {
@@ -1042,13 +1052,13 @@ body {
   .banner-content .total-job-count .job-count h3 {
     font-weight: 600;
     font-size: 24px;
-    color: #00b074;
+    color: $primary-color;
     margin-bottom: 0;
   }
   
   .banner-content .total-job-count .job-count h3 span {
     font-size: 16px;
-    color: #454545;
+    color: $primary-body-font-color;
     position: relative;
     top: -4px;
     margin-right: 5px;
@@ -1240,7 +1250,7 @@ body {
   
   .single-working i {
     font-size: 40px;
-    color: #00b074;
+    color: $primary-color;
     line-height: 1;
     display: block;
     margin-bottom: 20px;
@@ -1283,7 +1293,7 @@ body {
     -webkit-transform: translateY(-15px);
             transform: translateY(-15px);
     margin: 0;
-    border: 1px solid #454545;
+    border: 1px solid $primary-body-font-color;
     width: 30px;
     height: 30px;
     line-height: 26px;
@@ -1295,7 +1305,7 @@ body {
   
   .partner-area .owl-theme .owl-nav .owl-prev i, .partner-area .owl-theme .owl-nav .owl-next i {
     font-size: 15px;
-    color: #454545;
+    color: $primary-body-font-color;
     position: relative;
     left: 13px;
     -webkit-transition: all ease 0.5s;
@@ -1303,8 +1313,8 @@ body {
   }
   
   .partner-area .owl-theme .owl-nav .owl-prev:hover, .partner-area .owl-theme .owl-nav .owl-next:hover {
-    background-color: #00b074 !important;
-    border-color: #00b074;
+    background-color: $primary-color !important;
+    border-color: $primary-color;
   }
   
   .partner-area .owl-theme .owl-nav .owl-prev:hover i, .partner-area .owl-theme .owl-nav .owl-next:hover i {
@@ -1431,7 +1441,7 @@ body {
     -webkit-transform: translateY(-15px);
             transform: translateY(-15px);
     margin: 0 5px;
-    border: 1px solid #454545;
+    border: 1px solid $primary-body-font-color;
     width: 30px;
     height: 30px;
     line-height: 26px;
@@ -1443,14 +1453,14 @@ body {
   
   .live-jobs-area.live-jobs-area-three .hiring-list .owl-theme .owl-nav .owl-prev i, .live-jobs-area.live-jobs-area-three .hiring-list .owl-theme .owl-nav .owl-next i {
     font-size: 15px;
-    color: #454545;
+    color: $primary-body-font-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
   }
   
   .live-jobs-area.live-jobs-area-three .hiring-list .owl-theme .owl-nav .owl-prev:hover, .live-jobs-area.live-jobs-area-three .hiring-list .owl-theme .owl-nav .owl-next:hover {
-    background-color: #00b074 !important;
-    border-color: #00b074;
+    background-color: $primary-color !important;
+    border-color: $primary-color;
   }
   
   .live-jobs-area.live-jobs-area-three .hiring-list .owl-theme .owl-nav .owl-prev:hover i, .live-jobs-area.live-jobs-area-three .hiring-list .owl-theme .owl-nav .owl-next:hover i {
@@ -1494,7 +1504,7 @@ body {
   
   .single-live-job i {
     font-size: 40px;
-    color: #00b074;
+    color: $primary-color;
     line-height: 1;
     display: block;
     margin-bottom: 10px;
@@ -1514,7 +1524,7 @@ body {
   .single-live-job:hover {
     -webkit-transform: translateY(-5px);
             transform: translateY(-5px);
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   .single-live-job:hover i {
@@ -1593,7 +1603,7 @@ body {
   }
   
   .hiring-list ul li:hover .link {
-    color: #00b074;
+    color: $primary-color;
   }
   
   /*
@@ -1985,14 +1995,14 @@ body {
   }
   
   .hot-jobs-list:hover .hot-jobs-content h3 a {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .hot-jobs-list .featured {
     position: absolute;
     top: 20px;
     left: -36px;
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
     padding: 5px 40px;
     -webkit-transform: rotate(-45deg);
@@ -2052,10 +2062,10 @@ body {
     width: 25px;
     height: 25px;
     line-height: 21px;
-    border: 1px dashed #00b074;
+    border: 1px dashed $primary-color;
     text-align: center;
     border-radius: 50%;
-    color: #00b074;
+    color: $primary-color;
     background-color: #ffffff;
   }
   
@@ -2066,7 +2076,7 @@ body {
     left: 12px;
     width: 1px;
     height: 100%;
-    border-right: 1px dashed #00b074;
+    border-right: 1px dashed $primary-color;
   }
   
   .hot-jobs-sidebar .hot-job-sidebar .hot-job-sidebar-content ul li:last-child {
@@ -2130,7 +2140,7 @@ body {
   }
   
   .global-talent-content span {
-    color: #00b074;
+    color: $primary-color;
     display: block;
     margin-bottom: 10px;
     font-size: 16px;
@@ -2173,7 +2183,7 @@ body {
     position: absolute;
     top: -3px;
     left: 0;
-    border: 1px dashed #00b074;
+    border: 1px dashed $primary-color;
     border-radius: 8px 0 8px 0;
     width: 40px;
     height: 40px;
@@ -2181,7 +2191,7 @@ body {
     text-align: center;
     margin-bottom: 0;
     font-size: 16px;
-    color: #00b074;
+    color: $primary-color;
   }
   
   .global-talent-content .default-btn {
@@ -2225,7 +2235,7 @@ body {
   
   .jubi-site-status .site-status .single-counter i {
     font-size: 50px;
-    color: #00b074;
+    color: $primary-color;
     line-height: 1;
     margin-bottom: 5px;
     display: block;
@@ -2409,7 +2419,7 @@ body {
   }
   
   .testimonials .owl-theme .owl-nav .owl-prev:hover i, .testimonials .owl-theme .owl-nav .owl-next:hover i {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .testimonials .owl-theme .owl-nav [class*=owl-]:hover {
@@ -2442,7 +2452,7 @@ body {
   .testimonials-item i {
     line-height: 1;
     font-size: 50px;
-    color: #00b074;
+    color: $primary-color;
     display: block;
     margin-bottom: 30px;
   }
@@ -2460,7 +2470,7 @@ body {
   }
   
   .testimonials-item span {
-    color: #454545;
+    color: $primary-body-font-color;
     font-weight: normal;
     margin-bottom: 0;
   }
@@ -2548,7 +2558,7 @@ body {
   }
   
   .testimonials-area-three .owl-theme .owl-nav .owl-prev:hover i, .testimonials-area-three .owl-theme .owl-nav .owl-next:hover i {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .testimonials-area-three .owl-theme .owl-nav [class*=owl-]:hover {
@@ -2675,7 +2685,7 @@ body {
     position: absolute;
     top: 20px;
     left: -45px;
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
     padding: 5px 60px;
     -webkit-transform: rotate(-45deg);
@@ -2773,7 +2783,7 @@ body {
     font-size: 25px;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
-    color: #00b074;
+    color: $primary-color;
   }
   
   .faq-accordion .accordion .accordion-title.active {
@@ -2781,7 +2791,7 @@ body {
     padding: 20px 20px;
     padding-right: 40px;
     border-radius: 20px 0 0 0;
-    color: #00b074;
+    color: $primary-color;
   }
   
   .faq-accordion .accordion .accordion-title.active i {
@@ -2911,7 +2921,7 @@ body {
   }
   
   .app-downloading-content .app-btn .default-btn.active:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   /* 
@@ -2937,14 +2947,14 @@ body {
     font-weight: 600;
     display: block;
     margin-bottom: 8px;
-    color: #00b074;
+    color: $primary-color;
   }
   
   .single-pricing-box .pricing-title h1 {
     margin-bottom: 10px;
     line-height: 1;
     font-size: 30px;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .single-pricing-box .pricing-title h1 sub {
@@ -2953,12 +2963,12 @@ body {
   }
   
   .single-pricing-box .pricing-title h4 {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .single-pricing-box .pricing-title h4 span {
     display: inline-block;
-    color: #454545;
+    color: $primary-body-font-color;
     font-size: 16px;
   }
   
@@ -3047,7 +3057,7 @@ body {
     padding: 0;
     margin: 0;
     list-style: none;
-    background-color: #00b074;
+    background-color: $primary-color;
     display: inline-block;
     padding: 10px;
     position: absolute;
@@ -3091,7 +3101,7 @@ body {
   }
   
   .single-blog-post .blog-content ul li i {
-    color: #00b074;
+    color: $primary-color;
     display: inline-block;
     margin-right: 5px;
   }
@@ -3103,7 +3113,7 @@ body {
     right: -4px;
     width: 1px;
     height: 85%;
-    background-color: #454545;
+    background-color: $primary-body-font-color;
   }
   
   .single-blog-post .blog-content ul li:last-child {
@@ -3135,7 +3145,7 @@ body {
   }
   
   .single-blog-post .blog-content .read-more {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .single-blog-post:hover {
@@ -3144,7 +3154,7 @@ body {
   }
   
   .single-blog-post:hover .blog-content h3 a {
-    color: #00b074;
+    color: $primary-color;
   }
   
   /*
@@ -3184,23 +3194,23 @@ body {
   .subscribe-area .newsletter-form .form-control {
     height: 50px;
     background-color: #ffffff;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .subscribe-area .newsletter-form .form-control::-webkit-input-placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .subscribe-area .newsletter-form .form-control:-ms-input-placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .subscribe-area .newsletter-form .form-control::-ms-input-placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .subscribe-area .newsletter-form .form-control::placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .subscribe-area .newsletter-form .form-control:focus {
@@ -3369,8 +3379,8 @@ body {
   }
   
   .single-footer-widget .social-icon li a:hover i {
-    background-color: #00b074;
-    border-color: #00b074;
+    background-color: $primary-color;
+    border-color: $primary-color;
     color: #ffffff;
   }
   
@@ -3400,7 +3410,7 @@ body {
   
   .single-footer-widget .address li i {
     position: absolute;
-    color: #00b074;
+    color: $primary-color;
     left: 0;
     top: 5px;
     font-size: 20px;
@@ -3411,7 +3421,7 @@ body {
   }
   
   .single-footer-widget .address li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .single-footer-widget .address li:last-child {
@@ -3433,7 +3443,7 @@ body {
   }
   
   .single-footer-widget .import-link li:hover a {
-    color: #00b074;
+    color: $primary-color;
   }
   
   /*
@@ -3447,11 +3457,11 @@ body {
   }
   
   .copy-right-area p {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .copy-right-area p a {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .copy-right-area.copy-right-area-two {
@@ -3481,15 +3491,16 @@ body {
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: #f7f7fb;
+    margin-top: 100px;
   }
   
   .page-title-area .page-title-content {
     position: relative;
-    margin-top: -16px;
+    // margin-top: -16px;
   }
   
   .page-title-area .page-title-content h2 {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
     font-size: 50px;
   }
   
@@ -3522,7 +3533,7 @@ body {
   }
   
   .page-title-area .page-title-content ul li.active {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .page-title-area .page-title-content ul li:first-child {
@@ -3542,7 +3553,7 @@ body {
   }
   
   .page-title-area .page-title-content ul li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   /* 
@@ -3553,7 +3564,7 @@ body {
   }
   
   .who-we-are-page .who-we-are-content span {
-    color: #00b074;
+    color: $primary-color;
     font-size: 16px;
     margin-bottom: 10px;
     display: block;
@@ -3644,7 +3655,7 @@ body {
   }
   
   .main-contact-area .form-group.checkboxs p a {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .main-contact-area .form-group.checkboxs p a:hover {
@@ -3674,8 +3685,8 @@ body {
     width: 50px;
     height: 50px;
     line-height: 50px;
-    border: 1px dashed #00b074;
-    color: #00b074;
+    border: 1px dashed $primary-color;
+    color: $primary-color;
     font-size: 30px;
     text-align: center;
     border-radius: 8px 0 8px 0;
@@ -3686,7 +3697,7 @@ body {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 5px;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .main-contact-area .contact-info .address li {
@@ -3696,12 +3707,12 @@ body {
   }
   
   .main-contact-area .contact-info .address li a {
-    color: #454545;
+    color: $primary-body-font-color;
     display: block;
   }
   
   .main-contact-area .contact-info .address li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .main-contact-area .contact-info .address li:last-child {
@@ -3715,8 +3726,8 @@ body {
     width: 50px;
     height: 50px;
     line-height: 50px;
-    border: 1px dashed #00b074;
-    color: #00b074;
+    border: 1px dashed $primary-color;
+    color: $primary-color;
     font-size: 30px;
     text-align: center;
     border-radius: 8px 0 8px 0;
@@ -3727,7 +3738,7 @@ body {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 5px;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .list-unstyled {
@@ -3939,7 +3950,7 @@ body {
   }
   
   .user-area .user-form-content .or-login i {
-    color: #00b074;
+    color: $primary-color;
     font-size: 20px;
     position: relative;
     top: 3px;
@@ -3950,9 +3961,9 @@ body {
   }
   
   .user-area .user-form-content .or-login:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
-    border-color: #00b074;
+    border-color: $primary-color;
   }
   
   .user-area .user-form-content .or-login:hover i {
@@ -3965,7 +3976,7 @@ body {
   }
   
   .user-area .user-form-content .create a {
-    color: #00b074;
+    color: $primary-color;
   }
   
   /* 
@@ -4014,14 +4025,14 @@ body {
     top: 29px;
     right: 31px;
     font-size: 20px;
-    color: #00b074;
+    color: $primary-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
     background-color: transparent;
   }
   
   .sidebar-widget.search .search-form .search-button:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .sidebar-widget.recent-post ul li {
@@ -4045,7 +4056,7 @@ body {
   }
   
   .sidebar-widget.recent-post ul li a:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .sidebar-widget.recent-post ul li a img {
@@ -4100,9 +4111,9 @@ body {
   .sidebar-widget.tags ul li a:hover {
     -webkit-transform: translateY(-2px);
             transform: translateY(-2px);
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
-    border-color: #00b074;
+    border-color: $primary-color;
   }
   
   .sidebar-widget.tags ul li:last-child {
@@ -4125,7 +4136,7 @@ body {
     padding: 0;
     margin: 0;
     list-style: none;
-    background-color: #00b074;
+    background-color: $primary-color;
     display: inline-block;
     padding: 10px;
     position: absolute;
@@ -4164,7 +4175,7 @@ body {
   }
   
   .blog-details-content .blog-top-content .news-content .admin li i {
-    color: #00b074;
+    color: $primary-color;
     display: inline-block;
     margin-right: 5px;
   }
@@ -4176,7 +4187,7 @@ body {
     right: -4px;
     width: 1px;
     height: 85%;
-    background-color: #454545;
+    background-color: $primary-body-font-color;
   }
   
   .blog-details-content .blog-top-content .news-content .admin li:last-child {
@@ -4213,7 +4224,7 @@ body {
   
   .blog-details-content .blog-top-content blockquote i {
     font-size: 60px;
-    color: #00b074;
+    color: $primary-color;
     position: absolute;
     top: 25px;
     left: 0;
@@ -4262,7 +4273,7 @@ body {
   }
   
   .blog-details-content .tags ul li a:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -4360,12 +4371,12 @@ body {
   }
   
   .avatar-sidebar ul li a:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
   .avatar-sidebar ul li a.active {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -4597,7 +4608,7 @@ body {
   }
   
   .candidates-resume-content .resume-info .form-group .date .form-control {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .candidates-resume-content .resume-info .form-group .date i {
@@ -4622,7 +4633,7 @@ body {
   }
   
   .table-condensed .prev:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -4635,7 +4646,7 @@ body {
   }
   
   .table-condensed .next:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -4649,7 +4660,7 @@ body {
   }
   
   .table-condensed .day:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -4658,11 +4669,11 @@ body {
   }
   
   .datepicker table tr td.active.active, .datepicker table tr td.active.highlighted.active, .datepicker table tr td.active.highlighted:active, .datepicker table tr td.active:active {
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   .datepicker table tr td.day:hover, .datepicker table tr td.focused {
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   .single-check {
@@ -4685,7 +4696,7 @@ body {
   }
   
   .single-check input:checked ~ .checkmark {
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   .single-check input:checked ~ .checkmark:after {
@@ -4693,7 +4704,7 @@ body {
   }
   
   .single-check:hover input ~ .checkmark {
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   .single-check .checkmark {
@@ -4809,12 +4820,12 @@ body {
   .candidates-applied-jobs-content .default-btn {
     padding: 15px 25px;
     background-color: #ffffff;
-    border: 1px solid #00b074;
-    color: #00b074;
+    border: 1px solid $primary-color;
+    color: $primary-color;
   }
   
   .candidates-applied-jobs-content .default-btn:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -4972,7 +4983,7 @@ body {
     top: 40px;
     right: 50px;
     background-color: transparent;
-    color: #00b074;
+    color: $primary-color;
     font-size: 20px;
   }
   
@@ -5004,13 +5015,13 @@ body {
   .candidates-message-content .message-content .message-list ul li a h4 span {
     font-size: 14px;
     float: right;
-    color: #454545;
+    color: $primary-body-font-color;
     font-weight: normal;
   }
   
   .candidates-message-content .message-content .message-list ul li a p {
     font-size: 14px;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .candidates-message-content .message-content .message-list ul li.active {
@@ -5203,7 +5214,7 @@ body {
   }
   
   .job-information .form-group .date .form-control {
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .job-information .form-group .date i {
@@ -5225,7 +5236,7 @@ body {
   }
   
   .job-information .form-group.checkboxs p a {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .job-information .choose-img {
@@ -5299,11 +5310,11 @@ body {
   }
   
   .employers-listing-area .shorting-menu li.active {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .employers-listing-area .shorting-menu li:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .employers-listing-area .shorting-menu li:last-child {
@@ -5341,7 +5352,7 @@ body {
     top: 12px;
     right: 20px;
     background-color: transparent;
-    color: #00b074;
+    color: $primary-color;
     font-size: 20px;
   }
   
@@ -5356,7 +5367,7 @@ body {
   }
   
   .employers-listing-area .employers-listing-sidebar form .nice-select:focus {
-    border-color: #00b074;
+    border-color: $primary-color;
   }
   
   /* 
@@ -5433,8 +5444,8 @@ body {
     height: 40px;
     line-height: 40px;
     text-align: center;
-    border: 1px solid #454545;
-    color: #454545;
+    border: 1px solid $primary-body-font-color;
+    color: $primary-body-font-color;
     border-radius: 4px;
     font-size: 20px;
     -webkit-transition: all ease 0.5s;
@@ -5442,8 +5453,8 @@ body {
   }
   
   .employers-details-area .employers-details-sidebar .employer-widget .social-icon li a:hover i {
-    border-color: #00b074;
-    background-color: #00b074;
+    border-color: $primary-color;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -5588,8 +5599,8 @@ body {
     height: 40px;
     line-height: 40px;
     text-align: center;
-    border: 1px solid #454545;
-    color: #454545;
+    border: 1px solid $primary-body-font-color;
+    color: $primary-body-font-color;
     border-radius: 4px;
     font-size: 20px;
     -webkit-transition: all ease 0.5s;
@@ -5597,8 +5608,8 @@ body {
   }
   
   .job-details-area .job-details-sidebar .employer-widget .social-icon li a:hover i {
-    border-color: #00b074;
-    background-color: #00b074;
+    border-color: $primary-color;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -5680,12 +5691,12 @@ body {
     text-align: left;
     font-size: 18px;
     font-weight: 500;
-    color: #454545;
+    color: $primary-body-font-color;
   }
   
   .price-range-bar {
     border: none;
-    background: #00b074;
+    background: $primary-color;
     height: 5px;
     width: 94%;
     margin-left: 0;
@@ -5695,19 +5706,19 @@ body {
   }
   
   .price-range-bar .ui-slider-range {
-    background: #00b074;
+    background: $primary-color;
   }
   
   .price-range-bar .ui-slider-handle {
     border: none;
     border-radius: 0;
     background: #fff;
-    border: 2px solid #00b074;
+    border: 2px solid $primary-color;
     height: 15px;
     width: 15px;
     top: -5px;
     cursor: pointer;
-    background: #00b074;
+    background: $primary-color;
     position: absolute;
   }
   
@@ -5716,7 +5727,7 @@ body {
   }
   
   .price-range-bar .ui-slider-handle + span {
-    background: #00b074;
+    background: $primary-color;
   }
   
   /* 
@@ -5817,7 +5828,7 @@ body {
   }
   
   .candidates-details-area .candidates-details-content ul li.university {
-    color: #00b074;
+    color: $primary-color;
     font-size: 16px;
   }
   
@@ -5869,7 +5880,7 @@ body {
   }
   
   .candidates-details-area .candidates-details-content .skill-bar .down-arrow {
-    border: 1px solid #00b074;
+    border: 1px solid $primary-color;
     position: absolute;
     left: 50%;
     top: 120%;
@@ -5885,7 +5896,7 @@ body {
   
   .candidates-details-area .candidates-details-content .skill-bar .progress-content {
     height: 6px;
-    background-color: #00b074;
+    background-color: $primary-color;
     width: 0%;
   }
   
@@ -5921,8 +5932,8 @@ body {
     height: 40px;
     line-height: 40px;
     text-align: center;
-    border: 1px solid #454545;
-    color: #454545;
+    border: 1px solid $primary-body-font-color;
+    color: $primary-body-font-color;
     border-radius: 4px;
     font-size: 20px;
     -webkit-transition: all ease 0.5s;
@@ -5930,8 +5941,8 @@ body {
   }
   
   .candidates-details-area .candidates-details-sidebar .candidates-widget .social-icon li a:hover i {
-    border-color: #00b074;
-    background-color: #00b074;
+    border-color: $primary-color;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -5970,7 +5981,7 @@ body {
   
   .candidates-details-area .candidates-details-sidebar .candidates-widget .overview.download li i {
     font-size: 40px;
-    color: #00b074;
+    color: $primary-color;
     font-weight: normal;
   }
   
@@ -6010,7 +6021,7 @@ body {
     position: absolute;
     top: 15px;
     left: -72px;
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
     padding: 1px 40px;
     -webkit-transform: rotate(-45deg);
@@ -6138,14 +6149,14 @@ body {
     top: 29px;
     right: 31px;
     font-size: 20px;
-    color: #00b074;
+    color: $primary-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
     background-color: transparent;
   }
   
   .candidates-listing-area .candidates-listing-sidebar .candidates-listing-widget .search-form .search-button:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .candidates-listing-area .candidates-listing-sidebar .candidates-listing-widget .accordion-widget {
@@ -6194,7 +6205,7 @@ body {
     top: 8px;
     height: 15px;
     width: 15px;
-    border: 1px solid #454545;
+    border: 1px solid $primary-body-font-color;
     background-color: #ffffff;
   }
   
@@ -6203,7 +6214,7 @@ body {
     left: 2px;
     width: 9px;
     height: 9px;
-    background: #00b074;
+    background: $primary-color;
   }
   
   .candidates-listing-area .candidates-listing-sidebar .candidates-listing-widget .accordion-widget .accordion-item .accordion-widget-content li .single-check .count {
@@ -6278,8 +6289,8 @@ body {
     height: 40px;
     line-height: 40px;
     text-align: center;
-    border: 1px solid #454545;
-    color: #454545;
+    border: 1px solid $primary-body-font-color;
+    color: $primary-body-font-color;
     border-radius: 4px;
     font-size: 20px;
     -webkit-transition: all ease 0.5s;
@@ -6287,8 +6298,8 @@ body {
   }
   
   .job-details-area .job-details-sidebar .job-widget .social-icon li a:hover i {
-    border-color: #00b074;
-    background-color: #00b074;
+    border-color: $primary-color;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
@@ -6363,14 +6374,14 @@ body {
     top: 29px;
     right: 31px;
     font-size: 20px;
-    color: #00b074;
+    color: $primary-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
     background-color: transparent;
   }
   
   .job-listing-area .job-listing-sidebar .job-listing-widget .search-form .search-button:hover {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .job-listing-area .job-listing-sidebar .job-listing-widget .accordion-widget {
@@ -6419,7 +6430,7 @@ body {
     top: 8px;
     height: 15px;
     width: 15px;
-    border: 1px solid #454545;
+    border: 1px solid $primary-body-font-color;
     background-color: #ffffff;
   }
   
@@ -6428,7 +6439,7 @@ body {
     left: 2px;
     width: 9px;
     height: 9px;
-    background: #00b074;
+    background: $primary-color;
   }
   
   .job-listing-area .job-listing-sidebar .job-listing-widget .accordion-widget .accordion-item .accordion-widget-content li .single-check .count {
@@ -6512,7 +6523,7 @@ body {
     font-size: 300px;
     line-height: 1;
     font-weight: 700;
-    color: #00b074;
+    color: $primary-color;
     margin-top: -48px;
   }
   
@@ -6540,7 +6551,7 @@ body {
   .error-area .error-content p {
     margin: 20px 0 20px;
     font-size: 19px;
-    color: #00b074;
+    color: $primary-color;
   }
   
   /*
@@ -6611,8 +6622,8 @@ body {
   }
   
   .coming-soon-area .coming-soon-content #timer div {
-    border: 4px solid #00b074;
-    color: #00b074;
+    border: 4px solid $primary-color;
+    color: $primary-color;
     width: 100px;
     height: 105px;
     border-radius: 5px;
@@ -6675,7 +6686,7 @@ body {
     height: 2px;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
-    background: #00b074;
+    background: $primary-color;
   }
   
   .coming-soon-area .coming-soon-content form .form-group .input-newsletter {
@@ -6694,31 +6705,31 @@ body {
   }
   
   .coming-soon-area .coming-soon-content form .form-group .input-newsletter::-webkit-input-placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
   }
   
   .coming-soon-area .coming-soon-content form .form-group .input-newsletter:-ms-input-placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
   }
   
   .coming-soon-area .coming-soon-content form .form-group .input-newsletter::-ms-input-placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
   }
   
   .coming-soon-area .coming-soon-content form .form-group .input-newsletter::placeholder {
-    color: #454545;
+    color: $primary-body-font-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
   }
   
   .coming-soon-area .coming-soon-content form .form-group .input-newsletter:focus {
-    border-color: #00b074;
+    border-color: $primary-color;
     outline: 0 !important;
   }
   
@@ -6792,7 +6803,7 @@ body {
     width: 100%;
     height: 100%;
     position: fixed;
-    background-color: #00b074;
+    background-color: $primary-color;
     top: 0;
     left: 0;
     z-index: 99999;
@@ -6829,7 +6840,7 @@ body {
     height: 100%;
     width: 60%;
     z-index: -1;
-    background: #00b074;
+    background: $primary-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
   }
@@ -6842,7 +6853,7 @@ body {
     height: 100%;
     width: 60%;
     z-index: -1;
-    background: #00b074;
+    background: $primary-color;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
     left: auto;
@@ -6907,7 +6918,7 @@ body {
     cursor: pointer;
     top: 87%;
     right: -10%;
-    background-color: #00b074;
+    background-color: $primary-color;
     z-index: 4;
     width: 40px;
     text-align: center;
@@ -6947,7 +6958,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-color: #00b074;
+    background-color: $primary-color;
     opacity: 0;
     visibility: hidden;
     -webkit-transition: 0.5s;
@@ -6956,7 +6967,7 @@ body {
   
   .go-top:hover {
     color: #ffffff;
-    background-color: #00b074;
+    background-color: $primary-color;
   }
   
   .go-top:hover::before {
@@ -7023,7 +7034,7 @@ body {
     line-height: 70px;
     text-align: center;
     border-radius: 0;
-    color: #00b074;
+    color: $primary-color;
     position: relative;
     top: 3px;
     z-index: 1;
@@ -7133,7 +7144,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 0.1px solid #00b074;
+    border: 0.1px solid $primary-color;
     -webkit-animation: videoTwo 8s linear infinite;
             animation: videoTwo 8s linear infinite;
   }
@@ -7148,7 +7159,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 0.1px solid #00b074;
+    border: 0.1px solid $primary-color;
     -webkit-animation: videoTwo 8s linear infinite;
             animation: videoTwo 8s linear infinite;
   }
@@ -7196,8 +7207,8 @@ body {
     border-radius: 50%;
     display: inline-block;
     background: #ffffff;
-    color: #00b074;
-    border: 5px solid #00b074;
+    color: $primary-color;
+    border: 5px solid $primary-color;
     font-size: 60px;
   }
   
@@ -7250,12 +7261,12 @@ body {
   }
   
   .nice-select .option:hover {
-    background-color: #00b074;
+    background-color: $primary-color;
     color: #ffffff;
   }
   
   .nice-select .option.selected.focus {
-    color: #00b074;
+    color: $primary-color;
   }
   
   .nice-select .current {
@@ -7286,8 +7297,8 @@ body {
   
   .pagination-area .page-numbers:hover {
     color: #ffffff;
-    border-color: #00b074;
-    background-color: #00b074;
+    border-color: $primary-color;
+    background-color: $primary-color;
   }
   
   .pagination-area .page-numbers i {
@@ -7296,7 +7307,7 @@ body {
   
   .pagination-area .page-numbers.current {
     color: #ffffff;
-    border-color: #00b074;
-    background-color: #00b074;
+    border-color: $primary-color;
+    background-color: $primary-color;
   }
   /*# sourceMappingURL=style.css.map */

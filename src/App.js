@@ -18,6 +18,17 @@ import FreelancerDetail from './containers/Client/FreelancerDetail';
 import NoRouteFound from './components/NoRoute/NoRoute';
 
 import './assets/style.css';
+import './assets/style/animate.min.css';
+import './assets/style/boxicons.min.css';
+import './assets/style/date-picker.min.css';
+import './assets/style/flaticon.css';
+import './assets/style/magnific-popup.min.css';
+import './assets/style/meanmenu.min.css';
+import './assets/style/nice-select.min.css';
+import './assets/style/odometer.min.css';
+
+
+
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
 
