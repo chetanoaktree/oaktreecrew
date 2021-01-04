@@ -93,7 +93,7 @@ class Header extends Component {
                                     </div>
                                 </React.Fragment>
                                }
-                               {!auth.isAuthenticated &&
+                               {/* !auth.isAuthenticated &&
                                 <React.Fragment>
                                     <ul class="navbar-nav m-auto">
                                         
@@ -107,7 +107,7 @@ class Header extends Component {
                                         </div>
                                     </div>
                                 </React.Fragment>
-                               }
+                               */}
                             </div>
                         </nav>
                     </div>

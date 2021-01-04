@@ -1,10 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 function AddFreelancer(props) {
     
-    
+    const [state , setState] = useState({
+        email:"",
+        password:"",
+        first_name: "",
+        last_name: "",
+        phone: "",
+        dob: "2003-01-01",
+        nationality: "",
+        gender: "",
+        marital_status: "",
+        address: "",
+        role_ids:[7],
+        additional_information_attributes: {
+            notes:"", 
+            presented_salary:"",
+            expected_salary:"", 
+            category:"",
+            job_nature:"", 
+            job_level: ""
+        },
+        experience_informations_attributes: [
+            {
+                company_name:"", 
+                company_business: "", 
+                designation: "", 
+                department: "", 
+                responsebilities: "",
+                company_location: "",
+                employment_period: ""
+            }
+        ],
+        education_information_attributes:[
+            {
+                education_level: "", 
+                degree_title: "", 
+                group: "", 
+                institute_name: "", 
+                result: "", 
+                marks: "",
+                year_of_passing: "", 
+                duration: "" 
+            }
+        ]
+    })
+
+    const handleChange = (e) => {
+      // console.log("----",e.target)
+        const {name , value} = e.target   
+        setState(prevState => ({
+            ...prevState,
+            [name] : value
+        }))
+    }
+
+    const handleAdditional = (e) => {
+      // console.log("----",e.target)
+        const {name , value} = e.target   
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                [name] : value
+            }
+        })
+    }
+
+    const handleDateChange = (date) => {
+        setState(prevState => ({
+            ...prevState,
+            dob : date
+        }))
+    }
+    console.log("state",state)
     return(
         <section className="candidates-resume-area ptb-100">
             <div className="container">
@@ -18,36 +92,69 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>First Name</label>
-                                            <input className="form-control" type="text" name="First-Name" />
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="first_name"
+                                                value={state.first_name}
+                                                onChange={handleChange} 
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Last Name</label>
-                                            <input className="form-control" type="text" name="Last-Name" />
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="last_name"
+                                                value={state.last_name}
+                                                onChange={handleChange} 
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Email</label>
-                                            <input className="form-control" type="email" name="Email" />
+                                            <input 
+                                                className="form-control" 
+                                                type="email" 
+                                                name="email"
+                                                value={state.email}
+                                                onChange={handleChange} 
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Phone</label>
-                                            <input className="form-control" type="text" name="Phone" />
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="phone"
+                                                value={state.phone}
+                                                onChange={handleChange} 
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
-                                            <label>Date Of Barth</label>
+                                            <label>Date Of Birth</label>
                                             <div className="input-group date" id="datetimepicker">
-                                                <input type="text" className="form-control" placeholder="12/11/2020" />
+                                                <DatePicker
+                                                  selected={new Date(state.dob)}
+                                                  onChange={handleDateChange}
+                                                  className="form-control mn_input post-job-boxes"
+                                                  dateFormat="yyyy-MM-dd"
+                                                  // maxDate={new Date('2003-01-01')}
+                                                  showMonthDropdown
+                                                  showYearDropdown
+                                                  dropdownMode="select"
+                                                />
                                                 <span className="input-group-addon"></span>
                                                 <i className="bx bx-calendar"></i>
                                             </div>  
@@ -57,9 +164,10 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Gender</label>
-                                            <select className="height">
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
+                                            <select className="height" name="gender" onChange={handleChange} value={state.gender}>
+                                                <option value="">Select</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
                                             </select>
                                         </div>
                                     </div>
@@ -67,9 +175,10 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Marital status</label>
-                                            <select className="height">
-                                                <option value="1">Married</option>
-                                                <option value="2">Unmarried</option>
+                                            <select className="height" name="marital_status" onChange={handleChange} value={state.marital_status}>
+                                                <option value="">Select</option>
+                                                <option value="married">Married</option>
+                                                <option value="unmarried">Unmarried</option>
                                             </select>
                                         </div>
                                     </div>
@@ -77,13 +186,15 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Nationality</label>
-                                            <select>
-                                                <option value="1">United Kingdom</option>
-                                                <option value="2">Austria</option>
-                                                <option value="3">Bahrain</option>
-                                                <option value="4">Canada</option>
-                                                <option value="5">Denmark</option>
-                                                <option value="6">Germany</option>
+                                            <select name="nationality" onChange={handleChange} value={state.nationality}>
+                                                <option value="">Select</option>
+                                                <option value="uk">United Kingdom</option>
+                                                <option value="austria">Austria</option>
+                                                <option value="bahrain">Bahrain</option>
+                                                <option value="canada">Canada</option>
+                                                <option value="denmark">Denmark</option>
+                                                <option value="germany">Germany</option>
+                                                <option value="indian">India</option>
                                             </select>
                                         </div>
                                     </div>
@@ -91,7 +202,14 @@ function AddFreelancer(props) {
                                     <div className="col-lg-12">
                                         <div className="form-group">
                                             <label>Address Details</label>
-                                            <textarea name="message" className="form-control" rows="4"></textarea>
+                                            <textarea 
+                                                className="form-control" 
+                                                rows="4"
+                                                name="address" 
+                                                onChange={handleChange}
+                                            >
+                                                {state.address}
+                                            </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -102,21 +220,40 @@ function AddFreelancer(props) {
                                     <div className="col-lg-12">
                                         <div className="form-group">
                                             <label>Notes</label>
-                                            <textarea name="message" className="form-control" rows="4"></textarea>
+                                            <textarea 
+                                                className="form-control" 
+                                                rows="4"
+                                                name="notes" 
+                                                onChange={handleAdditional}
+                                            >
+                                                {state.additional_information_attributes.notes}
+                                            </textarea>
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Present Salary</label>
-                                            <input className="form-control" type="text" name="Salary" />
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="presented_salary"
+                                                value={state.additional_information_attributes.presented_salary}
+                                                onChange={handleAdditional} 
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Expected Salary</label>
-                                            <input className="form-control" type="email" name="Salary" />
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="expected_salary"
+                                                value={state.additional_information_attributes.expected_salary}
+                                                onChange={handleAdditional} 
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -127,12 +264,12 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Category</label>
-                                            <select>
-                                                <option value="1">UX/UI Designer</option>
-                                                <option value="2">Web Developer</option>
-                                                <option value="3">Web Designer</option>
-                                                <option value="4">Software Developer</option>
-                                                <option value="5">SEO</option>
+                                            <select name="category" onChange={handleAdditional} value={state.additional_information_attributes.category}>
+                                                <option value="ui_ux_designer">UX/UI Designer</option>
+                                                <option value="web_dev">Web Developer</option>
+                                                <option value="web_designer">Web Designer</option>
+                                                <option value="soft_dev">Software Developer</option>
+                                                <option value="seo">SEO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -149,24 +286,36 @@ function AddFreelancer(props) {
                                 </div>
 
                                 <div className="row mb-30">
-                                    <div className="col-lg-4 col-sm-6 col-md-3">
+                                    <div className="col-lg-4 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Entry Level
-                                            <input type="radio" checked="checked" name="radio-1" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_level === "Entry Level"} 
+                                                name="job_level" 
+                                                value="Entry Level" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div className="col-lg-4 col-sm-6 col-md-3">
+                                    <div className="col-lg-4 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Mid Level
-                                            <input type="radio" name="radio-1" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_level === "Mid Level"} 
+                                                name="job_level" 
+                                                value="Mid Level" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div className="col-lg-4 col-sm-6 col-md-3">
+                                    <div className="col-lg-4 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Top Level
-                                            <input type="radio" name="radio-1" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_level === "Top Level"} 
+                                                name="job_level" 
+                                                value="Top Level" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -175,47 +324,71 @@ function AddFreelancer(props) {
                                 <h4>Job Nature</h4>
 
                                 <div className="row mb-30">
-                                    <div className="col-lg-2 col-sm-6 col-md-3">
+                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Full Time 
-                                            <input type="radio" checked="checked" name="radio-2" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_nature === "Full Time"} 
+                                                name="job_nature" 
+                                                value="Full Time" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div className="col-lg-2 col-sm-6 col-md-3">
+                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Part Time   
-                                            <input type="radio" name="radio-2" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_nature === "Part Time"} 
+                                                name="job_nature" 
+                                                value="Part Time" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div className="col-lg-2 col-sm-6 col-md-3">
+                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Contract
-                                            <input type="radio" name="radio-2" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_nature === "Contract"} 
+                                                name="job_nature" 
+                                                value="Contract" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div className="col-lg-2 col-sm-6 col-md-3">
+                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Internship
-                                            <input type="radio" name="radio-2" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_nature === "Internship"} 
+                                                name="job_nature" 
+                                                value="Internship" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
 
-                                    <div className="col-lg-2 col-sm-6 col-md-3">
+                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Freelance
-                                            <input type="radio" name="radio-2" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_nature === "Freelance"} 
+                                                name="job_nature" 
+                                                value="Freelance" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
 
-                                    <div className="col-lg-2 col-sm-6 col-md-3">
+                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
                                             Office
-                                            <input type="radio" name="radio-2" />
+                                            <input 
+                                                type="radio" 
+                                                checked={state.additional_information_attributes.job_nature === "Office"} 
+                                                name="job_nature" 
+                                                value="Office" />
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -224,6 +397,11 @@ function AddFreelancer(props) {
                                 <h3>Education</h3>
 
                                 <div className="row">
+                                    <div className="col-lg-12 col-md-12">
+                                        <a href="#" className="default-btn float-right">
+                                            Add
+                                        </a>
+                                    </div>
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Level of Education</label>
@@ -309,6 +487,11 @@ function AddFreelancer(props) {
                                 <h3>Experience</h3>
 
                                 <div className="row">
+                                    <div className="col-lg-12 col-md-12">
+                                        <a href="#" className="default-btn float-right">
+                                            Add
+                                        </a>
+                                    </div>
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Company Name</label>
