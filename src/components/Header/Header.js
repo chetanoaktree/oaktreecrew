@@ -93,6 +93,21 @@ class Header extends Component {
                                     </div>
                                 </React.Fragment>
                                }
+                               {/* !auth.isAuthenticated &&
+                                <React.Fragment>
+                                    <ul class="navbar-nav m-auto">
+                                        
+                                    </ul>
+                                    
+                                    <div class="others-option">
+                                        <div class="get-quote">
+                                            <a href="/login" class="default-btn">
+                                                Login
+                                            </a>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                               */}
                             </div>
                         </nav>
                     </div>

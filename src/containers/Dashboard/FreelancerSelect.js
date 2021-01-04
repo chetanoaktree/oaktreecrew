@@ -52,7 +52,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$75/hr</span>
+                  {/*<span className="per-hour">$75/hr</span>*/}
                 </div>
               </div>
 
@@ -84,7 +84,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$99/hr</span>
+                  {/*<span className="per-hour">$99/hr</span>*/}
                 </div>
               </div>
 
@@ -116,7 +116,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$50/hr</span>
+                  {/*<span className="per-hour">$50/hr</span>*/}
                 </div>
               </div>
 
@@ -148,7 +148,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$25/hr</span>
+                  {/*<span className="per-hour">$25/hr</span>*/}
                 </div>
               </div>
 
@@ -180,7 +180,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$65/hr</span>
+                  {/*<span className="per-hour">$65/hr</span>*/}
                 </div>
               </div>
 
@@ -212,7 +212,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$75/hr</span>
+                  {/*<span className="per-hour">$75/hr</span>*/}
                 </div>
               </div>
 
@@ -244,7 +244,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$55/hr</span>
+                  {/*<span className="per-hour">$55/hr</span>*/}
                 </div>
               </div>
 
@@ -276,7 +276,7 @@ function FreelancerSelect(props) {
                     Select
                   </a>
 
-                  <span className="per-hour">$99/hr</span>
+                  {/*<span className="per-hour">$99/hr</span>*/}
                 </div>
               </div>
             </div>
