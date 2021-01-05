@@ -1,9 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
+import { fetchFreelancers } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 
 
 function HR(props) {
+
+    const [state , setState] = useState({
+        from_data: "",
+        to_data:"",
+        total_count: "",
+        total_pages: "",
+        users: []
+      })
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+    const fetchData = () => {
+      let data = '?page_number=1&per_page=10&role_name=freelancer'
+      
+      // Update the document title using the browser API
+      dispatch(fetchFreelancers(data)).then((res)=> {
+          if(res && res.status === 200) {
+            console.log("res",res.data)
+             setState(prevState => ({
+                ...prevState,
+                from_data: res.data.from_data,
+                to_data: res.data.to_data,
+                total_count: res.data.total_count,
+                total_pages: res.data.total_pages,
+                users: res.data.users
+            }))
+          }
+      })
+    }
+
+    // console.log("state.users",state.users)
+
+
     return(
             // Start Root Div
             <div>
@@ -46,7 +84,7 @@ function HR(props) {
                             <div className="">
                                 <ul className="nav nav-tabs nav-justified freelancers-list-tabs" id="pills-tab" role="tablist">
                                     <li className="nav-item">
-                                        <a className="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true"><span className="tabs-counter-value">1200</span> All Freelancers</a>
+                                        <a className="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true"><span className="tabs-counter-value">{state.total_count}</span> All Freelancers</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" id="pills-draft-tab" data-toggle="pill" href="#pills-draft" role="tab" aria-controls="pills-draft" aria-selected="false"><span className="tabs-counter-value">820</span> Draft</a>
@@ -90,150 +128,37 @@ function HR(props) {
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>
-                                                    <td scope="row">1039</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Clark Davidson </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>20% Complete</td>
-                                                    <td><i className='bx bx-calendar' ></i> Oct 2</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
+                                                {state.users.length > 0 ? state.users.map((row,i) => {
+                                                  return (
+                                                    <tr key={i}>
+                                                        <td>
+                                                            <div className="checkboxs">
+                                                                <input type="checkbox" id="chb2" />
                                                             </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1038</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Vanessa Thomas </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>30% Complete</td>
-                                                    <td><i className='bx bx-calendar' ></i> Oct 2</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1037</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Joe Birdland </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>20% Complete</td>
-                                                    <td><i className='bx bx-calendar' ></i> Oct 1</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1036</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Kiki Sidwali </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>50% Complete</td>
-                                                    <td><i className='bx bx-calendar' ></i> sep 30</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1035</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Vanessa Thomas </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>20% Complete</td>
-                                                    <td><i className='bx bx-calendar' ></i> Aug 15</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1034</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Joe Birdland </td>
-                                                    <td><span className="status-indicator status-indicator-in-scheduling"></span> In Scheduling</td>
-                                                    <td>Interview Not Started</td>
-                                                    <td><i className='bx bx-calendar' ></i> Aug 13</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>                                                                                                                  
+                                                        </td>
+                                                        <td scope="row">{row.id}</td>
+                                                        <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.first_name +' '+row.last_name } </td>
+                                                        <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
+                                                        <td>20% Complete</td>
+                                                        <td><i className='bx bx-calendar' ></i> {new Date(row.created_at).toLocaleDateString()}</td>
+                                                        <td className="do-action-button-container">
+                                                            <div className="dropdown">
+                                                                <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                </button>
+                                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                  <a className="dropdown-item" href={"/freelancer-detail/"+row.id}>View</a>
+                                                                  <a className="dropdown-item" href="#">Edit</a>
+                                                                  <a className="dropdown-item" href="#">Delete</a>
+                                                                </div>
+                                                            </div>                                                
+                                                        </td>
+                                                    </tr>
+                                                    )
+                                                  })
+                                                  : 
+                                                  (<tr></tr>)
+                                                }                                                                                                     
                                                 </tbody>
                                             </table>
                                         </div>

@@ -98,7 +98,7 @@ const App = class App extends Component {
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/client-signup" exact component={ClientSignup} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/dashboard" exact component={HR} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelacner" exact component={AddFreelancer} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail" exact component={FreelancerDetail} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
 
               <Route component={NoRouteFound} />
             </Switch>

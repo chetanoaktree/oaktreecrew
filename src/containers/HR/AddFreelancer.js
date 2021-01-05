@@ -21,7 +21,10 @@ function AddFreelancer(props) {
         gender: "",
         martial_status: "",
         address: "",
-        role_ids:[7],
+        languages: "",
+        total_experience: "",
+        role_ids:[2],
+        skills: '',
         skip_password_validation: true,
         additional_information_attributes: {
             notes:"", 
@@ -41,7 +44,8 @@ function AddFreelancer(props) {
                 responsebilities: "",
                 company_location: "",
                 employment_period_year: "",
-                employment_period_month: ""
+                employment_period_month: "",
+                description: ""
             }
         ],
         education_informations_attributes:[
@@ -53,9 +57,17 @@ function AddFreelancer(props) {
                 result: "", 
                 marks: "",
                 year_of_passing: "", 
-                duration: "" 
+                duration: "",
+                description: ""
             }
         ]
+    })
+
+    const [errors , setError] = useState({
+        email: "",
+        first_name: "",
+        last_name: "",
+        phone: ""
     })
 
     const dispatch = useDispatch();
@@ -67,6 +79,12 @@ function AddFreelancer(props) {
             ...prevState,
             [name] : value
         }))
+
+        let valid = { 
+                    // avatar: state.avatar,
+                    [name]: value
+                  }
+        checkEmpty(valid)           
     }
 
     const handleSelect = (name, value) => {
@@ -74,6 +92,14 @@ function AddFreelancer(props) {
         setState(prevState => ({
             ...prevState,
             [name] : value[0].value
+        }))
+    }
+
+    const handleSelectLanguage = (name, value) => {
+      // console.log(name,"----",value.map(e => e.value).join(",")) 
+        setState(prevState => ({
+            ...prevState,
+            [name] : value.map(e => e.value).join(",")
         }))
     }
 
@@ -129,7 +155,8 @@ function AddFreelancer(props) {
                 result: "", 
                 marks: "",
                 year_of_passing: "", 
-                duration: "" 
+                duration: "",
+                description: ""
             }
         setState({...state,  
             education_informations_attributes: [...state.education_informations_attributes, edu]
@@ -162,7 +189,8 @@ function AddFreelancer(props) {
                 department: "", 
                 responsebilities: "",
                 company_location: "",
-                employment_period: ""
+                employment_period: "",
+                description: ""
             }
         setState({...state,  
             experience_informations_attributes: [...state.experience_informations_attributes, exp]
@@ -186,7 +214,34 @@ function AddFreelancer(props) {
         setState(newState);
     }
 
+    const checkEmpty = (dataToCheck) => {
+      let stopApicall = false
+
+      for (var key in dataToCheck) {
+          if(dataToCheck && dataToCheck[key].length === 0){
+              errors[key] = "Field can't be blank"
+              setError(errors)
+              stopApicall = true
+          }
+          else{
+            errors[key] = ""
+            setError(errors)
+          }
+        }
+
+    return stopApicall
+    }
+
     const handleSave = () => {
+        let valid = { 
+                    // avatar: state.avatar,
+                    email: state.email,
+                    first_name: state.first_name,
+                    last_name: state.last_name,
+                    phone: state.phone
+                  } 
+        // console.log(checkEmpty(valid))
+      if(!checkEmpty(valid)){  
         let data = { 
                     // avatar: state.avatar,
                     email: state.email,
@@ -198,7 +253,9 @@ function AddFreelancer(props) {
                     gender: state.gender,
                     martial_status: state.martial_status,
                     address: state.address,
-                    role_ids:'7',
+                    languages: state.languages,
+                    total_experience: state.total_experience,
+                    role_ids:'2',
                     skip_password_validation: true
                 }
         var form_data = new FormData();
@@ -223,6 +280,7 @@ function AddFreelancer(props) {
             form_data.append(`user[education_informations_attributes[${index}][marks]]`, p.marks)
             form_data.append(`user[education_informations_attributes[${index}][year_of_passing]]`, p.year_of_passing)
             form_data.append(`user[education_informations_attributes[${index}][duration]]`, p.duration)
+            form_data.append(`user[education_informations_attributes[${index}][description]]`, p.description)
             return p
         })
 
@@ -235,11 +293,12 @@ function AddFreelancer(props) {
             form_data.append(`user[experience_informations_attributes[${index}][company_location]]`, p.company_location)
             form_data.append(`user[experience_informations_attributes[${index}][employment_period_year]]`, p.employment_period_year)
             form_data.append(`user[experience_informations_attributes[${index}][employment_period_month]]`, p.employment_period_month)
+            form_data.append(`user[experience_informations_attributes[${index}][description]]`, p.description)
             return p
         })
             // console.log("form_data",form_data)
         dispatch(saveFreelancer(form_data)).then((res)=> {
-            console.log("res",res)
+            // console.log("res",res)
             if(res && res.status === 200) {
                NotificationManager.success("Successfully added", 'Success');
                props.history.push('/');
@@ -247,51 +306,63 @@ function AddFreelancer(props) {
                NotificationManager.error(res.message, 'Error');  
             }
         })
+      }
     }
     const gender_options =  [
                               { value: '', label: 'Select' },
-                              { value: 'male', label: 'Male' },
-                              { value: 'female', label: 'Female' }
+                              { value: 'Male', label: 'Male' },
+                              { value: 'Female', label: 'Female' }
                             ]
     const marital_options =  [
                               { value: '', label: 'Select' },
-                              { value: 'married', label: 'Married' },
-                              { value: 'unmarried', label: 'Unmarried' }
+                              { value: 'Married', label: 'Married' },
+                              { value: 'Unmarried', label: 'Unmarried' }
                             ]
     const nationality_options =  [
                               { value: '', label: 'Select' },
-                              { value: 'austria', label: 'Austria' },
-                              { value: 'canada', label: 'Canada' },
-                              { value: 'india', label: 'India' },
-                              { value: 'uk', label: 'United Kingdom' },
+                              { value: 'Austria', label: 'Austria' },
+                              { value: 'Canada', label: 'Canada' },
+                              { value: 'India', label: 'India' },
+                              { value: 'United Kingdom', label: 'United Kingdom' },
+                            ]
+    const languages_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'English', label: 'English' },
+                              { value: 'French', label: 'French' },
+                              { value: 'Arabic', label: 'Arabic' },
+                              { value: 'German', label: 'German' },
                             ]
     const category_options =  [
                               { value: '', label: 'Select' },
-                              { value: 'ui_ux_designer', label: 'UX/UI Designer' },
-                              { value: 'web_developer', label: 'Web Developer' },
-                              { value: 'web_designer', label: 'Web Designer' },
-                              { value: 'soft_developer', label: 'Soft Developer' },
+                              { value: 'Salesforce Developer', label: 'Salesforce Developer' },
+                              { value: 'ROR Developer', label: 'ROR Developer' },
+                              { value: 'React Developer', label: 'React Developer' },
+                              { value: 'IOS Developer', label: 'IOS Developer' },
+                              { value: 'NodeJS Developer', label: 'NodeJS Developer' },
                             ]
     const education_level_options =  [
                               { value: '', label: 'Select' },
-                              { value: 'Massachusetts', label: 'Massachusetts' },
-                              { value: 'Maryland', label: 'Maryland' },
-                              { value: 'Colorado', label: 'Colorado' },
-                              { value: 'Virginia', label: 'Virginia' },
+                              { value: 'Engineer', label: 'Engineer' },
+                              { value: 'Master', label: 'Master' },
+                              { value: 'Associate', label: 'Associate' },
+                              { value: 'Graduate', label: 'Graduate' },
+                              { value: 'Post Graduate', label: 'Post Graduate' },
                             ]
     const degree_title_options =  [
                               { value: '', label: 'Select' },
-                              { value: 'engineer', label: 'Engineer' },
-                              { value: 'master', label: 'Master' },
-                              { value: 'associate', label: 'Associate' },
-                              { value: 'graduate', label: 'Graduate' },
-                              { value: 'post_graduate', label: 'Post Graduate' },
+                              { value: 'BE(CSE)', label: 'BE(CSE)' },
+                              { value: 'BE(IT)', label: 'BE(IT)' },
+                              { value: 'ME', label: 'ME' },
+                              { value: 'BCA', label: 'BCA' },
+                              { value: 'MCA', label: 'MCA' },
+                              { value: 'BSC(Computer)', label: 'BSC(Computer)' },
+                              { value: 'MSC(Computer)', label: 'MSC(Computer)' },
                             ]
     const result_options =  [
                               { value: '', label: 'Select' },
-                              { value: 'first_class', label: 'First Class' },
-                              { value: 'second_class', label: 'Second Class' },
-                              { value: 'third_class', label: 'Third Class' }
+                              { value: 'First', label: 'First Class' },
+                              { value: 'Second', label: 'Second Class' },
+                              { value: 'Third', label: 'Third Class' }
                             ]
     const year_of_passing_options =  [
                               { value: '', label: 'Select' },
@@ -342,6 +413,7 @@ function AddFreelancer(props) {
                             ]
     const employment_period_month_options =  [
                               { value: '', label: 'Select' },
+                              { value: '0', label: '0' },
                               { value: '1', label: '1' },
                               { value: '2', label: '2' },
                               { value: '3', label: '3' },
@@ -355,7 +427,7 @@ function AddFreelancer(props) {
                               { value: '11', label: '11' },
                               { value: '12', label: '12' }
                             ]
-    console.log("state",state)
+    console.log("state",errors)
     return(
         <section className="candidates-resume-area ptb-100">
             <div className="container">
@@ -376,6 +448,7 @@ function AddFreelancer(props) {
                                                 value={state.first_name}
                                                 onChange={handleChange} 
                                             />
+                                            <span className="error text-danger">{errors.first_name && "Enter First Name "}</span>
                                         </div>
                                     </div>
 
@@ -389,6 +462,7 @@ function AddFreelancer(props) {
                                                 value={state.last_name}
                                                 onChange={handleChange} 
                                             />
+                                            <span className="error text-danger">{errors.last_name && "Enter Last Name "}</span>
                                         </div>
                                     </div>
 
@@ -402,6 +476,7 @@ function AddFreelancer(props) {
                                                 value={state.email}
                                                 onChange={handleChange} 
                                             />
+                                            <span className="error text-danger">{errors.email && "Enter email address"}</span>
                                         </div>
                                     </div>
 
@@ -415,6 +490,7 @@ function AddFreelancer(props) {
                                                 value={state.phone}
                                                 onChange={handleChange} 
                                             />
+                                            <span className="error text-danger">{errors.phone && "Enter phone number "}</span>
                                         </div>
                                     </div>
 
@@ -473,6 +549,33 @@ function AddFreelancer(props) {
                                                 onChange={(value) => handleSelect('nationality', value)} 
                                                 value={state.nationality}
                                                 required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>Language</label>
+                                            <Select 
+                                                name="languages" 
+                                                multi
+                                                options={languages_options}
+                                                onChange={(value) => handleSelectLanguage('languages', value)} 
+                                                value={state.languages}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>Total Experience</label>
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="total_experience"
+                                                value={state.total_experience}
+                                                onChange={handleChange} 
                                             />
                                         </div>
                                     </div>
@@ -782,6 +885,19 @@ function AddFreelancer(props) {
                                                     />
                                                 </div>
                                             </div>
+
+                                            <div className="col-lg-12">
+                                                <div className="form-group">
+                                                    <label>Description</label>
+                                                    <textarea 
+                                                        className="form-control" 
+                                                        rows="4"
+                                                        name="description" 
+                                                        onChange={(e) => handleEducation(e,i)}
+                                                    >
+                                                    </textarea>
+                                                </div>
+                                            </div>
                                         </React.Fragment>
                                         )
                                     })}
@@ -892,6 +1008,19 @@ function AddFreelancer(props) {
                                                         value={state.experience_informations_attributes[i].employment_period_month}
                                                         required
                                                     />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-lg-12">
+                                                <div className="form-group">
+                                                    <label>Description</label>
+                                                    <textarea 
+                                                        className="form-control" 
+                                                        rows="4"
+                                                        name="description" 
+                                                        onChange={(e) => handleExperience(e,i)}
+                                                    >
+                                                    </textarea>
                                                 </div>
                                             </div>
                                         </React.Fragment>

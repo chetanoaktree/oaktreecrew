@@ -1,12 +1,38 @@
-import React from 'react';
-import { withRouter } from "react-router-dom";
-
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux'
+import { withRouter, useParams } from "react-router-dom";
+import { getFreelancer } from '../../actions/hrActions';
+import _ from 'lodash';
 import avatar from "../../assets/images/avatar-img.jpg";
 
 
 function FreelancerDetail(props) {
     
+    const [state , setState] = useState({
+        detail: ''
+      })
+    const dispatch = useDispatch();
     
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+    const { id } = useParams();
+    // console.log("id",id)
+
+    const fetchData = () => {
+      
+      // Update the document title using the browser API
+      dispatch(getFreelancer(id)).then((res)=> {
+          if(res && res.status === 200) {
+            // console.log("res",res.data)
+            setState(prevState => ({
+                detail: res.data.user
+            }))
+          }
+      })
+    }
+    console.log("detail",state.detail)
     return(
       <React.Fragment>
         <div className="page-title-area">
@@ -39,57 +65,51 @@ function FreelancerDetail(props) {
 
                     <div className="col-lg-6">
                       <div className="candidates-cv-content">
-                        <h3>Sajal Joshi</h3>
-                        <span className="sub-title">UX/UI Designer</span>
+                        <h3>{_.get(state.detail, 'first_name', ['']) + ' ' +_.get(state.detail, 'last_name', [''])}</h3>
+                        <span className="sub-title">{_.get(state.detail.additional_information, 'category', [''])}</span>
                         <ul>
-                          <li><span>Location: </span>New York</li>
+                          <li><span>Location: </span>{_.get(state.detail, 'address', [''])}</li>
                         </ul>
                       </div>
                     </div>
 
                     <div className="col-lg-4">
-                      <a href="#" className="default-btn">Download CV</a>
+                      <a href={_.get(state.detail.additional_information, 'user_resume', ['#'])} target="_blank" className="default-btn">Download CV</a>
                     </div>
                   </div>
                 </div>
 
                 <div className="candidates-details-content">
                   <h3>About Me</h3>
-                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Lorem ipsum dolor sit amet, consetetur</p>
+                  <p>{_.get(state.detail.additional_information, 'notes', [''])}</p>
 
                   <h3>Education</h3>
-                  
-                  <ul>
-                    <li className="arts">Masters in Fine Arts</li>
-                    <li className="university">Walters University (2015-2016)</li>
-                    <li className="summary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
-                  </ul>
-
-                  <ul>
-                    <li className="arts">Bachlors in Fine Arts</li>
-                    <li className="university">University of California (2010-2014)</li>
-                    <li className="summary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
-                  </ul>
-
-                  <ul>
-                    <li className="arts">Diploma in Fine Arts</li>
-                    <li className="university">Berkeley Institute of Art Direction (2006-2010)</li>
-                    <li className="summary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
-                  </ul>
+                  {state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
+                    return (
+                        <ul key={i}>
+                          <li className="arts">{row.education_level} in {row.degree_title}</li>
+                          <li className="university">{row.group +' '+row.institute_name} ({row.year_of_passing})</li>
+                          <li className="summary">{row.description}</li>
+                        </ul>
+                        )
+                    })
+                    : 
+                    (<ul></ul>)
+                  }   
 
                   <h3>Work Experience</h3>
-                  
-                  <ul>
-                    <li className="arts">Sr. UX/UI Designer</li>
-                    <li className="university">Xpart Solutions (2018-2020)</li>
-                    <li className="summary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
-                  </ul>
-
-                  <ul>
-                    <li className="arts">Product Designer</li>
-                    <li className="university">Design house (2016-2017)</li>
-                    <li className="summary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
-                  </ul>
+                  {state.detail && state.detail.experience_informations.length > 0 ? state.detail.experience_informations.map((row,i) => {
+                    return (
+                        <ul key={i}>
+                          <li className="arts">{row.designation}</li>
+                          <li className="university">{row.company_name} ({row.employment_period_year > 0 && row.employment_period_year +" year "} { row.employment_period_month > 0 && row.employment_period_month+' month'}) in {row.company_location}</li>
+                          <li className="summary">{row.description}</li>
+                        </ul>
+                        )
+                    })
+                    : 
+                    (<ul></ul>)
+                  } 
 
                   <h4>Personal Skills</h4>
 
@@ -197,15 +217,15 @@ function FreelancerDetail(props) {
                       
                       <li>
                         Email
-                        <a href="mailto:#"><span>: sajal@email.com</span></a>
+                        <a href="mailto:#"><span>: {_.get(state.detail, 'email', [''])}</span></a>
                       </li>
                       <li>
                         Phone
-                        <a href="tel:+91-(000)-0000-000"><span>: 987654321</span></a>
+                        <a href={"tel:+91"+_.get(state.detail, 'phone', [''])}><span>: {_.get(state.detail, 'phone', [''])}</span></a>
                       </li>
                       <li>
                         Location
-                        <span>: Alaska</span>
+                        <span>: {_.get(state.detail, 'address', [''])}</span>
                       </li>
                     </ul>
                   </div>
@@ -216,39 +236,35 @@ function FreelancerDetail(props) {
                     <ul className="overview">
                       <li>
                         Categories
-                        <span>: Design</span>
+                        <span>: {_.get(state.detail.additional_information, 'category', [''])}</span>
                       </li>
                       <li>
-                        Vacancy
-                        <span>: 01</span>
+                        Nationality
+                        <span>: {_.get(state.detail, 'nationality', [''])}</span>
                       </li>
                       <li>
                         Job Type
-                        <span>: Full Time</span>
+                        <span>: {_.get(state.detail.additional_information, 'job_nature', [''])}</span>
                       </li>
                       <li>
                         Experience
-                        <span>: 3 year(s)</span>
+                        <span>: {_.get(state.detail, 'total_experience', [''])} year(s)</span>
                       </li>
                       <li>
-                        Offered Salary
-                        <span>: $700</span>
+                        Expected Salary
+                        <span>: {_.get(state.detail.additional_information, 'expected_salary', [''])}</span>
                       </li>
                       <li>
                         Languages:
-                        <span>: English</span>
+                        <span>: {_.get(state.detail, 'languages', [''])} </span>
                       </li>
                       <li>
                         Gender
-                        <span>: Both</span>
-                      </li>
-                      <li>
-                        Application Deu
-                        <span>: 11.10.2020</span>
+                        <span>: {_.get(state.detail, 'gender', [''])}</span>
                       </li>
                     </ul>
                   </div>
-
+                {/*
                   <div className="candidates-widget">
                     <h3>Download Resume</h3>
                     
@@ -264,6 +280,7 @@ function FreelancerDetail(props) {
                       </li>
                     </ul>
                   </div>
+                */}
                 </div>
               </div>
             </div>
@@ -282,8 +299,8 @@ function FreelancerDetail(props) {
                 </div>
       
                 <div className="col-lg-6">
-                  <form className="newsletter-form" data-toggle="validator" novalidate="true">
-                    <input type="email" className="form-control" placeholder="Enter email address" name="EMAIL" required="" autocomplete="off" />
+                  <form className="newsletter-form" data-toggle="validator">
+                    <input type="email" className="form-control" placeholder="Enter email address" name="EMAIL" required="" />
       
                     <button className="default-btn disabled" type="submit">
                       <span>Subscribe</span>
