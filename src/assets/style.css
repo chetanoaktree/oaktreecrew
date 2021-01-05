@@ -5958,9 +5958,11 @@ textarea.form-control {
 
 .candidates-details-area .candidates-details-sidebar .candidates-widget .overview li {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 17px;
   color: #1a1a1a;
   margin-bottom: 15px;
+  word-break: break-all;
+  overflow: hidden;
 }
 
 .candidates-details-area .candidates-details-sidebar .candidates-widget .overview li:last-child {

@@ -51,7 +51,7 @@ function FreelancerDetail(props) {
           </div>
         </div>
 
-        <section className="candidates-details-area ptb-100">
+        <section className="candidates-details-area pt-100">
           <div className="container">
             <div className="row">
               <div className="col-lg-8">
@@ -281,34 +281,6 @@ function FreelancerDetail(props) {
                     </ul>
                   </div>
                 */}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-        <section className="subscribe-area subscribe-area-about-page">
-          <div className="container">
-            <div className="subscribe-bg">
-              <div className="row align-items-center">
-                <div className="col-lg-6">
-                  <div className="subscribe-content">
-                    <h2>Find Your Next Great Job Opportunity!</h2>
-                  </div>
-                </div>
-      
-                <div className="col-lg-6">
-                  <form className="newsletter-form" data-toggle="validator">
-                    <input type="email" className="form-control" placeholder="Enter email address" name="EMAIL" required="" />
-      
-                    <button className="default-btn disabled" type="submit">
-                      <span>Subscribe</span>
-                    </button>
-      
-                    <div id="validator-newsletter" className="form-result"></div>
-                    <p>Join The Newsletter 10,000 Users Already!</p>
-                  </form> 
                 </div>
               </div>
             </div>
