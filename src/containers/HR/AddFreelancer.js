@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Select from "react-dropdown-select";
 import { saveFreelancer } from '../../actions/hrActions';
 import {NotificationManager} from 'react-notifications';
 
@@ -12,14 +13,13 @@ function AddFreelancer(props) {
     const [state , setState] = useState({
         avatar: "",
         email:"",
-        password:"",
         first_name: "",
         last_name: "",
         phone: "",
         dob: "2003-01-01",
         nationality: "",
         gender: "",
-        marital_status: "",
+        martial_status: "",
         address: "",
         role_ids:[7],
         skip_password_validation: true,
@@ -40,10 +40,11 @@ function AddFreelancer(props) {
                 department: "", 
                 responsebilities: "",
                 company_location: "",
-                employment_period: ""
+                employment_period_year: "",
+                employment_period_month: ""
             }
         ],
-        education_information_attributes:[
+        education_informations_attributes:[
             {
                 education_level: "", 
                 degree_title: "", 
@@ -68,6 +69,14 @@ function AddFreelancer(props) {
         }))
     }
 
+    const handleSelect = (name, value) => {
+      // console.log(name,"----",value) 
+        setState(prevState => ({
+            ...prevState,
+            [name] : value[0].value
+        }))
+    }
+
     const handleAdditional = (e) => {
       // console.log("----",e.target)
         const {name , value} = e.target   
@@ -75,6 +84,16 @@ function AddFreelancer(props) {
             additional_information_attributes: {
                 ...state.additional_information_attributes,
                 [name] : value
+            }
+        })
+    }
+
+    const handleSelectAdditional = (name, value) => {
+      // console.log(name,"----",value) 
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                [name] : value[0].value
             }
         })
     }
@@ -113,18 +132,28 @@ function AddFreelancer(props) {
                 duration: "" 
             }
         setState({...state,  
-            education_information_attributes: [...state.education_information_attributes, edu]
+            education_informations_attributes: [...state.education_informations_attributes, edu]
         })
     }
     const handleEducation = (e, index) => {
         // console.log(index,"----",e.target)
 
         let newState = Object.assign(state);
-        let education = newState.education_information_attributes[index]
+        let education = newState.education_informations_attributes[index]
         education[e.target.name] = e.target.value
 
         setState(newState);
     }
+
+    const handleSelectEducation = (name, value, index) => {
+      // console.log(name,"----",value) 
+        let newState = Object.assign(state);
+        let education = newState.education_informations_attributes[index]
+        education[name] = value[0].value
+
+        setState(newState);
+    }
+
     const addExperience = () => {
         let exp = {
                 company_name:"", 
@@ -148,21 +177,184 @@ function AddFreelancer(props) {
 
         setState(newState);
     }
+    const handleSelectExperience = (name, value, index) => {
+      // console.log(name,"----",value) 
+        let newState = Object.assign(state);
+        let experience = newState.experience_informations_attributes[index]
+        experience[name] = value[0].value
+
+        setState(newState);
+    }
 
     const handleSave = () => {
+        let data = { 
+                    // avatar: state.avatar,
+                    email: state.email,
+                    first_name: state.first_name,
+                    last_name: state.last_name,
+                    phone: state.phone,
+                    dob: state.dob,
+                    nationality: state.nationality,
+                    gender: state.gender,
+                    martial_status: state.martial_status,
+                    address: state.address,
+                    role_ids:'7',
+                    skip_password_validation: true
+                }
         var form_data = new FormData();
-        for ( var key in state ) {
-            console.log("form_data",key)
-            form_data.append(`user[${key}]`, state[key])          
+        for ( var key in data ) {
+            form_data.append(`user[${key}]`, data[key])          
         }
+
+        form_data.append("user[additional_information_attributes[notes]]",state.additional_information_attributes.notes)
+        form_data.append("user[additional_information_attributes[presented_salary]]",state.additional_information_attributes.presented_salary)
+        form_data.append("user[additional_information_attributes[expected_salary]]",state.additional_information_attributes.expected_salary)
+        form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
+        form_data.append("user[additional_information_attributes[job_nature]]",state.additional_information_attributes.job_nature)
+        form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
+        form_data.append("user[additional_information_attributes[attachment]]",state.additional_information_attributes.attachment)
+
+        state.education_informations_attributes.map((p,index) => {
+            form_data.append(`user[education_informations_attributes[${index}][education_level]]`, p.education_level)
+            form_data.append(`user[education_informations_attributes[${index}][degree_title]]`, p.degree_title)
+            form_data.append(`user[education_informations_attributes[${index}][group]]`, p.group)
+            form_data.append(`user[education_informations_attributes[${index}][institute_name]]`, p.institute_name)
+            form_data.append(`user[education_informations_attributes[${index}][result]]`, p.result)
+            form_data.append(`user[education_informations_attributes[${index}][marks]]`, p.marks)
+            form_data.append(`user[education_informations_attributes[${index}][year_of_passing]]`, p.year_of_passing)
+            form_data.append(`user[education_informations_attributes[${index}][duration]]`, p.duration)
+            return p
+        })
+
+        state.experience_informations_attributes.map((p,index) => {
+            form_data.append(`user[experience_informations_attributes[${index}][company_name]]`, p.company_name)
+            form_data.append(`user[experience_informations_attributes[${index}][company_business]]`, p.company_business)
+            form_data.append(`user[experience_informations_attributes[${index}][designation]]`, p.designation)
+            form_data.append(`user[experience_informations_attributes[${index}][department]]`, p.department)
+            form_data.append(`user[experience_informations_attributes[${index}][responsebilities]]`, p.responsebilities)
+            form_data.append(`user[experience_informations_attributes[${index}][company_location]]`, p.company_location)
+            form_data.append(`user[experience_informations_attributes[${index}][employment_period_year]]`, p.employment_period_year)
+            form_data.append(`user[experience_informations_attributes[${index}][employment_period_month]]`, p.employment_period_month)
+            return p
+        })
+            // console.log("form_data",form_data)
         dispatch(saveFreelancer(form_data)).then((res)=> {
+            console.log("res",res)
             if(res && res.status === 200) {
-               // props.history.push('/');
+               NotificationManager.success("Successfully added", 'Success');
+               props.history.push('/');
             }else{
                NotificationManager.error(res.message, 'Error');  
             }
         })
     }
+    const gender_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'male', label: 'Male' },
+                              { value: 'female', label: 'Female' }
+                            ]
+    const marital_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'married', label: 'Married' },
+                              { value: 'unmarried', label: 'Unmarried' }
+                            ]
+    const nationality_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'austria', label: 'Austria' },
+                              { value: 'canada', label: 'Canada' },
+                              { value: 'india', label: 'India' },
+                              { value: 'uk', label: 'United Kingdom' },
+                            ]
+    const category_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'ui_ux_designer', label: 'UX/UI Designer' },
+                              { value: 'web_developer', label: 'Web Developer' },
+                              { value: 'web_designer', label: 'Web Designer' },
+                              { value: 'soft_developer', label: 'Soft Developer' },
+                            ]
+    const education_level_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'Massachusetts', label: 'Massachusetts' },
+                              { value: 'Maryland', label: 'Maryland' },
+                              { value: 'Colorado', label: 'Colorado' },
+                              { value: 'Virginia', label: 'Virginia' },
+                            ]
+    const degree_title_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'engineer', label: 'Engineer' },
+                              { value: 'master', label: 'Master' },
+                              { value: 'associate', label: 'Associate' },
+                              { value: 'graduate', label: 'Graduate' },
+                              { value: 'post_graduate', label: 'Post Graduate' },
+                            ]
+    const result_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'first_class', label: 'First Class' },
+                              { value: 'second_class', label: 'Second Class' },
+                              { value: 'third_class', label: 'Third Class' }
+                            ]
+    const year_of_passing_options =  [
+                              { value: '', label: 'Select' },
+                              { value: '2001', label: '2001' },
+                              { value: '2002', label: '2002' },
+                              { value: '2003', label: '2003' },
+                              { value: '2004', label: '2004' },
+                              { value: '2005', label: '2005' },
+                              { value: '2006', label: '2006' },
+                              { value: '2007', label: '2007' },
+                              { value: '2008', label: '2008' },
+                              { value: '2009', label: '2009' },
+                              { value: '2010', label: '2010' },
+                              { value: '2011', label: '2011' },
+                              { value: '2012', label: '2012' },
+                              { value: '2013', label: '2013' },
+                              { value: '2014', label: '2014' },
+                              { value: '2015', label: '2015' },
+                              { value: '2016', label: '2016' },
+                              { value: '2017', label: '2017' },
+                              { value: '2018', label: '2018' },
+                              { value: '2019', label: '2019' },
+                              { value: '2020', label: '2020' }
+                            ]
+    const employment_period_year_options =  [
+                              { value: '', label: 'Select' },
+                              { value: '0', label: '0' },
+                              { value: '1', label: '1' },
+                              { value: '2', label: '2' },
+                              { value: '3', label: '3' },
+                              { value: '4', label: '4' },
+                              { value: '5', label: '5' },
+                              { value: '6', label: '6' },
+                              { value: '7', label: '7' },
+                              { value: '8', label: '8' },
+                              { value: '9', label: '9' },
+                              { value: '10', label: '10' },
+                              { value: '11', label: '11' },
+                              { value: '12', label: '12' },
+                              { value: '13', label: '13' },
+                              { value: '14', label: '14' },
+                              { value: '15', label: '15' },
+                              { value: '16', label: '16' },
+                              { value: '17', label: '17' },
+                              { value: '18', label: '18' },
+                              { value: '19', label: '19' },
+                              { value: '20', label: '20' }
+                            ]
+    const employment_period_month_options =  [
+                              { value: '', label: 'Select' },
+                              { value: '1', label: '1' },
+                              { value: '2', label: '2' },
+                              { value: '3', label: '3' },
+                              { value: '4', label: '4' },
+                              { value: '5', label: '5' },
+                              { value: '6', label: '6' },
+                              { value: '7', label: '7' },
+                              { value: '8', label: '8' },
+                              { value: '9', label: '9' },
+                              { value: '10', label: '10' },
+                              { value: '11', label: '11' },
+                              { value: '12', label: '12' }
+                            ]
     console.log("state",state)
     return(
         <section className="candidates-resume-area ptb-100">
@@ -249,38 +441,39 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Gender</label>
-                                            <select className="height" name="gender" onChange={handleChange} value={state.gender}>
-                                                <option value="">Select</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                            </select>
+                                            <Select 
+                                                name="gender" 
+                                                options={gender_options}
+                                                onChange={(value) => handleSelect('gender', value)} 
+                                                value={state.gender}
+                                                required
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Marital status</label>
-                                            <select className="height" name="marital_status" onChange={handleChange} value={state.marital_status}>
-                                                <option value="">Select</option>
-                                                <option value="married">Married</option>
-                                                <option value="unmarried">Unmarried</option>
-                                            </select>
+                                            <Select 
+                                                name="martial_status" 
+                                                options={marital_options}
+                                                onChange={(value) => handleSelect('martial_status', value)} 
+                                                value={state.martial_status}
+                                                required
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Nationality</label>
-                                            <select name="nationality" onChange={handleChange} value={state.nationality}>
-                                                <option value="">Select</option>
-                                                <option value="uk">United Kingdom</option>
-                                                <option value="austria">Austria</option>
-                                                <option value="bahrain">Bahrain</option>
-                                                <option value="canada">Canada</option>
-                                                <option value="denmark">Denmark</option>
-                                                <option value="germany">Germany</option>
-                                                <option value="indian">India</option>
-                                            </select>
+                                            <Select 
+                                                name="nationality" 
+                                                options={nationality_options}
+                                                onChange={(value) => handleSelect('nationality', value)} 
+                                                value={state.nationality}
+                                                required
+                                            />
                                         </div>
                                     </div>
 
@@ -349,13 +542,13 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Category</label>
-                                            <select name="category" onChange={handleAdditional} value={state.additional_information_attributes.category}>
-                                                <option value="ui_ux_designer">UX/UI Designer</option>
-                                                <option value="web_dev">Web Developer</option>
-                                                <option value="web_designer">Web Designer</option>
-                                                <option value="soft_dev">Software Developer</option>
-                                                <option value="seo">SEO</option>
-                                            </select>
+                                            <Select 
+                                                name="category" 
+                                                options={category_options}
+                                                onChange={(value) => handleSelectAdditional('category', value)} 
+                                                value={state.additional_information_attributes.category}
+                                                required
+                                            />
                                         </div>
                                     </div>
 
@@ -487,35 +680,32 @@ function AddFreelancer(props) {
                                             Add
                                         </a>
                                     </div>
-                                    {state.education_information_attributes.map((item, i) => {
+                                    {state.education_informations_attributes.map((item, i) => {
                                         return (
                                         <React.Fragment>
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Level of Education</label>
-                                                    <select name="education_level" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].education_level}>
-                                                        <option value="">Select</option>
-                                                        <option value="Massachusetts">Massachusetts</option>
-                                                        <option value="Maryland">Maryland</option>
-                                                        <option value="Colorado">Colorado</option>
-                                                        <option value="Vermont">Vermont</option>
-                                                        <option value="Virginia">Virginia</option>
-                                                        <option value="Washington">Washington</option>
-                                                    </select>
+                                                    <Select 
+                                                        name="education_level" 
+                                                        options={education_level_options}
+                                                        onChange={(value) => handleSelectEducation('education_level', value, i)} 
+                                                        value={state.education_informations_attributes[i].education_level}
+                                                        required
+                                                    />
                                                 </div>
                                             </div>
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Exam / Degree Title</label>
-                                                    <select name="degree_title" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].degree_title}>
-                                                        <option value="">Select</option>
-                                                        <option value="engineer">Engineer of CSE</option>
-                                                        <option value="master">Master</option>
-                                                        <option value="associate">Associate</option>
-                                                        <option value="graduate">Graduate</option>
-                                                        <option value="post_graduate">Post Graduate</option>
-                                                    </select>
+                                                    <Select 
+                                                        name="degree_title" 
+                                                        options={degree_title_options}
+                                                        onChange={(value) => handleSelectEducation('degree_title', value, i)} 
+                                                        value={state.education_informations_attributes[i].degree_title}
+                                                        required
+                                                    />
                                                 </div>
                                             </div>
 
@@ -546,11 +736,13 @@ function AddFreelancer(props) {
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Result</label>
-                                                    <select className="height" name="result" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].result}>
-                                                        <option value="first_class">First Class</option>
-                                                        <option value="second_class">Second Class</option>
-                                                        <option value="third_class">Third Class</option>
-                                                    </select>
+                                                    <Select 
+                                                        name="result" 
+                                                        options={result_options}
+                                                        onChange={(value) => handleSelectEducation('result', value, i)} 
+                                                        value={state.education_informations_attributes[i].result}
+                                                        required
+                                                    />
                                                 </div>
                                             </div>
 
@@ -569,28 +761,13 @@ function AddFreelancer(props) {
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Year of Passing</label>
-                                                    <select className="height" name="year_of_passing" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].year_of_passing}>
-                                                        <option value="2001">2001</option>
-                                                        <option value="2002">2002</option>
-                                                        <option value="2003">2003</option>
-                                                        <option value="2004">2004</option>
-                                                        <option value="2005">2005</option>
-                                                        <option value="2006">2006</option>
-                                                        <option value="2007">2007</option>
-                                                        <option value="2008">2008</option>
-                                                        <option value="2009">2009</option>
-                                                        <option value="2010">2010</option>
-                                                        <option value="2011">2011</option>
-                                                        <option value="2012">2012</option>
-                                                        <option value="2013">2013</option>
-                                                        <option value="2014">2014</option>
-                                                        <option value="2015">2015</option>
-                                                        <option value="2016">2016</option>
-                                                        <option value="2017">2017</option>
-                                                        <option value="2018">2018</option>
-                                                        <option value="2019">2019</option>
-                                                        <option value="2020">2020</option>
-                                                    </select>
+                                                    <Select 
+                                                        name="year_of_passing" 
+                                                        options={year_of_passing_options}
+                                                        onChange={(value) => handleSelectEducation('year_of_passing', value, i)} 
+                                                        value={state.education_informations_attributes[i].year_of_passing}
+                                                        required
+                                                    />
                                                 </div>
                                             </div>
 
@@ -696,49 +873,25 @@ function AddFreelancer(props) {
                                             <div className="col-lg-6">
                                                 <div className="form-group">
                                                     <label>Employment Period Year</label>
-                                                    <select className="height" name="employment_period_year" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].employment_period_year}>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                        <option value="12">12</option>
-                                                        <option value="13">13</option>
-                                                        <option value="14">14</option>
-                                                        <option value="15">15</option>
-                                                        <option value="16">16</option>
-                                                        <option value="17">17</option>
-                                                        <option value="18">18</option>
-                                                        <option value="19">19</option>
-                                                        <option value="20">20</option>
-                                                    </select>
+                                                    <Select 
+                                                        name="employment_period_year" 
+                                                        options={employment_period_year_options}
+                                                        onChange={(value) => handleSelectExperience('employment_period_year', value, i)} 
+                                                        value={state.experience_informations_attributes[i].employment_period_year}
+                                                        required
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-lg-6">
                                                 <div className="form-group">
                                                     <label>Month</label>
-                                                    <select className="height" name="employment_period_month" onChange={(e)=>handleEducation(e,i)} value={state.education_information_attributes[i].employment_period_month}>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                        <option value="12">12</option>
-                                                    </select>
+                                                    <Select 
+                                                        name="employment_period_month" 
+                                                        options={employment_period_month_options}
+                                                        onChange={(value) => handleSelectExperience('employment_period_month', value, i)} 
+                                                        value={state.experience_informations_attributes[i].employment_period_month}
+                                                        required
+                                                    />
                                                 </div>
                                             </div>
                                         </React.Fragment>
