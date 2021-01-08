@@ -105,7 +105,6 @@ const App = class App extends Component {
             </Switch>
             <Footer location={location} authenticated={auth.isAuthenticated}/>
           </React.Fragment>
-        )}
       </ScrollToTop>
     )
   }

@@ -49,7 +49,7 @@ export function setAuthToken(token) {
 }
 
 export function resetPassword(data) {
-  return dispatch => axios.get(REACT_API_URL + `/recover/password?email=${data}`)
+  return dispatch => axios.post(REACT_API_URL + `/users/password`, data)
     .then(res => {
       return res
     }).catch((err) => {
