@@ -88,7 +88,7 @@ function LoginForm(props) {
                         <div className="col-12">
                           <div className="login-action">
                             <span className="log-rem">
-                              <input id="remember-2" type="checkbox" />
+                              <input id="remember" type="checkbox" />
                               <label>Keep me logged in</label>
                             </span>
                             

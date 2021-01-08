@@ -7375,6 +7375,10 @@ textarea.form-control {
   width: 100%;
 }
 
+.log-rem #remember {
+  margin-right: 10px;
+}
+
 .freelancers-list-profile-thumbnail {
   width: 25px;
   border-radius: 100%;
