@@ -7,7 +7,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import LoginForm from './containers/Login/LoginForm';
 
-import HR from './containers/HR/HR';
+import Freelancer from './containers/HR/Freelancer';
 import AddFreelancer from './containers/HR/AddFreelancer';
 
 import Dashboard from './containers/Dashboard/Dashboard';
@@ -96,15 +96,15 @@ const App = class App extends Component {
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/login" exact component={LoginForm} />
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancers" exact component={FreelancerSelect} />
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/client-signup" exact component={ClientSignup} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/dashboard" exact component={HR} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelacner" exact component={AddFreelancer} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/dashboard" exact component={Dashboard} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer" exact component={Freelancer} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
 
               <Route component={NoRouteFound} />
             </Switch>
             <Footer location={location} authenticated={auth.isAuthenticated}/>
           </React.Fragment>
-        )}
       </ScrollToTop>
     )
   }
