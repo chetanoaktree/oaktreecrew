@@ -1231,6 +1231,7 @@ function AddFreelancer(props) {
                                                         value={state.project_informations_attributes[i].technologies}
                                                         required
                                                         multi
+                                                        
                                                     />
                                                 </div>
                                             </div>

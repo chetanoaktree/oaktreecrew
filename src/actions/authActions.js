@@ -49,12 +49,17 @@ export function setAuthToken(token) {
 }
 
 export function resetPassword(data) {
-  return dispatch => axios.post(REACT_API_URL + `/users/password`, data)
+  return dispatch => {
+    dispatch(applicationIsLoading(true)) 
+    return axios.post(REACT_API_URL + `/users/password`, data)
     .then(res => {
+      dispatch(applicationIsLoading(false));
       return res
     }).catch((err) => {
+      dispatch(applicationIsLoading(false));
       return err.response
     });
+  }
 }
 
 export function updateSalesforceCode(code) {

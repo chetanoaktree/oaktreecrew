@@ -236,12 +236,26 @@ textarea.form-control {
 }
 
 .default-btn.btn-two {
-  background-color: #79b530;
+  background-color: #161616;
+}
+
+.default-btn.btn-two:hover {
+  background-color: #00b074;
 }
 
 .default-btn:hover {
-  background-color: #1a1a1a;
+  background-color: #161616;
   color: #ffffff;
+}
+
+.default-btn:disabled {
+  background: #C6C6C6;
+  color: #8D8D8D;
+}
+
+.default-btn:disabled:hover {
+  background: #C6C6C6;
+  color: #8D8D8D;
 }
 
 /*
@@ -4609,7 +4623,7 @@ textarea.form-control {
 
 .candidates-resume-content .resume-info .form-group .date i {
   position: absolute;
-  top: 15px;
+  top: 10px;
   right: 20px;
   font-size: 20px;
 }
@@ -9773,5 +9787,24 @@ Continuer Custom Width Area Style*/
   .container {
     max-width: 1260px;
   }
+}
+.react-datepicker-popper {
+  z-index: 2;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-dropdown-select-option {
+  background: #00b074 !important;
+}
+
+.react-dropdown-select-item-selected {
+  background: #00b074 !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #00b074;
 }
 /*# sourceMappingURL=style.css.map */
