@@ -24,13 +24,14 @@ function AddFreelancer(props) {
         languages: "",
         total_experience: "",
         role_ids:[2],
-        skills: '',
         skip_password_validation: true,
         additional_information_attributes: {
-            notes:"", 
+            title: "",
+            about_me:"", 
             presented_salary:"",
             expected_salary:"", 
             category:"",
+            skills: '',
             job_nature:"", 
             job_level: "",
             attachment: ""
@@ -59,6 +60,15 @@ function AddFreelancer(props) {
                 year_of_passing: "", 
                 duration: "",
                 description: ""
+            }
+        ],
+        project_informations_attributes:[
+            {
+                title: "", 
+                start_date: "2021-01-01", 
+                end_date: "2021-01-01", 
+                technologies: "", 
+                summary: ""
             }
         ]
     })
@@ -95,6 +105,15 @@ function AddFreelancer(props) {
         }))
     }
 
+    const onPhotoUpload = (event) => { 
+    
+        const {name , value} = event.target   
+        setState(prevState => ({
+            ...prevState,
+            [name] : event.target.files[0]
+        }))
+    }; 
+
     const handleSelectLanguage = (name, value) => {
       // console.log(name,"----",value.map(e => e.value).join(",")) 
         setState(prevState => ({
@@ -116,12 +135,27 @@ function AddFreelancer(props) {
 
     const handleSelectAdditional = (name, value) => {
       // console.log(name,"----",value) 
+      if(name === 'skills'){
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                [name] : value.map(e => e.value).join(",")
+            }
+        })
+      }else{
+
         setState({...state,  
             additional_information_attributes: {
                 ...state.additional_information_attributes,
                 [name] : value[0].value
             }
         })
+
+        // state.skill_options.filter((row) => {
+        //   // var colorsArray=row.key.split(",");
+        //   return row.key.split(",").includes(state.additional_information_attributes.category)
+        // })
+      }
     }
     // On file upload (click the upload button) 
     const onFileUpload = (event) => { 
@@ -214,6 +248,47 @@ function AddFreelancer(props) {
         setState(newState);
     }
 
+    const addProject = () => {
+        let proj = {
+                title: "", 
+                start_date: "", 
+                end_date: "", 
+                technologies: "", 
+                summary: ""
+            }
+        setState({...state,  
+            project_informations_attributes: [...state.project_informations_attributes, proj]
+        })
+    }
+
+    const handleProject = (e, index) => {
+        // console.log(index,"----",e.target)
+
+        let newState = Object.assign(state);
+        let project = newState.project_informations_attributes[index]
+        project[e.target.name] = e.target.value
+
+        setState(newState);
+    }
+    const handleSelectProject = (name, value, index) => {
+      // console.log(name,"----",value) 
+        let newState = Object.assign(state);
+        let project = newState.project_informations_attributes[index]
+        project[name] = value.map(e => e.value).join(",")
+
+        setState(newState);
+    }
+
+    const handleProjectDateChange = (name, date, index) => {
+        let newState = Object.assign(state);
+        let project = newState.project_informations_attributes[index]
+        project[name] = date
+
+        setState(newState);
+
+      // console.log('=====================',state.project_informations_attributes)
+    }
+
     const checkEmpty = (dataToCheck) => {
       let stopApicall = false
 
@@ -232,18 +307,10 @@ function AddFreelancer(props) {
     return stopApicall
     }
 
-    const handleSave = () => {
-        let valid = { 
-                    // avatar: state.avatar,
-                    email: state.email,
-                    first_name: state.first_name,
-                    last_name: state.last_name,
-                    phone: state.phone
-                  } 
-        // console.log(checkEmpty(valid))
-      if(!checkEmpty(valid)){  
+    const handleSave = (e) => {
+      e.preventDefault(); 
         let data = { 
-                    // avatar: state.avatar,
+                    avatar: state.avatar,
                     email: state.email,
                     first_name: state.first_name,
                     last_name: state.last_name,
@@ -263,10 +330,12 @@ function AddFreelancer(props) {
             form_data.append(`user[${key}]`, data[key])          
         }
 
-        form_data.append("user[additional_information_attributes[notes]]",state.additional_information_attributes.notes)
+        form_data.append("user[additional_information_attributes[title]]",state.additional_information_attributes.title)
+        form_data.append("user[additional_information_attributes[about_me]]",state.additional_information_attributes.about_me)
         form_data.append("user[additional_information_attributes[presented_salary]]",state.additional_information_attributes.presented_salary)
         form_data.append("user[additional_information_attributes[expected_salary]]",state.additional_information_attributes.expected_salary)
         form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
+        form_data.append("user[additional_information_attributes[skills]]",state.additional_information_attributes.skills)
         form_data.append("user[additional_information_attributes[job_nature]]",state.additional_information_attributes.job_nature)
         form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
         form_data.append("user[additional_information_attributes[attachment]]",state.additional_information_attributes.attachment)
@@ -296,17 +365,25 @@ function AddFreelancer(props) {
             form_data.append(`user[experience_informations_attributes[${index}][description]]`, p.description)
             return p
         })
+
+        state.project_informations_attributes.map((p,index) => {
+            form_data.append(`user[project_informations_attributes[${index}][title]]`, p.title)
+            form_data.append(`user[project_informations_attributes[${index}][start_date]]`, p.start_date)
+            form_data.append(`user[project_informations_attributes[${index}][end_date]]`, p.end_date)
+            form_data.append(`user[project_informations_attributes[${index}][technologies]]`, p.technologies)
+            form_data.append(`user[project_informations_attributes[${index}][summary]]`, p.summary)
+            return p
+        })
             // console.log("form_data",form_data)
         dispatch(saveFreelancer(form_data)).then((res)=> {
-            // console.log("res",res)
+            console.log("res",res)
             if(res && res.status === 200) {
                NotificationManager.success("Successfully added", 'Success');
-               props.history.push('/');
+               props.history.push('/freelancer');
             }else{
                NotificationManager.error(res.message, 'Error');  
             }
         })
-      }
     }
     const gender_options =  [
                               { value: '', label: 'Select' },
@@ -340,6 +417,40 @@ function AddFreelancer(props) {
                               { value: 'IOS Developer', label: 'IOS Developer' },
                               { value: 'NodeJS Developer', label: 'NodeJS Developer' },
                             ]
+    const skill_options =  [
+                              { value: '', label: 'Select' },
+                              { value: 'HTML', label: 'HTML', key: 'Salesforce Developer, ROR Developer, React Developer, NodeJS Developer' },
+                              { value: 'CSS', label: 'CSS', key: 'Salesforce Developer, ROR Developer, React Developer, NodeJS Developer' },
+                              { value: 'JavaScript', label: 'JavaScript', key: 'Salesforce Developer, ROR Developer, React Developer, NodeJS Developer' },
+                              { value: 'Rails', label: 'Rails', key: 'ROR Developer' },
+                              { value: 'ERP', label: 'ERP', key: 'ROR Developer' },
+                              { value: 'Postgres', label: 'Postgres', key: 'ROR Developer' },
+                              { value: 'Swift', label: 'Swift', key: 'IOS Developer' },
+                              { value: 'Objective C', label: 'Objective C', key: 'IOS Developer' },
+                              { value: 'Express', label: 'Express', key: 'NodeJS Developer' },
+                              { value: 'Redux', label: 'Redux', key: 'React Developer' },
+                              { value: 'Flux', label: 'Flux', key: 'React Developer' }, 
+                            ]
+    const technology_options = [
+                              { value: '', label: 'Select' },
+                              { value: 'Salesforce Developer', label: 'Salesforce Developer' },
+                              { value: 'ROR Developer', label: 'ROR Developer' },
+                              { value: 'React Developer', label: 'React Developer' },
+                              { value: 'IOS Developer', label: 'IOS Developer' },
+                              { value: 'NodeJS Developer', label: 'NodeJS Developer' },
+                              { value: 'HTML', label: 'HTML' },
+                              { value: 'CSS', label: 'CSS' },
+                              { value: 'JavaScript', label: 'JavaScript' },
+                              { value: 'Rails', label: 'Rails' },
+                              { value: 'ERP', label: 'ERP' },
+                              { value: 'Postgres', label: 'Postgres' },
+                              { value: 'Swift', label: 'Swift' },
+                              { value: 'Objective C', label: 'Objective C' },
+                              { value: 'Express', label: 'Express' },
+                              { value: 'Redux', label: 'Redux' },
+                              { value: 'Flux', label: 'Flux' }, 
+                            ]
+
     const education_level_options =  [
                               { value: '', label: 'Select' },
                               { value: 'Engineer', label: 'Engineer' },
@@ -427,17 +538,39 @@ function AddFreelancer(props) {
                               { value: '11', label: '11' },
                               { value: '12', label: '12' }
                             ]
-    console.log("state",errors)
+    // console.log("state======",state.project_informations_attributes)
+    
     return(
         <section className="candidates-resume-area ptb-100">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="candidates-resume-content">
-                            <form className="resume-info">
+                            <form className="resume-info" onSubmit={handleSave}>
                                 <h3>Personal Details</h3>
 
                                 <div className="row">
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="choose-img">
+                                            <p>Upload (Profile)</p>
+                                            <input type="file" id="avatar" name="avatar" onChange={onPhotoUpload} required/>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>Title</label>
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="title"
+                                                value={state.additional_information_attributes.title}
+                                                onChange={handleAdditional} 
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>First Name</label>
@@ -447,6 +580,7 @@ function AddFreelancer(props) {
                                                 name="first_name"
                                                 value={state.first_name}
                                                 onChange={handleChange} 
+                                                required
                                             />
                                             <span className="error text-danger">{errors.first_name && "Enter First Name "}</span>
                                         </div>
@@ -461,6 +595,7 @@ function AddFreelancer(props) {
                                                 name="last_name"
                                                 value={state.last_name}
                                                 onChange={handleChange} 
+                                                required
                                             />
                                             <span className="error text-danger">{errors.last_name && "Enter Last Name "}</span>
                                         </div>
@@ -475,6 +610,7 @@ function AddFreelancer(props) {
                                                 name="email"
                                                 value={state.email}
                                                 onChange={handleChange} 
+                                                required
                                             />
                                             <span className="error text-danger">{errors.email && "Enter email address"}</span>
                                         </div>
@@ -488,7 +624,8 @@ function AddFreelancer(props) {
                                                 type="text" 
                                                 name="phone"
                                                 value={state.phone}
-                                                onChange={handleChange} 
+                                                onChange={handleChange}
+                                                required 
                                             />
                                             <span className="error text-danger">{errors.phone && "Enter phone number "}</span>
                                         </div>
@@ -507,6 +644,7 @@ function AddFreelancer(props) {
                                                   showMonthDropdown
                                                   showYearDropdown
                                                   dropdownMode="select"
+                                                  required
                                                 />
                                                 <span className="input-group-addon"></span>
                                                 <i className="bx bx-calendar"></i>
@@ -576,6 +714,7 @@ function AddFreelancer(props) {
                                                 name="total_experience"
                                                 value={state.total_experience}
                                                 onChange={handleChange} 
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -588,8 +727,24 @@ function AddFreelancer(props) {
                                                 rows="4"
                                                 name="address" 
                                                 onChange={handleChange}
+                                                required
                                             >
                                                 {state.address}
+                                            </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-12">
+                                        <div className="form-group">
+                                            <label>About me</label>
+                                            <textarea 
+                                                className="form-control" 
+                                                rows="4"
+                                                name="about_me" 
+                                                onChange={handleAdditional}
+                                                required
+                                            >
+                                                {state.additional_information_attributes.about_me}
                                             </textarea>
                                         </div>
                                     </div>
@@ -598,19 +753,7 @@ function AddFreelancer(props) {
                                 <h3>Career And Application Information</h3>
 
                                 <div className="row">
-                                    <div className="col-lg-12">
-                                        <div className="form-group">
-                                            <label>Notes</label>
-                                            <textarea 
-                                                className="form-control" 
-                                                rows="4"
-                                                name="notes" 
-                                                onChange={handleAdditional}
-                                            >
-                                                {state.additional_information_attributes.notes}
-                                            </textarea>
-                                        </div>
-                                    </div>
+                                    
 
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
@@ -621,6 +764,7 @@ function AddFreelancer(props) {
                                                 name="presented_salary"
                                                 value={state.additional_information_attributes.presented_salary}
                                                 onChange={handleAdditional} 
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -634,13 +778,12 @@ function AddFreelancer(props) {
                                                 name="expected_salary"
                                                 value={state.additional_information_attributes.expected_salary}
                                                 onChange={handleAdditional} 
+                                                required
                                             />
                                         </div>
                                     </div>
                                 </div>
 
-                                <h4>Job Level</h4>
-                                
                                 <div className="row mb-30">
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
@@ -658,13 +801,27 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="choose-img">
                                             <p>Upload (Resume)</p>
-                                            <input type="file" id="attachment" name="attachment" onChange={onFileUpload}/>
+                                            <input type="file" id="attachment" name="attachment" onChange={onFileUpload} required/>
                                             <p>Maximum file size: 2 MB</p>
                                         </div>
                                     </div>
 
-
+                                    <div className="col-lg-12">
+                                        <div className="form-group">
+                                            <label>Skills</label>
+                                            <Select 
+                                                name="skills" 
+                                                options={skill_options}
+                                                onChange={(value) => handleSelectAdditional('skills', value)} 
+                                                value={state.additional_information_attributes.skills}
+                                                required
+                                                multi
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <h4>Job Level</h4>
 
                                 <div className="row mb-30">
                                     <div className="col-lg-4 col-sm-6 col-md-3" onChange={handleAdditional}>
@@ -674,7 +831,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_level === "Entry Level"} 
                                                 name="job_level" 
-                                                value="Entry Level" />
+                                                value="Entry Level" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -685,7 +842,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_level === "Mid Level"} 
                                                 name="job_level" 
-                                                value="Mid Level" />
+                                                value="Mid Level" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -696,7 +853,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_level === "Top Level"} 
                                                 name="job_level" 
-                                                value="Top Level" />
+                                                value="Top Level" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -712,7 +869,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_nature === "Full Time"} 
                                                 name="job_nature" 
-                                                value="Full Time" />
+                                                value="Full Time" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -723,7 +880,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_nature === "Part Time"} 
                                                 name="job_nature" 
-                                                value="Part Time" />
+                                                value="Part Time" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -734,7 +891,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_nature === "Contract"} 
                                                 name="job_nature" 
-                                                value="Contract" />
+                                                value="Contract" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -745,7 +902,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_nature === "Internship"} 
                                                 name="job_nature" 
-                                                value="Internship" />
+                                                value="Internship" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -757,7 +914,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_nature === "Freelance"} 
                                                 name="job_nature" 
-                                                value="Freelance" />
+                                                value="Freelance" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -769,7 +926,7 @@ function AddFreelancer(props) {
                                                 type="radio" 
                                                 checked={state.additional_information_attributes.job_nature === "Office"} 
                                                 name="job_nature" 
-                                                value="Office" />
+                                                value="Office" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
@@ -820,6 +977,7 @@ function AddFreelancer(props) {
                                                         className="form-control"
                                                         name="group" 
                                                         onChange={(e) => handleEducation(e,i)} 
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -832,6 +990,7 @@ function AddFreelancer(props) {
                                                         type="text" 
                                                         name="institute_name" 
                                                         onChange={(e) => handleEducation(e,i)}
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -857,6 +1016,7 @@ function AddFreelancer(props) {
                                                         type="text" 
                                                         name="marks" 
                                                         onChange={(e) => handleEducation(e,i)}
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -882,6 +1042,7 @@ function AddFreelancer(props) {
                                                         type="text" 
                                                         name="duration" 
                                                         onChange={(e) => handleEducation(e,i)}
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -894,6 +1055,7 @@ function AddFreelancer(props) {
                                                         rows="4"
                                                         name="description" 
                                                         onChange={(e) => handleEducation(e,i)}
+                                                        required
                                                     >
                                                     </textarea>
                                                 </div>
@@ -922,6 +1084,7 @@ function AddFreelancer(props) {
                                                         className="form-control"
                                                         name="company_name" 
                                                         onChange={(e) => handleExperience(e,i)} 
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -934,6 +1097,7 @@ function AddFreelancer(props) {
                                                         className="form-control"
                                                         name="company_business" 
                                                         onChange={(e) => handleExperience(e,i)} 
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -946,6 +1110,7 @@ function AddFreelancer(props) {
                                                         className="form-control"
                                                         name="designation" 
                                                         onChange={(e) => handleExperience(e,i)} 
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -958,6 +1123,7 @@ function AddFreelancer(props) {
                                                         className="form-control"
                                                         name="department" 
                                                         onChange={(e) => handleExperience(e,i)} 
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -970,6 +1136,7 @@ function AddFreelancer(props) {
                                                         className="form-control"
                                                         name="responsebilities" 
                                                         onChange={(e) => handleExperience(e,i)} 
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -982,6 +1149,7 @@ function AddFreelancer(props) {
                                                         className="form-control"
                                                         name="company_location" 
                                                         onChange={(e) => handleExperience(e,i)} 
+                                                        required
                                                     />
                                                 </div>
                                             </div>
@@ -1019,6 +1187,104 @@ function AddFreelancer(props) {
                                                         rows="4"
                                                         name="description" 
                                                         onChange={(e) => handleExperience(e,i)}
+                                                        required
+                                                    >
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                        )
+                                    })}
+                                </div>
+
+                                <h3>Project</h3>
+
+                                <div className="row">
+                                    <div className="col-lg-12 col-md-12">
+                                        <a href="#" className="default-btn float-right" onClick={addProject}>
+                                            Add
+                                        </a>
+                                    </div>
+                                    {state.experience_informations_attributes.map((item, i) => {
+                                        return (
+                                        <React.Fragment>
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Title</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="title" 
+                                                        onChange={(e) => handleProject(e,i)} 
+                                                        required
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-lg-6">
+                                                <div className="form-group">
+                                                    <label>Technologies</label>
+                                                    <Select 
+                                                        name="technologies" 
+                                                        options={technology_options}
+                                                        onChange={(value) => handleSelectProject('technologies', value, i)} 
+                                                        value={state.project_informations_attributes[i].technologies}
+                                                        required
+                                                        multi
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Start Date</label>
+                                                    <div className="input-group date" id="datetimepicker">
+                                                        <DatePicker
+                                                          selected={new Date(state.project_informations_attributes[i].start_date)}
+                                                          onChange={(date) => handleProjectDateChange('start_date', date, i)}
+                                                          className="form-control mn_input post-job-boxes"
+                                                          dateFormat="yyyy-MM-dd"
+                                                          showMonthDropdown
+                                                          showYearDropdown
+                                                          dropdownMode="select"
+                                                          required
+                                                        />
+                                                        <span className="input-group-addon"></span>
+                                                        <i className="bx bx-calendar"></i>
+                                                    </div>  
+                                                </div>
+                                            </div>
+
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>End Date</label>
+                                                    <div className="input-group date" id="datetimepicker">
+                                                        <DatePicker
+                                                          selected={new Date(state.project_informations_attributes[i].end_date)}
+                                                          onChange={(date) => handleProjectDateChange('end_date', date, i)}
+                                                          className="form-control mn_input post-job-boxes"
+                                                          dateFormat="yyyy-MM-dd"
+                                                          showMonthDropdown
+                                                          showYearDropdown
+                                                          dropdownMode="select"
+                                                          required
+                                                        />
+                                                        <span className="input-group-addon"></span>
+                                                        <i className="bx bx-calendar"></i>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div className="col-lg-12">
+                                                <div className="form-group">
+                                                    <label>Summary</label>
+                                                    <textarea 
+                                                        className="form-control" 
+                                                        rows="4"
+                                                        name="summary" 
+                                                        onChange={(e) => handleProject(e,i)}
+                                                        required
                                                     >
                                                     </textarea>
                                                 </div>
@@ -1027,7 +1293,7 @@ function AddFreelancer(props) {
                                         )
                                     })}
                                     <div className="col-lg-12">
-                                        <a href="#" className="default-btn" onClick={handleSave}>Save</a>
+                                       <button className="default-btn" >Save </button>
                                     </div>
                                 </div>
                             </form>

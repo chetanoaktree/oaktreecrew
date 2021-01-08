@@ -25,10 +25,10 @@ class Confirm extends Component {
     let params = window.location.search
     const queryString = require('query-string');
     const parsed = queryString.parse(params);
-
+    
     const { authorizeToken } = this.props;
-    if (parsed.token) {
-      authorizeToken(parsed.token)
+    if (parsed.reset_password_token) {
+      authorizeToken(parsed.reset_password_token)
       .then((res) => {
         if(res.data.status === 200) {
           this.setState({ token: res.data, passwordModal: true })
