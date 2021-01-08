@@ -368,7 +368,7 @@ function AddFreelancer(props) {
 
         state.project_informations_attributes.map((p,index) => {
             form_data.append(`user[project_informations_attributes[${index}][title]]`, p.title)
-            form_data.append(`user[project_informations_attributes[${index}][start_date]]`, p.start_date)
+            form_data.append(`user[project_informations_attributes[${index}][start_at]]`, p.start_date)
             form_data.append(`user[project_informations_attributes[${index}][end_date]]`, p.end_date)
             form_data.append(`user[project_informations_attributes[${index}][technologies]]`, p.technologies)
             form_data.append(`user[project_informations_attributes[${index}][summary]]`, p.summary)
