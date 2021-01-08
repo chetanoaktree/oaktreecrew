@@ -1,0 +1,17 @@
+.react-datepicker-popper{
+    z-index: 2;
+}
+.react-datepicker-wrapper{
+    width: 100%;
+}
+
+.react-dropdown-select-option{
+    background:$primary-color !important;
+}
+
+.react-dropdown-select-item-selected{
+    background:$primary-color !important;
+}
+.react-datepicker__day--selected{
+    background-color:$primary-color;
+}
