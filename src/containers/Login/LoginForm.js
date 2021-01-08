@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { login, resetPassword } from '../../actions/authActions';
 // import Loader from '../../components/Loader/Loader';
 import { withRouter } from "react-router-dom";
@@ -70,7 +70,8 @@ function LoginForm(props) {
       setState(prevState => ({
             ...prevState,
             [e.target.name] : e.target.value,
-            error1: null
+            error1: null,
+            email_error: ''
       }))
       // this.checkEmpty();
     }
@@ -78,7 +79,7 @@ function LoginForm(props) {
         e.preventDefault();    
         const { email } = state;
         if (email) {
-          dispatch(resetPassword({user:email}))
+          dispatch(resetPassword({user:{'email': email}}))
           .then((res) => {
             if(res.data.status === 400) {
               setState(prevState => ({
@@ -108,8 +109,8 @@ function LoginForm(props) {
         }
     };
 
-    // const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
-    console.log("state.email",state.email)
+    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
+    // console.log("state.email",loader)
     
     return(
         <section className="user-area ptb-100">
@@ -165,7 +166,7 @@ function LoginForm(props) {
                         </div>
           
                         <div className="col-12">
-                          <button className="default-btn" type="submit" onClick={handleSubmitClick}>
+                          <button className="default-btn" type="submit" onClick={handleSubmitClick} disabled={loader}>
                             Log In
                           </button>
                         </div>
@@ -229,7 +230,7 @@ function LoginForm(props) {
 
 
                       <center> 
-                        <button className="default-btn" onClick={forgotPassword}>
+                        <button className="default-btn" onClick={forgotPassword} disabled={loader}>
                             Send
                         </button>
                         <button className="default-btn" onClick={handleClose}>

@@ -40,7 +40,7 @@ function Freelancer(props) {
       })
     }
     const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
-    console.log("state.users",loader)
+    // console.log("state.users",loader)
 
 
     return(
