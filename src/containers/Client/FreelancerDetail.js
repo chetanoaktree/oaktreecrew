@@ -32,7 +32,7 @@ function FreelancerDetail(props) {
           }
       })
     }
-    console.log("detail",state.detail)
+    // console.log("detail",state.detail)
     return(
       <React.Fragment>
         <div className="page-title-area">
@@ -59,14 +59,14 @@ function FreelancerDetail(props) {
                   <div className="row align-items-center">
                     <div className="col-lg-2">
                       <div className="hot-jobs-img">
-                        <img src={avatar} alt="Image" />
+                        <img src={_.get(state.detail, 'user_image', [avatar])} alt="Image" />
                       </div>
                     </div>
 
                     <div className="col-lg-6">
                       <div className="candidates-cv-content">
                         <h3>{_.get(state.detail, 'first_name', ['']) + ' ' +_.get(state.detail, 'last_name', [''])}</h3>
-                        <span className="sub-title">{_.get(state.detail.additional_information, 'category', [''])}</span>
+                        <span className="sub-title">{_.get(state.detail.additional_information, 'title', [''])}</span>
                         <ul>
                           <li><span>Location: </span>{_.get(state.detail, 'address', [''])}</li>
                         </ul>
@@ -81,7 +81,7 @@ function FreelancerDetail(props) {
 
                 <div className="candidates-details-content">
                   <h3>About Me</h3>
-                  <p>{_.get(state.detail.additional_information, 'notes', [''])}</p>
+                  <p>{_.get(state.detail.additional_information, 'about_me', [''])}</p>
 
                   <h3>Education</h3>
                   {state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
@@ -111,72 +111,39 @@ function FreelancerDetail(props) {
                     (<ul></ul>)
                   } 
 
+                  <h3>Projects</h3>
+                  {state.detail && state.detail.project_informations.length > 0 ? state.detail.project_informations.map((row,i) => {
+                    return (
+                        <ul key={i}>
+                          <li className="arts">{row.title}</li>
+                          <li className="university">Period: {row.start_date} to {row.end_date} </li>
+                          <li className="university">Skills: {row.technologies} </li>
+                          <li className="summary">{row.summary}</li>
+                        </ul>
+                        )
+                    })
+                    : 
+                    (<ul></ul>)
+                  } 
+
                   <h4>Personal Skills</h4>
 
                   <div className="all-skill-bar">
-                    <div className="skill-bar" data-percentage="100%">
-                      <h4 className="progress-title-holder">
-                        <span className="progress-title">Photoshop</span>
-                        <span className="progress-number-wrapper">
-                          <span className="progress-number-mark" >
-                            <span className="percent">100%</span>
-                            <span className="down-arrow"></span>
-                          </span>
-                        </span>
-                      </h4>
-        
-                      <div className="progress-content-outter">
-                        <div className="progress-content" ></div>
-                      </div>
-                    </div>
-        
-                    <div className="skill-bar" data-percentage="90%">
-                      <h4 className="progress-title-holder clearfix">
-                        <span className="progress-title">After Effects</span>
-                        <span className="progress-number-wrapper">
-                          <span className="progress-number-mark" >
-                            <span className="percent">90%</span>
-                            <span className="down-arrow"></span>
-                          </span>
-                        </span>
-                      </h4>
-        
-                      <div className="progress-content-outter">
-                        <div className="progress-content" ></div>
-                      </div>
-                    </div>
-        
-                    <div className="skill-bar" data-percentage="85%">
-                      <h4 className="progress-title-holder clearfix">
-                        <span className="progress-title">Indesign</span>
-                        <span className="progress-number-wrapper">
-                          <span className="progress-number-mark" >
-                            <span className="percent">85%</span>
-                            <span className="down-arrow"></span>
-                          </span>
-                        </span>
-                      </h4>
-        
-                      <div className="progress-content-outter">
-                        <div className="progress-content" ></div>
-                      </div>
-                    </div> 
-        
-                    <div className="skill-bar mb-0" data-percentage="60%">
-                      <h4 className="progress-title-holder clearfix">
-                        <span className="progress-title">HTML &amp; CSS</span>
-                        <span className="progress-number-wrapper">
-                          <span className="progress-number-mark" >
-                            <span className="percent">60%</span>
-                            <span className="down-arrow"></span>
-                          </span>
-                        </span>
-                      </h4>
-        
-                      <div className="progress-content-outter">
-                        <div className="progress-content" ></div>
-                      </div>
-                    </div> 
+                    {state.detail && state.detail.additional_information.skills.split(',').map((skill)=>{
+                        return (<div className="skill-bar" data-percentage="100%">
+                              <h4 className="progress-title-holder">
+                                <span className="progress-title">{skill}</span>
+                                
+                              </h4>
+                
+                              <div className="progress-content-outter">
+                                <div className="progress-content" ></div>
+                              </div>
+                          </div>)
+                        })
+                    }
+                    
+         
                   </div> 
                 </div>
               </div>

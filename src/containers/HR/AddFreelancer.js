@@ -251,8 +251,8 @@ function AddFreelancer(props) {
     const addProject = () => {
         let proj = {
                 title: "", 
-                start_date: "", 
-                end_date: "", 
+                start_date: new Date(), 
+                end_date: new Date(), 
                 technologies: "", 
                 summary: ""
             }
@@ -1205,7 +1205,7 @@ function AddFreelancer(props) {
                                             Add
                                         </a>
                                     </div>
-                                    {state.experience_informations_attributes.map((item, i) => {
+                                    {state.project_informations_attributes.map((item, i) => {
                                         return (
                                         <React.Fragment>
                                             <div className="col-lg-6 col-md-6">
@@ -1241,7 +1241,7 @@ function AddFreelancer(props) {
                                                     <label>Start Date</label>
                                                     <div className="input-group date" id="datetimepicker">
                                                         <DatePicker
-                                                          selected={new Date(state.project_informations_attributes[i].start_date)}
+                                                          selected={new Date(state.project_informations_attributes[i].start_date || '')}
                                                           onChange={(date) => handleProjectDateChange('start_date', date, i)}
                                                           className="form-control mn_input post-job-boxes"
                                                           dateFormat="yyyy-MM-dd"
@@ -1261,7 +1261,7 @@ function AddFreelancer(props) {
                                                     <label>End Date</label>
                                                     <div className="input-group date" id="datetimepicker">
                                                         <DatePicker
-                                                          selected={new Date(state.project_informations_attributes[i].end_date)}
+                                                          selected={new Date(state.project_informations_attributes[i].end_date  || '')}
                                                           onChange={(date) => handleProjectDateChange('end_date', date, i)}
                                                           className="form-control mn_input post-job-boxes"
                                                           dateFormat="yyyy-MM-dd"

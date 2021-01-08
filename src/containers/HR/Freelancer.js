@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
@@ -161,7 +162,7 @@ function Freelancer(props) {
                                                             </div>
                                                         </td>
                                                         <td scope="row">{row.uuid}</td>
-                                                        <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.first_name +' '+row.last_name } </td>
+                                                        <td><img src={_.get(row, 'user_image', [profileImageThumbnail])} className="freelancers-list-profile-thumbnail" /> {row.first_name +' '+row.last_name } </td>
                                                         <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
                                                         <td><i className='bx bx-calendar' ></i> {new Date(row.created_at).toLocaleDateString()}</td>
                                                         <td className="do-action-button-container">
