@@ -433,11 +433,11 @@ function AddFreelancer(props) {
                             ]
     const technology_options = [
                               { value: '', label: 'Select' },
-                              { value: 'Salesforce Developer', label: 'Salesforce Developer' },
-                              { value: 'ROR Developer', label: 'ROR Developer' },
-                              { value: 'React Developer', label: 'React Developer' },
-                              { value: 'IOS Developer', label: 'IOS Developer' },
-                              { value: 'NodeJS Developer', label: 'NodeJS Developer' },
+                              { value: 'Salesforce', label: 'Salesforce' },
+                              { value: 'ROR', label: 'ROR' },
+                              { value: 'React', label: 'React' },
+                              { value: 'IOS', label: 'IOS' },
+                              { value: 'NodeJS', label: 'NodeJS' },
                               { value: 'HTML', label: 'HTML' },
                               { value: 'CSS', label: 'CSS' },
                               { value: 'JavaScript', label: 'JavaScript' },
