@@ -26,7 +26,15 @@ class Header extends Component {
     const { auth } = this.props;
     // console.log("authh",auth)
     
-    
+    var route = this.props.location.pathname
+    var path = route.split('/');
+
+    var isActive1 = ''
+    if(path[1] === "freelancer"  || path[1] === "addfreelancer"){
+      isActive1 = "active"
+    }
+
+    // console.log('addfreelancer', isActive1)
     return (
         <header className="header-area">
             <div className="navbar-area is-sticky">
@@ -54,13 +62,13 @@ class Header extends Component {
                                 <React.Fragment>
                                     <ul className="navbar-nav m-auto">
                                         <li className="nav-item">
-                                            <a href="#" className="nav-link active">
+                                            <a href="#" className="nav-link">
                                                 Dashboard
                                             </a>
                                         </li>
 
                                         <li className="nav-item">
-                                            <a href="#" className="nav-link">
+                                            <a href="/freelancer" className={"nav-link "  + isActive1}>
                                                 Freelancers
                                             </a>
                                         </li>

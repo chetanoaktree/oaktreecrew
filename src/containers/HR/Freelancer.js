@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
+import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 
 
-function HR(props) {
+function Freelancer(props) {
 
     const [state , setState] = useState({
         from_data: "",
@@ -38,8 +39,8 @@ function HR(props) {
           }
       })
     }
-
-    // console.log("state.users",state.users)
+    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
+    console.log("state.users",loader)
 
 
     return(
@@ -56,7 +57,7 @@ function HR(props) {
                               <div className="col-md-5">
                                   <div className="row">
                                       <div className="col-md-4">
-                                          <a href="/addfreelacner" className="default-btn">
+                                          <a href="/addfreelancer" className="default-btn">
                                               Create New
                                           </a>
                                       </div>
@@ -96,6 +97,9 @@ function HR(props) {
                                         <a className="nav-link" id="pills-Interview-tab" data-toggle="pill" href="#pills-Interview" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">0</span> Interview</a>
                                     </li>
                                     <li className="nav-item">
+                                        <a className="nav-link" id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">0</span> Rejected</a>
+                                    </li>
+                                    {/*<li className="nav-item">
                                         <a className="nav-link" id="pills-Assessment-tab" data-toggle="pill" href="#pills-Assessment" role="tab" aria-controls="pills-Assessment" aria-selected="false"><span className="tabs-counter-value">0</span> Assessment</a>
                                     </li>
                                     <li className="nav-item">
@@ -103,7 +107,7 @@ function HR(props) {
                                     </li>     
                                     <li className="nav-item">
                                         <a className="nav-link" id="pills-Decision-tab" data-toggle="pill" href="#pills-Decision" role="tab" aria-controls="pills-Decision" aria-selected="false"><span className="tabs-counter-value">0</span> Decision</a>
-                                    </li>    
+                                    </li>*/}    
                                     <li className="nav-item">
                                         <a className="nav-link" id="pills-Job-offer-and-contract-tab" data-toggle="pill" href="#pills-Job-offer-and-contract" role="tab" aria-controls="pills-Job-offer-and-contract" aria-selected="false"><span className="tabs-counter-value">0</span> Job offer & contract</a>
                                     </li>                                                                                                             
@@ -122,13 +126,24 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {state.users.length > 0 ? state.users.map((row,i) => {
+                                                {loader ? 
+                                                  Array.from(Array(10), (e, i) => {
+                                                    return (
+                                                        <tr>
+                                                          {Array.from(Array(5), (e, i) => {
+                                                            return (<td>
+                                                                <TableListingLoader />
+                                                              </td>)
+                                                        })}
+                                                      </tr>)
+                                                  }) 
+                                                :
+                                                 state.users.length > 0 ? state.users.map((row,i) => {
                                                   return (
                                                     <tr key={i}>
                                                         <td>
@@ -139,7 +154,6 @@ function HR(props) {
                                                         <td scope="row">{row.id}</td>
                                                         <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.first_name +' '+row.last_name } </td>
                                                         <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                        <td>20% Complete</td>
                                                         <td><i className='bx bx-calendar' ></i> {new Date(row.created_at).toLocaleDateString()}</td>
                                                         <td className="do-action-button-container">
                                                             <div className="dropdown">
@@ -176,7 +190,7 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
+                                                    
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -191,7 +205,7 @@ function HR(props) {
                                                     <td scope="row">1039</td>
                                                     <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Clark Davidson </td>
                                                     <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>20% Complete</td>
+                                                    
                                                     <td><i className='bx bx-calendar' ></i> Oct 2</td>
                                                     <td className="do-action-button-container">
                                                         <div className="dropdown">
@@ -215,7 +229,7 @@ function HR(props) {
                                                     <td scope="row">1038</td>
                                                     <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Vanessa Thomas </td>
                                                     <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>30% Complete</td>
+                                                    
                                                     <td><i className='bx bx-calendar' ></i> Oct 2</td>
                                                     <td className="do-action-button-container">
                                                         <div className="dropdown">
@@ -239,7 +253,7 @@ function HR(props) {
                                                     <td scope="row">1037</td>
                                                     <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Joe Birdland </td>
                                                     <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>20% Complete</td>
+                                                    
                                                     <td><i className='bx bx-calendar' ></i> Oct 1</td>
                                                     <td className="do-action-button-container">
                                                         <div className="dropdown">
@@ -263,7 +277,7 @@ function HR(props) {
                                                     <td scope="row">1036</td>
                                                     <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Kiki Sidwali </td>
                                                     <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>50% Complete</td>
+                                                    
                                                     <td><i className='bx bx-calendar' ></i> sep 30</td>
                                                     <td className="do-action-button-container">
                                                         <div className="dropdown">
@@ -287,7 +301,7 @@ function HR(props) {
                                                     <td scope="row">1035</td>
                                                     <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Vanessa Thomas </td>
                                                     <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    <td>20% Complete</td>
+                                                    
                                                     <td><i className='bx bx-calendar' ></i> Aug 15</td>
                                                     <td className="do-action-button-container">
                                                         <div className="dropdown">
@@ -320,7 +334,7 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
+                                                    
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -335,7 +349,7 @@ function HR(props) {
                                                     <td scope="row">1034</td>
                                                     <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Joe Birdland </td>
                                                     <td><span className="status-indicator status-indicator-in-scheduling"></span> In Scheduling</td>
-                                                    <td>Interview Not Started</td>
+                                                    
                                                     <td><i className='bx bx-calendar' ></i> Aug 13</td>
                                                     <td className="do-action-button-container">
                                                         <div className="dropdown">
@@ -367,7 +381,35 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
+                                                    
+                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td colSpan="7">
+                                                        <div className="text-center"><h6>No Data Found</h6></div>
+                                                    </td>
+                                                </tr>                                                                                                                  
+                                                </tbody>
+                                            </table>
+                                        </div>                                
+                                    </div>
+                                    <div className="tab-pane fade" id="pills-Rejected" role="tabpanel" aria-labelledby="pills-Rejected-tab">
+                                        <div className="table-responsive">
+                                            <table className="freelancers-list-table table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">
+                                                        <div className="checkboxs">
+                                                            <input type="checkbox" id="chb2" />
+                                                        </div>
+                                                    </th>
+                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
+                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
+                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
+                                                    
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -395,7 +437,7 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
+                                                    
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -423,7 +465,7 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
+                                                    
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -451,7 +493,7 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
+                                                    
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -479,7 +521,7 @@ function HR(props) {
                                                     <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
                                                     <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
                                                     <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">PROGRESS <i className='bx bx-sort'></i></th>
+                                                    
                                                     <th scope="col">Date <i className='bx bx-sort'></i></th>
                                                     <th scope="col"></th>
                                                 </tr>
@@ -507,4 +549,4 @@ function HR(props) {
     )
 }
 
-export default withRouter(HR);
+export default withRouter(Freelancer);

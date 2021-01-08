@@ -35,7 +35,7 @@ function LoginForm(props) {
         dispatch(login({user: data}))
           .then((res)=> {
             if(res && res.status === 200) {
-               props.history.push('/');
+               props.history.push('/freelancer');
             }else{
                NotificationManager.error(res.message, 'Error');  
             }
