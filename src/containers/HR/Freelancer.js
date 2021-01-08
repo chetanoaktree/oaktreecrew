@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
+import {NotificationManager} from 'react-notifications';
 import TableListingLoader from "../../components/Loader/Skelton"
-import { fetchFreelancers } from '../../actions/hrActions';
+import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 
 
@@ -27,7 +28,7 @@ function Freelancer(props) {
       // Update the document title using the browser API
       dispatch(fetchFreelancers(data)).then((res)=> {
           if(res && res.status === 200) {
-            console.log("res",res.data)
+            // console.log("res",res.data)
              setState(prevState => ({
                 ...prevState,
                 from_data: res.data.from_data,
@@ -42,7 +43,15 @@ function Freelancer(props) {
     const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
     // console.log("state.users",loader)
 
-
+    const handleDelete = (uuid) => {
+      dispatch(deleteFreelancer(uuid)).then((res)=> {
+          if(res && res.status === 200) {
+            // console.log("res",res)
+            NotificationManager.success(res.message, 'Delete');  
+            fetchData();
+          }
+      }) 
+    }
     return(
             // Start Root Div
             <div>
@@ -134,9 +143,9 @@ function Freelancer(props) {
                                                 {loader ? 
                                                   Array.from(Array(10), (e, i) => {
                                                     return (
-                                                        <tr>
-                                                          {Array.from(Array(5), (e, i) => {
-                                                            return (<td>
+                                                        <tr key={i}>
+                                                          {Array.from(Array(5), (e, j) => {
+                                                            return (<td key={j}>
                                                                 <TableListingLoader />
                                                               </td>)
                                                         })}
@@ -151,7 +160,7 @@ function Freelancer(props) {
                                                                 <input type="checkbox" id="chb2" />
                                                             </div>
                                                         </td>
-                                                        <td scope="row">{row.id}</td>
+                                                        <td scope="row">{row.uuid}</td>
                                                         <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.first_name +' '+row.last_name } </td>
                                                         <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
                                                         <td><i className='bx bx-calendar' ></i> {new Date(row.created_at).toLocaleDateString()}</td>
@@ -161,9 +170,9 @@ function Freelancer(props) {
                                                                     <i className='bx bx-dots-horizontal-rounded'></i>
                                                                 </button>
                                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                  <a className="dropdown-item" href={"/freelancer-detail/"+row.id}>View</a>
+                                                                  <a className="dropdown-item" href={"/freelancer-detail/"+row.uuid}>View</a>
                                                                   <a className="dropdown-item" href="#">Edit</a>
-                                                                  <a className="dropdown-item" href="#">Delete</a>
+                                                                  <a className="dropdown-item" onClick={() => handleDelete(row.uuid)}>Delete</a>
                                                                 </div>
                                                             </div>                                                
                                                         </td>

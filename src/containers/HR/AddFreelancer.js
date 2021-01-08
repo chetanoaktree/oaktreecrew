@@ -553,7 +553,7 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="choose-img">
                                             <p>Upload (Profile)</p>
-                                            <input type="file" id="avatar" name="avatar" onChange={onPhotoUpload} required/>
+                                            <input type="file" id="avatar" name="avatar" accept="image/*" onChange={onPhotoUpload} required/>
                                         </div>
                                     </div>
 
