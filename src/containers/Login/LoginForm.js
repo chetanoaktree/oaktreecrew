@@ -196,11 +196,8 @@ function LoginForm(props) {
 
 
 
-              <Modal show={state.show} onHide={handleClose} className="Reset-Your-Password-Popup" centered >
+                  <Modal show={state.show} onHide={handleClose} className="Reset-Your-Password-Popup" centered >
                     <Modal.Body>
-
-                      {/* <img src={forgot_password} alt="forgot password" className="forgot-password-popup-image"/> */}
-
                       <h3 className="text-center">Reset Your Password</h3>
                       <p className="text-center">Please enter the Email address which is registered with us.<br />We will send a new password to that address.</p>
                       
@@ -209,40 +206,26 @@ function LoginForm(props) {
 
                         </Col>
                         <Col xs={12} md={10}>
-                        { state.email_error ? (
-                        <div className="alert alert-danger" role="alert">
-                          {state.email_error}
-                        </div>
-                        ) : null
-                        }
-
-                      <input type="email" name="email" className="form-control" placeholder="Enter Your Email Address" id="email" value={state.email} onChange={fieldValChange} required />
-                      
-                      <span>{state.error1}</span>
+                          { state.email_error ? (
+                          <div className="alert alert-danger" role="alert">
+                            {state.email_error}
+                          </div>
+                          ) : null
+                          }
+    
+                          <input type="email" name="email" className="form-control" placeholder="Enter Your Email Address" id="email" value={state.email} onChange={fieldValChange} required />
+                          <span>{state.error1}</span>
 
                         </Col>                                
-                        <Col xs={12} md={1}>
-
-                        </Col>
                       </Row>
-
-
-
-                      <center> 
-                        <button className="default-btn" onClick={forgotPassword}>
-                            Send
-                        </button>
-                        <button className="default-btn" onClick={handleClose}>
-                            Cancel
-                        </button>
-                      </center> 
-
                     </Modal.Body>
-                    {/* <Modal.Footer>
+                    <Modal.Footer>
+                      <button className="default-btn default-btn btn-two" onClick={handleClose}>Close</button>
+                      <button className="default-btn default-btn" onClick={forgotPassword}>Send</button>
+                    </Modal.Footer>
 
-
-                    </Modal.Footer> */}
-              </Modal>
+                    
+                  </Modal>
             </div>
           </section>
     )
