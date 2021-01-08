@@ -236,14 +236,24 @@ body {
   }
   
   .default-btn.btn-two {
-    background-color: #79b530;
+    background-color:$secondary-color;
   }
-  
+  .default-btn.btn-two:hover {
+    background-color:$primary-color;
+  }  
   .default-btn:hover {
-    background-color: #1a1a1a;
+    background-color: $secondary-color;
     color: #ffffff;
   }
   
+  .default-btn:disabled{
+    background: #C6C6C6;
+    color: #8D8D8D;
+  }
+  .default-btn:disabled:hover{
+    background: #C6C6C6;
+    color: #8D8D8D;
+  }
   /*
   Read More Btn Area Style*/
   .read-more {
