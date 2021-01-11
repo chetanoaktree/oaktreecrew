@@ -72,7 +72,7 @@ export function updateSalesforceCode(code) {
 }
 
 export function updatePassword(data, id) {
-  return dispatch => axios.put(REACT_API_URL + `/recover_passwords/${id}`, data)
+  return dispatch => axios.put(REACT_API_URL + `/users/password?uuid=${id}`, data)
     .then(res => {
       return res
     }).catch((err) => {
@@ -182,7 +182,7 @@ export function getConfirmation(url) {
 }
 
 export function authorizeToken(data) {
-  return dispatch => axios.get(REACT_API_URL + `/edit/password?token=${data}`)
+  return dispatch => axios.get(REACT_API_URL + `/users/password/edit?reset_password_token=${data}`)
     .then(res => {
       return res
     }).catch((err) => {

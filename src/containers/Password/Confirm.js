@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { authorizeToken, set_session, updatePassword } from '../../actions/authActions';
 import { Button, Modal,Row, Col } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
+import {NotificationManager} from 'react-notifications';
 
 // import error_icons from '../../assets/images/warning.svg';
 // import password_unlock from '../../assets/images/password-unlock.svg';
@@ -64,11 +65,15 @@ class Confirm extends Component {
     if (this.isValid()) {
       const { password, token } = this.state;
       const user = { user:  { password } }
-      this.props.updatePassword(user, token.user.id)
+      this.props.updatePassword(user, token.user.uuid)
       .then((res) => {
         if(res.data.status === 200) {
-          this.props.set_session(res)
-          this.setState({sucess: true, passwordModal: false})
+          NotificationManager.success(res.data.message, 'Sucess');  
+          // this.props.set_session(res)
+          // this.setState({sucess: true, passwordModal: false})
+          this.handleClose()
+        }else{
+          NotificationManager.error(res.data.message, 'Error');
         }
       }).catch((err) => {
         console.log(err)
