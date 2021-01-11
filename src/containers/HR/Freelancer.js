@@ -209,7 +209,8 @@ function Freelancer(props) {
                                                             }
                                                           ]}
                                                 />
-                                                <div className="table-responsive">
+                                          {/*
+                                          <div className="table-responsive">
 
                                             <table className="freelancers-list-table table table-striped">
                                                 <thead>
@@ -272,7 +273,8 @@ function Freelancer(props) {
                                                 }                                                                                                     
                                                 </tbody>
                                             </table>
-                                        </div>
+                                          </div>
+                                        */}
                                     </div>
                                     <div className="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
                                         <div className="table-responsive">
