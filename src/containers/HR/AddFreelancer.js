@@ -4,19 +4,20 @@ import { withRouter } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-dropdown-select";
-import { saveFreelancer } from '../../actions/hrActions';
 import {NotificationManager} from 'react-notifications';
+import csc from "country-state-city";
+import { saveFreelancer } from '../../actions/hrActions';
 
 
 function AddFreelancer(props) {
     
     const [state , setState] = useState({
-        avatar: "",
+        avatar: null,
         email:"",
         first_name: "",
         last_name: "",
         phone: "",
-        dob: "2003-01-01",
+        dob: "",
         nationality: "",
         gender: "",
         martial_status: "",
@@ -25,6 +26,10 @@ function AddFreelancer(props) {
         total_experience: "",
         role_ids:[2],
         skip_password_validation: true,
+        country: '',
+        state: '',
+        city: '',
+        pincode: '',
         additional_information_attributes: {
             title: "",
             about_me:"", 
@@ -34,7 +39,9 @@ function AddFreelancer(props) {
             skills: '',
             job_nature:"", 
             job_level: "",
-            attachment: ""
+            attachment: "",
+            github_link: "",
+            linkedin_link: "",
         },
         experience_informations_attributes: [
             {
@@ -68,11 +75,15 @@ function AddFreelancer(props) {
                 start_date: "2021-01-01", 
                 end_date: "2021-01-01", 
                 technologies: "", 
-                summary: ""
+                summary: "",
+                project_link: ""
             }
-        ]
+        ],
+        stateArg: [],
+        cityArg: []
     })
 
+    
     const [errors , setError] = useState({
         email: "",
         first_name: "",
@@ -98,10 +109,67 @@ function AddFreelancer(props) {
     }
 
     const handleSelect = (name, value) => {
-      // console.log(name,"----",value) 
+      // console.log(name,"----",value)
+      if(value.length === 0){
+        return false
+      } 
         setState(prevState => ({
             ...prevState,
             [name] : value[0].value
+        }))
+    }
+
+    const selectCurrentCountry = (name, value) => {
+        if(value.length === 0){
+            return false
+        }
+        // console.log(name,"----",value)
+        setState(prevState => ({
+            ...prevState,
+            [name] : value[0].name
+        }))
+
+        let stateArg = csc.getStatesOfCountry(value[0].isoCode);
+
+        setState(prevState => ({
+            ...prevState,
+            stateArg : stateArg,
+            cityArg : [],
+            state: '',
+            city: ''
+        }))
+
+        // console.log("state",state)
+        // const city = csc.getCitiesOfState(state.id)[0];
+    }
+
+    const selectCurrentState = (name, value) => {
+      // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
+        setState(prevState => ({
+            ...prevState,
+            [name] : value[0].name
+        }))
+
+        let cityArg = csc.getCitiesOfState(value[0].countryCode, value[0].isoCode);
+        // console.log("cityArg",cityArg)
+        setState(prevState => ({
+            ...prevState,
+            cityArg : cityArg,
+            city: ''
+        }))
+    }
+
+    const selectCurrentCity = (name, value) => {
+      // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
+        setState(prevState => ({
+            ...prevState,
+            [name] : value[0].name
         }))
     }
 
@@ -116,6 +184,9 @@ function AddFreelancer(props) {
 
     const handleSelectLanguage = (name, value) => {
       // console.log(name,"----",value.map(e => e.value).join(",")) 
+        if(value.length === 0){
+            return false
+        }
         setState(prevState => ({
             ...prevState,
             [name] : value.map(e => e.value).join(",")
@@ -135,6 +206,9 @@ function AddFreelancer(props) {
 
     const handleSelectAdditional = (name, value) => {
       // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
       if(name === 'skills'){
         setState({...state,  
             additional_information_attributes: {
@@ -208,11 +282,21 @@ function AddFreelancer(props) {
 
     const handleSelectEducation = (name, value, index) => {
       // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
         let newState = Object.assign(state);
         let education = newState.education_informations_attributes[index]
         education[name] = value[0].value
 
         setState(newState);
+    }
+
+    const removeEducation = (index) => {
+
+        let newState = Object.assign(state);
+        newState.education_informations_attributes.splice(index, 1)
+        setState(newState)
     }
 
     const addExperience = () => {
@@ -241,11 +325,21 @@ function AddFreelancer(props) {
     }
     const handleSelectExperience = (name, value, index) => {
       // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
         let newState = Object.assign(state);
         let experience = newState.experience_informations_attributes[index]
         experience[name] = value[0].value
 
         setState(newState);
+    }
+
+    const removeExperience = (index) => {
+
+        let newState = Object.assign(state);
+        newState.experience_informations_attributes.splice(index, 1)
+        setState(newState)
     }
 
     const addProject = () => {
@@ -254,11 +348,19 @@ function AddFreelancer(props) {
                 start_date: new Date(), 
                 end_date: new Date(), 
                 technologies: "", 
-                summary: ""
+                summary: "",
+                project_link: ""
             }
         setState({...state,  
             project_informations_attributes: [...state.project_informations_attributes, proj]
         })
+    }
+
+    const removeProject = (index) => {
+
+        let newState = Object.assign(state);
+        newState.project_informations_attributes.splice(index, 1)
+        setState(newState)
     }
 
     const handleProject = (e, index) => {
@@ -267,11 +369,13 @@ function AddFreelancer(props) {
         let newState = Object.assign(state);
         let project = newState.project_informations_attributes[index]
         project[e.target.name] = e.target.value
-
         setState(newState);
     }
     const handleSelectProject = (name, value, index) => {
       // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
         let newState = Object.assign(state);
         let project = newState.project_informations_attributes[index]
         project[name] = value.map(e => e.value).join(",")
@@ -322,7 +426,11 @@ function AddFreelancer(props) {
                     address: state.address,
                     languages: state.languages,
                     total_experience: state.total_experience,
-                    role_ids:'2',
+                    role_name:'freelancer',
+                    country: state.country,
+                    state: state.state,
+                    city: state.city,
+                    pincode: state.pincode,
                     skip_password_validation: true
                 }
         var form_data = new FormData();
@@ -339,6 +447,8 @@ function AddFreelancer(props) {
         form_data.append("user[additional_information_attributes[job_nature]]",state.additional_information_attributes.job_nature)
         form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
         form_data.append("user[additional_information_attributes[attachment]]",state.additional_information_attributes.attachment)
+        form_data.append("user[additional_information_attributes[github_link]]",state.additional_information_attributes.github_link)
+        form_data.append("user[additional_information_attributes[linkedin_link]]",state.additional_information_attributes.linkedin_link)
 
         state.education_informations_attributes.map((p,index) => {
             form_data.append(`user[education_informations_attributes[${index}][education_level]]`, p.education_level)
@@ -355,10 +465,7 @@ function AddFreelancer(props) {
 
         state.experience_informations_attributes.map((p,index) => {
             form_data.append(`user[experience_informations_attributes[${index}][company_name]]`, p.company_name)
-            form_data.append(`user[experience_informations_attributes[${index}][company_business]]`, p.company_business)
             form_data.append(`user[experience_informations_attributes[${index}][designation]]`, p.designation)
-            form_data.append(`user[experience_informations_attributes[${index}][department]]`, p.department)
-            form_data.append(`user[experience_informations_attributes[${index}][responsebilities]]`, p.responsebilities)
             form_data.append(`user[experience_informations_attributes[${index}][company_location]]`, p.company_location)
             form_data.append(`user[experience_informations_attributes[${index}][employment_period_year]]`, p.employment_period_year)
             form_data.append(`user[experience_informations_attributes[${index}][employment_period_month]]`, p.employment_period_month)
@@ -368,20 +475,21 @@ function AddFreelancer(props) {
 
         state.project_informations_attributes.map((p,index) => {
             form_data.append(`user[project_informations_attributes[${index}][title]]`, p.title)
-            form_data.append(`user[project_informations_attributes[${index}][start_at]]`, p.start_date)
+            form_data.append(`user[project_informations_attributes[${index}][start_date]]`, p.start_date)
             form_data.append(`user[project_informations_attributes[${index}][end_date]]`, p.end_date)
             form_data.append(`user[project_informations_attributes[${index}][technologies]]`, p.technologies)
             form_data.append(`user[project_informations_attributes[${index}][summary]]`, p.summary)
+            form_data.append(`user[project_informations_attributes[${index}][project_link]]`, p.project_link)
             return p
         })
             // console.log("form_data",form_data)
         dispatch(saveFreelancer(form_data)).then((res)=> {
             console.log("res",res)
-            if(res && res.status === 200) {
+            if(res && res.data.status === 200) {
                NotificationManager.success("Successfully added", 'Success');
                props.history.push('/freelancer');
             }else{
-               NotificationManager.error(res.message, 'Error');  
+               NotificationManager.error(res.data.messages, 'Error');  
             }
         })
     }
@@ -538,7 +646,7 @@ function AddFreelancer(props) {
                               { value: '11', label: '11' },
                               { value: '12', label: '12' }
                             ]
-    // console.log("state======",state.project_informations_attributes)
+    // console.log("state======",csc.getAllCountries())
     
     return(
         <section className="candidates-resume-area ptb-100">
@@ -553,7 +661,7 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="choose-img">
                                             <p>Upload (Profile)</p>
-                                            <input type="file" id="avatar" name="avatar" accept="image/*" onChange={onPhotoUpload} required/>
+                                            <input type="file" id="avatar" name="avatar" accept="image/*" onChange={onPhotoUpload}/>
                                         </div>
                                     </div>
 
@@ -636,7 +744,7 @@ function AddFreelancer(props) {
                                             <label>Date Of Birth</label>
                                             <div className="input-group date" id="datetimepicker">
                                                 <DatePicker
-                                                  selected={new Date(state.dob)}
+                                                  selected={state.dob !== '' ? new Date(state.dob) : ''}
                                                   onChange={handleDateChange}
                                                   className="form-control mn_input post-job-boxes"
                                                   dateFormat="yyyy-MM-dd"
@@ -644,7 +752,7 @@ function AddFreelancer(props) {
                                                   showMonthDropdown
                                                   showYearDropdown
                                                   dropdownMode="select"
-                                                  required
+                                                  
                                                 />
                                                 <span className="input-group-addon"></span>
                                                 <i className="bx bx-calendar"></i>
@@ -673,7 +781,7 @@ function AddFreelancer(props) {
                                                 options={marital_options}
                                                 onChange={(value) => handleSelect('martial_status', value)} 
                                                 value={state.martial_status}
-                                                required
+                                                
                                             />
                                         </div>
                                     </div>
@@ -715,6 +823,63 @@ function AddFreelancer(props) {
                                                 value={state.total_experience}
                                                 onChange={handleChange} 
                                                 required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>Country</label>
+                                            <Select 
+                                                name="country"
+                                                options={csc.getAllCountries()}
+                                                onChange={(value) => selectCurrentCountry('country', value)} 
+                                                value={state.country}
+                                                labelField="name"
+                                                valueField="name"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>State</label>
+                                            <Select 
+                                                name="state"
+                                                options={state.stateArg}
+                                                onChange={(value) => selectCurrentState('state', value)} 
+                                                value={state.state}
+                                                labelField="name"
+                                                valueField="name"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>City</label>
+                                            <Select 
+                                                name="city"
+                                                options={state.cityArg}
+                                                onChange={(value) => selectCurrentCity('city', value)} 
+                                                value={state.city}
+                                                labelField="name"
+                                                valueField="name"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>Pincode</label>
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="pincode"
+                                                value={state.pincode}
+                                                onChange={handleChange}
+                                                required 
                                             />
                                         </div>
                                     </div>
@@ -819,47 +984,75 @@ function AddFreelancer(props) {
                                             />
                                         </div>
                                     </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>Github Link</label>
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="github_link"
+                                                value={state.additional_information_attributes.github_link}
+                                                onChange={handleAdditional} 
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="col-lg-6 col-md-6">
+                                        <div className="form-group">
+                                            <label>Linkedin Link</label>
+                                            <input 
+                                                className="form-control" 
+                                                type="text" 
+                                                name="linkedin_link"
+                                                value={state.additional_information_attributes.linkedin_link}
+                                                onChange={handleAdditional} 
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <h4>Job Level</h4>
+                                <h4>Experience Level</h4>
 
                                 <div className="row mb-30">
                                     <div className="col-lg-4 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
-                                            Entry Level
+                                            Fresher
                                             <input 
                                                 type="radio" 
-                                                checked={state.additional_information_attributes.job_level === "Entry Level"} 
+                                                checked={state.additional_information_attributes.job_level === "Fresher"} 
                                                 name="job_level" 
-                                                value="Entry Level" required/>
+                                                value="Fresher" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
                                     <div className="col-lg-4 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
-                                            Mid Level
+                                            Intermediate
                                             <input 
                                                 type="radio" 
-                                                checked={state.additional_information_attributes.job_level === "Mid Level"} 
+                                                checked={state.additional_information_attributes.job_level === "Intermediate"} 
                                                 name="job_level" 
-                                                value="Mid Level" required/>
+                                                value="Intermediate" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
                                     <div className="col-lg-4 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
-                                            Top Level
+                                            Expert
                                             <input 
                                                 type="radio" 
-                                                checked={state.additional_information_attributes.job_level === "Top Level"} 
+                                                checked={state.additional_information_attributes.job_level === "Expert"} 
                                                 name="job_level" 
-                                                value="Top Level" required/>
+                                                value="Expert" required/>
                                             <span className="checkmark"></span>
                                         </label>
                                     </div>
                                 </div>
 
-                                <h4>Job Nature</h4>
+                                <h4>Job Type</h4>
 
                                 <div className="row mb-30">
                                     <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
@@ -897,30 +1090,6 @@ function AddFreelancer(props) {
                                     </div>
                                     <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
                                         <label className="single-check">
-                                            Internship
-                                            <input 
-                                                type="radio" 
-                                                checked={state.additional_information_attributes.job_nature === "Internship"} 
-                                                name="job_nature" 
-                                                value="Internship" required/>
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-
-                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
-                                        <label className="single-check">
-                                            Freelance
-                                            <input 
-                                                type="radio" 
-                                                checked={state.additional_information_attributes.job_nature === "Freelance"} 
-                                                name="job_nature" 
-                                                value="Freelance" required/>
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-
-                                    <div className="col-lg-2 col-sm-6 col-md-3" onChange={handleAdditional}>
-                                        <label className="single-check">
                                             Office
                                             <input 
                                                 type="radio" 
@@ -935,14 +1104,17 @@ function AddFreelancer(props) {
                                 <h3>Education</h3>
 
                                 <div className="row">
-                                    <div className="col-lg-12 col-md-12">
-                                        <a href="#" className="default-btn float-right" onClick={addEducation}>
-                                            Add
-                                        </a>
-                                    </div>
+                                    
                                     {state.education_informations_attributes.map((item, i) => {
                                         return (
                                         <React.Fragment>
+                                            {i > 0 &&
+                                                <div className="col-lg-12 col-md-12">
+                                                    <a href="#" className="default-btn float-right" onClick={() => removeEducation(i)}>
+                                                        Remove Education
+                                                    </a>
+                                                </div>
+                                            }
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Level of Education</label>
@@ -1063,19 +1235,27 @@ function AddFreelancer(props) {
                                         </React.Fragment>
                                         )
                                     })}
+                                    <div className="col-lg-12 col-md-12">
+                                        <a href="#" className="default-btn float-right" onClick={addEducation}>
+                                            Add Education
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <h3>Experience</h3>
 
                                 <div className="row">
-                                    <div className="col-lg-12 col-md-12">
-                                        <a href="#" className="default-btn float-right" onClick={addExperience}>
-                                            Add
-                                        </a>
-                                    </div>
+                                    
                                     {state.experience_informations_attributes.map((item, i) => {
                                         return (
                                         <React.Fragment>
+                                            {i > 0 &&
+                                                <div className="col-lg-12 col-md-12">
+                                                    <a href="#" className="default-btn float-right" onClick={() => removeExperience(i)}>
+                                                        Remove Experience
+                                                    </a>
+                                                </div>
+                                            }
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Company Name</label>
@@ -1091,50 +1271,11 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Company Business </label>
-                                                    <input 
-                                                        type="text"
-                                                        className="form-control"
-                                                        name="company_business" 
-                                                        onChange={(e) => handleExperience(e,i)} 
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
                                                     <label>Designation</label>
                                                     <input 
                                                         type="text"
                                                         className="form-control"
                                                         name="designation" 
-                                                        onChange={(e) => handleExperience(e,i)} 
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <label>Department</label>
-                                                    <input 
-                                                        type="text"
-                                                        className="form-control"
-                                                        name="department" 
-                                                        onChange={(e) => handleExperience(e,i)} 
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <label>Responsibilities</label>
-                                                    <input 
-                                                        type="text"
-                                                        className="form-control"
-                                                        name="responsebilities" 
                                                         onChange={(e) => handleExperience(e,i)} 
                                                         required
                                                     />
@@ -1195,19 +1336,27 @@ function AddFreelancer(props) {
                                         </React.Fragment>
                                         )
                                     })}
+                                    <div className="col-lg-12 col-md-12">
+                                        <a href="#" className="default-btn float-right" onClick={addExperience}>
+                                            Add Experience
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <h3>Project</h3>
 
                                 <div className="row">
-                                    <div className="col-lg-12 col-md-12">
-                                        <a href="#" className="default-btn float-right" onClick={addProject}>
-                                            Add
-                                        </a>
-                                    </div>
+                                    
                                     {state.project_informations_attributes.map((item, i) => {
                                         return (
                                         <React.Fragment>
+                                            {i > 0 &&
+                                                <div className="col-lg-12 col-md-12">
+                                                    <a href="#" className="default-btn float-right" onClick={() => removeProject(i)}>
+                                                        Remove Project
+                                                    </a>
+                                                </div>
+                                            }
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Title</label>
@@ -1217,6 +1366,18 @@ function AddFreelancer(props) {
                                                         name="title" 
                                                         onChange={(e) => handleProject(e,i)} 
                                                         required
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>URL</label>
+                                                    <input 
+                                                        type="text"
+                                                        className="form-control"
+                                                        name="project_link" 
+                                                        onChange={(e) => handleProject(e,i)} 
                                                     />
                                                 </div>
                                             </div>
@@ -1293,6 +1454,11 @@ function AddFreelancer(props) {
                                         </React.Fragment>
                                         )
                                     })}
+                                    <div className="col-lg-12 col-md-12">
+                                        <a href="#" className="default-btn float-right" onClick={addProject}>
+                                            Add Project
+                                        </a>
+                                    </div>
                                     <div className="col-lg-12">
                                        <button className="default-btn" >Save </button>
                                     </div>

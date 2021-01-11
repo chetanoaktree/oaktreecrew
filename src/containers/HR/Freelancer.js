@@ -3,6 +3,9 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
+import ReactTable from 'react-table-v6'
+import 'react-table-v6/react-table.css'
+
 import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
@@ -15,7 +18,9 @@ function Freelancer(props) {
         to_data:"",
         total_count: "",
         total_pages: "",
-        users: []
+        users: [],
+        page_number: 1,
+        per_page: 10
       })
     const dispatch = useDispatch();
     
@@ -24,7 +29,7 @@ function Freelancer(props) {
     }, []);
 
     const fetchData = () => {
-      let data = '?page_number=1&per_page=10&role_name=freelancer'
+      let data = `?page_number=${state.page_number}&per_page=${state.per_page}&role_name=freelancer`
       
       // Update the document title using the browser API
       dispatch(fetchFreelancers(data)).then((res)=> {
@@ -124,7 +129,88 @@ function Freelancer(props) {
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">
                                     <div className="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
-                                        <div className="table-responsive">
+                                        <ReactTable
+                                                    // Props
+                                                    data={state.users}
+                                                    page={state.page_number - 1} // the index of the page you wish to display
+                                                    pageSize={state.per_page} // the number of rows per page to be displayed
+                                                    sortable={true}
+                                                    resizable={true}
+                                                    // filterable={true}
+
+                                                    className='striped highlight'
+                                                    loading={loader}
+                                                    loadingText= {'loading.......'}
+                                                    // LoadingComponent={TableListingLoader}           
+                                                    noDataText= ''
+                                                    columns = {[
+                                                            {
+                                                              Header: () => (
+                                                                <span>
+                                                                  <i className="fa-tasks" /> Sr.
+                                                                </span>
+                                                              ),
+                                                              accessor: 'id',
+                                                              Cell: row => {
+                                                                return <span>{row.original.id}</span>
+                                                              }
+                                                            },
+                                                            {
+                                                              Header: () => (
+                                                                <span>
+                                                                  <i className="fa-tasks" /> Name
+                                                                </span>
+                                                              ),
+                                                              accessor: 'first_name',
+                                                              Cell: row => {
+                                                                return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                              }
+                                                            },
+                                                            {
+                                                              Header: () => (
+                                                                <span>
+                                                                  <i className="fa-tasks" /> Title
+                                                                </span>
+                                                              ),
+                                                              accessor: 'title',
+                                                              Cell: row => {
+                                                                return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                              }
+                                                            },
+                                                            {
+                                                              Header: 'Status',
+                                                              accessor: 'status',
+                                                              Cell: row => {
+                                                                return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                              }
+                                                            },
+                                                            {
+                                                              Header: 'Created Date',
+                                                              accessor: 'created_at',
+                                                              Cell: row => {
+                                                                return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                              }
+                                                            },
+                                                            {
+                                                              Header: 'Action',
+                                                              accessor: 'uuid',
+                                                              Cell: row => {
+                                                                return <div className="dropdown">
+                                                                          <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                              <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                          </button>
+                                                                          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                            <a className="dropdown-item" href="#">Edit</a>
+                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                          </div>
+                                                                      </div>
+                                                              }
+                                                            }
+                                                          ]}
+                                                />
+                                                <div className="table-responsive">
+
                                             <table className="freelancers-list-table table table-striped">
                                                 <thead>
                                                 <tr>
@@ -141,6 +227,7 @@ function Freelancer(props) {
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                
                                                 {loader ? 
                                                   Array.from(Array(10), (e, i) => {
                                                     return (

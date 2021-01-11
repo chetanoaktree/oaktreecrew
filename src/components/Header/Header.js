@@ -61,11 +61,6 @@ class Header extends Component {
                                {auth.isAuthenticated &&
                                 <React.Fragment>
                                     <ul className="navbar-nav m-auto">
-                                        <li className="nav-item">
-                                            <a href="#" className="nav-link">
-                                                Dashboard
-                                            </a>
-                                        </li>
 
                                         <li className="nav-item">
                                             <a href="/freelancer" className={"nav-link "  + isActive1}>
