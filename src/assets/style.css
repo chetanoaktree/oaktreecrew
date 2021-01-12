@@ -3508,8 +3508,8 @@ textarea.form-control {
   Page Title Area Style
   =====================================================*/
 .page-title-area {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   background-color: #f7f7fb;
   margin-top: 100px;
 }
@@ -3520,7 +3520,7 @@ textarea.form-control {
 
 .page-title-area .page-title-content h2 {
   margin-bottom: 0px;
-  font-size: 50px;
+  font-size: 35px;
 }
 
 .page-title-area .page-title-content ul {
@@ -7450,7 +7450,6 @@ textarea.form-control {
 #pills-tabContent .ReactTable .rt-thead .rt-th, #pills-tabContent .ReactTable .rt-thead .rt-td {
   font-size: 15px;
   font-weight: bold;
-  text-transform: uppercase;
   background: #f7f7f7;
 }
 
