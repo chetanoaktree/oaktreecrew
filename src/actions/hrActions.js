@@ -86,6 +86,37 @@ export function getFreelancer(uuid) {
 }
 
 
+export function fetchFreelancerByCategory(data) {
+  return (dispatch) => {
+    dispatch(applicationIsLoading(true));
+    return axios({
+      method: "post",
+      url: REACT_API_URL + `/api/v1/users/search_by_category`,
+      data: data 
+    })
+    .then((response) => {
+        if((response.status !== 200) || (response.data.status === 404)) {
+          // throw Error(response.statusText);
+          return response.data;
+        } else {
+          return response.data
+        }
+      }
+    )
+    .then(freelancer => {
+      dispatch(applicationIsLoading(false));
+      // dispatch(freelancerFetchSuccess(freelancer));
+      return freelancer
+    })
+    .catch((error) => {
+      dispatch(applicationIsLoading(false));
+      console.log(error)
+      return error
+    })
+  }
+}
+
+
 export function deleteFreelancer(uuid) {
   return (dispatch) => {
     dispatch(applicationIsLoading(true));
