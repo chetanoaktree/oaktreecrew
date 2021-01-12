@@ -210,9 +210,9 @@ function Freelancer(props) {
                                                               </button>
                                                               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                <a className="dropdown-item" href="#">Edit</a>
                                                                 <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
                                                               </div>
+                                                                <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
                                                           </div>
                                                   }
                                                 }
@@ -234,7 +234,6 @@ function Freelancer(props) {
                                             pageSizeOptions={[10, 20, 50]}
                                             manual // For server side pagination
                                             onFetchData={(state, instance) => {
-                                              // console.log("state",state)
                                                 fetchData(state.page, state.pageSize, state.sorted, state.filtered);
                                             }}
                                         />
