@@ -4,6 +4,19 @@
 
 }
 .tabs-counter-value {
-    font-size: 30px;
-    font-weight: 800;
+    font-weight: bold;
+}
+.freelancers-list-tabs{
+    
+        .nav-link{
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+        .nav-link.active{
+            background-color: $primary-color !important;
+            color: $white !important;
+            border-color: transparent !important;
+            
+        }
 }

@@ -29,6 +29,7 @@ import './assets/style/meanmenu.min.css';
 import './assets/style/nice-select.min.css';
 import './assets/style/odometer.min.css';
 
+import 'react-responsive-tabs/styles.css';
 
 
 import 'react-notifications/lib/notifications.css';

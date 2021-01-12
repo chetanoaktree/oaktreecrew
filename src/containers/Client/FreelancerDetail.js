@@ -151,27 +151,17 @@ function FreelancerDetail(props) {
               <div className="col-lg-4">
                 <div className="candidates-details-sidebar">
                   <div className="candidates-widget">
-                    <h3>Share This Job</h3>
+                    <h3>Social Profile</h3>
 
                     <ul className="social-icon">
                       <li>
                         <a href="#">
-                          <i className="bx bxl-facebook"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="bx bxl-instagram"></i>
+                          <i className="bx bxl-github"></i>
                         </a>
                       </li>
                       <li>
                         <a href="#">
                           <i className="bx bxl-linkedin-square"></i>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="bx bxl-twitter"></i>
                         </a>
                       </li>
                     </ul>

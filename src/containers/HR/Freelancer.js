@@ -9,6 +9,8 @@ import 'react-table-v6/react-table.css'
 import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
+import Tabs from 'react-responsive-tabs';
+
 
 
 function Freelancer(props) {
@@ -75,29 +77,19 @@ function Freelancer(props) {
             <div>
                 {/* Start Page Title Area */}
                 <div className="page-title-area">
-                  <div className="container-fluid">
+                  <div className="container">
                       <div className="page-title-content">
                           <div className="row">
-                              <div className="col-md-7">
+                              <div className="col-md-6">
                                   <h2>Freelancers</h2>                    
                               </div>
-                              <div className="col-md-5">
-                                  <div className="row">
-                                      <div className="col-md-4">
-                                          <a href="/addfreelancer" className="default-btn">
-                                              Create New
-                                          </a>
-                                      </div>
-
-                                      <div className="col-md-6">
-                                          <form className="search-form">
-                                              <input className="form-control search-box-input" name="search" placeholder="Search..." type="text" />
-                                          </form>
-                                      </div>
-                                      <div className="col-md-2">
-                                          <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter"><i className='bx bx-dots-vertical-rounded'></i></a>
-                                      </div>
-                                  </div>                            
+                              <div className="col-md-6">
+																<a href="/addfreelancer" className="default-btn float-right">
+																		Create New
+																</a>
+																{/* <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter">
+																		<i className='bx bx-dots-vertical-rounded'></i>
+																</a> */}
                               </div>                    
                           </div>
                       </div>
@@ -106,7 +98,7 @@ function Freelancer(props) {
               {/* End Page Title Area */}
               {/* Start Freelancers List Area */}
               <section className="mt-5">
-                <div className="container-fluid">
+                <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="">
@@ -135,14 +127,13 @@ function Freelancer(props) {
                                       
                                         <ReactTable
                                             data={state.users}
-                                            sortable={true}
+																						sortable={true}
+																						multiSort={true}
                                             resizable={true}
-
                                             loading={loader}
                                             loadingText= {'loading.......'}
-
                                             noDataText="No Data Found !!"
-                                            filterable
+                                            filterable 
                                             defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
                                             filtered={state.filtered}
                                             columns={[
@@ -228,7 +219,7 @@ function Freelancer(props) {
                                             ]}
                                             defaultPageSize={10}
                                             minRows= {state.users}
-                                            className="table table-bordered responsive striped highlight py-3 px-3"
+                                            className="table table-bordered responsive striped hover highlight py-3 px-3"
                                             Sorted
                                             pages={state.total_pages}
                                             showPagination={true}
