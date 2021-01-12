@@ -76,7 +76,7 @@ function FreelancerSelect(props) {
                 <div className="single-freelancer">
                   <img src={freelancer1} alt="Image" />
                   <h3>James Hendrix</h3>
-                  <span className="profession">iOS Developr</span>
+                  <span className="profession">ROR Developr</span>
                   <a href="#" className="default-btn">
                     Select
                   </a>
@@ -88,7 +88,7 @@ function FreelancerSelect(props) {
                 <div className="single-freelancer">
                   <img src={freelancer2} alt="Image" />
                   <h3>Jean Burke</h3>
-                  <span className="profession">iOS Developr</span>
+                  <span className="profession">Saleforce Developr</span>
                   <a href="#" className="default-btn">
                     Select
                   </a>
@@ -100,7 +100,7 @@ function FreelancerSelect(props) {
                 <div className="single-freelancer">
                   <img src={freelancer3} alt="Image" />
                   <h3>David Guzman</h3>
-                  <span className="profession">iOS Developr</span>
+                  <span className="profession">React Developr</span>
                   <a href="#" className="default-btn">
                     Select
                   </a>
@@ -142,83 +142,33 @@ function FreelancerSelect(props) {
                   </a>
                 </div>
               </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer7} alt="Image" />
+                  <h3>Teena Smith</h3>
+                  <span className="profession">ReactJs Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer8} alt="Image" />
+                  <h3>Chet Patel</h3>
+                  <span className="profession">Saleforce Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+
             </Slider>
-            
-{/* 
-            <div className="row">
 
-            
-
-
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer1} alt="Image" />
-                  <h3>James Hendrix</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer2} alt="Image" />
-                  <h3>Jean Burke</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer3} alt="Image" />
-                  <h3>David Guzman</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer4} alt="Image" />
-                  <h3>Clarence Hart</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer5} alt="Image" />
-                  <h3>Anna Smith</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer6} alt="Image" />
-                  <h3>Kulva Dew</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-
-            </div>
-              */}
-            
             <div className="row mt-5">
               <div className="col-lg-12 col-md-12 text-center">
                   <a href="/client-signup">
@@ -230,8 +180,6 @@ function FreelancerSelect(props) {
                   <div className="clearfix"></div>
               </div>
             </div>          
-            
-            
           </div>
         </section>
     )
