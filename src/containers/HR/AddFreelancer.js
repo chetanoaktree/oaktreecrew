@@ -7,12 +7,13 @@ import Select from "react-dropdown-select";
 import {NotificationManager} from 'react-notifications';
 import csc from "country-state-city";
 import { saveFreelancer } from '../../actions/hrActions';
-
+import LANGUAGES from "../../constants/languages";
+import CATEGORY from "../../constants/category";
 
 function AddFreelancer(props) {
     
     const [state , setState] = useState({
-        avatar: null,
+        avatar: "",
         email:"",
         first_name: "",
         last_name: "",
@@ -414,7 +415,7 @@ function AddFreelancer(props) {
     const handleSave = (e) => {
       e.preventDefault(); 
         let data = { 
-                    avatar: state.avatar,
+                   
                     email: state.email,
                     first_name: state.first_name,
                     last_name: state.last_name,
@@ -436,6 +437,9 @@ function AddFreelancer(props) {
         var form_data = new FormData();
         for ( var key in data ) {
             form_data.append(`user[${key}]`, data[key])          
+        }
+        if(state.avatar){
+            form_data.append(`user[avatar]`, state.avatar)          
         }
 
         form_data.append("user[additional_information_attributes[title]]",state.additional_information_attributes.title)
@@ -509,22 +513,9 @@ function AddFreelancer(props) {
                               { value: 'Canada', label: 'Canada' },
                               { value: 'India', label: 'India' },
                               { value: 'United Kingdom', label: 'United Kingdom' },
+                              { value: 'United State', label: 'United State' },
                             ]
-    const languages_options =  [
-                              { value: '', label: 'Select' },
-                              { value: 'English', label: 'English' },
-                              { value: 'French', label: 'French' },
-                              { value: 'Arabic', label: 'Arabic' },
-                              { value: 'German', label: 'German' },
-                            ]
-    const category_options =  [
-                              { value: '', label: 'Select' },
-                              { value: 'Salesforce Developer', label: 'Salesforce Developer' },
-                              { value: 'ROR Developer', label: 'ROR Developer' },
-                              { value: 'React Developer', label: 'React Developer' },
-                              { value: 'IOS Developer', label: 'IOS Developer' },
-                              { value: 'NodeJS Developer', label: 'NodeJS Developer' },
-                            ]
+
     const skill_options =  [
                               { value: '', label: 'Select' },
                               { value: 'HTML', label: 'HTML', key: 'Salesforce Developer, ROR Developer, React Developer, NodeJS Developer' },
@@ -802,12 +793,15 @@ function AddFreelancer(props) {
                                     <div className="col-lg-6 col-md-6">
                                         <div className="form-group">
                                             <label>Language</label>
+                                           
                                             <Select 
-                                                name="languages" 
+                                                name="languages"
                                                 multi
-                                                options={languages_options}
+                                                options={LANGUAGES}
                                                 onChange={(value) => handleSelectLanguage('languages', value)} 
                                                 value={state.languages}
+                                                labelField="name"
+                                                valueField="name"
                                                 required
                                             />
                                         </div>
@@ -955,7 +949,7 @@ function AddFreelancer(props) {
                                             <label>Category</label>
                                             <Select 
                                                 name="category" 
-                                                options={category_options}
+                                                options={CATEGORY}
                                                 onChange={(value) => handleSelectAdditional('category', value)} 
                                                 value={state.additional_information_attributes.category}
                                                 required

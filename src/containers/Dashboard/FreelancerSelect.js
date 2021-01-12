@@ -30,24 +30,6 @@ function FreelancerSelect(props) {
                   <h3>James Hendrix</h3>
                   <span className="profession">iOS Developr</span>
 
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
@@ -61,24 +43,6 @@ function FreelancerSelect(props) {
                   <img src={freelancer2} alt="Image" />
                   <h3>Jean Burke</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
 
                   <a href="#" className="default-btn">
                     Select
@@ -94,24 +58,6 @@ function FreelancerSelect(props) {
                   <h3>David Guzman</h3>
                   <span className="profession">iOS Developr</span>
 
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
@@ -125,24 +71,6 @@ function FreelancerSelect(props) {
                   <img src={freelancer4} alt="Image" />
                   <h3>Clarence Hart</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
 
                   <a href="#" className="default-btn">
                     Select
@@ -158,24 +86,6 @@ function FreelancerSelect(props) {
                   <h3>Anna Smith</h3>
                   <span className="profession">iOS Developr</span>
 
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
@@ -189,24 +99,6 @@ function FreelancerSelect(props) {
                   <img src={freelancer6} alt="Image" />
                   <h3>Kulva Dew</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
 
                   <a href="#" className="default-btn">
                     Select
@@ -222,24 +114,6 @@ function FreelancerSelect(props) {
                   <h3>Zeck De</h3>
                   <span className="profession">iOS Developr</span>
 
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
@@ -253,24 +127,6 @@ function FreelancerSelect(props) {
                   <img src={freelancer8} alt="Image" />
                   <h3>Alex Neth</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
 
                   <a href="#" className="default-btn">
                     Select
