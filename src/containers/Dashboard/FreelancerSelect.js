@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, setState } from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
-
+import Slider from "react-slick";
+import _ from 'lodash';
+import { fetchFreelancerByCategory } from '../../actions/hrActions';
 import freelancer1 from "../../assets/images/freelancer/freelancer-1.jpg";
 import freelancer2 from "../../assets/images/freelancer/freelancer-2.jpg";
 import freelancer3 from "../../assets/images/freelancer/freelancer-3.jpg";
@@ -10,13 +13,21 @@ import freelancer6 from "../../assets/images/freelancer/freelancer-6.jpg";
 import freelancer7 from "../../assets/images/freelancer/freelancer-7.jpg";
 import freelancer8 from "../../assets/images/freelancer/freelancer-8.jpg";
 
-import Slider from "react-slick";
 
 
 
 
 function FreelancerSelect(props) {
-    
+  
+  const [state , setState] = useState({
+        users: [],
+        skills: "",
+        category: ""
+    })
+
+
+  // console.log("props",props.location)  
+  const dispatch = useDispatch();
     
   var settings = {
     dots: true,
@@ -54,13 +65,33 @@ function FreelancerSelect(props) {
         }
       }
     ]    
-
-
-
-
-
   };
 
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+    const fetchData = () => {
+      let data = {}
+      if(props.location.state){
+        data = {
+          categories: props.location.state.category,
+          skills: props.location.state.skills
+        } 
+      }
+      // Update the document title using the browser API
+      dispatch(fetchFreelancerByCategory(data)).then((res)=> {
+          if(res && res.status === 200) {
+            console.log("res",res.data)
+             setState(prevState => ({
+                ...prevState,
+                users: res.data
+            }))
+          }
+      })
+    }
+
+    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
 
     return(
         <section className="freelancer-area pt-100 pb-70">
@@ -72,101 +103,20 @@ function FreelancerSelect(props) {
 
 
             <Slider {...settings}>
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer1} alt="Image" />
-                  <h3>James Hendrix</h3>
-                  <span className="profession">ROR Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-              {/*  */}
-
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer2} alt="Image" />
-                  <h3>Jean Burke</h3>
-                  <span className="profession">Saleforce Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-              {/*  */}
-
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer3} alt="Image" />
-                  <h3>David Guzman</h3>
-                  <span className="profession">React Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-              {/*  */}
-
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer4} alt="Image" />
-                  <h3>Clarence Hart</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-              {/*  */}
-
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer5} alt="Image" />
-                  <h3>Anna Smith</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-              {/*  */}
-
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer6} alt="Image" />
-                  <h3>Kulva Dew</h3>
-                  <span className="profession">iOS Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-              {/*  */}
-
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer7} alt="Image" />
-                  <h3>Teena Smith</h3>
-                  <span className="profession">ReactJs Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-              {/*  */}
-
-              <div className="">
-                <div className="single-freelancer">
-                  <img src={freelancer8} alt="Image" />
-                  <h3>Chet Patel</h3>
-                  <span className="profession">Saleforce Developr</span>
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-                </div>
-              </div>
-
+              {state.users.map((row) => {
+                return (<div className="">
+                        <div className="single-freelancer">
+                          <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
+                          <a href={"/freelancer-detail/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></a>
+                          <span className="profession">{row.additional_information.category}</span>
+                          <a href="#" className="default-btn">
+                            Select
+                          </a>
+                        </div>
+                      </div>)  
+              })}
+              
+              
             </Slider>
 
             <div className="row mt-5">
