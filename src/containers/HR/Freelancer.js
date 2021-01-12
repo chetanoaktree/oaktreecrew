@@ -35,6 +35,7 @@ function Freelancer(props) {
     }, []);
 
     const fetchData = (page, pageSize, sorted, filtered) => {
+      console.log(page, pageSize, sorted, filtered)
       let data = `?page_number=${page+1}&per_page=${pageSize}&role_name=freelancer`
       setState(prevState => ({
                 ...prevState,
@@ -82,12 +83,12 @@ function Freelancer(props) {
                                   <h2>Freelancers</h2>                    
                               </div>
                               <div className="col-md-6">
-																<a href="/addfreelancer" className="default-btn float-right">
-																		Create New
-																</a>
-																{/* <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter">
-																		<i className='bx bx-dots-vertical-rounded'></i>
-																</a> */}
+                                <a href="/addfreelancer" className="default-btn float-right">
+                                        Create New
+                                </a>
+                                {/* <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter">
+                                        <i className='bx bx-dots-vertical-rounded'></i>
+                                </a> */}
                               </div>                    
                           </div>
                       </div>
@@ -125,15 +126,15 @@ function Freelancer(props) {
                                       
                                         <ReactTable
                                             data={state.users}
-																						sortable={true}
-																						multiSort={true}
+                                            sortable={true}
+                                            multiSort={true}
                                             resizable={true}
                                             loading={loader}
                                             loadingText= {'Data Loading .......'}
                                             noDataText="No Data Found !!"
-																						filterable
+                                            filterable
                                             defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
-																						filtered={state.filtered}
+                                            filtered={state.filtered}
                                             defaultPageSize={10}
                                             minRows= {state.users}
                                             className="py-3 px-3"
@@ -143,9 +144,9 @@ function Freelancer(props) {
                                             showPaginationTop={false}
                                             showPaginationBottom={true}
                                             pageSizeOptions={[10, 20, 50]}
-                                            manual // For server side pagination
+                                            // manual // For server side pagination
                                             showPageJump={ true}
-																						collapseOnSortingChange={ true}
+                                            collapseOnSortingChange={ true}
                                             columns={[
 																							{  
 																									Header      : 'Sr.',

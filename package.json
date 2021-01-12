@@ -23,6 +23,7 @@
     "react-responsive-tabs": "^4.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-select-me": "^1.2.1",
     "react-slick": "^0.27.14",
     "react-table-v6": "^6.8.6",
     "redux": "^4.0.5",

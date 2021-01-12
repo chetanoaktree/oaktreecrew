@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { withRouter } from "react-router-dom";
+import { withRouter, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-dropdown-select";
 import {NotificationManager} from 'react-notifications';
 import csc from "country-state-city";
-import { saveFreelancer } from '../../actions/hrActions';
+import { saveFreelancer, getFreelancer } from '../../actions/hrActions';
 import LANGUAGES from "../../constants/languages";
 import CATEGORY from "../../constants/category";
 
@@ -93,6 +93,61 @@ function AddFreelancer(props) {
     })
 
     const dispatch = useDispatch();
+
+    const { uuid } = useParams();
+    // console.log("uuid",uuid)
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        if(uuid){
+          // Update the document title using the browser API
+          dispatch(getFreelancer(uuid)).then((res)=> {
+              if(res && res.status === 200) {
+                console.log("res",res.data)
+                    // detail: res.data.user
+                let data = res.data.user    
+                setState(prevState => ({
+                    avatar: "",
+                    email: data.email,
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    phone: data.phone,
+                    dob: data.dob,
+                    nationality: data.nationality,
+                    gender: data.gender,
+                    martial_status: data.martial_status,
+                    address: data.address,
+                    languages: data.languages,
+                    total_experience: data.total_experience,
+                    country: data.country,
+                    state: data.state,
+                    city: data.city,
+                    pincode: data.pincode,
+                    additional_information_attributes: {
+                        title: data.additional_information.title,
+                        about_me: data.additional_information.about_me, 
+                        presented_salary: data.additional_information.presented_salary,
+                        expected_salary: data.additional_information.expected_salary, 
+                        category: data.additional_information.category,
+                        skills: data.additional_information.skills,
+                        job_nature: data.additional_information.job_nature, 
+                        job_level: data.additional_information.job_level,
+                        attachment: data.additional_information.attachment,
+                        github_link: data.additional_information.github_link,
+                        linkedin_link: data.additional_information.linkedin_link,
+                    },
+                    experience_informations_attributes: data.experience_informations,
+                    education_informations_attributes: data.education_informations,
+                    project_informations_attributes: data.project_informations
+                }))
+              }
+          })
+        }
+    }
+
 
     const handleChange = (e) => {
       // console.log("----",e.target)
@@ -800,8 +855,8 @@ function AddFreelancer(props) {
                                                 options={LANGUAGES}
                                                 onChange={(value) => handleSelectLanguage('languages', value)} 
                                                 value={state.languages}
-                                                labelField="name"
-                                                valueField="name"
+                                                labelField="label"
+                                                valueField="value"
                                                 required
                                             />
                                         </div>
