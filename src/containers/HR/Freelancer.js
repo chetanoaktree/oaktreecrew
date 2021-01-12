@@ -34,6 +34,7 @@ function Freelancer(props) {
     }, []);
 
     const fetchData = (page, pageSize, sorted, filtered) => {
+      console.log(page, pageSize, sorted, filtered)
       let data = `?page_number=${page+1}&per_page=${pageSize}&role_name=freelancer`
       setState(prevState => ({
                 ...prevState,
@@ -125,15 +126,6 @@ function Freelancer(props) {
                                     <li className="nav-item">
                                         <a className="nav-link" id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">0</span> Rejected</a>
                                     </li>
-                                    {/*<li className="nav-item">
-                                        <a className="nav-link" id="pills-Assessment-tab" data-toggle="pill" href="#pills-Assessment" role="tab" aria-controls="pills-Assessment" aria-selected="false"><span className="tabs-counter-value">0</span> Assessment</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" id="pills-References-tab" data-toggle="pill" href="#pills-References" role="tab" aria-controls="pills-References" aria-selected="false"><span className="tabs-counter-value">0</span> References</a>
-                                    </li>     
-                                    <li className="nav-item">
-                                        <a className="nav-link" id="pills-Decision-tab" data-toggle="pill" href="#pills-Decision" role="tab" aria-controls="pills-Decision" aria-selected="false"><span className="tabs-counter-value">0</span> Decision</a>
-                                    </li>*/}    
                                     <li className="nav-item">
                                         <a className="nav-link" id="pills-Job-offer-and-contract-tab" data-toggle="pill" href="#pills-Job-offer-and-contract" role="tab" aria-controls="pills-Job-offer-and-contract" aria-selected="false"><span className="tabs-counter-value">0</span> Job offer & contract</a>
                                     </li>                                                                                                             
@@ -149,8 +141,8 @@ function Freelancer(props) {
                                             loading={loader}
                                             loadingText= {'loading.......'}
 
-                                            noDataText="No found !!"
-                                            // filterable
+                                            noDataText="No Data Found !!"
+                                            filterable
                                             defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
                                             filtered={state.filtered}
                                             columns={[
@@ -158,10 +150,10 @@ function Freelancer(props) {
                                                     Header      : 'Sr.',
                                                     accessor    : 'id',
                                                     className   : 'grid-header',
-                                                    filterable  : false,
                                                     filterMethod: (filter, row) => {
-                                                        return row[filter.id].includes(filter.value);
-                                                    }
+                                                      console.log(filter, row)
+                                                      return row[filter.id].includes(filter.value);
+                                                    },
                                                     
                                                 },
                                                 {
@@ -171,6 +163,17 @@ function Freelancer(props) {
                                                     </span>
                                                   ),
                                                   accessor: 'first_name',
+                                                  sortMethod: (a, b) => {
+                                                    if (a.length === b.length) {
+                                                      return a > b ? 1 : -1;
+                                                    }
+                                                    return a.length > b.length ? 1 : -1;
+                                                  },
+                                                  filterable  : true,
+                                                  filterMethod: (filter, row) => {
+                                                      console.log(filter, row)
+                                                      return row[filter.id].includes(filter.value);
+                                                  },
                                                   Cell: row => {
                                                     return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
                                                   }
@@ -204,15 +207,15 @@ function Freelancer(props) {
                                                   Header: 'Action',
                                                   accessor: 'uuid',
                                                   Cell: row => {
-                                                    return <div className="dropdown">
-                                                              <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    return <div className="">
+                                                              <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                   <i className='bx bx-dots-horizontal-rounded'></i>
-                                                              </button>
+                                                              </div>
                                                               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                 <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
                                                                 <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
                                                               </div>
-                                                                <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
                                                           </div>
                                                   }
                                                 }
@@ -225,84 +228,21 @@ function Freelancer(props) {
                                             ]}
                                             defaultPageSize={10}
                                             minRows= {state.users}
-                                            className="table table-bordered responsive striped highlight"
+                                            className="table table-bordered responsive striped highlight py-3 px-3"
                                             Sorted
                                             pages={state.total_pages}
                                             showPagination={true}
                                             showPaginationTop={false}
                                             showPaginationBottom={true}
                                             pageSizeOptions={[10, 20, 50]}
-                                            manual // For server side pagination
+                                            // manual // For server side pagination
+                                            showPageJump={ true}
+                                            collapseOnSortingChange={ true}
+
                                             onFetchData={(state, instance) => {
                                                 fetchData(state.page, state.pageSize, state.sorted, state.filtered);
                                             }}
                                         />
-                                          {/*
-                                          <div className="table-responsive">
-
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                
-                                                {loader ? 
-                                                  Array.from(Array(10), (e, i) => {
-                                                    return (
-                                                        <tr key={i}>
-                                                          {Array.from(Array(5), (e, j) => {
-                                                            return (<td key={j}>
-                                                                <TableListingLoader />
-                                                              </td>)
-                                                        })}
-                                                      </tr>)
-                                                  }) 
-                                                :
-                                                 state.users.length > 0 ? state.users.map((row,i) => {
-                                                  return (
-                                                    <tr key={i}>
-                                                        <td>
-                                                            <div className="checkboxs">
-                                                                <input type="checkbox" id="chb2" />
-                                                            </div>
-                                                        </td>
-                                                        <td scope="row">{row.uuid}</td>
-                                                        <td><img src={_.get(row, 'user_image', [profileImageThumbnail])} className="freelancers-list-profile-thumbnail" /> {row.first_name +' '+row.last_name } </td>
-                                                        <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                        <td><i className='bx bx-calendar' ></i> {new Date(row.created_at).toLocaleDateString()}</td>
-                                                        <td className="do-action-button-container">
-                                                            <div className="dropdown">
-                                                                <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    <i className='bx bx-dots-horizontal-rounded'></i>
-                                                                </button>
-                                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                  <a className="dropdown-item" href={"/freelancer-detail/"+row.uuid}>View</a>
-                                                                  <a className="dropdown-item" href="#">Edit</a>
-                                                                  <a className="dropdown-item" onClick={() => handleDelete(row.uuid)}>Delete</a>
-                                                                </div>
-                                                            </div>                                                
-                                                        </td>
-                                                    </tr>
-                                                    )
-                                                  })
-                                                  : 
-                                                  (<tr></tr>)
-                                                }                                                                                                     
-                                                </tbody>
-                                            </table>
-                                          </div>
-                                        */}
                                     </div>
                                     <div className="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
                                         <div className="table-responsive">

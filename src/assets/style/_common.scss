@@ -78,3 +78,48 @@
 .slick-dots li.slick-active button:before{
     color: $primary-color !important;
 }
+#pills-tabContent{
+    .ReactTable .rt-th, .ReactTable .rt-td{
+        padding: .75rem !important;
+    }
+    .ReactTable .rt-thead.-header{
+        box-shadow: none !important;
+        border-bottom: 1px solid #ebebeb !important;
+    }
+    .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td{
+        font-size: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background: #f7f7f7;
+    }
+    .ReactTable .rt-thead .rt-th.-sort-asc, .ReactTable .rt-thead .rt-td.-sort-asc{
+        box-shadow:inset 0 3px 0 0 $primary-color;
+    }
+    .ReactTable .rt-tr-group .rt-tr .grid-header:first-child {
+        text-align: center;
+    }
+
+    .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(5) {
+        text-align: center;
+    }
+    .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(6) {
+        text-align: center;
+    }
+    .table {
+        margin-bottom: 0px !important;
+    }
+    #dropdownMenuButton{
+        .bx-dots-horizontal-rounded{
+            font-size: 30px;
+        }
+        .bx-dots-horizontal-rounded:hover{
+            color: $primary-color;
+        }
+    }
+    [aria-expanded="true"]{
+        color: $primary-color;
+      }
+}
+.dropdown-item.active, .dropdown-item:active{
+    background-color: $primary-color !important; 
+}
