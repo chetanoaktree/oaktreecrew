@@ -5837,18 +5837,20 @@ body {
   }
   
   .candidates-details-area .candidates-details-content ul li {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
   
   .candidates-details-area .candidates-details-content ul li.arts {
     font-size: 20px;
     margin-bottom: 5px;
     color: #1a1a1a;
+    font-weight: 600;
   }
   
   .candidates-details-area .candidates-details-content ul li.university {
-    color: $primary-color;
+    // color: $primary-color;
     font-size: 16px;
+    font-weight: 600;
   }
   
   .candidates-details-area .candidates-details-content h4 {

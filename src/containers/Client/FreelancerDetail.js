@@ -38,20 +38,12 @@ function FreelancerDetail(props) {
         <div className="page-title-area">
           <div className="container">
             <div className="page-title-content">
-              <h2>Candidates Details</h2>
-              <ul>
-                <li>
-                  <a href="#">
-                    Home 
-                  </a>
-                </li>
-                <li className="active">Candidates Details</li>
-              </ul>
+              <h2>Freelancer Details</h2>
             </div>
           </div>
         </div>
 
-        <section className="candidates-details-area pt-100">
+        <section className="candidates-details-area mt-5">
           <div className="container">
             <div className="row">
               <div className="col-lg-8">
@@ -68,7 +60,7 @@ function FreelancerDetail(props) {
                         <h3>{_.get(state.detail, 'first_name', ['']) + ' ' +_.get(state.detail, 'last_name', [''])}</h3>
                         <span className="sub-title">{_.get(state.detail.additional_information, 'title', [''])}</span>
                         <ul>
-                          <li><span>Location: </span>{_.get(state.detail, 'address', [''])}</li>
+                          <li><a href="mailto:#">{_.get(state.detail, 'email', [''])}</a></li>
                         </ul>
                       </div>
                     </div>
@@ -83,6 +75,7 @@ function FreelancerDetail(props) {
                   <h3>About Me</h3>
                   <p>{_.get(state.detail.additional_information, 'about_me', [''])}</p>
 
+                  <hr />
                   <h3>Education</h3>
                   {state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
                     return (
@@ -97,6 +90,7 @@ function FreelancerDetail(props) {
                     (<ul></ul>)
                   }   
 
+                  <hr />
                   <h3>Work Experience</h3>
                   {state.detail && state.detail.experience_informations.length > 0 ? state.detail.experience_informations.map((row,i) => {
                     return (
@@ -111,6 +105,7 @@ function FreelancerDetail(props) {
                     (<ul></ul>)
                   } 
 
+                  <hr />
                   <h3>Projects</h3>
                   {state.detail && state.detail.project_informations.length > 0 ? state.detail.project_informations.map((row,i) => {
                     return (
@@ -126,6 +121,7 @@ function FreelancerDetail(props) {
                     (<ul></ul>)
                   } 
 
+                  <hr />
                   <h4>Personal Skills</h4>
 
                   <div className="all-skill-bar">
@@ -172,10 +168,10 @@ function FreelancerDetail(props) {
                     
                     <ul className="overview">
                       
-                      <li>
+                      {/* <li>
                         Email
                         <a href="mailto:#"><span>: {_.get(state.detail, 'email', [''])}</span></a>
-                      </li>
+                      </li> */}
                       <li>
                         Phone
                         <a href={"tel:+91"+_.get(state.detail, 'phone', [''])}><span>: {_.get(state.detail, 'phone', [''])}</span></a>
