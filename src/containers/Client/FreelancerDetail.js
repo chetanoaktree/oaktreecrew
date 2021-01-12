@@ -73,72 +73,88 @@ function FreelancerDetail(props) {
 
                 <div className="candidates-details-content">
                   <h3>About Me</h3>
-                  <p>{_.get(state.detail.additional_information, 'about_me', [''])}</p>
-
-                  <hr />
+                    <div className="card mb-3">
+                      <div className="card-body">
+                        <p>{_.get(state.detail.additional_information, 'about_me', [''])}</p>
+                      </div>
+                    </div>
+                  
                   <h3>Education</h3>
-                  {state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
+                  {
+                    state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
                     return (
-                        <ul key={i}>
-                          <li className="arts">{row.education_level} in {row.degree_title}</li>
-                          <li className="university">{row.group +' '+row.institute_name} ({row.year_of_passing})</li>
-                          <li className="summary">{row.description}</li>
-                        </ul>
+                      <div className="card mb-3">
+                        <div className="card-body">
+                            <ul key={i}>
+                              <li className="arts"><i class="bx bxs-graduation"></i> {row.education_level} in {row.degree_title}</li>
+                              <li className="university"><i class="bx bxs-book"></i> {row.group +' '+row.institute_name} ({row.year_of_passing})</li>
+                              <li className="summary"><i class="bx bxs-notepad"></i> {row.description}</li>
+                            </ul>
+                        </div>
+                      </div>
                         )
                     })
                     : 
                     (<ul></ul>)
                   }   
-
-                  <hr />
                   <h3>Work Experience</h3>
                   {state.detail && state.detail.experience_informations.length > 0 ? state.detail.experience_informations.map((row,i) => {
                     return (
-                        <ul key={i}>
-                          <li className="arts">{row.designation}</li>
-                          <li className="university">{row.company_name} ({row.employment_period_year > 0 && row.employment_period_year +" year "} { row.employment_period_month > 0 && row.employment_period_month+' month'}) in {row.company_location}</li>
-                          <li className="summary">{row.description}</li>
-                        </ul>
+                          <div className="card mb-3">
+                            <div className="card-body">
+
+                                <ul key={i}>
+                                  <li className="arts"><i class="bx bxs-user"></i> {row.designation}</li>
+                                  <li className="university"><i class="bx bxs-building"></i> {row.company_name} ({row.employment_period_year > 0 && row.employment_period_year +" year "} { row.employment_period_month > 0 && row.employment_period_month+' month'}) in {row.company_location}</li>
+                                  <li className="summary"><i class="bx bxs-notepad"></i> {row.description}</li>
+                                </ul>
+                            </div>
+                          </div>
                         )
                     })
                     : 
                     (<ul></ul>)
                   } 
 
-                  <hr />
                   <h3>Projects</h3>
                   {state.detail && state.detail.project_informations.length > 0 ? state.detail.project_informations.map((row,i) => {
                     return (
-                        <ul key={i}>
-                          <li className="arts">{row.title}</li>
-                          <li className="university">Period: {row.start_date} to {row.end_date} </li>
-                          <li className="university">Skills: {row.technologies} </li>
-                          <li className="summary">{row.summary}</li>
-                        </ul>
+                            <div className="card mb-3">
+                              <div className="card-body">
+                                  <ul key={i}>
+                                    <li className="arts"><i class="bx bxs-graduation"></i> {row.title}</li>
+                                    <li className="university"><i class="bx bxs-calendar"></i> Period: {row.start_date} to {row.end_date} </li>
+                                    <li className="university"><i class="bx bxs-tag"></i> Skills: {row.technologies} </li>
+                                    <li className="summary"><i class="bx bxs-notepad"></i> {row.summary}</li>
+                                  </ul>
+                              </div>
+                            </div>
                         )
                     })
                     : 
                     (<ul></ul>)
                   } 
 
-                  <hr />
-                  <h4>Personal Skills</h4>
-
-                  <div className="all-skill-bar">
-                    {state.detail && state.detail.additional_information.skills.split(',').map((skill)=>{
-                        return (<div className="skill-bar" data-percentage="100%">
-                              <h4 className="progress-title-holder">
-                                <span className="progress-title">{skill}</span>
-                                
-                              </h4>
-                
-                              <div className="progress-content-outter">
-                                <div className="progress-content" ></div>
-                              </div>
-                          </div>)
-                        })
-                    }
+                  <h3>Personal Skills</h3>
+                  <div className="card mb-3">
+                      <div className="card-body">
+                      <div className="all-skill-bar">
+                        {
+                          state.detail && state.detail.additional_information.skills.split(',').map((skill)=>{
+                            return (<div className="skill-bar" data-percentage="100%">
+                                  <h4 className="progress-title-holder">
+                                    <span className="progress-title">{skill}</span>
+                                    
+                                  </h4>
                     
+                                  <div className="progress-content-outter">
+                                    <div className="progress-content" ></div>
+                                  </div>
+                              </div>)
+                            })
+                        }
+                      </div>
+                    </div>
          
                   </div> 
                 </div>
