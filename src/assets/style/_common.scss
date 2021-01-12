@@ -79,6 +79,9 @@
     color: $primary-color !important;
 }
 #pills-tabContent{
+    .ReactTable .rt-tbody{
+        min-height: 140px;
+    }
     .ReactTable .rt-th, .ReactTable .rt-td{
         padding: .75rem !important;
     }
