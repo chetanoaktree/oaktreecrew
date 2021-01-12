@@ -25,6 +25,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 // import Cookies from 'universal-cookie';
 // const cookies = new Cookies();
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
 const store = createStore(
 
   rootReducer,

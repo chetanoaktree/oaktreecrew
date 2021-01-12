@@ -9,12 +9,59 @@ import freelancer5 from "../../assets/images/freelancer/freelancer-5.jpg";
 import freelancer6 from "../../assets/images/freelancer/freelancer-6.jpg";
 import freelancer7 from "../../assets/images/freelancer/freelancer-7.jpg";
 import freelancer8 from "../../assets/images/freelancer/freelancer-8.jpg";
-// import logo from "../../assets/images/logo.png";
+
+import Slider from "react-slick";
+
+
 
 
 function FreelancerSelect(props) {
     
     
+  var settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    autoplay:true,
+    accessibility:true,
+    arrows:true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: false,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          dots: true,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+        }
+      }
+    ]    
+
+
+
+
+
+  };
+
+
     return(
         <section className="freelancer-area pt-100 pb-70">
           <div className="container">
@@ -23,36 +70,94 @@ function FreelancerSelect(props) {
               <h2>Hire Expert Freelancer</h2>
             </div>
 
+
+            <Slider {...settings}>
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer1} alt="Image" />
+                  <h3>James Hendrix</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer2} alt="Image" />
+                  <h3>Jean Burke</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer3} alt="Image" />
+                  <h3>David Guzman</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer4} alt="Image" />
+                  <h3>Clarence Hart</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer5} alt="Image" />
+                  <h3>Anna Smith</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer6} alt="Image" />
+                  <h3>Kulva Dew</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+            </Slider>
+            
+{/* 
             <div className="row">
+
+            
+
+
               <div className="col-lg-3 col-sm-6">
                 <div className="single-freelancer">
                   <img src={freelancer1} alt="Image" />
                   <h3>James Hendrix</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
-
-                  {/*<span className="per-hour">$75/hr</span>*/}
                 </div>
               </div>
 
@@ -61,30 +166,9 @@ function FreelancerSelect(props) {
                   <img src={freelancer2} alt="Image" />
                   <h3>Jean Burke</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
-
-                  {/*<span className="per-hour">$99/hr</span>*/}
                 </div>
               </div>
 
@@ -93,30 +177,9 @@ function FreelancerSelect(props) {
                   <img src={freelancer3} alt="Image" />
                   <h3>David Guzman</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
-
-                  {/*<span className="per-hour">$50/hr</span>*/}
                 </div>
               </div>
 
@@ -125,30 +188,9 @@ function FreelancerSelect(props) {
                   <img src={freelancer4} alt="Image" />
                   <h3>Clarence Hart</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
-
-                  {/*<span className="per-hour">$25/hr</span>*/}
                 </div>
               </div>
 
@@ -157,30 +199,9 @@ function FreelancerSelect(props) {
                   <img src={freelancer5} alt="Image" />
                   <h3>Anna Smith</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
-
-                  {/*<span className="per-hour">$65/hr</span>*/}
                 </div>
               </div>
 
@@ -189,99 +210,16 @@ function FreelancerSelect(props) {
                   <img src={freelancer6} alt="Image" />
                   <h3>Kulva Dew</h3>
                   <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
                   <a href="#" className="default-btn">
                     Select
                   </a>
-
-                  {/*<span className="per-hour">$75/hr</span>*/}
                 </div>
               </div>
 
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer7} alt="Image" />
-                  <h3>Zeck De</h3>
-                  <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-
-                  {/*<span className="per-hour">$55/hr</span>*/}
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-sm-6">
-                <div className="single-freelancer">
-                  <img src={freelancer8} alt="Image" />
-                  <h3>Alex Neth</h3>
-                  <span className="profession">iOS Developr</span>
-
-                  <ul>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                    <li>
-                      <i className="bx bxs-star"></i>
-                    </li>
-                  </ul>
-
-                  <a href="#" className="default-btn">
-                    Select
-                  </a>
-
-                  {/*<span className="per-hour">$99/hr</span>*/}
-                </div>
-              </div>
             </div>
+              */}
             
-            <div className="row">
+            <div className="row mt-5">
               <div className="col-lg-12 col-md-12 text-center">
                   <a href="/client-signup">
                       <button type="submit" className="default-btn">

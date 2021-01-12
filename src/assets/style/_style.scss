@@ -1510,6 +1510,12 @@ body {
     margin-bottom: 30px;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
+
+    img {
+      height: 50px;
+      margin-bottom: 15px;
+    }
+
   }
   
   .single-live-job i {
@@ -1534,7 +1540,8 @@ body {
   .single-live-job:hover {
     -webkit-transform: translateY(-5px);
             transform: translateY(-5px);
-    background-color: $primary-color;
+    background-color: #f0f0fa;
+    box-shadow: 0px 5px 20px 3px rgba(206, 208, 218 , 90%);
   }
   
   .single-live-job:hover i {
@@ -1542,7 +1549,7 @@ body {
   }
   
   .single-live-job:hover a {
-    color: #ffffff;
+    color: $primary-body-font-color;
   }
   
   .hiring-list {
@@ -2658,22 +2665,24 @@ body {
     transition: all ease 0.5s;
     position: relative;
     overflow: hidden;
+    margin: 10px;
   }
   
   .single-freelancer img {
     border-radius: 50%;
-    margin-bottom: 25px;
+    margin: 0 auto;
+    margin-bottom: 15px;
   }
   
   .single-freelancer h3 {
     font-size: 24px;
-    margin-bottom: 6px;
+    margin-bottom: 0px;
   }
   
   .single-freelancer .profession {
     font-size: 16px;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 15px;
   }
   
   .single-freelancer ul {

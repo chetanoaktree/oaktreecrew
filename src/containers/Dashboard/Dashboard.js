@@ -1,12 +1,11 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 
-import salesforce from "../../assets/images/salesforce.png";
-import Ruby from "../../assets/images/Ruby.png";
-import ReactJS from "../../assets/images/ReactJS.png";
-import IOS from "../../assets/images/IOS.png";
-import NodeJS from "../../assets/images/NodeJS.png";
-// import logo from "../../assets/images/logo.png";
+import salesforce from "../../assets/images/categories/salesforce.svg";
+import Ruby from "../../assets/images/categories/ruby.svg";
+import ReactJS from "../../assets/images/categories/react.svg";
+import IOS from "../../assets/images/categories/ios.svg";
+import NodeJS from "../../assets/images/categories/nodejs.svg";
 
 
 function Dashboard(props) {
@@ -24,7 +23,7 @@ function Dashboard(props) {
 
                       
                           <div className="row">
-                              <div className="col-lg-1 col-sm-6">
+                              <div className="col-lg-1 col-sm-12">
                               
                               </div>
                               
@@ -32,7 +31,7 @@ function Dashboard(props) {
                                   <div className="single-live-job">
                                       <img src={salesforce} alt="salesforce" />
                                       <a href="#">
-                                          Salesforce Developer
+                                          Salesforce
                                       </a>
                                   </div>
                               </div>
@@ -41,7 +40,7 @@ function Dashboard(props) {
                                   <div className="single-live-job">
                                       <img src={Ruby} alt="Ruby" />
                                       <a href="#">
-                                          ROR Developer
+                                          ROR
                                       </a>
                                   </div>
                               </div>
@@ -50,7 +49,7 @@ function Dashboard(props) {
                                   <div className="single-live-job">
                                       <img src={ReactJS} alt="ReactJS" />
                                       <a href="#">
-                                          React Developer
+                                          React
                                       </a>
                                   </div>
                               </div>
@@ -59,7 +58,7 @@ function Dashboard(props) {
                                   <div className="single-live-job">
                                       <img src={IOS} alt="IOS" />
                                       <a href="#">
-                                          iOS Developer
+                                          iOS
                                       </a>
                                   </div>
                               </div>
@@ -68,12 +67,12 @@ function Dashboard(props) {
                                   <div className="single-live-job">
                                       <img src={NodeJS} alt="NodeJS" />
                                       <a href="#">
-                                          NodeJs Developer
+                                          NodeJs
                                       </a>
                                   </div>
                               </div>
 
-                              <div className="col-lg-1 col-sm-6">
+                              <div className="col-lg-1 col-sm-12">
                               
                               </div>
                           </div>

@@ -54,7 +54,7 @@ class Footer extends React.Component {
         <footer className="footer-area pt-100 pb-70">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-3 col-md-6">
+                    <div className="col-lg-4 col-md-6">
                         <div className="single-footer-widget single-bg">
                             <a href="#" className="logo">
                                 <img src={logo} alt="Image" />
@@ -87,7 +87,7 @@ class Footer extends React.Component {
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
+                    <div className="col-lg-4 col-md-6">
                         <div className="single-footer-widget">
                             <h3>Contact</h3>
 
@@ -111,13 +111,13 @@ class Footer extends React.Component {
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
+                    <div className="col-lg-4 col-md-6">
                         <div className="single-footer-widget">
                             <h3>Helpful Resources</h3>
 
                             <ul className="import-link">
                                 <li>
-                                    <a href="#">Create Account</a>
+                                    <a href="#">FAQ's</a>
                                 </li>
                                 <li>
                                     <a href="#">Contact Us</a>
@@ -137,33 +137,7 @@ class Footer extends React.Component {
                             </ul>
                         </div>
                     </div>
-
-                    <div className="col-lg-3 col-md-6">
-                        <div className="single-footer-widget">
-                            <h3>Job Seekers</h3>
-
-                            <ul className="import-link">
-                                <li>
-                                    <a href="#">Create Account</a>
-                                </li>
-                                <li>
-                                    <a href="#">Browse Jobs</a>
-                                </li>
-                                <li>
-                                    <a href="#">Upload CV</a>
-                                </li>
-                                <li>
-                                    <a href="#">Company Profile</a>
-                                </li>
-                                <li>
-                                    <a href="#">International Jobs</a>
-                                </li>
-                                <li>
-                                    <a href="#">FAQ</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                
                 </div>
             </div>
         </footer>

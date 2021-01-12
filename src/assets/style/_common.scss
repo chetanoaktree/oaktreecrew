@@ -62,3 +62,19 @@
 .log-rem #remember{
     margin-right: 10px;
 }
+.slick-prev:before, .slick-next:before{
+    color:$primary-color !important;
+    font-size: 25px !important;
+}
+.slick-dots li{
+    width: 20px !important;
+    height: 20px !important;
+}
+.slick-dots li button:before{
+    font-size: 70px !important;
+    content:'-' !important;
+    font-weight: bold;
+}
+.slick-dots li.slick-active button:before{
+    color: $primary-color !important;
+}
