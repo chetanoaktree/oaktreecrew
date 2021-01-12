@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
 import ReactTable from 'react-table-v6'
-import 'react-table-v6/react-table.css'
 
 import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
@@ -84,12 +83,12 @@ function Freelancer(props) {
                                   <h2>Freelancers</h2>                    
                               </div>
                               <div className="col-md-6">
-																<a href="/addfreelancer" className="default-btn float-right">
-																		Create New
-																</a>
-																{/* <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter">
-																		<i className='bx bx-dots-vertical-rounded'></i>
-																</a> */}
+                                <a href="/addfreelancer" className="default-btn float-right">
+                                        Create New
+                                </a>
+                                {/* <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter">
+                                        <i className='bx bx-dots-vertical-rounded'></i>
+                                </a> */}
                               </div>                    
                           </div>
                       </div>
@@ -127,99 +126,18 @@ function Freelancer(props) {
                                       
                                         <ReactTable
                                             data={state.users}
-																						sortable={true}
-																						multiSort={true}
+                                            sortable={true}
+                                            multiSort={true}
                                             resizable={true}
                                             loading={loader}
-                                            loadingText= {'loading.......'}
+                                            loadingText= {'Data Loading .......'}
                                             noDataText="No Data Found !!"
-                                            filterable 
+                                            filterable
                                             defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
                                             filtered={state.filtered}
-                                            columns={[
-                                                {  
-                                                    Header      : 'Sr.',
-                                                    accessor    : 'id',
-                                                    className   : 'grid-header',
-                                                    filterMethod: (filter, row) => {
-                                                      console.log(filter, row)
-                                                      return row[filter.id].includes(filter.value);
-                                                    },
-                                                    
-                                                },
-                                                {
-                                                  Header: () => (
-                                                    <span>
-                                                      <i className="fa-tasks" /> Name
-                                                    </span>
-                                                  ),
-                                                  accessor: 'first_name',
-                                                  sortMethod: (a, b) => {
-                                                    if (a.length === b.length) {
-                                                      return a > b ? 1 : -1;
-                                                    }
-                                                    return a.length > b.length ? 1 : -1;
-                                                  },
-                                                  filterable  : true,
-                                                  filterMethod: (filter, row) => {
-                                                      console.log(filter, row)
-                                                      return row[filter.id].includes(filter.value);
-                                                  },
-                                                  Cell: row => {
-                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
-                                                  }
-                                                },
-                                                {
-                                                  Header: () => (
-                                                    <span>
-                                                      <i className="fa-tasks" /> Title
-                                                    </span>
-                                                  ),
-                                                  accessor: 'title',
-                                                  Cell: row => {
-                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
-                                                  }
-                                                },
-                                                {
-                                                  Header: 'Status',
-                                                  accessor: 'status',
-                                                  Cell: row => {
-                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
-                                                  }
-                                                },
-                                                {
-                                                  Header: 'Created Date',
-                                                  accessor: 'created_at',
-                                                  Cell: row => {
-                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
-                                                  }
-                                                },
-                                                {
-                                                  Header: 'Action',
-                                                  accessor: 'uuid',
-                                                  Cell: row => {
-                                                    return <div className="">
-                                                              <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                  <i className='bx bx-dots-horizontal-rounded'></i>
-                                                              </div>
-                                                              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
-                                                              </div>
-                                                          </div>
-                                                  }
-                                                }
-                                            ]}
-                                            defaultSorted={[
-                                                {
-                                                    id: 'first_name',
-                                                    desc: false
-                                                } 
-                                            ]}
                                             defaultPageSize={10}
                                             minRows= {state.users}
-                                            className="table table-bordered responsive striped hover highlight py-3 px-3"
+                                            className="py-3 px-3"
                                             Sorted
                                             pages={state.total_pages}
                                             showPagination={true}
@@ -229,7 +147,76 @@ function Freelancer(props) {
                                             // manual // For server side pagination
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
-
+                                            columns={[
+																							{  
+																									Header      : 'Sr.',
+																									accessor    : 'id',
+																									className   : 'grid-header',
+																									filterable  : true,
+																									filterMethod: (filter, row) => {
+																											return row[filter.id].includes(filter.value);
+																									}
+																									
+																							},
+																							{
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Name
+																									</span>
+																								),
+																								accessor: 'first_name',
+																								Cell: row => {
+																									return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+																								}
+																							},
+																							{
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Title
+																									</span>
+																								),
+																								accessor: 'title',
+																								Cell: row => {
+																									return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+																								}
+																							},
+																							{
+																								Header: 'Status',
+																								accessor: 'status',
+																								Cell: row => {
+																									return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+																								}
+																							},
+																							{
+																								Header: 'Created Date',
+																								accessor: 'created_at',
+																								Cell: row => {
+																									return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+																								}
+																							},
+																							{
+																								Header: 'Action',
+																								accessor: 'uuid',
+																								Cell: row => {
+																									return <div className="">
+																														<div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																																<i className='bx bx-dots-horizontal-rounded'></i>
+																														</div>
+																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+																															<a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+																															<a className="dropdown-item" href="#">Edit</a>
+																															<a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+																														</div>
+																													</div>
+																								}
+																							}
+																						]}
+																						defaultSorted={[
+																								{
+																										id: 'first_name',
+																										desc: false
+																								} 
+																						]}																						
                                             onFetchData={(state, instance) => {
                                                 fetchData(state.page, state.pageSize, state.sorted, state.filtered);
                                             }}
