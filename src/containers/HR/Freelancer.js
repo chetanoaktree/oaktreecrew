@@ -84,7 +84,7 @@ function Freelancer(props) {
                               </div>
                               <div className="col-md-6">
                                 <a href="/addfreelancer" className="default-btn float-right">
-                                        Create New
+                                        Add New Freelancer
                                 </a>
                                 {/* <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter">
                                         <i className='bx bx-dots-vertical-rounded'></i>

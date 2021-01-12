@@ -695,7 +695,26 @@ function AddFreelancer(props) {
     // console.log("state======",csc.getAllCountries())
     
     return(
-        <section className="candidates-resume-area ptb-100">
+
+        <div>
+        {/* Start Page Title Area */}
+        <div className="page-title-area">
+            <div className="container">
+                <div className="page-title-content">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <h2>Add New Freelancers</h2>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/* End Page Title Area */}
+
+
+
+
+        <section className="candidates-resume-area mt-5">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
@@ -1518,6 +1537,10 @@ function AddFreelancer(props) {
                 </div>
             </div>
         </section>
+    
+        </div>
+    
+    
     )
 }
 
