@@ -107,7 +107,7 @@ function FreelancerSelect(props) {
                 return (<div className="">
                         <div className="single-freelancer">
                           <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
-                          <a href={"/freelancer-detail/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></a>
+                          <a href={"/freelancer-details/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></a>
                           <span className="profession">{row.additional_information.category}</span>
                           <a href="#" className="default-btn">
                             Select

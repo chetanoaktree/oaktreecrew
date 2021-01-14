@@ -100,11 +100,12 @@ const App = class App extends Component {
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancers" exact component={FreelancerSelect} />
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/client-signup" exact component={ClientSignup} />
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/users/password/edit" exact component={RecoveryConfirmation} />  
+              <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-details/:id" exact component={FreelancerDetail} />
 
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer" exact component={Freelancer} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:uuid" exact component={AddFreelancer} />
-              <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
 
               <Route component={NoRouteFound} />
             </Switch>

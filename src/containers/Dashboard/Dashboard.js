@@ -50,7 +50,7 @@ function Dashboard(props) {
                               </div>
                               {/*CATEGORY.map((row) => {
                                 return(<div className="col-lg-2 col-sm-6">
-                                          <div className="single-live-job">
+                                          <div className={state.category === category ? "single-live-job active" : "single-live-job"}>
                                               <img src={row.image} alt="salesforce" />
                                               <a href="#">
                                                   {row.label}
@@ -59,7 +59,7 @@ function Dashboard(props) {
                                       </div>)  
                               })*/}
                               <div className="col-lg-2 col-sm-6" onClick={() => selectCategory('Salesforce')}>
-                                  <div className="single-live-job">
+                                  <div className={state.category === 'Salesforce' ? "single-live-job active" : "single-live-job"}>
                                       <img src={salesforce} alt="salesforce" />
                                       <a href="#">
                                           Salesforce
@@ -68,7 +68,7 @@ function Dashboard(props) {
                               </div>
                               
                               <div className="col-lg-2 col-sm-6" onClick={() => selectCategory('ROR')}>
-                                  <div className="single-live-job">
+                                  <div className={state.category === 'ROR' ? "single-live-job active" : "single-live-job"}>
                                       <img src={Ruby} alt="Ruby" />
                                       <a href="#">
                                           ROR
@@ -76,8 +76,8 @@ function Dashboard(props) {
                                   </div>
                               </div>
 
-                              <div className="col-lg-2 col-sm-6">
-                                  <div className="single-live-job">
+                              <div className="col-lg-2 col-sm-6" onClick={() => selectCategory('React')}>
+                                  <div className={state.category === 'Salesforce' ? "single-live-job active" : "single-live-job"}>
                                       <img src={ReactJS} alt="ReactJS" />
                                       <a href="#">
                                           React
@@ -85,8 +85,8 @@ function Dashboard(props) {
                                   </div>
                               </div>
 
-                              <div className="col-lg-2 col-sm-6">
-                                  <div className="single-live-job">
+                              <div className="col-lg-2 col-sm-6" onClick={() => selectCategory('IOS')}>
+                                  <div className={state.category === 'IOS' ? "single-live-job active" : "single-live-job"}>
                                       <img src={IOS} alt="IOS" />
                                       <a href="#">
                                           iOS
@@ -94,8 +94,8 @@ function Dashboard(props) {
                                   </div>
                               </div>
 
-                              <div className="col-lg-2 col-sm-6">
-                                  <div className="single-live-job">
+                              <div className="col-lg-2 col-sm-6" onClick={() => selectCategory('NodeJS')}>
+                                  <div className={state.category === 'NodeJS' ? "single-live-job active" : "single-live-job"}>
                                       <img src={NodeJS} alt="NodeJS" />
                                       <a href="#">
                                           NodeJs
