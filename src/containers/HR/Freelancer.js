@@ -204,7 +204,7 @@ function Freelancer(props) {
 																														</div>
 																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 																															<a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-																															<a className="dropdown-item" href="#">Edit</a>
+																															<a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
 																															<a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
 																														</div>
 																													</div>

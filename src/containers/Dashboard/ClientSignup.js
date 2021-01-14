@@ -1,15 +1,32 @@
-import React from 'react';
-import { withRouter } from "react-router-dom";
+import React, { useState, useEffect, setState } from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { withRouter, Link } from "react-router-dom";
 import Select from "react-dropdown-select";
+// import TIMEZONE from "../../constants/timezones";
 
 
-
-
-// import logo from "../../assets/images/logo.png";
 
 
 function ClientSignup(props) {
     
+    const [state , setState] = useState({
+        timezone: "",
+        skills: "",
+        category: "",
+        freelancer_ids: [],
+
+    })
+
+    const handleSelect = (name, value) => {
+      // console.log(name,"----",value)
+      if(value.length === 0){
+        return false
+      } 
+        setState(prevState => ({
+            ...prevState,
+            [name] : value[0].value
+        }))
+    }
     
     return(
        <section className="job-information-area ptb-100">
@@ -59,13 +76,12 @@ function ClientSignup(props) {
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
                       <label>Timezone*</label>
-                      <Select>
-                        <option value="1">Dateline Standard Time, (GMT-12:00) International Date Line West</option>
-                        <option value="2">Samoa Standard Time, (GMT-11:00) Midway Island, Samoa</option>
-                        <option value="3">Hawaiian Standard Time, (GMT-10:00) Hawaii</option>
-                        <option value="4">Alaskan Standard Time, (GMT-09:00) Alaska</option>
-                        <option value="5">Pacific Standard Time, (GMT-08:00) Pacific Time (US and Canada); Tijuana</option>
-                      </Select>
+                      <Select 
+                          name="timezone" 
+                          // options={TIMEZONE}
+                          onChange={(value) => handleSelect('timezone', value)} 
+                          value={state.timezone}  
+                      />
                     </div>
                   </div>
 

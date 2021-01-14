@@ -19,6 +19,23 @@ export function saveFreelancer(dataSend) {
   } 
 }
 
+export function updateFreelancer(dataSend, id) {
+  return dispatch => {
+    dispatch(applicationIsLoading(true));
+    return axios.put(REACT_API_URL + `/api/v1/users/${id}`, dataSend)
+      .then(res => {
+        // dispatch(saveHunterAction(res))
+        dispatch(applicationIsLoading(false));
+        if (res.status === 200) {
+          return res;
+        }
+      }).catch((err) => {
+        dispatch(applicationIsLoading(false));
+        return err.response
+      });
+  } 
+}
+
 
 // export function freelancerFetchSuccess(freelancer) {
 //   return {
@@ -123,6 +140,35 @@ export function deleteFreelancer(uuid) {
     return axios({
       method: "delete",
       url: REACT_API_URL + `/api/v1/users/`+ uuid
+    })
+    .then((response) => {
+        if((response.status !== 200) || (response.data.status === 404)) {
+          // throw Error(response.statusText);
+          return response.data;
+        } else {
+          return response.data
+        }
+      }
+    )
+    .then(freelancer => {
+      dispatch(applicationIsLoading(false));
+      // dispatch(freelancerFetchSuccess(freelancer));
+      return freelancer
+    })
+    .catch((error) => {
+      dispatch(applicationIsLoading(false));
+      console.log(error)
+      return error
+    })
+  }
+}
+
+export function removeFromFreelancer(url) {
+  return (dispatch) => {
+    dispatch(applicationIsLoading(true));
+    return axios({
+      method: "delete",
+      url: REACT_API_URL + url
     })
     .then((response) => {
         if((response.status !== 200) || (response.data.status === 404)) {

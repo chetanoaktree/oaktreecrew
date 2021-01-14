@@ -1,29 +1,20 @@
 import React, { useState, useEffect, setState } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Slider from "react-slick";
-import _ from 'lodash';
 import { fetchFreelancerByCategory } from '../../actions/hrActions';
 import freelancer1 from "../../assets/images/freelancer/freelancer-1.jpg";
-import freelancer2 from "../../assets/images/freelancer/freelancer-2.jpg";
-import freelancer3 from "../../assets/images/freelancer/freelancer-3.jpg";
-import freelancer4 from "../../assets/images/freelancer/freelancer-4.jpg";
-import freelancer5 from "../../assets/images/freelancer/freelancer-5.jpg";
-import freelancer6 from "../../assets/images/freelancer/freelancer-6.jpg";
-import freelancer7 from "../../assets/images/freelancer/freelancer-7.jpg";
-import freelancer8 from "../../assets/images/freelancer/freelancer-8.jpg";
-
-
 
 
 
 function FreelancerSelect(props) {
   
   const [state , setState] = useState({
-        users: [],
-        skills: "",
-        category: ""
-    })
+      users: [],
+      skills: "",
+      category: "",
+      freelancer_ids: []
+  })
 
 
   // console.log("props",props.location)  
@@ -91,6 +82,10 @@ function FreelancerSelect(props) {
       })
     }
 
+    const selectFreelancer = (item) => {
+        console.log("item", item  )
+    }
+
     const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
 
     return(
@@ -103,13 +98,13 @@ function FreelancerSelect(props) {
 
 
             <Slider {...settings}>
-              {state.users.map((row) => {
-                return (<div className="">
+              {state.users.map((row, i) => {
+                return (<div className="" key={i}>
                         <div className="single-freelancer">
                           <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
                           <a href={"/freelancer-details/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></a>
                           <span className="profession">{row.additional_information.category}</span>
-                          <a href="#" className="default-btn">
+                          <a href="#" className="default-btn" onClick={() => selectFreelancer(row)}>
                             Select
                           </a>
                         </div>
@@ -121,11 +116,18 @@ function FreelancerSelect(props) {
 
             <div className="row mt-5">
               <div className="col-lg-12 col-md-12 text-center">
-                  <a href="/client-signup">
-                      <button type="submit" className="default-btn">
+                  <Link to={{
+                            pathname: '/client-signup',
+                            state: {
+                              category: props.location.state.category,
+                              skills: props.location.state.skills,
+                              freelancer_ids: state.freelancer_ids
+                            }
+                          }}>
+                      <button className="default-btn">
                           <span>Proceed</span>
                       </button>
-                  </a>
+                  </Link>
                   <div id="msgSubmit" className="h3 text-center hidden"></div>
                   <div className="clearfix"></div>
               </div>

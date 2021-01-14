@@ -32,7 +32,7 @@ function FreelancerDetail(props) {
           }
       })
     }
-    // console.log("detail",state.detail)
+    // console.log("detail",state.detail)_.get(state.detail, 'user_image', [avatar])
     return(
       <React.Fragment>
         <div className="page-title-area">
@@ -51,7 +51,7 @@ function FreelancerDetail(props) {
                   <div className="row align-items-center">
                     <div className="col-lg-2">
                       <div className="hot-jobs-img">
-                        <img src={_.get(state.detail, 'user_image', [avatar])} alt="Image" />
+                        <img src={state.detail && state.detail.user_image ? state.detail.user_image : avatar} alt="Image" />
                       </div>
                     </div>
 
