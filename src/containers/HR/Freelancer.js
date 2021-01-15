@@ -28,6 +28,28 @@ function Freelancer(props) {
         page: '',
         pageSize: ''  
       })
+
+    const [model, setModel] = useState({
+      modelShow: false,
+      modelData: ''
+    })
+
+    const handleShow = (data) => {
+        setModel(prevState => ({
+            ...prevState,
+            modelShow : true,
+            modelData : data 
+        }))
+    }
+
+    const handleClose = () => {
+        setModel(prevState => ({
+            ...prevState,
+            modelShow : false,
+            modelData : ''
+        }))
+    }
+
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -203,7 +225,7 @@ function Freelancer(props) {
 																																<i className='bx bx-dots-horizontal-rounded'></i>
 																														</div>
 																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Schedule Interview</a>
 																															<a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
 																															<a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
 																															<a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
