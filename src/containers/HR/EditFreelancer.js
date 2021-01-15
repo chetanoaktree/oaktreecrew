@@ -335,6 +335,19 @@ function EditFreelancer(props) {
         handleShow('educationShow')
         if(!add){
             setEducation(row)
+        }else{
+            setEducation({
+                education_level: "", 
+                degree_title: "", 
+                group: "", 
+                institute_name: "", 
+                result: "", 
+                marks: "",
+                year_of_passing: "", 
+                duration: "",
+                description: "",
+                new: true
+            })
         }
     }
 
@@ -380,6 +393,15 @@ function EditFreelancer(props) {
         handleShow('experienceShow')
         if(!add){
             setExperience(row)
+        }else{
+            setExperience({
+                company_name:"", 
+                designation: "", 
+                company_location: "",
+                employment_period: "",
+                description: "",
+                new: true
+            })
         }
     }
 
@@ -422,6 +444,16 @@ function EditFreelancer(props) {
         handleShow('projectShow')
         if(!add){
             setProject(row)
+        }else{
+            setProject({
+                title: "", 
+                start_date: "2021-01-01", 
+                end_date: "2021-01-01", 
+                technologies: "", 
+                summary: "",
+                project_link: "",
+                new: true
+            })
         }
     }
 
