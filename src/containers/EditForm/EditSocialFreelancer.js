@@ -10,7 +10,7 @@ function EditSocialFreelancer(props) {
 		      <Row>
 		        <Col xs={12} md={12}>
                     <div className="form-group">
-                    	<label>Github Link</label>
+                    	<label><i class="bx bxl-github"></i> Github Link</label>
                         <input 
                             className="form-control" 
                             type="text" 
@@ -23,7 +23,7 @@ function EditSocialFreelancer(props) {
 		        </Col>
 		        <Col xs={12} md={12}>
                     <div className="form-group">
-			            <label>Linkedin Link</label>
+			            <label><i class="bx bxl-linkedin-square"></i> Linkedin Link</label>
 			            <input 
                             className="form-control" 
                             type="text" 
