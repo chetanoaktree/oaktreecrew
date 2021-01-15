@@ -4,6 +4,13 @@ import { withRouter, Link } from "react-router-dom";
 import Slider from "react-slick";
 import { fetchFreelancerByCategory } from '../../actions/hrActions';
 import freelancer1 from "../../assets/images/freelancer/freelancer-1.jpg";
+import freelancer2 from "../../assets/images/freelancer/freelancer-2.jpg";
+import freelancer3 from "../../assets/images/freelancer/freelancer-3.jpg";
+import freelancer4 from "../../assets/images/freelancer/freelancer-4.jpg";
+import freelancer5 from "../../assets/images/freelancer/freelancer-5.jpg";
+import freelancer6 from "../../assets/images/freelancer/freelancer-6.jpg";
+import freelancer7 from "../../assets/images/freelancer/freelancer-7.jpg";
+import freelancer8 from "../../assets/images/freelancer/freelancer-8.jpg";
 
 
 
@@ -98,7 +105,7 @@ function FreelancerSelect(props) {
 
 
             <Slider {...settings}>
-              {state.users.map((row, i) => {
+              {/*state.users.map((row, i) => {
                 return (<div className="" key={i}>
                         <div className="single-freelancer">
                           <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
@@ -109,8 +116,102 @@ function FreelancerSelect(props) {
                           </a>
                         </div>
                       </div>)  
-              })}
+              })*/}
               
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer1} alt="Image" />
+                  <h3>James Hendrix</h3>
+                  <span className="profession">ROR Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer2} alt="Image" />
+                  <h3>Jean Burke</h3>
+                  <span className="profession">Saleforce Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer3} alt="Image" />
+                  <h3>David Guzman</h3>
+                  <span className="profession">React Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer4} alt="Image" />
+                  <h3>Clarence Hart</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer5} alt="Image" />
+                  <h3>Anna Smith</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer6} alt="Image" />
+                  <h3>Kulva Dew</h3>
+                  <span className="profession">iOS Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer7} alt="Image" />
+                  <h3>Teena Smith</h3>
+                  <span className="profession">ReactJs Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
+              {/*  */}
+
+              <div className="">
+                <div className="single-freelancer">
+                  <img src={freelancer8} alt="Image" />
+                  <h3>Chet Patel</h3>
+                  <span className="profession">Saleforce Developr</span>
+                  <a href="#" className="default-btn">
+                    Select
+                  </a>
+                </div>
+              </div>
               
             </Slider>
 

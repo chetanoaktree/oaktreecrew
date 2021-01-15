@@ -233,7 +233,7 @@ function FreelancerDetail(props) {
                       </li>
                     </ul>
                   </div>
-                {/*
+                
                   <div className="candidates-widget">
                     <h3>Download Resume</h3>
                     
@@ -249,7 +249,7 @@ function FreelancerDetail(props) {
                       </li>
                     </ul>
                   </div>
-                */}
+                
                 </div>
               </div>
             </div>
