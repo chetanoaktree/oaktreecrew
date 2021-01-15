@@ -12,49 +12,48 @@ import CATEGORY from "../../constants/category";
 import SKILLS from "../../constants/skills";
 
 function AddFreelancer(props) {
-    
-    const [state , setState] = useState({
-        avatar: "",
-        email:"",
-        first_name: "",
-        last_name: "",
-        phone: "",
-        dob: "",
-        nationality: "",
-        gender: "",
-        martial_status: "",
-        address: "",
-        languages: "",
-        total_experience: "",
-        role_ids:[2],
-        skip_password_validation: true,
-        country: '',
-        state: '',
-        city: '',
-        pincode: '',
-        additional_information_attributes: {
-            title: "",
-            about_me:"", 
-            presented_salary:"",
-            expected_salary:"", 
-            category:"",
-            skills: '',
-            job_nature:"", 
-            job_level: "",
-            attachment: "",
-            github_link: "",
-            linkedin_link: "",
-        },
-        education_informations_attributes:[],
-        experience_informations_attributes: [],
-        project_informations_attributes:[],
-        stateArg: [],
-        cityArg: []
-    })
 
-    const [education, setEducation] = useState(
-        [
-            {
+    const initialState = {
+                        avatar: "",
+                        email:"",
+                        first_name: "",
+                        last_name: "",
+                        phone: "",
+                        dob: "",
+                        nationality: "",
+                        gender: "",
+                        martial_status: "",
+                        address: "",
+                        languages: "",
+                        total_experience: "",
+                        role_ids:[2],
+                        skip_password_validation: true,
+                        country: '',
+                        state: '',
+                        city: '',
+                        pincode: '',
+                        additional_information_attributes: {
+                            title: "",
+                            about_me:"", 
+                            presented_salary:"",
+                            expected_salary:"", 
+                            category:"",
+                            skills: '',
+                            job_nature:"", 
+                            job_level: "",
+                            attachment: "",
+                            github_link: "",
+                            linkedin_link: "",
+                        },
+                        education_informations_attributes:[],
+                        experience_informations_attributes: [],
+                        project_informations_attributes:[],
+                        stateArg: [],
+                        cityArg: []
+                    };
+    const [state , setState] = useState(initialState)
+
+    const initialEdState = {
                 education_level: "", 
                 degree_title: "", 
                 group: "", 
@@ -65,24 +64,19 @@ function AddFreelancer(props) {
                 duration: "",
                 description: ""
             }
-        ]
-    )
+    const [education, setEducation] = useState([ initialEdState ])
 
-    const [experience, setExperience] = useState(
-        [
-            {
+    const initialExState = {
                 company_name:"", 
                 designation: "", 
                 company_location: "",
                 employment_period: "",
                 description: ""
             }
-        ]
-    )
 
-    const [project, setProject] = useState(
-        [
-            {
+    const [experience, setExperience] = useState([ initialExState ])
+    
+    const initialPrState = {
                 title: "", 
                 start_date: "2021-01-01", 
                 end_date: "2021-01-01", 
@@ -90,8 +84,16 @@ function AddFreelancer(props) {
                 summary: "",
                 project_link: ""
             }
-        ]
-    )
+
+    const [project, setProject] = useState([ initialPrState ])
+    
+
+    const clearState = () => {
+        setState({ ...initialState });
+        setEducation([{ ...initialEdState }]);
+        setExperience([{ ...initialExState }]);
+        setProject([{ ...initialPrState }]);
+    };
     
     const [errors , setError] = useState({
         email: "",
@@ -1523,7 +1525,7 @@ function AddFreelancer(props) {
                                     </div>
                                     <div className="col-lg-12 text-center">
                                        <button className="default-btn" >Save </button>
-                                       <button className="default-btn btn-two ml-2" type="reset">Reset </button>
+                                       <button className="default-btn btn-two ml-2" onClick={clearState}>Reset </button>
                                     </div>
                                 </div>
                             </form>
