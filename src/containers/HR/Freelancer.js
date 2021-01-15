@@ -132,7 +132,7 @@ function Freelancer(props) {
                                             loading={loader}
                                             loadingText= {'Data Loading .......'}
                                             noDataText="No Data Found !!"
-                                            filterable
+                                            // filterable
                                             defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
                                             filtered={state.filtered}
                                             defaultPageSize={10}
@@ -152,7 +152,7 @@ function Freelancer(props) {
 																									Header      : 'Sr.',
 																									accessor    : 'id',
 																									className   : 'grid-header',
-																									filterable  : true,
+																									filterable  : false,
 																									filterMethod: (filter, row) => {
 																											return row[filter.id].includes(filter.value);
 																									}
@@ -203,6 +203,7 @@ function Freelancer(props) {
 																																<i className='bx bx-dots-horizontal-rounded'></i>
 																														</div>
 																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
 																															<a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
 																															<a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
 																															<a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>

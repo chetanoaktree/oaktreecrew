@@ -49,6 +49,17 @@
 }
 .freelancers-list-tabs{
     border-bottom: 0px;
+
+    .nav-item{
+        .nav-link{
+            background: #ebebeb;
+            margin-right: 5px;
+        }
+        .nav-link:hover{
+            background: $primary-color;
+            color: $white;
+        }
+    }
 }
 .freelancers-list-table{
     margin-bottom: 0px;
@@ -128,9 +139,23 @@
 .react-dropdown-select {
     background: #fff;
 }
+.candidates-resume-content .css-wmw4vi-ReactDropdownSelect{
+    box-shadow: 0px 5px 20px 3px rgba(230, 233, 249, 0.9);
+}
 .css-wmw4vi-ReactDropdownSelect:hover, .css-wmw4vi-ReactDropdownSelect:focus-within{
     border-color: $primary-color !important;
 }
 .css-wmw4vi-ReactDropdownSelect:focus, .css-wmw4vi-ReactDropdownSelect:focus-within{
     box-shadow: 0 0 0 3px rgba($primary-color,0.2) !important;
+}
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected{
+    background-color:$primary-color;
+}
+.candidates-resume-area{
+    .add-new-btn{
+        cursor: pointer;
+    }
+    .remove-record-btn{
+        cursor: pointer;
+    }
 }

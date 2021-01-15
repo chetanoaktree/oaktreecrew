@@ -642,7 +642,7 @@ function AddFreelancer(props) {
                     <div className="col-lg-12">
                         <div className="candidates-resume-content">
                             <form className="resume-info" onSubmit={handleSave}>
-                                <h3>Personal Details</h3>
+                                <h3><i class="bx bxs-user"></i> Personal Details</h3>
                                 <div className="card mb-3">
                                     <div className="card-body">
                                         <div className="row">
@@ -669,7 +669,7 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>First Name</label>
+                                                    <label> First Name</label>
                                                     <input 
                                                         className="form-control" 
                                                         type="text" 
@@ -684,7 +684,7 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Last Name</label>
+                                                    <label> Last Name</label>
                                                     <input 
                                                         className="form-control" 
                                                         type="text" 
@@ -714,7 +714,7 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Phone</label>
+                                                    <label> Phone</label>
                                                     <input 
                                                         className="form-control" 
                                                         type="text" 
@@ -726,6 +726,23 @@ function AddFreelancer(props) {
                                                     <span className="error text-danger">{errors.phone && "Enter phone number "}</span>
                                                 </div>
                                             </div>
+
+                                            <div className="col-lg-12">
+                                                <div className="form-group">
+                                                    <label>About me</label>
+                                                    <textarea 
+                                                        className="form-control" 
+                                                        rows="4"
+                                                        name="about_me" 
+                                                        onChange={handleAdditional}
+                                                        required
+                                                        value = {state.additional_information_attributes.about_me}
+                                                    >
+                                                    </textarea>
+                                                </div>
+                                            </div>
+
+
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
@@ -890,24 +907,11 @@ function AddFreelancer(props) {
                                                 </div>
                                             </div>
 
-                                            <div className="col-lg-12">
-                                                <div className="form-group">
-                                                    <label>About me</label>
-                                                    <textarea 
-                                                        className="form-control" 
-                                                        rows="4"
-                                                        name="about_me" 
-                                                        onChange={handleAdditional}
-                                                        required
-                                                        value = {state.additional_information_attributes.about_me}
-                                                    >
-                                                    </textarea>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                                <h3>Career And Application Information</h3>
+                                <h3><i class="bx bxs-graduation"></i> Career And Application Information</h3>
                                 <div className="card mb-3">
                                     <div className="card-body">
                                         <div className="row">
@@ -978,7 +982,7 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Github Link</label>
+                                                    <label><i class="bx bxl-github"></i> Github Link</label>
                                                     <input 
                                                         className="form-control" 
                                                         type="text" 
@@ -992,7 +996,7 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Linkedin Link</label>
+                                                    <label><i class="bx bxl-linkedin-square"></i> Linkedin Link</label>
                                                     <input 
                                                         className="form-control" 
                                                         type="text" 
@@ -1010,7 +1014,7 @@ function AddFreelancer(props) {
 
 
 
-                                <h3>Experience Level</h3>
+                                <h3><i class="bx bxs-bar-chart-square"></i> Experience Level</h3>
                                 <div className="card mb-3">
                                     <div className="card-body">
                                       <div className="row">
@@ -1051,7 +1055,7 @@ function AddFreelancer(props) {
                                     </div>
                                 </div>
 
-                                <h3>Job Type</h3>
+                                <h3><i class="bx bxs-briefcase"></i> Job Type</h3>
 
                                 <div className="card mb-3">
                                     <div className="card-body">
@@ -1108,7 +1112,7 @@ function AddFreelancer(props) {
 
 
                                 
-                                <h3>Education</h3>
+                                <h3><i class="bx bxs-graduation"></i> Education</h3>
                                                         
                                     
                                     {education.map((item, i) => {
@@ -1118,7 +1122,7 @@ function AddFreelancer(props) {
                                                     i > 0 &&
                                                     <div className="row">
                                                         <div className="col-lg-12 col-md-12">
-                                                            <a className="default-btn btn-danger float-right mt-3 mb-3" onClick={() => removeEducation(i)}>
+                                                            <a className="default-btn btn-danger float-right mt-3 mb-3 remove-record-btn" onClick={() => removeEducation(i)}>
                                                             <i className="bx bx-trash"></i> Remove Education
                                                             </a>
                                                         </div>
@@ -1260,13 +1264,13 @@ function AddFreelancer(props) {
 
                                 <div className="row">
                                     <div className="col-lg-12 col-md-12">
-                                        <a className="default-btn float-right mt-3" onClick={addEducation}>
+                                        <a className="default-btn float-right mt-3 add-new-btn" onClick={addEducation}>
                                         <i className="bx bx-plus"></i> Add Education
                                         </a>
                                     </div>
                                 </div>
 
-                                <h3>Experience</h3>
+                                <h3><i class="bx bxs-badge"></i> Experience</h3>
 
                                
                                     
@@ -1277,7 +1281,7 @@ function AddFreelancer(props) {
                                                 i > 0 &&
                                                 <div className="row">
                                                     <div className="col-lg-12 col-md-12">
-                                                        <a className="default-btn btn-danger float-right mt-3 mb-3" onClick={() => removeExperience(i)}>
+                                                        <a className="default-btn btn-danger float-right mt-3 mb-3 remove-record-btn" onClick={() => removeExperience(i)}>
                                                         <i className="bx bx-trash"></i> Remove Experience
                                                         </a>
                                                     </div>
@@ -1379,13 +1383,13 @@ function AddFreelancer(props) {
 
                                 <div className="row">
                                     <div className="col-lg-12 col-md-12">
-                                        <a className="default-btn float-right mt-3" onClick={addExperience}>
+                                        <a className="default-btn float-right mt-3 add-new-btn" onClick={addExperience}>
                                         <i className="bx bx-plus"></i> Add Experience
                                         </a>
                                     </div>
                                 </div>
 
-                                <h3>Project</h3>
+                                <h3><i class="bx bxs-briefcase"></i> Project</h3>
 
                                
                                     
@@ -1396,7 +1400,7 @@ function AddFreelancer(props) {
                                                 i > 0 &&
                                                 <div className="row">
                                                     <div className="col-lg-12 col-md-12">
-                                                        <a className="default-btn btn-danger float-right mt-3 mb-3" onClick={() => removeProject(i)}>
+                                                        <a className="default-btn btn-danger float-right mt-3 mb-3 remove-record-btn" onClick={() => removeProject(i)}>
                                                         <i className="bx bx-trash"></i> Remove Project
                                                         </a>
                                                     </div>
@@ -1513,7 +1517,7 @@ function AddFreelancer(props) {
                                 <div className="row">
 
                                     <div className="col-lg-12 col-md-12">
-                                        <a className="default-btn float-right mt-3" onClick={addProject}>
+                                        <a className="default-btn float-right mt-3 add-new-btn" onClick={addProject}>
                                         <i className="bx bx-plus"></i> Add Project
                                         </a>
                                     </div>

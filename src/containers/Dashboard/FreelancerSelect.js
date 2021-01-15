@@ -16,12 +16,12 @@ import freelancer8 from "../../assets/images/freelancer/freelancer-8.jpg";
 
 function FreelancerSelect(props) {
   
-  const [state , setState] = useState({
-      users: [],
-      skills: "",
-      category: "",
-      freelancer_ids: []
-  })
+  // const [state , setState] = useState({
+  //     users: [],
+  //     skills: "",
+  //     category: "",
+  //     freelancer_ids: []
+  // })
 
 
   // console.log("props",props.location)  
@@ -66,7 +66,7 @@ function FreelancerSelect(props) {
   };
 
     useEffect(() => {
-      fetchData();
+      // fetchData();
     }, []);
 
     const fetchData = () => {
@@ -93,7 +93,7 @@ function FreelancerSelect(props) {
         console.log("item", item  )
     }
 
-    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
+    // const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
 
     return(
         <section className="freelancer-area pt-100 pb-70">
@@ -217,7 +217,14 @@ function FreelancerSelect(props) {
 
             <div className="row mt-5">
               <div className="col-lg-12 col-md-12 text-center">
-                  <Link to={{
+                <Link to='/client-signup'>
+                      <button className="default-btn">
+                          <span>Proceed</span>
+                      </button>
+                  </Link> 
+
+
+                  {/* <Link to={{
                             pathname: '/client-signup',
                             state: {
                               category: props.location.state.category,
@@ -228,7 +235,7 @@ function FreelancerSelect(props) {
                       <button className="default-btn">
                           <span>Proceed</span>
                       </button>
-                  </Link>
+                  </Link> */}
                   <div id="msgSubmit" className="h3 text-center hidden"></div>
                   <div className="clearfix"></div>
               </div>
