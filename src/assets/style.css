@@ -5769,6 +5769,10 @@ textarea.form-control {
 /* 
   Candidates Details Area Style
   =====================================================*/
+.candidates-details-area .candidates-details-sidebar .candidates-widget .edit-profile-image-and-title ul {
+  padding-left: 0px;
+}
+
 .candidates-details-area .candidates-cv {
   padding: 30px;
   background-color: #ffffff;
@@ -5947,10 +5951,11 @@ textarea.form-control {
 .candidates-details-sidebar .candidates-widget .delete-icon-btn {
   float: right;
   cursor: pointer;
+  color: #dc3545;
 }
 
 .candidates-details-sidebar .candidates-widget .delete-icon-btn:hover {
-  color: #00b074;
+  color: #161616;
 }
 
 .candidates-details-content-edit-form .edit-icon-btn {
@@ -5960,6 +5965,37 @@ textarea.form-control {
 
 .candidates-details-content-edit-form .edit-icon-btn:hover {
   color: #00b074;
+}
+
+.candidates-details-content-edit-form .add-more-record-icon {
+  float: right;
+  cursor: pointer;
+}
+
+.candidates-details-content-edit-form .add-more-record-icon:hover {
+  color: #00b074;
+}
+
+.candidates-details-content-edit-form .card .card-header {
+  text-align: right;
+  background: #f0f0fa;
+}
+
+.candidates-details-content-edit-form .card .card-header .bx-pencil {
+  cursor: pointer;
+}
+
+.candidates-details-content-edit-form .card .card-header .bx-pencil:hover {
+  color: #00b074;
+}
+
+.candidates-details-content-edit-form .card .card-header .bx-trash {
+  cursor: pointer;
+  color: #dc3545;
+}
+
+.candidates-details-content-edit-form .card .card-header .bx-trash:hover {
+  color: #161616;
 }
 
 .candidates-details-area .candidates-details-sidebar .candidates-widget {
@@ -7563,14 +7599,6 @@ textarea.form-control {
 
 .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected {
   background-color: #00b074;
-}
-
-.candidates-resume-area .add-new-btn {
-  cursor: pointer;
-}
-
-.candidates-resume-area .remove-record-btn {
-  cursor: pointer;
 }
 
 .freelancers-list-profile-thumbnail {
