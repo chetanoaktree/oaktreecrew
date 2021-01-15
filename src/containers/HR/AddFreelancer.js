@@ -919,10 +919,10 @@ function AddFreelancer(props) {
                                         <div className="row">
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Present Salary</label>
+                                                    <label>Current Salary - CTC (INR)</label>
                                                     <input 
                                                         className="form-control" 
-                                                        type="text" 
+                                                        type="number" 
                                                         name="presented_salary"
                                                         value={state.additional_information_attributes.presented_salary}
                                                         onChange={handleAdditional} 
@@ -933,10 +933,10 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Expected Salary</label>
+                                                    <label>Expected Salary - CTC (INR)</label>
                                                     <input 
                                                         className="form-control" 
-                                                        type="text" 
+                                                        type="number" 
                                                         name="expected_salary"
                                                         value={state.additional_information_attributes.expected_salary}
                                                         onChange={handleAdditional} 
@@ -1120,20 +1120,26 @@ function AddFreelancer(props) {
                                     {education.map((item, i) => {
                                         return (
                                         <React.Fragment>
-                                                {
-                                                    i > 0 &&
-                                                    <div className="row">
-                                                        <div className="col-lg-12 col-md-12">
-                                                            <a className="default-btn btn-danger float-right mt-3 mb-3 remove-record-btn" onClick={() => removeEducation(i)}>
-                                                            <i className="bx bx-trash"></i> Remove Education
-                                                            </a>
+
+                                            <div className="card mt-4">
+                                                
+                                                    {
+                                                        i > 0 &&
+                                                        <div class="card-header">
+                                                            <div className="row">
+                                                                <div className="col-lg-12 col-md-12">
+                                                                    <a className="default-btn btn-danger float-right remove-record-btn" onClick={() => removeEducation(i)}>
+                                                                    <i className="bx bx-trash"></i> Remove Education
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                }
-                                            <div className="card">
+                                                    }
+                                                
+
+
                                                 <div className="card-body">
                                                     <div className="row">
-
                                                         <div className="col-lg-6 col-md-6">
                                                             <div className="form-group">
                                                                 <label>Level of Education</label>
@@ -1206,7 +1212,7 @@ function AddFreelancer(props) {
                                                                 <label>Marks(%)</label>
                                                                 <input 
                                                                     className="form-control" 
-                                                                    type="text" 
+                                                                    type="number" 
                                                                     name="marks" 
                                                                     onChange={(e) => handleEducation(e,i)}
                                                                     required
@@ -1233,7 +1239,7 @@ function AddFreelancer(props) {
                                                                 <label>Duration (Years)</label>
                                                                 <input
                                                                     className="form-control" 
-                                                                    type="text" 
+                                                                    type="number" 
                                                                     name="duration" 
                                                                     onChange={(e) => handleEducation(e,i)}
                                                                     required
@@ -1279,18 +1285,23 @@ function AddFreelancer(props) {
                                     {experience.map((item, i) => {
                                         return (
                                         <React.Fragment>
-                                            {
-                                                i > 0 &&
-                                                <div className="row">
-                                                    <div className="col-lg-12 col-md-12">
-                                                        <a className="default-btn btn-danger float-right mt-3 mb-3 remove-record-btn" onClick={() => removeExperience(i)}>
-                                                        <i className="bx bx-trash"></i> Remove Experience
-                                                        </a>
-                                                    </div>
-                                                </div>    
-                                            }
 
-                                            <div className="card">
+
+                                            <div className="card mt-4">
+                                                {
+                                                    i > 0 &&
+                                                <div class="card-header">
+                                                    <div className="row">
+                                                        <div className="col-lg-12 col-md-12">
+                                                            <a className="default-btn btn-danger float-right remove-record-btn" onClick={() => removeExperience(i)}>
+                                                            <i className="bx bx-trash"></i> Remove Experience
+                                                            </a>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                                }
+
+
                                                 <div className="card-body">
                                                     <div className="row">
                                                         <div className="col-lg-6 col-md-6">
@@ -1398,17 +1409,20 @@ function AddFreelancer(props) {
                                     {project.map((item, i) => {
                                         return (
                                         <React.Fragment>
-                                            {
-                                                i > 0 &&
-                                                <div className="row">
-                                                    <div className="col-lg-12 col-md-12">
-                                                        <a className="default-btn btn-danger float-right mt-3 mb-3 remove-record-btn" onClick={() => removeProject(i)}>
-                                                        <i className="bx bx-trash"></i> Remove Project
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            }
-                                            <div className="card">
+
+                                            <div className="card mt-4">
+                                                    {
+                                                        i > 0 &&
+                                                    <div class="card-header">
+                                                        <div className="row">
+                                                            <div className="col-lg-12 col-md-12">
+                                                                <a className="default-btn btn-danger float-right remove-record-btn" onClick={() => removeProject(i)}>
+                                                                <i className="bx bx-trash"></i> Remove Project
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                    }
                                                 <div className="card-body">
                                                     <div className="row">
 

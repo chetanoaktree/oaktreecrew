@@ -4589,6 +4589,18 @@ textarea.form-control {
   padding: 30px;
 }
 
+.candidates-resume-content .resume-info .default-btn {
+  cursor: pointer;
+}
+
+.candidates-resume-content .resume-info .card .default-btn {
+  cursor: pointer;
+}
+
+.candidates-resume-content .resume-info .card .card-header {
+  background: #f7f7fb;
+}
+
 .candidates-resume-content .resume-info h3 {
   font-size: 24px;
   margin-bottom: 20px;

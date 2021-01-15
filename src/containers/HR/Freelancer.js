@@ -206,7 +206,7 @@ function Freelancer(props) {
                                                                                                                             <a className="dropdown-item" href={"#"}>Schedule Interview</a>
 																															<a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
 																															<a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-																															<a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+																															<a className="dropdown-item" href="" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
 																														</div>
 																													</div>
 																								}
