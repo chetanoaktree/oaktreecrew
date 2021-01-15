@@ -77,7 +77,7 @@ function Dashboard(props) {
                               </div>
 
                               <div className="col-lg-2 col-sm-6" onClick={() => selectCategory('React')}>
-                                  <div className={state.category === 'Salesforce' ? "single-live-job active" : "single-live-job"}>
+                                  <div className={state.category === 'React' ? "single-live-job active" : "single-live-job"}>
                                       <img src={ReactJS} alt="ReactJS" />
                                       <a href="#">
                                           React
@@ -108,8 +108,11 @@ function Dashboard(props) {
                               </div>
                           </div>
                           
-                          <div className="row">
-                              <div className="col-lg-12 col-md-12 ">
+                          	<div className="row">
+															<div className="col-lg-1 col-sm-12">
+                              
+                              </div>															
+                              <div className="col-lg-10 col-md-12 ">
                                   <div className="form-group">
                                       <Select 
                                           name="skills" 
@@ -120,6 +123,11 @@ function Dashboard(props) {
                                       />
                                   </div>
                               </div>
+															<div className="col-lg-1 col-sm-12">
+                              
+                              </div>
+                            </div>
+                            <div className="row">      
                               <div className="col-lg-12 col-md-12 text-center">
                                   <Link to={{
                                       pathname: '/freelancers',
@@ -135,7 +143,7 @@ function Dashboard(props) {
                                   <div id="msgSubmit" className="h3 text-center hidden"></div>
                                   <div className="clearfix"></div>
                               </div>
-                          </div>    
+                            </div>    
                       
                   </div>
               </div>

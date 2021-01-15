@@ -1510,6 +1510,7 @@ body {
     margin-bottom: 30px;
     -webkit-transition: all ease 0.5s;
     transition: all ease 0.5s;
+    cursor: pointer;
 
     img {
       height: 50px;
@@ -1517,7 +1518,18 @@ body {
     }
 
   }
-  
+  .single-live-job.active {
+    background: $primary-color;
+  }
+  .single-live-job.active a{
+    color: $white;
+  }
+  .single-live-job.active:hover{
+    background: $primary-color;
+  }
+  .single-live-job.active:hover a{
+    color: $white;
+  }
   .single-live-job i {
     font-size: 40px;
     color: $primary-color;
