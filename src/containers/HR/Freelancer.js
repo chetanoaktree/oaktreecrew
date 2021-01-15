@@ -9,7 +9,7 @@ import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 import Tabs from 'react-responsive-tabs';
-
+import { Modal,Row,Col } from 'react-bootstrap';
 
 
 function Freelancer(props) {
@@ -526,7 +526,7 @@ function Freelancer(props) {
                                                                                                                                 <i className='bx bx-dots-horizontal-rounded'></i>
                                                                                                                         </div>
                                                                                                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"#"} onClick={() => handleShow(row.original)}>Schedule Interview</a>
                                                                                                                             <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
                                                                                                                             <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
                                                                                                                             <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
@@ -907,7 +907,135 @@ function Freelancer(props) {
 
                         </div>
                     </div>
-                </div>      
+                </div>    
+
+                <Modal show={model.modelShow} onHide={() => handleClose()} className="" centered >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Schedule Interview</Modal.Title>
+                    </Modal.Header>			
+                    <Modal.Body>
+                        <form className="">
+                            <div className="row mb-2">
+                                <div className="col-lg-6 col-md-6">
+                                <h6>Interview For</h6>
+                                <div className="form-group">
+                                    <select>
+                                    <option value="1">Microsoft</option>
+                                    <option value="2">Symantec</option>
+                                    <option value="3">SAP</option>
+                                    <option value="4">IBM</option>
+                                    <option value="5">SEO</option>
+                                    </select>
+                                </div>                            
+                                </div>
+                                <div className="col-lg-6 col-md-6">
+                                <h6>Category</h6>
+                                <div className="form-group">
+                                    <select>
+                                        <option value="1">UX/UI Designer</option>
+                                        <option value="2">Web Developer</option>
+                                        <option value="3">Web Designer</option>
+                                        <option value="4">Software Developer</option>
+                                        <option value="5">SEO</option>
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col-lg-6 col-md-6">
+                                    <h6>Interviewer</h6>
+                                    <div className="form-group">
+                                        <select className="height">
+                                            <option value="1">Poonam Sharma</option>
+                                            <option value="2">Shaifali Jariwala</option>
+                                            <option value="2">Alka Shakhala</option>
+                                            <option value="2">Puja Shrivastava</option>
+                                            <option value="2">Neelam Dabar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="col-lg-6 col-md-6">
+                                    <h6>Interview day</h6>
+                                    <form className="resume-info">
+                                    <div className="form-group">
+                                        <div className="input-group date" id="">
+                                        <input type="text" className="form-control" placeholder="12/11/2020" />
+                                        </div>	
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col-lg-6 col-md-6">
+                                    <h6>From hours</h6>
+                                    <form className="resume-info">
+                                    <div className="form-group">
+                                        <div className="input-group date" id="">
+                                        <input type="text" className="form-control" placeholder="12:30" />
+                                        </div>	
+                                    </div>
+                                    </form>
+                                </div>
+                                <div className="col-lg-6 col-md-6">
+                                    <h6>To hours</h6>
+                                    <form className="resume-info">
+                                    <div className="form-group">
+                                        <div className="input-group date" id="">
+                                        <input type="text" className="form-control" placeholder="14:30" />
+                                        </div>	
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div className="row">
+                            <div className="col-lg-6 col-md-6">
+                                <h6>Email</h6>
+                                <form className="resume-info">
+                                <div className="form-group">
+                                    <div className="input-group date" id="">
+                                    <input type="text" className="form-control" placeholder="Email Id" disabled />
+                                    </div>	
+                                </div>
+                                </form>                          
+                            </div>
+                            <div className="col-lg-6 col-md-6">
+                                <h6>Phone</h6>
+                                <form className="resume-info">
+                                <div className="form-group">
+                                    <div className="input-group date" id="">
+                                    <input type="text" className="form-control" placeholder="Contact Number" disabled />
+                                    </div>	
+                                </div>
+                                </form>                          
+                            </div>                          
+                            
+                            </div>  
+
+                            <div className="row">
+                                <div className="col-lg-12">
+                                    <h6>Note</h6>                          
+                                    <div className="form-group">
+                                    <textarea name="message" className="form-control" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <button className="default-btn default-btn btn-two" onClick={() => handleClose()}>Close</button>
+                    <button className="default-btn default-btn">Save</button>
+                    </Modal.Footer>
+
+                </Modal>
+
+
+
+
+
+
+
+
+
               </section>
               {/* End Freelancers List Area */}
             </div>
