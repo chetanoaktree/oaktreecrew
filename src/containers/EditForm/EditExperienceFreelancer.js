@@ -48,8 +48,10 @@ function EditExperienceFreelancer(props) {
                             ]
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('experienceShow')} className="Reset-Your-Password-Popup" centered >
+			<Modal.Header closeButton>
+				<Modal.Title>Edit</Modal.Title>
+			</Modal.Header>             
 		    <Modal.Body>
-		      
 		      <Row>
 		        <Col xs={12} md={6}>
 		        	<div className="form-group">
@@ -78,7 +80,7 @@ function EditExperienceFreelancer(props) {
                         />
 			        </div>
 		        </Col>
-                <Col xs={12} md={6}>
+                <Col xs={12} md={12}>
                     <div className="form-group">
                         <label>Company Location</label>
                         <input 

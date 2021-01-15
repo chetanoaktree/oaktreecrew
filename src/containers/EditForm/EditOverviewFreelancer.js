@@ -28,10 +28,12 @@ function EditOverviewFreelancer(props) {
 
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('overviewShow')} className="Reset-Your-Password-Popup" centered >
+			<Modal.Header closeButton>
+				<Modal.Title>Edit</Modal.Title>
+			</Modal.Header>            
 		    <Modal.Body>
-		      
 		      <Row>
-		        <Col xs={12} md={12}>
+		        <Col xs={12} md={6}>
                     <div className="form-group">
                     	<label>Category</label>
                         <Select 
@@ -56,6 +58,55 @@ function EditOverviewFreelancer(props) {
 			        </div>
 		        </Col>
 		        
+		        <Col xs={12} md={12}>
+                    <div className="row mb-4 mt-4">
+                        <Col xs={12} md={3} onChange={props.handleAdditional}>
+                            <label className="single-check">
+                                Full Time 
+                                <input 
+                                    type="radio" 
+                                    checked={props.state.additional_information_attributes.job_nature === "Full Time"} 
+                                    name="job_nature" 
+                                    value="Full Time" required/>
+                                <span className="checkmark"></span>
+                            </label>
+                        </Col>
+                        <Col xs={12} md={3} onChange={props.handleAdditional}>
+                            <label className="single-check">
+                                Part Time   
+                                <input 
+                                    type="radio" 
+                                    checked={props.state.additional_information_attributes.job_nature === "Part Time"} 
+                                    name="job_nature" 
+                                    value="Part Time" required/>
+                                <span className="checkmark"></span>
+                            </label>
+                        </Col>
+                        <Col xs={12} md={3} onChange={props.handleAdditional}>
+                            <label className="single-check">
+                                Contract
+                                <input 
+                                    type="radio" 
+                                    checked={props.state.additional_information_attributes.job_nature === "Contract"} 
+                                    name="job_nature" 
+                                    value="Contract" required/>
+                                <span className="checkmark"></span>
+                            </label>
+                        </Col>
+                        <Col xs={12} md={3} onChange={props.handleAdditional}>
+                            <label className="single-check">
+                                Office
+                                <input 
+                                    type="radio" 
+                                    checked={props.state.additional_information_attributes.job_nature === "Office"} 
+                                    name="job_nature" 
+                                    value="Office" required/>
+                                <span className="checkmark"></span>
+                            </label>
+                        </Col>
+                    </div>
+                </Col> 
+
 		        <Col xs={12} md={6}>
                     <div className="form-group">
 			            <label>Gender</label>
@@ -96,7 +147,7 @@ function EditOverviewFreelancer(props) {
 			        </div>
 		        </Col>
 
-		        <Col xs={12} md={12}>
+		        <Col xs={12} md={6}>
                     <div className="form-group">
 			            <label>Language</label>                      
                         <Select 
@@ -109,52 +160,7 @@ function EditOverviewFreelancer(props) {
                         />
 			        </div>
 		        </Col>
-		        <Col xs={12} md={12}>
-		        	<Col xs={12} md={3} onChange={props.handleAdditional}>
-                        <label className="single-check">
-                            Full Time 
-                            <input 
-                                type="radio" 
-                                checked={props.state.additional_information_attributes.job_nature === "Full Time"} 
-                                name="job_nature" 
-                                value="Full Time" required/>
-                            <span className="checkmark"></span>
-                        </label>
-                    </Col>
-                    <Col xs={12} md={3} onChange={props.handleAdditional}>
-                        <label className="single-check">
-                            Part Time   
-                            <input 
-                                type="radio" 
-                                checked={props.state.additional_information_attributes.job_nature === "Part Time"} 
-                                name="job_nature" 
-                                value="Part Time" required/>
-                            <span className="checkmark"></span>
-                        </label>
-                    </Col>
-                    <Col xs={12} md={3} onChange={props.handleAdditional}>
-                        <label className="single-check">
-                            Contract
-                            <input 
-                                type="radio" 
-                                checked={props.state.additional_information_attributes.job_nature === "Contract"} 
-                                name="job_nature" 
-                                value="Contract" required/>
-                            <span className="checkmark"></span>
-                        </label>
-                    </Col>
-                    <Col xs={12} md={3} onChange={props.handleAdditional}>
-                        <label className="single-check">
-                            Office
-                            <input 
-                                type="radio" 
-                                checked={props.state.additional_information_attributes.job_nature === "Office"} 
-                                name="job_nature" 
-                                value="Office" required/>
-                            <span className="checkmark"></span>
-                        </label>
-                    </Col>
-                </Col>                       
+                      
 		      </Row>
 		    </Modal.Body>
 		    <Modal.Footer>
