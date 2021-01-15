@@ -5933,6 +5933,34 @@ body {
     width: 0%;
   }
   
+  .candidates-details-sidebar{
+    .candidates-widget{
+      .edit-icon-btn{
+        float: right;
+        cursor: pointer;
+      }
+      .edit-icon-btn:hover{
+        color: $primary-color;
+      }
+      .delete-icon-btn{
+        float: right;
+        cursor: pointer;
+      }
+      .delete-icon-btn:hover{
+        color: $primary-color;
+      }
+    }
+  }
+  .candidates-details-content-edit-form{
+    .edit-icon-btn{
+        float: right;
+        cursor: pointer;
+    }
+    .edit-icon-btn:hover{
+      color: $primary-color;
+  }    
+}
+
   .candidates-details-area .candidates-details-sidebar .candidates-widget {
     margin-bottom: 35px;
   }

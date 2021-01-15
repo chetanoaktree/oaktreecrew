@@ -498,8 +498,8 @@ function EditFreelancer(props) {
                     <i className="bx bxs-pencil" onClick={() => handleShow('userShow')}></i>
                 </div>
 
-                <div className="candidates-details-content">
-                  <h3>About Me <i className="bx bxs-pencil" onClick={() => handleShow('aboutShow')}></i></h3>
+                <div className="candidates-details-content candidates-details-content-edit-form">
+                  <h3>About Me <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('aboutShow')}></i></h3>
                     <div className="card mb-3">
                       <div className="card-body">
                         <p>{_.get(state.detail.additional_information, 'about_me', [''])}</p>
@@ -597,7 +597,7 @@ function EditFreelancer(props) {
               <div className="col-lg-4">
                 <div className="candidates-details-sidebar">
                   <div className="candidates-widget">
-                    <h3>Social Profile <i className="bx bx-pencil" onClick={() => handleShow('socialShow')}></i></h3>
+                    <h3>Social Profile <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('socialShow')}></i></h3>
 
                     <ul className="social-icon">
                       <li>
@@ -614,7 +614,7 @@ function EditFreelancer(props) {
                   </div>
 
                   <div className="candidates-widget">
-                    <h3>Contact Information <i className="bx bx-pencil" onClick={() => handleShow('contactShow')}></i></h3>
+                    <h3>Contact Information <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('contactShow')}></i></h3>
                     
                     <ul className="overview">
                       
@@ -634,7 +634,7 @@ function EditFreelancer(props) {
                   </div>
 
                   <div className="candidates-widget">
-                    <h3>Job Overview <i className="bx bx-pencil"></i></h3>
+                    <h3>Job Overview <i className="bx bx-pencil edit-icon-btn"></i></h3>
                     
                     <ul className="overview">
                       <li>
@@ -669,7 +669,7 @@ function EditFreelancer(props) {
                   </div>
                 
                   <div className="candidates-widget">
-                    <h3>Download Resume <i className="bx bx-trash"></i></h3>
+                    <h3>Download Resume <i className="bx bx-trash delete-icon-btn"></i></h3>
                     
                     <ul className="overview download ">
                       

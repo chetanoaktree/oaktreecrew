@@ -5935,6 +5935,33 @@ textarea.form-control {
   width: 0%;
 }
 
+.candidates-details-sidebar .candidates-widget .edit-icon-btn {
+  float: right;
+  cursor: pointer;
+}
+
+.candidates-details-sidebar .candidates-widget .edit-icon-btn:hover {
+  color: #00b074;
+}
+
+.candidates-details-sidebar .candidates-widget .delete-icon-btn {
+  float: right;
+  cursor: pointer;
+}
+
+.candidates-details-sidebar .candidates-widget .delete-icon-btn:hover {
+  color: #00b074;
+}
+
+.candidates-details-content-edit-form .edit-icon-btn {
+  float: right;
+  cursor: pointer;
+}
+
+.candidates-details-content-edit-form .edit-icon-btn:hover {
+  color: #00b074;
+}
+
 .candidates-details-area .candidates-details-sidebar .candidates-widget {
   margin-bottom: 35px;
 }
