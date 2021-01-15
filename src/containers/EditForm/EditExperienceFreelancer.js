@@ -1,10 +1,51 @@
 import React, { useState } from 'react';
 import { Button, Modal,Row,Col } from 'react-bootstrap';
-
+import Select from 'react-select-me';
+import 'react-select-me/lib/ReactSelectMe.css';
 
 
 function EditExperienceFreelancer(props) {
 	// console.log("props",props)
+    const employment_period_year_options =  [
+                              { value: '', label: 'Select' },
+                              { value: '0', label: '0' },
+                              { value: '1', label: '1' },
+                              { value: '2', label: '2' },
+                              { value: '3', label: '3' },
+                              { value: '4', label: '4' },
+                              { value: '5', label: '5' },
+                              { value: '6', label: '6' },
+                              { value: '7', label: '7' },
+                              { value: '8', label: '8' },
+                              { value: '9', label: '9' },
+                              { value: '10', label: '10' },
+                              { value: '11', label: '11' },
+                              { value: '12', label: '12' },
+                              { value: '13', label: '13' },
+                              { value: '14', label: '14' },
+                              { value: '15', label: '15' },
+                              { value: '16', label: '16' },
+                              { value: '17', label: '17' },
+                              { value: '18', label: '18' },
+                              { value: '19', label: '19' },
+                              { value: '20', label: '20' }
+                            ]
+    const employment_period_month_options =  [
+                              { value: '', label: 'Select' },
+                              { value: '0', label: '0' },
+                              { value: '1', label: '1' },
+                              { value: '2', label: '2' },
+                              { value: '3', label: '3' },
+                              { value: '4', label: '4' },
+                              { value: '5', label: '5' },
+                              { value: '6', label: '6' },
+                              { value: '7', label: '7' },
+                              { value: '8', label: '8' },
+                              { value: '9', label: '9' },
+                              { value: '10', label: '10' },
+                              { value: '11', label: '11' },
+                              { value: '12', label: '12' }
+                            ]
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('experienceShow')} className="Reset-Your-Password-Popup" centered >
 		    <Modal.Body>
@@ -64,14 +105,14 @@ function EditExperienceFreelancer(props) {
                         </textarea>
                     </div>
                 </Col>
-                {/*
+
 		        <Col xs={12} md={6}>
                     <div className="form-group">
 			            <label>Employment Period Year</label>
                         <Select 
                             name="employment_period_year" 
                             options={employment_period_year_options}
-                            onChange={(value) => handleSelectExperience('employment_period_year', value, i)} 
+                            onChange={(value) => props.handleSelectExperience('employment_period_year', value)} 
                             value={props.state.employment_period_year}
                             required
                         />
@@ -83,13 +124,13 @@ function EditExperienceFreelancer(props) {
                         <Select 
                             name="employment_period_month" 
                             options={employment_period_month_options}
-                            onChange={(value) => handleSelectExperience('employment_period_month', value, i)} 
+                            onChange={(value) => props.handleSelectExperience('employment_period_month', value)} 
                             value={props.state.employment_period_month}
                             required
                         />
 			        </div>
 		        </Col>
-		        */}                             
+                      
 		      </Row>
 		    </Modal.Body>
 		    <Modal.Footer>

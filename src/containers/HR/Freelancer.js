@@ -224,279 +224,505 @@ function Freelancer(props) {
                                         />
                                     </div>
                                     <div className="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>
-                                                    <td scope="row">1039</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Clark Davidson </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    
-                                                    <td><i className='bx bx-calendar' ></i> Oct 2</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1038</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Vanessa Thomas </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    
-                                                    <td><i className='bx bx-calendar' ></i> Oct 2</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1037</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Joe Birdland </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    
-                                                    <td><i className='bx bx-calendar' ></i> Oct 1</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1036</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Kiki Sidwali </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    
-                                                    <td><i className='bx bx-calendar' ></i> sep 30</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1035</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Vanessa Thomas </td>
-                                                    <td><span className="status-indicator status-indicator-draft"></span> Draft</td>
-                                                    
-                                                    <td><i className='bx bx-calendar' ></i> Aug 15</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <ReactTable
+                                            data={[]}
+                                            sortable={true}
+                                            multiSort={true}
+                                            resizable={true}
+                                            loading={loader}
+                                            loadingText= {'Data Loading .......'}
+                                            noDataText="No Data Found !!"
+                                            // filterable
+                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
+                                            filtered={state.filtered}
+                                            defaultPageSize={10}
+                                            minRows= {state.users}
+                                            className="py-3 px-3"
+                                            Sorted
+                                            pages={state.total_pages}
+                                            showPagination={true}
+                                            showPaginationTop={false}
+                                            showPaginationBottom={true}
+                                            pageSizeOptions={[10, 20, 50]}
+                                            // manual // For server side pagination
+                                            showPageJump={ true}
+                                            collapseOnSortingChange={ true}
+                                            columns={[
+                                                                                            {  
+                                                                                                    Header      : 'Sr.',
+                                                                                                    accessor    : 'id',
+                                                                                                    className   : 'grid-header',
+                                                                                                    filterable  : false,
+                                                                                                    filterMethod: (filter, row) => {
+                                                                                                            return row[filter.id].includes(filter.value);
+                                                                                                    }
+                                                                                                    
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Name
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'first_name',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Title
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'title',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Status',
+                                                                                                accessor: 'status',
+                                                                                                Cell: row => {
+                                                                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Created Date',
+                                                                                                accessor: 'created_at',
+                                                                                                Cell: row => {
+                                                                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Action',
+                                                                                                accessor: 'uuid',
+                                                                                                Cell: row => {
+                                                                                                    return <div className="">
+                                                                                                                        <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                                                                        </div>
+                                                                                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                                                                            <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
+                                                                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        ]}
+                                                                                        defaultSorted={[
+                                                                                                {
+                                                                                                        id: 'first_name',
+                                                                                                        desc: false
+                                                                                                } 
+                                                                                        ]}                                                                                      
+                                            onFetchData={(state, instance) => {
+                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                            }}
+                                        />
 
                                     </div>
                                     <div className="tab-pane fade" id="pills-scheduling" role="tabpanel" aria-labelledby="pills-scheduling-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </td>                                            
-                                                    <td scope="row">1034</td>
-                                                    <td><img src={profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> Joe Birdland </td>
-                                                    <td><span className="status-indicator status-indicator-in-scheduling"></span> In Scheduling</td>
-                                                    
-                                                    <td><i className='bx bx-calendar' ></i> Aug 13</td>
-                                                    <td className="do-action-button-container">
-                                                        <div className="dropdown">
-                                                            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                            </button>
-                                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                              <a className="dropdown-item" href="#">View</a>
-                                                              <a className="dropdown-item" href="#">Edit</a>
-                                                              <a className="dropdown-item" href="#">Delete</a>
-                                                            </div>
-                                                        </div>                                                
-                                                    </td>
-                                                </tr>                                                                                                                  
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <ReactTable
+                                            data={[]}
+                                            sortable={true}
+                                            multiSort={true}
+                                            resizable={true}
+                                            loading={loader}
+                                            loadingText= {'Data Loading .......'}
+                                            noDataText="No Data Found !!"
+                                            // filterable
+                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
+                                            filtered={state.filtered}
+                                            defaultPageSize={10}
+                                            minRows= {state.users}
+                                            className="py-3 px-3"
+                                            Sorted
+                                            pages={state.total_pages}
+                                            showPagination={true}
+                                            showPaginationTop={false}
+                                            showPaginationBottom={true}
+                                            pageSizeOptions={[10, 20, 50]}
+                                            // manual // For server side pagination
+                                            showPageJump={ true}
+                                            collapseOnSortingChange={ true}
+                                            columns={[
+                                                                                            {  
+                                                                                                    Header      : 'Sr.',
+                                                                                                    accessor    : 'id',
+                                                                                                    className   : 'grid-header',
+                                                                                                    filterable  : false,
+                                                                                                    filterMethod: (filter, row) => {
+                                                                                                            return row[filter.id].includes(filter.value);
+                                                                                                    }
+                                                                                                    
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Name
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'first_name',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Title
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'title',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Status',
+                                                                                                accessor: 'status',
+                                                                                                Cell: row => {
+                                                                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Created Date',
+                                                                                                accessor: 'created_at',
+                                                                                                Cell: row => {
+                                                                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Action',
+                                                                                                accessor: 'uuid',
+                                                                                                Cell: row => {
+                                                                                                    return <div className="">
+                                                                                                                        <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                                                                        </div>
+                                                                                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                                                                            <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
+                                                                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        ]}
+                                                                                        defaultSorted={[
+                                                                                                {
+                                                                                                        id: 'first_name',
+                                                                                                        desc: false
+                                                                                                } 
+                                                                                        ]}                                                                                      
+                                            onFetchData={(state, instance) => {
+                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                            }}
+                                        />
                                     </div>
                                     <div className="tab-pane fade" id="pills-Interview" role="tabpanel" aria-labelledby="pills-Interview-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td colSpan="7">
-                                                        <div className="text-center"><h6>No Data Found</h6></div>
-                                                    </td>
-                                                </tr>                                                                                                                  
-                                                </tbody>
-                                            </table>
-                                        </div>                                
+                                        <ReactTable
+                                            data={[]}
+                                            sortable={true}
+                                            multiSort={true}
+                                            resizable={true}
+                                            loading={loader}
+                                            loadingText= {'Data Loading .......'}
+                                            noDataText="No Data Found !!"
+                                            // filterable
+                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
+                                            filtered={state.filtered}
+                                            defaultPageSize={10}
+                                            minRows= {state.users}
+                                            className="py-3 px-3"
+                                            Sorted
+                                            pages={state.total_pages}
+                                            showPagination={true}
+                                            showPaginationTop={false}
+                                            showPaginationBottom={true}
+                                            pageSizeOptions={[10, 20, 50]}
+                                            // manual // For server side pagination
+                                            showPageJump={ true}
+                                            collapseOnSortingChange={ true}
+                                            columns={[
+                                                                                            {  
+                                                                                                    Header      : 'Sr.',
+                                                                                                    accessor    : 'id',
+                                                                                                    className   : 'grid-header',
+                                                                                                    filterable  : false,
+                                                                                                    filterMethod: (filter, row) => {
+                                                                                                            return row[filter.id].includes(filter.value);
+                                                                                                    }
+                                                                                                    
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Name
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'first_name',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Title
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'title',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Status',
+                                                                                                accessor: 'status',
+                                                                                                Cell: row => {
+                                                                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Created Date',
+                                                                                                accessor: 'created_at',
+                                                                                                Cell: row => {
+                                                                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Action',
+                                                                                                accessor: 'uuid',
+                                                                                                Cell: row => {
+                                                                                                    return <div className="">
+                                                                                                                        <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                                                                        </div>
+                                                                                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                                                                            <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
+                                                                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        ]}
+                                                                                        defaultSorted={[
+                                                                                                {
+                                                                                                        id: 'first_name',
+                                                                                                        desc: false
+                                                                                                } 
+                                                                                        ]}                                                                                      
+                                            onFetchData={(state, instance) => {
+                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                            }}
+                                        />                                
                                     </div>
                                     <div className="tab-pane fade" id="pills-Rejected" role="tabpanel" aria-labelledby="pills-Rejected-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td colSpan="7">
-                                                        <div className="text-center"><h6>No Data Found</h6></div>
-                                                    </td>
-                                                </tr>                                                                                                                  
-                                                </tbody>
-                                            </table>
-                                        </div>                                
+                                        <ReactTable
+                                            data={[]}
+                                            sortable={true}
+                                            multiSort={true}
+                                            resizable={true}
+                                            loading={loader}
+                                            loadingText= {'Data Loading .......'}
+                                            noDataText="No Data Found !!"
+                                            // filterable
+                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
+                                            filtered={state.filtered}
+                                            defaultPageSize={10}
+                                            minRows= {state.users}
+                                            className="py-3 px-3"
+                                            Sorted
+                                            pages={state.total_pages}
+                                            showPagination={true}
+                                            showPaginationTop={false}
+                                            showPaginationBottom={true}
+                                            pageSizeOptions={[10, 20, 50]}
+                                            // manual // For server side pagination
+                                            showPageJump={ true}
+                                            collapseOnSortingChange={ true}
+                                            columns={[
+                                                                                            {  
+                                                                                                    Header      : 'Sr.',
+                                                                                                    accessor    : 'id',
+                                                                                                    className   : 'grid-header',
+                                                                                                    filterable  : false,
+                                                                                                    filterMethod: (filter, row) => {
+                                                                                                            return row[filter.id].includes(filter.value);
+                                                                                                    }
+                                                                                                    
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Name
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'first_name',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Title
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'title',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Status',
+                                                                                                accessor: 'status',
+                                                                                                Cell: row => {
+                                                                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Created Date',
+                                                                                                accessor: 'created_at',
+                                                                                                Cell: row => {
+                                                                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Action',
+                                                                                                accessor: 'uuid',
+                                                                                                Cell: row => {
+                                                                                                    return <div className="">
+                                                                                                                        <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                                                                        </div>
+                                                                                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                                                                            <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
+                                                                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        ]}
+                                                                                        defaultSorted={[
+                                                                                                {
+                                                                                                        id: 'first_name',
+                                                                                                        desc: false
+                                                                                                } 
+                                                                                        ]}                                                                                      
+                                            onFetchData={(state, instance) => {
+                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                            }}
+                                        />                                
                                     </div>
                                     <div className="tab-pane fade" id="pills-Assessment" role="tabpanel" aria-labelledby="pills-Assessment-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td colSpan="7">
-                                                        <div className="text-center"><h6>No Data Found</h6></div>
-                                                    </td>
-                                                </tr>                                                                                                                  
-                                                </tbody>
-                                            </table>
-                                        </div>                                
+                                        <ReactTable
+                                            data={[]}
+                                            sortable={true}
+                                            multiSort={true}
+                                            resizable={true}
+                                            loading={loader}
+                                            loadingText= {'Data Loading .......'}
+                                            noDataText="No Data Found !!"
+                                            // filterable
+                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
+                                            filtered={state.filtered}
+                                            defaultPageSize={10}
+                                            minRows= {state.users}
+                                            className="py-3 px-3"
+                                            Sorted
+                                            pages={state.total_pages}
+                                            showPagination={true}
+                                            showPaginationTop={false}
+                                            showPaginationBottom={true}
+                                            pageSizeOptions={[10, 20, 50]}
+                                            // manual // For server side pagination
+                                            showPageJump={ true}
+                                            collapseOnSortingChange={ true}
+                                            columns={[
+                                                                                            {  
+                                                                                                    Header      : 'Sr.',
+                                                                                                    accessor    : 'id',
+                                                                                                    className   : 'grid-header',
+                                                                                                    filterable  : false,
+                                                                                                    filterMethod: (filter, row) => {
+                                                                                                            return row[filter.id].includes(filter.value);
+                                                                                                    }
+                                                                                                    
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Name
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'first_name',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Title
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'title',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Status',
+                                                                                                accessor: 'status',
+                                                                                                Cell: row => {
+                                                                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Created Date',
+                                                                                                accessor: 'created_at',
+                                                                                                Cell: row => {
+                                                                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Action',
+                                                                                                accessor: 'uuid',
+                                                                                                Cell: row => {
+                                                                                                    return <div className="">
+                                                                                                                        <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                                                                        </div>
+                                                                                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                                                                            <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
+                                                                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        ]}
+                                                                                        defaultSorted={[
+                                                                                                {
+                                                                                                        id: 'first_name',
+                                                                                                        desc: false
+                                                                                                } 
+                                                                                        ]}                                                                                      
+                                            onFetchData={(state, instance) => {
+                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                            }}
+                                        />                                
                                     </div>
                                     <div className="tab-pane fade" id="pills-References" role="tabpanel" aria-labelledby="pills-References-tab">
                                         <div className="table-responsive">
@@ -555,32 +781,104 @@ function Freelancer(props) {
                                         </div>                                
                                     </div>
                                     <div className="tab-pane fade" id="pills-Job-offer-and-contract" role="tabpanel" aria-labelledby="pills-Job-offer-and-contract-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td colSpan="7">
-                                                        <div className="text-center"><h6>No Data Found</h6></div>
-                                                    </td>
-                                                </tr>                                                                                                                  
-                                                </tbody>
-                                            </table>
-                                        </div>                                
+                                        <ReactTable
+                                            data={[]}
+                                            sortable={true}
+                                            multiSort={true}
+                                            resizable={true}
+                                            loading={loader}
+                                            loadingText= {'Data Loading .......'}
+                                            noDataText="No Data Found !!"
+                                            // filterable
+                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
+                                            filtered={state.filtered}
+                                            defaultPageSize={10}
+                                            minRows= {state.users}
+                                            className="py-3 px-3"
+                                            Sorted
+                                            pages={state.total_pages}
+                                            showPagination={true}
+                                            showPaginationTop={false}
+                                            showPaginationBottom={true}
+                                            pageSizeOptions={[10, 20, 50]}
+                                            // manual // For server side pagination
+                                            showPageJump={ true}
+                                            collapseOnSortingChange={ true}
+                                            columns={[
+                                                                                            {  
+                                                                                                    Header      : 'Sr.',
+                                                                                                    accessor    : 'id',
+                                                                                                    className   : 'grid-header',
+                                                                                                    filterable  : false,
+                                                                                                    filterMethod: (filter, row) => {
+                                                                                                            return row[filter.id].includes(filter.value);
+                                                                                                    }
+                                                                                                    
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Name
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'first_name',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: () => (
+                                                                                                    <span>
+                                                                                                        <i className="fa-tasks" /> Title
+                                                                                                    </span>
+                                                                                                ),
+                                                                                                accessor: 'title',
+                                                                                                Cell: row => {
+                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Status',
+                                                                                                accessor: 'status',
+                                                                                                Cell: row => {
+                                                                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Created Date',
+                                                                                                accessor: 'created_at',
+                                                                                                Cell: row => {
+                                                                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                                                                }
+                                                                                            },
+                                                                                            {
+                                                                                                Header: 'Action',
+                                                                                                accessor: 'uuid',
+                                                                                                Cell: row => {
+                                                                                                    return <div className="">
+                                                                                                                        <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                                                                <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                                                                        </div>
+                                                                                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                                                                            <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
+                                                                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        ]}
+                                                                                        defaultSorted={[
+                                                                                                {
+                                                                                                        id: 'first_name',
+                                                                                                        desc: false
+                                                                                                } 
+                                                                                        ]}                                                                                      
+                                            onFetchData={(state, instance) => {
+                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                            }}
+                                        />                                
                                     </div>                                                                                                                                            
                                 </div> 
                             </div>

@@ -14,6 +14,7 @@ import EditSocialFreelancer from "../EditForm/EditSocialFreelancer"
 import EditEducationFreelancer from "../EditForm/EditEducationFreelancer"
 import EditExperienceFreelancer from "../EditForm/EditExperienceFreelancer"
 import EditProjectFreelancer from "../EditForm/EditProjectFreelancer"
+import EditOverviewFreelancer from "../EditForm/EditOverviewFreelancer"
 
 
 
@@ -24,6 +25,7 @@ function EditFreelancer(props) {
       aboutShow: false,
       contactShow: false,
       socialShow: false,
+      overviewShow: false,
       educationShow: false,
       experienceShow: false,
       projectShow: false,
@@ -226,6 +228,28 @@ function EditFreelancer(props) {
         updateApi(form_data, id, 'contactShow');
         
     }
+    const handleOverViewUpdate = () => {
+        let data = { 
+                    nationality: state.nationality,
+                    gender: state.gender,
+                    languages: state.languages,
+                    total_experience: state.total_experience,
+                }
+        var form_data = new FormData();
+        for ( var key in data ) {
+            form_data.append(`user[${key}]`, data[key])          
+        }
+
+        form_data.append("user[additional_information_attributes[expected_salary]]",state.additional_information_attributes.expected_salary)
+        form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
+        // form_data.append("user[additional_information_attributes[skills]]",state.additional_information_attributes.skills)
+        form_data.append("user[additional_information_attributes[job_nature]]",state.additional_information_attributes.job_nature)
+        // form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
+        
+
+        updateApi(form_data, id, 'overviewShow');
+        
+    }
     
     const updateApi = (form_data, id, modelName) => {
         dispatch(updateFreelancer(form_data, id)).then((res)=> {
@@ -259,7 +283,51 @@ function EditFreelancer(props) {
         })
     }
 
-    
+    const handleSelectLanguage = (name, value) => {
+      console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
+        setState(prevState => ({
+            ...prevState,
+            // [name] : value.map(e => e.value).join(",")
+        }))
+    }
+
+    const handleSelect = (name, value) => {
+      // console.log(name,"----",value)
+      if(value.length === 0){
+        return false
+      } 
+        setState(prevState => ({
+            ...prevState,
+            [name] : value.value
+        }))
+    }    
+
+    const handleSelectAdditional = (name, value) => {
+      // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
+      if(name === 'skills'){
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                [name] : value.map(e => e.value).join(",")
+            }
+        })
+      }else{
+
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                [name] : value.value
+            }
+        })
+
+      }
+    }
 
     const saveEducation = (add, row) => {
         handleShow('educationShow')
@@ -275,17 +343,24 @@ function EditFreelancer(props) {
             [name] : value
         })) 
     }
+    const handleSelectEducation = (name, value) => {
+      // console.log(name,"----",value) 
+        setEducation(prevState => ({
+            ...prevState,
+            [name] : value.value
+        })) 
+    }
     const handleEducationSave = (add) => {
 
         var form_data = new FormData();
-        // form_data.append(`user[education_informations_attributes[0][education_level]]`, education.education_level)
-        // form_data.append(`user[education_informations_attributes[0][degree_title]]`, education.degree_title)
+        form_data.append(`user[education_informations_attributes[0][education_level]]`, education.education_level)
+        form_data.append(`user[education_informations_attributes[0][degree_title]]`, education.degree_title)
         form_data.append(`user[education_informations_attributes[0][group]]`, education.group)
         form_data.append(`user[education_informations_attributes[0][institute_name]]`, education.institute_name)
         form_data.append(`user[education_informations_attributes[0][result]]`, education.result)
         form_data.append(`user[education_informations_attributes[0][marks]]`, education.marks)
-        // form_data.append(`user[education_informations_attributes[0][year_of_passing]]`, education.year_of_passing)
-        // form_data.append(`user[education_informations_attributes[0][duration]]`, education.duration)
+        form_data.append(`user[education_informations_attributes[0][year_of_passing]]`, education.year_of_passing)
+        form_data.append(`user[education_informations_attributes[0][duration]]`, education.duration)
         form_data.append(`user[education_informations_attributes[0][description]]`, education.description)
 
         
@@ -312,6 +387,14 @@ function EditFreelancer(props) {
             ...prevState,
             [name] : value
         })) 
+    }
+    const handleSelectExperience = (name, value) => {
+      // console.log(name,"----",value)
+        // const {name , value} = e.target   
+        setExperience(prevState => ({
+            ...prevState,
+            [name] : value.value
+        }))  
     }
     const handleExperienceSave = (add) => {
 
@@ -347,15 +430,28 @@ function EditFreelancer(props) {
             [name] : value
         })) 
     }
+    const handleSelectProject = (name, value) => {
+        setProject(prevState => ({
+            ...prevState,
+            [name] : value.value
+        }))
+    }
+
+    const handleProjectDateChange = (name, date) => {
+        setProject(prevState => ({
+            ...prevState,
+            [name] : date
+        }))
+    }
     const handleProjectSave = (add) => {
 
         var form_data = new FormData();
         form_data.append(`user[project_informations_attributes[0][title]]`, project.title)
         form_data.append(`user[project_informations_attributes[0][project_link]]`, project.project_link)
         form_data.append(`user[project_informations_attributes[0][summary]]`, project.summary)
-        // form_data.append(`user[project_informations_attributes[${index}][start_date]]`, p.start_date)
-        // form_data.append(`user[project_informations_attributes[${index}][end_date]]`, p.end_date)
-        // form_data.append(`user[project_informations_attributes[${index}][technologies]]`, p.technologies)
+        form_data.append(`user[project_informations_attributes[0][start_date]]`, project.start_date)
+        form_data.append(`user[project_informations_attributes[0][end_date]]`, project.end_date)
+        form_data.append(`user[project_informations_attributes[0][technologies]]`, project.technologies)
         if(add){
             updateApi(form_data, id, 'projectShow');
             // console.log("handleProjectSaveNew",add)
@@ -446,11 +542,24 @@ function EditFreelancer(props) {
             handleSocialUpdate = {handleSocialUpdate}
         />
 
+        <EditOverviewFreelancer 
+            show = {model.overviewShow}
+            state = {state}
+            handleClose = {handleClose}
+            handleChange = {handleChange}
+            handleSelect = {handleSelect}
+            handleAdditional = {handleAdditional}
+            handleSelectAdditional = {handleSelectAdditional}
+            handleSelectLanguage = {handleSelectLanguage}
+            handleOverViewUpdate = {handleOverViewUpdate}
+        />
+
         <EditEducationFreelancer 
             show = {model.educationShow}
             state = {education}
             handleClose = {handleClose}
             handleEducation = {handleEducation}
+            handleSelectEducation = {handleSelectEducation}
             handleEducationSave = {handleEducationSave}
         />
 
@@ -459,6 +568,7 @@ function EditFreelancer(props) {
             state = {experience}
             handleClose = {handleClose}
             handleExperience = {handleExperience}
+            handleSelectExperience = {handleSelectExperience}
             handleExperienceSave = {handleExperienceSave}
         />
 
@@ -467,6 +577,8 @@ function EditFreelancer(props) {
             state = {project}
             handleClose = {handleClose}
             handleProject = {handleProject}
+            handleSelectProject = {handleSelectProject}
+            handleProjectDateChange = {handleProjectDateChange}
             handleProjectSave = {handleProjectSave}
         />
         <section className="candidates-details-area mt-5">
@@ -634,7 +746,7 @@ function EditFreelancer(props) {
                   </div>
 
                   <div className="candidates-widget">
-                    <h3>Job Overview <i className="bx bx-pencil edit-icon-btn"></i></h3>
+                    <h3>Job Overview <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('overviewShow')}></i></h3>
                     
                     <ul className="overview">
                       <li>

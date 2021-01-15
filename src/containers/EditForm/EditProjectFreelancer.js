@@ -1,11 +1,32 @@
 import React, { useState } from 'react';
 import { Button, Modal,Row,Col } from 'react-bootstrap';
+import Select from 'react-select-me';
+import 'react-select-me/lib/ReactSelectMe.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
 function EditProjectFreelancer(props) {
 	// console.log("props",props)
+    const technology_options = [
+                              { value: '', label: 'Select' },
+                              { value: 'Salesforce', label: 'Salesforce' },
+                              { value: 'ROR', label: 'ROR' },
+                              { value: 'React', label: 'React' },
+                              { value: 'IOS', label: 'IOS' },
+                              { value: 'NodeJS', label: 'NodeJS' },
+                              { value: 'HTML', label: 'HTML' },
+                              { value: 'CSS', label: 'CSS' },
+                              { value: 'JavaScript', label: 'JavaScript' },
+                              { value: 'Rails', label: 'Rails' },
+                              { value: 'ERP', label: 'ERP' },
+                              { value: 'Postgres', label: 'Postgres' },
+                              { value: 'Swift', label: 'Swift' },
+                              { value: 'Objective C', label: 'Objective C' },
+                              { value: 'Express', label: 'Express' },
+                              { value: 'Redux', label: 'Redux' },
+                              { value: 'Flux', label: 'Flux' }, 
+                            ]
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('projectShow')} className="Reset-Your-Password-Popup" centered >
 		    <Modal.Body>
@@ -51,28 +72,26 @@ function EditProjectFreelancer(props) {
                         </textarea>
                     </div>
                 </Col>
-                {/*
+                
 		        <Col xs={12} md={6}>
                     <div className="form-group">
 			            <label>Technologies</label>
                         <Select 
                             name="technologies" 
                             options={technology_options}
-                            onChange={(value) => handleSelectProject('technologies', value, i)} 
-                            value={project[i].technologies}
+                            onChange={(value) => props.handleSelectProject('technologies', value)} 
+                            value={props.state.technologies}
                             required
-                            multi
-                            
                         />
 			        </div>
 		        </Col>
 		        <Col xs={12} md={6}>
                     <div className="form-group">
-			            <label>Duration</label>
+			            <label>Start Date</label>
                         <div className="input-group date" id="datetimepicker">
                             <DatePicker
-                            selected={new Date(project[i].start_date || '')}
-                            onChange={(date) => handleProjectDateChange('start_date', date, i)}
+                            selected={new Date(props.state.start_date || '')}
+                            onChange={(date) => props.handleProjectDateChange('start_date', date)}
                             className="form-control mn_input post-job-boxes"
                             dateFormat="yyyy-MM-dd"
                             showMonthDropdown
@@ -85,7 +104,25 @@ function EditProjectFreelancer(props) {
                         </div>
 			        </div>
 		        </Col>
-		        */}                             
+                <Col xs={12} md={6}>
+                    <div className="form-group">
+                        <label>End Date</label>
+                        <div className="input-group date" id="datetimepicker">
+                            <DatePicker
+                            selected={new Date(props.state.end_date  || '')}
+                            onChange={(date) => props.handleProjectDateChange('end_date', date)}
+                            className="form-control mn_input post-job-boxes"
+                            dateFormat="yyyy-MM-dd"
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
+                            required
+                            />
+                            <span className="input-group-addon"></span>
+                            <i className="bx bx-calendar"></i>
+                        </div>
+                    </div>
+                </Col>                            
 		      </Row>
 		    </Modal.Body>
 		    <Modal.Footer>
