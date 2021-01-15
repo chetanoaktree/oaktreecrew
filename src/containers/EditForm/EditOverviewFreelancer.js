@@ -3,6 +3,7 @@ import { Button, Modal,Row,Col } from 'react-bootstrap';
 // import Select from "react-dropdown-select";
 import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
+import { Multiselect } from 'multiselect-react-dropdown';
 import LANGUAGES from "../../constants/languages";
 import CATEGORY from "../../constants/category";
 // import SKILLS from "../../constants/skills";
@@ -25,7 +26,9 @@ function EditOverviewFreelancer(props) {
                               { value: 'United Kingdom', label: 'United Kingdom' },
                               { value: 'United State', label: 'United State' },
                             ]
-
+    var selectedValues = []
+    var languages = props.state.languages.split(',')
+    languages.length > 0 && languages.map((row)=> {selectedValues.push({value: row}) }); // "A,B,C"
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('overviewShow')} className="Reset-Your-Password-Popup" centered >
 			<Modal.Header closeButton>
@@ -147,17 +150,16 @@ function EditOverviewFreelancer(props) {
 			        </div>
 		        </Col>
 
-		        <Col xs={12} md={6}>
+		        <Col xs={12} md={12}>
                     <div className="form-group">
-			            <label>Language</label>                      
-                        <Select 
-                            name="languages"
-                            // multiple
-                            options={LANGUAGES}
-                            onChange={(value) => props.handleSelectLanguage('languages', value)} 
-                            value={props.state.languages}
-                            required
-                        />
+			            <label>Language</label>  
+                        <Multiselect
+                          options={LANGUAGES}
+                          displayValue="value"
+                          onSelect={props.onSelectLanguage} 
+                          onRemove={props.onRemoveLanguage} 
+                          selectedValues={selectedValues}
+                        /> 
 			        </div>
 		        </Col>
                       

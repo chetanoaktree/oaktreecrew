@@ -15,6 +15,7 @@ import EditEducationFreelancer from "../EditForm/EditEducationFreelancer"
 import EditExperienceFreelancer from "../EditForm/EditExperienceFreelancer"
 import EditProjectFreelancer from "../EditForm/EditProjectFreelancer"
 import EditOverviewFreelancer from "../EditForm/EditOverviewFreelancer"
+import EditSkillFreelancer from "../EditForm/EditSkillFreelancer"
 
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
@@ -31,6 +32,7 @@ function EditFreelancer(props) {
       educationShow: false,
       experienceShow: false,
       projectShow: false,
+      skillShow: false,
     })
 
     const handleShow = (name) => {
@@ -241,7 +243,7 @@ function EditFreelancer(props) {
         for ( var key in data ) {
             form_data.append(`user[${key}]`, data[key])          
         }
-
+        form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
         form_data.append("user[additional_information_attributes[expected_salary]]",state.additional_information_attributes.expected_salary)
         form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
         // form_data.append("user[additional_information_attributes[skills]]",state.additional_information_attributes.skills)
@@ -250,6 +252,15 @@ function EditFreelancer(props) {
         
 
         updateApi(form_data, id, 'overviewShow');
+        
+    }
+    const handleSkillUpdate = () => {
+        var form_data = new FormData();        
+        form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
+        form_data.append("user[additional_information_attributes[skills]]",state.additional_information_attributes.skills)
+        
+
+        updateApi(form_data, id, 'skillShow');
         
     }
     
@@ -532,7 +543,55 @@ function EditFreelancer(props) {
       })
     }
 
-    // console.log("detail",state.detail)
+    const onSelectSkill = (selectedList, selectedItem) => {
+        // console.log(selectedList, selectedItem)
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                skills : selectedList.map(e => e.value).join(",")
+            }
+        })
+    }
+    const onRemoveSkill = (selectedList, removedItem) => {
+        // console.log(selectedList, removedItem)
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                skills : selectedList.map(e => e.value).join(",")
+            }
+        })
+    }
+    const onSelectLanguage = (selectedList, selectedItem) => {
+        // console.log(selectedList, selectedItem)
+        setState(prevState => ({
+            ...prevState,
+            languages : selectedList.map(e => e.value).join(",")
+        }))
+    }
+    const onRemoveLanguage = (selectedList, removedItem) => {
+        // console.log(selectedList, removedItem)
+        setState(prevState => ({
+            ...prevState,
+            languages : selectedList.map(e => e.value).join(",")
+        }))
+    }
+
+    const onSelectProject = (selectedList, selectedItem) => {
+        // console.log(selectedList, selectedItem)
+        setProject(prevState => ({
+            ...prevState,
+            technologies : selectedList.map(e => e.value).join(",")
+        }))
+    }
+    const onRemoveProject = (selectedList, removedItem) => {
+        // console.log(selectedList, removedItem)
+        setProject(prevState => ({
+            ...prevState,
+            technologies : selectedList.map(e => e.value).join(",")
+        }))
+    }
+
+    // console.log("detail",state.additional_information_attributes.skills)
     return(
       <React.Fragment>
         <div className="page-title-area">
@@ -584,7 +643,8 @@ function EditFreelancer(props) {
             handleSelect = {handleSelect}
             handleAdditional = {handleAdditional}
             handleSelectAdditional = {handleSelectAdditional}
-            handleSelectLanguage = {handleSelectLanguage}
+            onSelectLanguage = {onSelectLanguage}
+            onRemoveLanguage = {onRemoveLanguage}
             handleOverViewUpdate = {handleOverViewUpdate}
         />
 
@@ -613,7 +673,18 @@ function EditFreelancer(props) {
             handleProject = {handleProject}
             handleSelectProject = {handleSelectProject}
             handleProjectDateChange = {handleProjectDateChange}
+            onSelectProject = {onSelectProject}
+            onRemoveProject = {onRemoveProject}
             handleProjectSave = {handleProjectSave}
+        />
+
+        <EditSkillFreelancer 
+            show = {model.skillShow}
+            state = {state}
+            handleClose = {handleClose}
+            onSelectSkill = {onSelectSkill}
+            onRemoveSkill = {onRemoveSkill}
+            handleSkillUpdate = {handleSkillUpdate}
         />
         <section className="candidates-details-area mt-5">
           <div className="container">
@@ -771,7 +842,7 @@ function EditFreelancer(props) {
                 
                 <div className="candidates-details-sidebar mt-4">
                   <div className="candidates-widget">
-                    <h3>Personal Skills <i className="bx bx-pencil edit-icon-btn"></i></h3>
+                    <h3>Personal Skills <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('skillShow')}></i></h3>
                     <div className="overview">
                       <div className="all-skill-bar">
                         {

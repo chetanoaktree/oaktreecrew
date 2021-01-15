@@ -12,6 +12,7 @@
     "jquery": "^3.5.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
+    "multiselect-react-dropdown": "^1.6.3",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-content-loader": "^5.1.4",

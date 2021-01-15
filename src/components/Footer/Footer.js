@@ -44,6 +44,9 @@ class Footer extends React.Component {
             NotificationManager.error("Please enter valid email address", 'Error');  
         }
     }
+    topScroll = () =>{
+        window.scrollTo(0, 0)
+    }
 
   render() {
     const { authenticated, location } = this.props;
@@ -149,7 +152,7 @@ class Footer extends React.Component {
                 </p>
             </div>
         </div>
-        <div className="go-top active">
+        <div className="go-top active" onClick={() => this.topScroll()}>
             <i className="bx bx-chevrons-up"></i>
             <i className="bx bx-chevrons-up"></i>
         </div>

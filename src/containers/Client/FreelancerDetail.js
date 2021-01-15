@@ -4,6 +4,7 @@ import { withRouter, useParams } from "react-router-dom";
 import { getFreelancer } from '../../actions/hrActions';
 import _ from 'lodash';
 import avatar from "../../assets/images/avatar-img.jpg";
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 
 function FreelancerDetail(props) {
@@ -140,15 +141,16 @@ function FreelancerDetail(props) {
                       <div className="card-body">
                       <div className="all-skill-bar">
                         {
-                          state.detail && state.detail.additional_information.skills.split(',').map((skill)=>{
+                          state.detail && state.detail.additional_information.skills && state.detail.additional_information.skills.split(',').map((skill)=>{
                             return (<div className="skill-bar" data-percentage="100%">
-                                  <h4 className="progress-title-holder">
+                                  <h5 className="progress-title-holder">
                                     <span className="progress-title">{skill}</span>
                                     
-                                  </h4>
+                                  </h5>
                     
                                   <div className="progress-content-outter">
                                     <div className="progress-content" ></div>
+                                    <ProgressBar variant="success" now={45} />
                                   </div>
                               </div>)
                             })

@@ -4,6 +4,7 @@ import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Multiselect } from 'multiselect-react-dropdown';
 
 
 function EditProjectFreelancer(props) {
@@ -27,6 +28,10 @@ function EditProjectFreelancer(props) {
                               { value: 'Redux', label: 'Redux' },
                               { value: 'Flux', label: 'Flux' }, 
                             ]
+    var selectedValues = []
+    var technologies = props.state.technologies.split(',')
+    technologies.length > 0 && technologies.map((row)=> {selectedValues.push({value: row}) }); // "A,B,C"
+
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('projectShow')} className="Reset-Your-Password-Popup" centered >
 			<Modal.Header closeButton>
@@ -75,15 +80,15 @@ function EditProjectFreelancer(props) {
                     </div>
                 </Col>
                 
-		        <Col xs={12} md={6}>
+		        <Col xs={12} md={12}>
                     <div className="form-group">
 			            <label>Technologies</label>
-                        <Select 
-                            name="technologies" 
-                            options={technology_options}
-                            onChange={(value) => props.handleSelectProject('technologies', value)} 
-                            value={props.state.technologies}
-                            required
+                        <Multiselect
+                          options={technology_options}
+                          displayValue="value"
+                          onSelect={props.onSelectProject} 
+                          onRemove={props.onRemoveProject} 
+                          selectedValues={selectedValues}
                         />
 			        </div>
 		        </Col>
