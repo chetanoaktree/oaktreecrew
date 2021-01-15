@@ -5764,6 +5764,18 @@ body {
   /* 
   Candidates Details Area Style
   =====================================================*/
+  .candidates-details-area {
+    .candidates-details-sidebar{
+      .candidates-widget{
+        .edit-profile-image-and-title{
+          ul{
+            padding-left: 0px;
+          }
+        }
+      }
+    }
+
+  }
   .candidates-details-area .candidates-cv {
     padding: 30px;
     background-color: #ffffff;
@@ -5945,9 +5957,10 @@ body {
       .delete-icon-btn{
         float: right;
         cursor: pointer;
+        color: $danger;
       }
       .delete-icon-btn:hover{
-        color: $primary-color;
+        color: $secondary-color;
       }
     }
   }
@@ -5958,7 +5971,35 @@ body {
     }
     .edit-icon-btn:hover{
       color: $primary-color;
-  }    
+    }
+    .add-more-record-icon{
+      float: right;
+      cursor: pointer;
+    }
+    .add-more-record-icon:hover{
+      color: $primary-color;
+    }
+    .card{
+      .card-header{
+        text-align: right;
+        background: #f0f0fa;
+        .bx-pencil{
+          cursor: pointer;
+        }
+        .bx-pencil:hover{
+          color: $primary-color;
+        }
+        .bx-trash{
+          cursor: pointer;
+          color: $danger;
+        }
+        .bx-trash:hover{
+          color: $secondary-color;
+        }        
+      }
+    }
+
+
 }
 
   .candidates-details-area .candidates-details-sidebar .candidates-widget {

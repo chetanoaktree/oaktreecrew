@@ -16,6 +16,8 @@ import EditExperienceFreelancer from "../EditForm/EditExperienceFreelancer"
 import EditProjectFreelancer from "../EditForm/EditProjectFreelancer"
 import EditOverviewFreelancer from "../EditForm/EditOverviewFreelancer"
 
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 
 
 function EditFreelancer(props) {
@@ -585,46 +587,74 @@ function EditFreelancer(props) {
           <div className="container">
             <div className="row">
               <div className="col-lg-8">
-                <div className="candidates-cv">
-                  <div className="row align-items-center">
-                    <div className="col-lg-2">
-                      <div className="hot-jobs-img">
-                        <img src={state.user_image ? state.user_image : avatar} alt="Image" />
-                      </div>
-                    </div>
+                  <div className="candidates-details-sidebar">
+                    <div className="candidates-widget">
+                        <div className="edit-profile-image-and-title">
+                          {/* <div className="card"> */}
+                            {/* <div class="card-header"> */}
+                            <h3>&nbsp;<i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('userShow')}></i></h3>
+                              
+                            {/* </div>   */}
+                            <div className="overview">
+                              <div className="row align-items-center">
+                                <div className="col-lg-2">
+                                  <div className="hot-jobs-img">
+                                    <img src={state.user_image ? state.user_image : avatar} alt="Image" />
+                                  </div>
+                                </div>
 
-                    <div className="col-lg-6">
-                      <div className="candidates-cv-content">
-                        <h3>{_.get(state.detail, 'first_name', [''])+ ' '+ _.get(state.detail, 'last_name', [''])}</h3>
-                        <span className="sub-title">{_.get(state.detail.additional_information, 'title', [''])}</span>
-                        <ul>
-                          <li><a href="mailto:#">{_.get(state.detail, 'email', [''])}</a></li>
-                        </ul>
-                      </div>
-                    </div>
+                                <div className="col-lg-6">
+                                  <div className="candidates-cv-content">
+                                    <h4>{_.get(state.detail, 'first_name', [''])+ ' '+ _.get(state.detail, 'last_name', [''])}</h4>
+                                    <span className="sub-title">{_.get(state.detail.additional_information, 'title', [''])}</span>
+                                    <ul>
+                                      <li><a href="mailto:#">{_.get(state.detail, 'email', [''])}</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
 
-                    <div className="col-lg-4">
-                      <a href={_.get(state.detail.additional_information, 'user_resume', ['#'])} target="_blank" className="default-btn">Download CV</a>
-                    </div>
+                                <div className="col-lg-4">
+                                  <a href={_.get(state.detail.additional_information, 'user_resume', ['#'])} target="_blank" className="default-btn">Download CV</a>
+                                </div>
+                              </div>
+                            </div>
+                          {/* </div>   */}
+                        </div>
+                    </div>    
                   </div>
-                    <i className="bx bxs-pencil" onClick={() => handleShow('userShow')}></i>
-                </div>
+
+
+                  <div className="candidates-details-sidebar">
+                    <div className="candidates-widget">
+                        <h3>About Me <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('aboutShow')}></i></h3>
+                        <div className="overview">
+                          <p>{_.get(state.detail.additional_information, 'about_me', [''])}</p>
+
+                        </div>
+
+                      </div>
+                  </div>    
+
 
                 <div className="candidates-details-content candidates-details-content-edit-form">
-                  <h3>About Me <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('aboutShow')}></i></h3>
+                    {/* <h3>About Me <i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('aboutShow')}></i></h3>
                     <div className="card mb-3">
                       <div className="card-body">
                         <p>{_.get(state.detail.additional_information, 'about_me', [''])}</p>
                       </div>
-                    </div>
+                    </div> */}
                   
-                  <h3>Education <i className="bx bx-plus" onClick={() => saveEducation(true, false)}></i></h3>
+                  <h3>Education <i className="bx bx-plus add-more-record-icon" onClick={() => saveEducation(true, false)}></i></h3>
                   {
                     state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
                     return (
                       <div className="card mb-3" key={i}>
-                        <i className="bx bx-pencil" onClick={() => saveEducation(false,row)}></i>
-                        <i className="bx bx-trash" onClick={() => removeEducation(row.id)}></i>
+                        <div class="card-header">
+                          <i className="bx bx-pencil" onClick={() => saveEducation(false,row)}></i> <i className="bx bx-trash" onClick={() => removeEducation(row.id)}></i>
+                        </div>
+
+
+
                           <div className="card-body">
 
                             <ul key={i}>
@@ -639,12 +669,13 @@ function EditFreelancer(props) {
                     : 
                     (<ul></ul>)
                   }   
-                  <h3>Work Experience <i className="bx bx-plus" onClick={() => saveExperience(true,false)}></i></h3>
+                  <h3>Work Experience <i className="bx bx-plus add-more-record-icon" onClick={() => saveExperience(true,false)}></i></h3>
                   {state.detail && state.detail.experience_informations.length > 0 ? state.detail.experience_informations.map((row,i) => {
                     return (
                           <div className="card mb-3" key={i}>
-                            <i className="bx bx-pencil" onClick={() => saveExperience(false,row)}></i>
-                            <i className="bx bx-trash" onClick={() => removeExperience(row.id)}></i>
+                            <div class="card-header">
+                              <i className="bx bx-pencil" onClick={() => saveExperience(false,row)}></i> <i className="bx bx-trash" onClick={() => removeExperience(row.id)}></i>
+                            </div>  
                             <div className="card-body">
 
                                 <ul key={i}>
@@ -660,12 +691,13 @@ function EditFreelancer(props) {
                     (<ul></ul>)
                   } 
 
-                  <h3>Projects <i className="bx bx-plus" onClick={() => saveProject(true, false)}></i></h3>
+                  <h3>Projects <i className="bx bx-plus add-more-record-icon" onClick={() => saveProject(true, false)}></i></h3>
                   {state.detail && state.detail.project_informations.length > 0 ? state.detail.project_informations.map((row,i) => {
                     return (
                             <div className="card mb-3" key={i}>
-                              <i className="bx bx-pencil" onClick={() => saveProject(false, row)}></i>
-                              <i className="bx bx-trash" onClick={() => removeProject(row.id)}></i>
+                              <div class="card-header">
+                                <i className="bx bx-pencil" onClick={() => saveProject(false, row)}></i> <i className="bx bx-trash" onClick={() => removeProject(row.id)}></i>
+                              </div>
                               <div className="card-body">
                                   <ul key={i}>
                                     <li className="arts"><i className="bx bxs-graduation"></i> {row.title}</li>
@@ -681,7 +713,7 @@ function EditFreelancer(props) {
                     (<ul></ul>)
                   } 
 
-                  <h3>Personal Skills <i className="bx bx-pencil"></i></h3>
+                  {/* <h3>Personal Skills <i className="bx bx-pencil edit-icon-btn"></i></h3>
                   <div className="card mb-3">
                       <div className="card-body">
                       <div className="all-skill-bar">
@@ -702,8 +734,38 @@ function EditFreelancer(props) {
                       </div>
                     </div>
          
-                  </div> 
+                  </div>  */}
                 </div>
+                
+                <div className="candidates-details-sidebar mt-4">
+                  <div className="candidates-widget">
+                    <h3>Personal Skills <i className="bx bx-pencil edit-icon-btn"></i></h3>
+                    <div className="overview">
+                      <div className="all-skill-bar">
+                        {
+                          state.detail && state.detail.additional_information.skills && state.detail.additional_information.skills.split(',').map((skill)=>{
+                            return (<div className="skill-bar" data-percentage="100%">
+                                  <h5 className="progress-title-holder">
+                                    <span className="progress-title">{skill}</span>
+                                    
+                                  </h5>
+                    
+                                  <div className="progress-content-outter">
+                                    <div className="progress-content" ></div>
+                                    <ProgressBar variant="success" now={45} />
+                                  </div>
+                              </div>)
+                            })
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>      
+
+
+
+
+
               </div>
 
               <div className="col-lg-4">
