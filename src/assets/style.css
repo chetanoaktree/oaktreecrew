@@ -1511,11 +1511,28 @@ textarea.form-control {
   margin-bottom: 30px;
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
+  cursor: pointer;
 }
 
 .single-live-job img {
   height: 50px;
   margin-bottom: 15px;
+}
+
+.single-live-job.active {
+  background: #00b074;
+}
+
+.single-live-job.active a {
+  color: #ffffff;
+}
+
+.single-live-job.active:hover {
+  background: #00b074;
+}
+
+.single-live-job.active:hover a {
+  color: #ffffff;
 }
 
 .single-live-job i {
@@ -7487,6 +7504,19 @@ textarea.form-control {
 
 .dropdown-item.active, .dropdown-item:active {
   background-color: #00b074 !important;
+}
+
+.react-dropdown-select {
+  background: #fff;
+}
+
+.css-wmw4vi-ReactDropdownSelect:hover, .css-wmw4vi-ReactDropdownSelect:focus-within {
+  border-color: #00b074 !important;
+}
+
+.css-wmw4vi-ReactDropdownSelect:focus, .css-wmw4vi-ReactDropdownSelect:focus-within {
+  -webkit-box-shadow: 0 0 0 3px rgba(0, 176, 116, 0.2) !important;
+          box-shadow: 0 0 0 3px rgba(0, 176, 116, 0.2) !important;
 }
 
 .freelancers-list-profile-thumbnail {

@@ -125,3 +125,12 @@
 .dropdown-item.active, .dropdown-item:active{
     background-color: $primary-color !important; 
 }
+.react-dropdown-select {
+    background: #fff;
+}
+.css-wmw4vi-ReactDropdownSelect:hover, .css-wmw4vi-ReactDropdownSelect:focus-within{
+    border-color: $primary-color !important;
+}
+.css-wmw4vi-ReactDropdownSelect:focus, .css-wmw4vi-ReactDropdownSelect:focus-within{
+    box-shadow: 0 0 0 3px rgba($primary-color,0.2) !important;
+}
