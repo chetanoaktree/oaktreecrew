@@ -8,6 +8,12 @@ import avatar from "../../assets/images/avatar-img.jpg";
 import EditUserFreelancer from "../EditForm/EditUserFreelancer"
 import EditAboutFreelancer from "../EditForm/EditAboutFreelancer"
 import EditContactFreelancer from "../EditForm/EditContactFreelancer"
+import EditSocialFreelancer from "../EditForm/EditSocialFreelancer"
+
+
+import EditEducationFreelancer from "../EditForm/EditEducationFreelancer"
+import EditExperienceFreelancer from "../EditForm/EditExperienceFreelancer"
+import EditProjectFreelancer from "../EditForm/EditProjectFreelancer"
 
 
 
@@ -16,6 +22,11 @@ function EditFreelancer(props) {
     const [model, setModel] = useState({
       userShow: false,
       aboutShow: false,
+      contactShow: false,
+      socialShow: false,
+      educationShow: false,
+      experienceShow: false,
+      projectShow: false,
     })
 
     const handleShow = (name) => {
@@ -73,52 +84,45 @@ function EditFreelancer(props) {
     })
 
     const [education, setEducation] = useState(
-        [
-            {
-                education_level: "", 
-                degree_title: "", 
-                group: "", 
-                institute_name: "", 
-                result: "", 
-                marks: "",
-                year_of_passing: "", 
-                duration: "",
-                description: ""
-            }
-        ]
+        {
+            education_level: "", 
+            degree_title: "", 
+            group: "", 
+            institute_name: "", 
+            result: "", 
+            marks: "",
+            year_of_passing: "", 
+            duration: "",
+            description: "",
+            new: true
+        }
     )
 
     const [experience, setExperience] = useState(
-        [
-            {
-                company_name:"", 
-                designation: "", 
-                company_location: "",
-                employment_period: "",
-                description: ""
-            }
-        ]
+        {
+            company_name:"", 
+            designation: "", 
+            company_location: "",
+            employment_period: "",
+            description: "",
+            new: true
+        }
     )
 
     const [project, setProject] = useState(
-        [
-            {
-                title: "", 
-                start_date: "2021-01-01", 
-                end_date: "2021-01-01", 
-                technologies: "", 
-                summary: "",
-                project_link: ""
-            }
-        ]
+        {
+            title: "", 
+            start_date: "2021-01-01", 
+            end_date: "2021-01-01", 
+            technologies: "", 
+            summary: "",
+            project_link: "",
+            new: true
+        }
     )
 
     const dispatch = useDispatch();
     
-    useEffect(() => {
-      fetchData();
-    }, []);
-
     const { id } = useParams();
     // console.log("id",id)
 
@@ -169,9 +173,9 @@ function EditFreelancer(props) {
                     project_informations_attributes: data.project_informations
                 }))
 
-                setEducation(data.education_informations)
-                setExperience(data.experience_informations)
-                setProject(data.project_informations)
+                // setEducation(data.education_informations)
+                // setExperience(data.experience_informations)
+                // setProject(data.project_informations)
               }
           })
         }
@@ -191,15 +195,7 @@ function EditFreelancer(props) {
         form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
         form_data.append("user[additional_information_attributes[title]]",state.additional_information_attributes.title)
 
-        dispatch(updateFreelancer(form_data, id)).then((res)=> {
-            // console.log("res",res)
-            if(res && res.data.status === 200) {
-               NotificationManager.success("Successfully update", 'Success');
-               handleClose('userShow');
-            }else{
-               NotificationManager.error(res.data.messages, 'Error');  
-            }
-        })
+        updateApi(form_data, id, 'userShow');
     }
     const handleAboutUpdate = () => {
 
@@ -207,15 +203,16 @@ function EditFreelancer(props) {
         form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
         form_data.append("user[additional_information_attributes[about_me]]",state.additional_information_attributes.about_me)
 
-        dispatch(updateFreelancer(form_data, id)).then((res)=> {
-            // console.log("res",res)
-            if(res && res.data.status === 200) {
-               NotificationManager.success("Successfully update", 'Success');
-               handleClose('aboutShow');
-            }else{
-               NotificationManager.error(res.data.messages, 'Error');  
-            }
-        })
+        updateApi(form_data, id, 'aboutShow');
+    }
+    const handleSocialUpdate = () => {
+
+        var form_data = new FormData();
+        form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
+        form_data.append("user[additional_information_attributes[github_link]]",state.additional_information_attributes.github_link)
+        form_data.append("user[additional_information_attributes[linkedin_link]]",state.additional_information_attributes.linkedin_link)
+
+        updateApi(form_data, id, 'socialShow');
     }
     const handleContactUpdate = () => {
         let data = { 
@@ -226,101 +223,22 @@ function EditFreelancer(props) {
         for ( var key in data ) {
             form_data.append(`user[${key}]`, data[key])          
         }
-
+        updateApi(form_data, id, 'contactShow');
+        
+    }
+    
+    const updateApi = (form_data, id, modelName) => {
         dispatch(updateFreelancer(form_data, id)).then((res)=> {
             // console.log("res",res)
             if(res && res.data.status === 200) {
+               fetchData(); 
                NotificationManager.success("Successfully update", 'Success');
-               handleClose('contactShow');
+               handleClose(modelName);
             }else{
                NotificationManager.error(res.data.messages, 'Error');  
             }
         })
     }
-    const handleUpdate = (e) => {
-        e.preventDefault(); 
-        let data = { 
-                    email: state.email,
-                    first_name: state.first_name,
-                    last_name: state.last_name,
-                    phone: state.phone,
-                    dob: state.dob,
-                    nationality: state.nationality,
-                    gender: state.gender,
-                    martial_status: state.martial_status,
-                    address: state.address,
-                    languages: state.languages,
-                    total_experience: state.total_experience,
-                    country: state.country,
-                    state: state.state,
-                    city: state.city,
-                    pincode: state.pincode,
-                    skip_password_validation: true
-                }
-        var form_data = new FormData();
-        for ( var key in data ) {
-            form_data.append(`user[${key}]`, data[key])          
-        }
-        if(state.avatar){
-            form_data.append(`user[avatar]`, state.avatar)          
-        }
-
-        form_data.append("user[additional_information_attributes[title]]",state.additional_information_attributes.title)
-        form_data.append("user[additional_information_attributes[about_me]]",state.additional_information_attributes.about_me)
-        form_data.append("user[additional_information_attributes[presented_salary]]",state.additional_information_attributes.presented_salary)
-        form_data.append("user[additional_information_attributes[expected_salary]]",state.additional_information_attributes.expected_salary)
-        form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
-        form_data.append("user[additional_information_attributes[skills]]",state.additional_information_attributes.skills)
-        form_data.append("user[additional_information_attributes[job_nature]]",state.additional_information_attributes.job_nature)
-        form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
-        form_data.append("user[additional_information_attributes[attachment]]",state.additional_information_attributes.attachment)
-        form_data.append("user[additional_information_attributes[github_link]]",state.additional_information_attributes.github_link)
-        form_data.append("user[additional_information_attributes[linkedin_link]]",state.additional_information_attributes.linkedin_link)
-
-        education.map((p,index) => {
-            form_data.append(`user[education_informations_attributes[${index}][education_level]]`, p.education_level)
-            form_data.append(`user[education_informations_attributes[${index}][degree_title]]`, p.degree_title)
-            form_data.append(`user[education_informations_attributes[${index}][group]]`, p.group)
-            form_data.append(`user[education_informations_attributes[${index}][institute_name]]`, p.institute_name)
-            form_data.append(`user[education_informations_attributes[${index}][result]]`, p.result)
-            form_data.append(`user[education_informations_attributes[${index}][marks]]`, p.marks)
-            form_data.append(`user[education_informations_attributes[${index}][year_of_passing]]`, p.year_of_passing)
-            form_data.append(`user[education_informations_attributes[${index}][duration]]`, p.duration)
-            form_data.append(`user[education_informations_attributes[${index}][description]]`, p.description)
-            return p
-        })
-
-        experience.map((p,index) => {
-            form_data.append(`user[experience_informations_attributes[${index}][company_name]]`, p.company_name)
-            form_data.append(`user[experience_informations_attributes[${index}][designation]]`, p.designation)
-            form_data.append(`user[experience_informations_attributes[${index}][company_location]]`, p.company_location)
-            form_data.append(`user[experience_informations_attributes[${index}][employment_period_year]]`, p.employment_period_year)
-            form_data.append(`user[experience_informations_attributes[${index}][employment_period_month]]`, p.employment_period_month)
-            form_data.append(`user[experience_informations_attributes[${index}][description]]`, p.description)
-            return p
-        })
-
-        project.map((p,index) => {
-            form_data.append(`user[project_informations_attributes[${index}][title]]`, p.title)
-            form_data.append(`user[project_informations_attributes[${index}][start_date]]`, p.start_date)
-            form_data.append(`user[project_informations_attributes[${index}][end_date]]`, p.end_date)
-            form_data.append(`user[project_informations_attributes[${index}][technologies]]`, p.technologies)
-            form_data.append(`user[project_informations_attributes[${index}][summary]]`, p.summary)
-            form_data.append(`user[project_informations_attributes[${index}][project_link]]`, p.project_link)
-            return p
-        })
-            // console.log("form_data",form_data)
-        // dispatch(saveFreelancer(form_data)).then((res)=> {
-        //     // console.log("res",res)
-        //     if(res && res.data.status === 200) {
-        //        NotificationManager.success("Successfully added", 'Success');
-        //        props.history.push('/freelancer');
-        //     }else{
-        //        NotificationManager.error(res.data.messages, 'Error');  
-        //     }
-        // })
-    }
-
     const handleChange = (e) => {
       // console.log("----",e.target)
         const {name , value} = e.target   
@@ -341,17 +259,111 @@ function EditFreelancer(props) {
         })
     }
 
+    
 
-    const editEducation = (row) => {
-
+    const saveEducation = (add, row) => {
+        handleShow('educationShow')
+        if(!add){
+            setEducation(row)
+        }
     }
 
-    const editExperience = (row) => {
-      
+    const handleEducation = (e) => {
+        const {name , value} = e.target   
+        setEducation(prevState => ({
+            ...prevState,
+            [name] : value
+        })) 
+    }
+    const handleEducationSave = (add) => {
+
+        var form_data = new FormData();
+        // form_data.append(`user[education_informations_attributes[0][education_level]]`, education.education_level)
+        // form_data.append(`user[education_informations_attributes[0][degree_title]]`, education.degree_title)
+        form_data.append(`user[education_informations_attributes[0][group]]`, education.group)
+        form_data.append(`user[education_informations_attributes[0][institute_name]]`, education.institute_name)
+        form_data.append(`user[education_informations_attributes[0][result]]`, education.result)
+        form_data.append(`user[education_informations_attributes[0][marks]]`, education.marks)
+        // form_data.append(`user[education_informations_attributes[0][year_of_passing]]`, education.year_of_passing)
+        // form_data.append(`user[education_informations_attributes[0][duration]]`, education.duration)
+        form_data.append(`user[education_informations_attributes[0][description]]`, education.description)
+
+        
+        if(add){
+            updateApi(form_data, id, 'educationShow');
+            // console.log("handleProjectSaveNew",add)
+        }else{
+            form_data.append(`user[education_informations_attributes[0][id]]`, education.id)
+            updateApi(form_data, id, 'educationShow');
+            // console.log("handleProjectSaveold")
+        }
     }
 
-    const editProject = (row) => {
-      
+    const saveExperience = (add, row) => {
+        handleShow('experienceShow')
+        if(!add){
+            setExperience(row)
+        }
+    }
+
+    const handleExperience = (e) => {
+        const {name , value} = e.target   
+        setExperience(prevState => ({
+            ...prevState,
+            [name] : value
+        })) 
+    }
+    const handleExperienceSave = (add) => {
+
+        var form_data = new FormData();
+        form_data.append(`user[experience_informations_attributes[0][company_name]]`, experience.company_name)
+        form_data.append(`user[experience_informations_attributes[0][designation]]`, experience.designation)
+        form_data.append(`user[experience_informations_attributes[0][company_location]]`, experience.company_location)
+        form_data.append(`user[experience_informations_attributes[0][employment_period_year]]`, experience.employment_period_year)
+        form_data.append(`user[experience_informations_attributes[0][employment_period_month]]`, experience.employment_period_month)
+        form_data.append(`user[experience_informations_attributes[0][description]]`, experience.description)
+        
+        if(add){
+            updateApi(form_data, id, 'experienceShow');
+            // console.log("handleProjectSaveNew",add)
+        }else{
+            form_data.append(`user[experience_informations_attributes[0][id]]`, experience.id)
+            updateApi(form_data, id, 'experienceShow');
+            // console.log("handleProjectSaveold")
+        }
+    }
+
+    const saveProject = (add, row) => {
+        handleShow('projectShow')
+        if(!add){
+            setProject(row)
+        }
+    }
+
+    const handleProject = (e) => {
+        const {name , value} = e.target   
+        setProject(prevState => ({
+            ...prevState,
+            [name] : value
+        })) 
+    }
+    const handleProjectSave = (add) => {
+
+        var form_data = new FormData();
+        form_data.append(`user[project_informations_attributes[0][title]]`, project.title)
+        form_data.append(`user[project_informations_attributes[0][project_link]]`, project.project_link)
+        form_data.append(`user[project_informations_attributes[0][summary]]`, project.summary)
+        // form_data.append(`user[project_informations_attributes[${index}][start_date]]`, p.start_date)
+        // form_data.append(`user[project_informations_attributes[${index}][end_date]]`, p.end_date)
+        // form_data.append(`user[project_informations_attributes[${index}][technologies]]`, p.technologies)
+        if(add){
+            updateApi(form_data, id, 'projectShow');
+            // console.log("handleProjectSaveNew",add)
+        }else{
+            form_data.append(`user[project_informations_attributes[0][id]]`, project.id)
+            updateApi(form_data, id, 'projectShow');
+            // console.log("handleProjectSaveold")
+        }
     }
 
     const removeEducation = (uuid) => {
@@ -359,6 +371,7 @@ function EditFreelancer(props) {
       dispatch(removeFromFreelancer(url)).then((res)=> {
           if(res && res.status === 200) {
             // console.log("res",res)
+            fetchData();
             NotificationManager.success(res.message, 'Delete');  
             // fetchData(state.page, state.pageSize, '', '');
           }
@@ -370,6 +383,7 @@ function EditFreelancer(props) {
       dispatch(removeFromFreelancer(url)).then((res)=> {
           if(res && res.status === 200) {
             // console.log("res",res)
+            fetchData();
             NotificationManager.success(res.message, 'Delete');  
             // fetchData(state.page, state.pageSize, '', '');
           }
@@ -381,6 +395,7 @@ function EditFreelancer(props) {
       dispatch(removeFromFreelancer(url)).then((res)=> {
           if(res && res.status === 200) {
             // console.log("res",res)
+            fetchData();
             NotificationManager.success(res.message, 'Delete');  
             // fetchData(state.page, state.pageSize, '', '');
           }
@@ -422,6 +437,38 @@ function EditFreelancer(props) {
             handleChange = {handleChange}
             handleContactUpdate = {handleContactUpdate}
         />
+
+        <EditSocialFreelancer 
+            show = {model.socialShow}
+            state = {state}
+            handleClose = {handleClose}
+            handleAdditional = {handleAdditional}
+            handleSocialUpdate = {handleSocialUpdate}
+        />
+
+        <EditEducationFreelancer 
+            show = {model.educationShow}
+            state = {education}
+            handleClose = {handleClose}
+            handleEducation = {handleEducation}
+            handleEducationSave = {handleEducationSave}
+        />
+
+        <EditExperienceFreelancer 
+            show = {model.experienceShow}
+            state = {experience}
+            handleClose = {handleClose}
+            handleExperience = {handleExperience}
+            handleExperienceSave = {handleExperienceSave}
+        />
+
+        <EditProjectFreelancer 
+            show = {model.projectShow}
+            state = {project}
+            handleClose = {handleClose}
+            handleProject = {handleProject}
+            handleProjectSave = {handleProjectSave}
+        />
         <section className="candidates-details-area mt-5">
           <div className="container">
             <div className="row">
@@ -459,12 +506,12 @@ function EditFreelancer(props) {
                       </div>
                     </div>
                   
-                  <h3>Education</h3>
+                  <h3>Education <i className="bx bx-plus" onClick={() => saveEducation(true, false)}></i></h3>
                   {
-                    education.length > 0 ? education.map((row,i) => {
+                    state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
                     return (
                       <div className="card mb-3" key={i}>
-                        <i className="bx bx-pencil" onClick={() => editEducation(row)}></i>
+                        <i className="bx bx-pencil" onClick={() => saveEducation(false,row)}></i>
                         <i className="bx bx-trash" onClick={() => removeEducation(row.id)}></i>
                           <div className="card-body">
 
@@ -480,11 +527,11 @@ function EditFreelancer(props) {
                     : 
                     (<ul></ul>)
                   }   
-                  <h3>Work Experience</h3>
-                  {experience.length > 0 ? experience.map((row,i) => {
+                  <h3>Work Experience <i className="bx bx-plus" onClick={() => saveExperience(true,false)}></i></h3>
+                  {state.detail && state.detail.experience_informations.length > 0 ? state.detail.experience_informations.map((row,i) => {
                     return (
                           <div className="card mb-3" key={i}>
-                            <i className="bx bx-pencil" onClick={() => editExperience(row)}></i>
+                            <i className="bx bx-pencil" onClick={() => saveExperience(false,row)}></i>
                             <i className="bx bx-trash" onClick={() => removeExperience(row.id)}></i>
                             <div className="card-body">
 
@@ -501,11 +548,11 @@ function EditFreelancer(props) {
                     (<ul></ul>)
                   } 
 
-                  <h3>Projects</h3>
-                  {project.length > 0 ? project.map((row,i) => {
+                  <h3>Projects <i className="bx bx-plus" onClick={() => saveProject(true, false)}></i></h3>
+                  {state.detail && state.detail.project_informations.length > 0 ? state.detail.project_informations.map((row,i) => {
                     return (
                             <div className="card mb-3" key={i}>
-                              <i className="bx bx-pencil" onClick={() => editProject(row)}></i>
+                              <i className="bx bx-pencil" onClick={() => saveProject(false, row)}></i>
                               <i className="bx bx-trash" onClick={() => removeProject(row.id)}></i>
                               <div className="card-body">
                                   <ul key={i}>
@@ -550,16 +597,16 @@ function EditFreelancer(props) {
               <div className="col-lg-4">
                 <div className="candidates-details-sidebar">
                   <div className="candidates-widget">
-                    <h3>Social Profile <i className="bx bx-pencil"></i></h3>
+                    <h3>Social Profile <i className="bx bx-pencil" onClick={() => handleShow('socialShow')}></i></h3>
 
                     <ul className="social-icon">
                       <li>
-                        <a href="#">
+                        <a href={_.get(state.detail.additional_information, 'github_link', ['#'])} target="_blank">
                           <i className="bx bxl-github"></i>
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href={_.get(state.detail.additional_information, 'linkedin_link', ['#'])} target="_blank">
                           <i className="bx bxl-linkedin-square"></i>
                         </a>
                       </li>

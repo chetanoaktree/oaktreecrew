@@ -167,12 +167,12 @@ function FreelancerDetail(props) {
 
                     <ul className="social-icon">
                       <li>
-                        <a href="#">
+                        <a href={_.get(state.detail.additional_information, 'github_link', ['#'])} target="_blank">
                           <i className="bx bxl-github"></i>
                         </a>
                       </li>
                       <li>
-                        <a href="#">
+                        <a href={_.get(state.detail.additional_information, 'linkedin_link', ['#'])} target="_blank">
                           <i className="bx bxl-linkedin-square"></i>
                         </a>
                       </li>
