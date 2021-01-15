@@ -94,7 +94,7 @@ function AddFreelancer(props) {
         setExperience([{ ...initialExState }]);
         setProject([{ ...initialPrState }]);
     };
-    
+
     const [errors , setError] = useState({
         email: "",
         first_name: "",
@@ -273,7 +273,7 @@ function AddFreelancer(props) {
                 duration: "",
                 description: ""
             }
-        setEducation([...experience, edu])
+        setEducation([...education, edu])
     }
     const removeEducation = (index) => {
         setEducation(experience.filter(( id, i ) => i !== index));
