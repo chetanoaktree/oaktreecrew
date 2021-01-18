@@ -1,208 +1,79 @@
 const SKILLS = [
-                  { value: '', label: 'Select' },
-                  { value: 'HTML', label: 'HTML', key: 'Salesforce Developer, ROR Developer, React Developer, NodeJS Developer' },
-                  { value: 'CSS', label: 'CSS', key: 'Salesforce Developer, ROR Developer, React Developer, NodeJS Developer' },
-                  { value: 'JavaScript', label: 'JavaScript', key: 'Salesforce Developer, ROR Developer, React Developer, NodeJS Developer' },
-                  { value: 'Rails', label: 'Rails', key: 'ROR Developer' },
-                  { value: 'ERP', label: 'ERP', key: 'ROR Developer' },
-                  { value: 'Postgres', label: 'Postgres', key: 'ROR Developer' },
-                  { value: 'Swift', label: 'Swift', key: 'IOS Developer' },
-                  { value: 'Objective C', label: 'Objective C', key: 'IOS Developer' },
-                  { value: 'Express', label: 'Express', key: 'NodeJS Developer' },
-                  { value: 'Redux', label: 'Redux', key: 'React Developer' },
-                  { value: 'Flux', label: 'Flux', key: 'React Developer' },
-                  {
-                  "label": "React js", "value": "React js"
-                  },
-                  {
-                  "label": "React Native Developer", "value": "React Native Developer"
-                  },
-                  {
-                  "label": "ReactJS & React Native Engineer", "value": "ReactJS & React Native Engineer"
-                  },
-                  {
-                  "label": "React Developer", "value": "React Developer"
-                  },
-                  {
-                  "label": "react", "value": "react"
-                  },
-                  {
-                  "label": "Reactjs issue fix", "value": "Reactjs issue fix"
-                  },
-                  {
-                  "label": "React Developer", "value": "React Developer"
-                  },
-                  {
-                  "label": "React Native", "value": "React Native"
-                  },
-                  {
-                  "label": "RealTime Quality Enforcer", "value": "RealTime Quality Enforcer"
-                  },
-                  {
-                  "label": "Research Scientist Intern", "value": "Research Scientist Intern"
-                  },
-                  {
-                  "label": "Research Scientist", "value": "Research Scientist"
-                  },
-                  {
-                  "label": "Resource Management Analyst", "value": "Resource Management Analyst"
-                  },
-                  {
-                  "label": "Recruitment", "value": "Recruitment"
-                  },
-                  {
-                  "label": "Remote Software Engineer", "value": "Remote Software Engineer"
-                  },
-                  {
-                  "label": "Resident ", "value": "Resident "
-                  },
-                  {
-                  "label": "Regional advisor", "value": "Regional advisor"
-                  },
-                  {
-                  "label": "Research Associate", "value": "Research Associate"
-                  },
-                  {
-                  "label": "Reservoir Geophysicist", "value": "Reservoir Geophysicist"
-                  },
-                  {
-                  "label": "Research Assitant", "value": "Research Assitant"
-                  },
-                  {
-                  "label": "Research work online", "value": "Research work online"
-                  },
-                  {
-                  "label": "Remote Data Science Intern", "value": "Remote Data Science Intern"
-                  },
-                  {
-                  "label": "Regional HR Director", "value": "Regional HR Director"
-                  },
-                  {
-                  "label": "Research Intern", "value": "Research Intern"
-                  },
-                  {
-                  "label": "Research Analyst", "value": "Research Analyst"
-                  },
-                  {
-                  "label": "Research Assistant", "value": "Research Assistant"
-                  },
-                  {
-                  "label": "Researcher and Project Manager", "value": "Researcher and Project Manager"
-                  },
-                  {
-                  "label": "Regional Manager", "value": "Regional Manager"
-                  },
-                  {
-                  "label": "Researcher", "value": "Researcher"
-                  },
-                  {
-                  "label": "Regional Technology Manager", "value": "Regional Technology Manager"
-                  },
-                  {
-                  "label": "Requirements Engineer", "value": "Requirements Engineer"
-                  },
-                  {
-                  "label": "Recruiter", "value": "Recruiter"
-                  },
-                  {
-                  "label": "re", "value": "re"
-                  },
-                  {
-                  "label": "Ror Backend Developer", "value": "Ror Backend Developer"
-                  },
-                  {
-                  "label": "RoR Developer", "value": "RoR Developer"
-                  },
-                  {
-                  "label": "ro", "value": "ro"
-                  },
-                  {
-                  "label": "Robotic Process Automation Developer", "value": "Robotic Process Automation Developer"
-                  },
-                  {
-                  "label": "ROS", "value": "ROS"
-                  },
-                  {
-                  "label": "iOS Product Engineer", "value": "iOS Product Engineer"
-                  },
-                  {
-                  "label": "iOS Engineer", "value": "iOS Engineer"
-                  },
-                  {
-                  "label": "iOS Developer", "value": "iOS Developer"
-                  },
-                  {
-                  "label": "iOS Freelancer", "value": "iOS Freelancer"
-                  },
-                  {
-                  "label": "iOS Developer", "value": "iOS Developer"
-                  },
-                  {
-                  "label": "iOS application Developer", "value": "iOS application Developer"
-                  },
-                  {
-                  "label": "iOS/Android Developer", "value": "iOS/Android Developer"
-                  },
-                  {
-                  "label": "IOS Developer", "value": "IOS Developer"
-                  },
-                  {
-                  "label": "salesforce administrator", "value": "salesforce administrator"
-                  },
-                  {
-                  "label": "Salesforce Consultant", "value": "Salesforce Consultant"
-                  },
-                  {
-                  "label": "Salesforce Developer", "value": "Salesforce Developer"
-                  },
-                  {
-                  "label": "Salesforce Architect/Developer", "value": "Salesforce Architect/Developer"
-                  },
-                  {
-                  "label": "Sales roles", "value": "Sales roles"
-                  },
-                  {
-                  "label": "sales engineer", "value": "sales engineer"
-                  },
-                  {
-                  "label": "sales", "value": "sales"
-                  },
-                  {
-                  "label": "Sales & Business Development", "value": "Sales & Business Development"
-                  },
-                  {
-                  "label": "Sales ", "value": "Sales "
-                  },
-                  {
-                  "label": "SAS Devoloper", "value": "SAS Devoloper"
-                  },
-                  {
-                  "label": "SAP Mobile Architect and Consultant", "value": "SAP Mobile Architect and Consultant"
-                  },
-                  {
-                  "label": "Sap", "value": "Sap"
-                  },
-                  {
-                  "label": "SAP MM/WM ", "value": "SAP MM/WM "
-                  },
-                  {
-                  "label": "node backend", "value": "node backend"
-                  },
-                  {
-                  "label": "Nodejs ,React js,Php", "value": "Nodejs ,React js,Php"
-                  },
-                  {
-                  "label": "Node.js, Golang, React", "value": "Node.js, Golang, React"
-                  },
-                  {
-                  "label": "Node.js ", "value": "Node.js "
-                  },
-                  {
-                  "label": "NodeJs", "value": "NodeJs"
-                  },
-                  {
-                  "label": "NOC / SOC Analyst", "value": "NOC / SOC Analyst",
-                  }
+                  { value: '', label: 'Select' , rating: 0},
+                  { value: 'HTML', label: 'HTML', rating: 0},
+                  { value: 'CSS', label: 'CSS' , rating: 0},
+                  { value: 'JavaScript', label: 'JavaScript' , rating: 0},
+                  { value: 'Rails', label: 'Rails' , rating: 0},
+                  { value: 'ERP', label: 'ERP' , rating: 0},
+                  { value: 'Postgres', label: 'Postgres' , rating: 0},
+                  { value: 'Swift', label: 'Swift' , rating: 0},
+                  { value: 'Objective C', label: 'Objective C' , rating: 0},
+                  { value: 'Express', label: 'Express' , rating: 0},
+                  { value: 'Redux', label: 'Redux' , rating: 0},
+                  { value: 'Flux', label: 'Flux' , rating: 0},
+                  { label: "React js", value: "React js", rating: 0},
+                  { label: "React Native Developer", value: "React Native Developer", rating: 0},
+                  { label: "ReactJS & React Native Engineer", value: "ReactJS & React Native Engineer", rating: 0},
+                  { label: "React Developer", value: "React Developer", rating: 0},
+                  { label: "react", value: "react", rating: 0},
+                  { label: "Reactjs issue fix", value: "Reactjs issue fix", rating: 0},
+                  { label: "React Developer", value: "React Developer", rating: 0},
+                  { label: "React Native", value: "React Native", rating: 0},
+                  { label: "RealTime Quality Enforcer", value: "RealTime Quality Enforcer", rating: 0},
+                  { label: "Research Scientist Intern", value: "Research Scientist Intern", rating: 0},
+                  { label: "Research Scientist", value: "Research Scientist", rating: 0},
+                  { label: "Resource Management Analyst", value: "Resource Management Analyst", rating: 0},
+                  { label: "Recruitment", value: "Recruitment", rating: 0},
+                  { label: "Remote Software Engineer", value: "Remote Software Engineer", rating: 0},
+                  { label: "Resident ", value: "Resident ", rating: 0},
+                  { label: "Regional advisor", value: "Regional advisor", rating: 0},
+                  { label: "Research Associate", value: "Research Associate", rating: 0},
+                  { label: "Reservoir Geophysicist", value: "Reservoir Geophysicist", rating: 0},
+                  { label: "Research Assitant", value: "Research Assitant", rating: 0},
+                  { label: "Research work online", value: "Research work online", rating: 0},
+                  { label: "Remote Data Science Intern", value: "Remote Data Science Intern", rating: 0},
+                  { label: "Regional HR Director", value: "Regional HR Director", rating: 0},
+                  { label: "Research Intern", value: "Research Intern", rating: 0},
+                  { label: "Research Analyst", value: "Research Analyst", rating: 0},
+                  { label: "Research Assistant", value: "Research Assistant", rating: 0},
+                  { label: "Researcher and Project Manager", value: "Researcher and Project Manager", rating: 0},
+                  { label: "Regional Manager", value: "Regional Manager", rating: 0},
+                  { label: "Researcher", value: "Researcher", rating: 0},
+                  { label: "Regional Technology Manager", value: "Regional Technology Manager", rating: 0},
+                  { label: "Requirements Engineer", value: "Requirements Engineer", rating: 0},
+                  { label: "Recruiter", value: "Recruiter", rating: 0},
+                  { label: "re", value: "re", rating: 0},
+                  { label: "Ror Backend Developer", value: "Ror Backend Developer", rating: 0},
+                  { label: "RoR Developer", value: "RoR Developer", rating: 0},
+                  { label: "ro", value: "ro", rating: 0},
+                  { label: "Robotic Process Automation Developer", value: "Robotic Process Automation Developer", rating: 0},
+                  { label: "ROS", value: "ROS", rating: 0},
+                  { label: "iOS Product Engineer", value: "iOS Product Engineer", rating: 0},
+                  { label: "iOS Engineer", value: "iOS Engineer", rating: 0},
+                  { label: "iOS Developer", value: "iOS Developer", rating: 0},
+                  { label: "iOS Freelancer", value: "iOS Freelancer", rating: 0},
+                  { label: "iOS Developer", value: "iOS Developer", rating: 0},
+                  { label: "iOS application Developer", value: "iOS application Developer", rating: 0},
+                  { label: "iOS/Android Developer", value: "iOS/Android Developer", rating: 0},
+                  { label: "IOS Developer", value: "IOS Developer", rating: 0},
+                  { label: "salesforce administrator", value: "salesforce administrator", rating: 0},
+                  { label: "Salesforce Consultant", value: "Salesforce Consultant", rating: 0},
+                  { label: "Salesforce Developer", value: "Salesforce Developer", rating: 0},
+                  { label: "Salesforce Architect/Developer", value: "Salesforce Architect/Developer", rating: 0},
+                  { label: "Sales roles", value: "Sales roles", rating: 0},
+                  { label: "sales engineer", value: "sales engineer", rating: 0},
+                  { label: "Sales & Business Development", value: "Sales & Business Development", rating: 0},
+                  { label: "Sales ", value: "Sales", rating: 0},
+                  { label: "SAS Devoloper", value: "SAS Devoloper", rating: 0},
+                  { label: "SAP Mobile Architect and Consultant", value: "SAP Mobile Architect and Consultant", rating: 0},
+                  { label: "Sap", value: "Sap", rating: 0},
+                  { label: "SAP MM/WM ", value: "SAP MM/WM", rating: 0},
+                  { label: "node backend", value: "node backend", rating: 0},
+                  { label: "Nodejs ,React js,Php", value: "Nodejs ,React js,Php", rating: 0},
+                  { label: "Node.js, Golang, React", value: "Node.js, Golang, React", rating: 0},
+                  { label: "Node.js ", value: "Node.js", rating: 0},
+                  { label: "NodeJs", value: "NodeJs", rating: 0},
+                  { label: "NOC / SOC Analyst", value: "NOC / SOC Analyst", rating: 0}
                 ]  
 
 export default SKILLS;
