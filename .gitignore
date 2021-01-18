@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 
+/src/constants/env.js
 src/constants/env.js
 package-lock.json
 .eslintcache
