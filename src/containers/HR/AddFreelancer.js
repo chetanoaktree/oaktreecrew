@@ -17,6 +17,7 @@ function AddFreelancer(props) {
                         avatar: "",
                         email:"",
                         first_name: "",
+                        middle_name: "",
                         last_name: "",
                         phone: "",
                         dob: "",
@@ -78,8 +79,8 @@ function AddFreelancer(props) {
     
     const initialPrState = {
                 title: "", 
-                start_date: "2021-01-01", 
-                end_date: "2021-01-01", 
+                start_date: "", 
+                end_date: "", 
                 technologies: "", 
                 summary: "",
                 project_link: ""
@@ -338,8 +339,8 @@ function AddFreelancer(props) {
     const addProject = () => {
         let proj = {
                 title: "", 
-                start_date: new Date(), 
-                end_date: new Date(), 
+                start_date: "", 
+                end_date: "", 
                 technologies: "", 
                 summary: "",
                 project_link: ""
@@ -408,6 +409,7 @@ function AddFreelancer(props) {
                    
                     email: state.email,
                     first_name: state.first_name,
+                    middle_name: state.middle_name,
                     last_name: state.last_name,
                     phone: state.phone,
                     dob: state.dob,
@@ -686,6 +688,19 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
+                                                    <label> Middle Name</label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="middle_name"
+                                                        value={state.middle_name}
+                                                        onChange={handleChange} 
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
                                                     <label> Last Name</label>
                                                     <input 
                                                         className="form-control" 
@@ -939,8 +954,7 @@ function AddFreelancer(props) {
                                                         type="number" 
                                                         name="expected_salary"
                                                         value={state.additional_information_attributes.expected_salary}
-                                                        onChange={handleAdditional} 
-                                                        required
+                                                        onChange={handleAdditional}
                                                     />
                                                 </div>
                                             </div>
@@ -990,8 +1004,7 @@ function AddFreelancer(props) {
                                                         type="text" 
                                                         name="github_link"
                                                         value={state.additional_information_attributes.github_link}
-                                                        onChange={handleAdditional} 
-                                                        required
+                                                        onChange={handleAdditional}
                                                     />
                                                 </div>
                                             </div>
@@ -1004,8 +1017,7 @@ function AddFreelancer(props) {
                                                         type="text" 
                                                         name="linkedin_link"
                                                         value={state.additional_information_attributes.linkedin_link}
-                                                        onChange={handleAdditional} 
-                                                        required
+                                                        onChange={handleAdditional}
                                                     />
                                                 </div>
                                             </div>
@@ -1166,7 +1178,7 @@ function AddFreelancer(props) {
                                                             </div>
                                                         </div>
 
-                                                        <div className="col-lg-6 col-md-6">
+                                                        {/*<div className="col-lg-6 col-md-6">
                                                             <div className="form-group">
                                                                 <label>Major/Group</label>
                                                                 <input 
@@ -1178,7 +1190,7 @@ function AddFreelancer(props) {
                                                                     value={education[i].group}
                                                                 />
                                                             </div>
-                                                        </div>
+                                                        </div>*/}
 
                                                         <div className="col-lg-6 col-md-6">
                                                             <div className="form-group">
@@ -1242,13 +1254,12 @@ function AddFreelancer(props) {
                                                                     type="number" 
                                                                     name="duration" 
                                                                     onChange={(e) => handleEducation(e,i)}
-                                                                    required
                                                                     value={education[i].duration}
                                                                 />
                                                             </div>
                                                         </div>
 
-                                                        <div className="col-lg-12">
+                                                        {/*<div className="col-lg-12">
                                                             <div className="form-group">
                                                                 <label>Description</label>
                                                                 <textarea 
@@ -1261,7 +1272,7 @@ function AddFreelancer(props) {
                                                                 >
                                                                 </textarea>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         
                                                     </div>
                                                 </div>
@@ -1354,7 +1365,6 @@ function AddFreelancer(props) {
                                                                     options={employment_period_year_options}
                                                                     onChange={(value) => handleSelectExperience('employment_period_year', value, i)} 
                                                                     value={experience[i].employment_period_year}
-                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
@@ -1367,7 +1377,6 @@ function AddFreelancer(props) {
                                                                     options={employment_period_month_options}
                                                                     onChange={(value) => handleSelectExperience('employment_period_month', value, i)} 
                                                                     value={experience[i].employment_period_month}
-                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
@@ -1474,14 +1483,13 @@ function AddFreelancer(props) {
                                                                 <label>Start Date</label>
                                                                 <div className="input-group date" id="datetimepicker">
                                                                     <DatePicker
-                                                                    selected={new Date(project[i].start_date || '')}
+                                                                    selected={project[i].start_date !== '' ? new Date(project[i].start_date) : ''}
                                                                     onChange={(date) => handleProjectDateChange('start_date', date, i)}
                                                                     className="form-control mn_input post-job-boxes"
                                                                     dateFormat="yyyy-MM-dd"
                                                                     showMonthDropdown
                                                                     showYearDropdown
                                                                     dropdownMode="select"
-                                                                    required
                                                                     />
                                                                     <span className="input-group-addon"></span>
                                                                     <i className="bx bx-calendar"></i>
@@ -1494,14 +1502,13 @@ function AddFreelancer(props) {
                                                                 <label>End Date</label>
                                                                 <div className="input-group date" id="datetimepicker">
                                                                     <DatePicker
-                                                                    selected={new Date(project[i].end_date  || '')}
+                                                                    selected={project[i].end_date !== '' ? new Date(project[i].end_date) : ''}
                                                                     onChange={(date) => handleProjectDateChange('end_date', date, i)}
                                                                     className="form-control mn_input post-job-boxes"
                                                                     dateFormat="yyyy-MM-dd"
                                                                     showMonthDropdown
                                                                     showYearDropdown
                                                                     dropdownMode="select"
-                                                                    required
                                                                     />
                                                                     <span className="input-group-addon"></span>
                                                                     <i className="bx bx-calendar"></i>
