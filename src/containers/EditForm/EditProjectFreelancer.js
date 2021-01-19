@@ -10,7 +10,6 @@ import { Multiselect } from 'multiselect-react-dropdown';
 function EditProjectFreelancer(props) {
 	// console.log("props",props)
     const technology_options = [
-                              { value: '', label: 'Select' },
                               { value: 'Salesforce', label: 'Salesforce' },
                               { value: 'ROR', label: 'ROR' },
                               { value: 'React', label: 'React' },
