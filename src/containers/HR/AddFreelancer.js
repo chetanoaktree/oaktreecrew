@@ -752,7 +752,6 @@ function AddFreelancer(props) {
                                                         rows="4"
                                                         name="about_me" 
                                                         onChange={handleAdditional}
-                                                        required
                                                         value = {state.additional_information_attributes.about_me}
                                                     >
                                                     </textarea>
@@ -917,7 +916,6 @@ function AddFreelancer(props) {
                                                         rows="4"
                                                         name="address" 
                                                         onChange={handleChange}
-                                                        required
                                                         value={state.address}
                                                     >
                                                     </textarea>
@@ -1241,7 +1239,6 @@ function AddFreelancer(props) {
                                                                     options={year_of_passing_options}
                                                                     onChange={(value) => handleSelectEducation('year_of_passing', value, i)} 
                                                                     value={education[i].year_of_passing}
-                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
@@ -1389,7 +1386,6 @@ function AddFreelancer(props) {
                                                                     rows="4"
                                                                     name="description" 
                                                                     onChange={(e) => handleExperience(e,i)}
-                                                                    required
                                                                     value={experience[i].description}
                                                                 >
                                                                 </textarea>
@@ -1524,7 +1520,6 @@ function AddFreelancer(props) {
                                                                     rows="4"
                                                                     name="summary" 
                                                                     onChange={(e) => handleProject(e,i)}
-                                                                    required
                                                                     value={project[i].summary}
                                                                 >
                                                                 </textarea>
