@@ -4,7 +4,8 @@ import { withRouter } from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
 import ReactTable from 'react-table-v6'
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 // import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
@@ -27,26 +28,52 @@ function Freelancer(props) {
         filterAll: '',
         page: '',
         pageSize: ''  
-      })
-
-    const [model, setModel] = useState({
-      modelShow: false,
-      modelData: ''
     })
 
+    const initialModelState = {
+        modelShow: false,
+        interview_lead_id: '',
+        interview_lead_category: '',
+        interviewer: '',
+        interview_date: '',
+        interview_from_time: '',
+        interview_to_time: '',
+        interview_uuid: '',
+        interview_email: '',
+        interview_phone: '',
+        interview_note: ''
+    }
+    const [model, setModel] = useState(initialModelState)
+
     const handleShow = (data) => {
+        // console.log("data",data)
         setModel(prevState => ({
             ...prevState,
             modelShow : true,
-            modelData : data 
+            interview_uuid: data.uuid,
+            interview_email: data.email,
+            interview_phone: data.phone,
         }))
     }
 
     const handleClose = () => {
+        setModel({ ...initialModelState });
+    }
+    
+    const handleChange = (e) => {
+        // console.log("time",time)
+        const {name , value} = e.target   
         setModel(prevState => ({
             ...prevState,
-            modelShow : false,
-            modelData : ''
+            [name] : value
+        }))
+    }
+    
+    const handleDateChange = (name, time) => {
+        // console.log("time",time)
+        setModel(prevState => ({
+            ...prevState,
+            [name] : time
         }))
     }
 
@@ -92,7 +119,7 @@ function Freelancer(props) {
           }
       }) 
     }
-
+    // console.log("interView",model)
     return(
             // Start Root Div
             <div>
@@ -959,7 +986,14 @@ function Freelancer(props) {
                                     <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
-                                        <input type="text" className="form-control" placeholder="12/11/2020" />
+                                        <DatePicker
+                                            selected={model.interview_date !== '' ? new Date(model.interview_date) : ''}
+                                            onChange={(date) => handleDateChange('interview_date', date)}
+                                            className="form-control mn_input post-job-boxes"
+                                            dateFormat="yyyy-MM-dd"
+                                            minDate={new Date()}
+                                            dropdownMode="select"
+                                        />
                                         </div>	
                                     </div>
                                     </form>
@@ -971,7 +1005,17 @@ function Freelancer(props) {
                                     <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
-                                        <input type="text" className="form-control" placeholder="12:30" />
+                                        <DatePicker
+                                            selected={model.interview_from_time}
+                                            onChange={(date) => handleDateChange('interview_from_time', date)}
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                            className="form-control"
+                                            placeholder="12:30"
+                                        />
                                         </div>	
                                     </div>
                                     </form>
@@ -981,7 +1025,18 @@ function Freelancer(props) {
                                     <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
-                                        <input type="text" className="form-control" placeholder="14:30" />
+                                        <DatePicker
+                                            selected={model.interview_to_time}
+                                            minDate={model.interview_from_time}
+                                            onChange={(date) => handleDateChange('interview_to_time', date)}
+                                            showTimeSelect
+                                            showTimeSelectOnly
+                                            timeIntervals={15}
+                                            timeCaption="Time"
+                                            dateFormat="h:mm aa"
+                                            className="form-control"
+                                            placeholder="14:30"
+                                        />
                                         </div>	
                                     </div>
                                     </form>
@@ -993,7 +1048,7 @@ function Freelancer(props) {
                                 <form className="resume-info">
                                 <div className="form-group">
                                     <div className="input-group date" id="">
-                                    <input type="text" className="form-control" placeholder="Email Id" disabled />
+                                    <input type="text" className="form-control" placeholder="Email Id" disabled value={model.interview_email} />
                                     </div>	
                                 </div>
                                 </form>                          
@@ -1003,7 +1058,7 @@ function Freelancer(props) {
                                 <form className="resume-info">
                                 <div className="form-group">
                                     <div className="input-group date" id="">
-                                    <input type="text" className="form-control" placeholder="Contact Number" disabled />
+                                    <input type="text" className="form-control" placeholder="Contact Number" disabled value={model.interview_phone}/>
                                     </div>	
                                 </div>
                                 </form>                          
@@ -1015,7 +1070,7 @@ function Freelancer(props) {
                                 <div className="col-lg-12">
                                     <h6>Note</h6>                          
                                     <div className="form-group">
-                                    <textarea name="message" className="form-control" rows="4"></textarea>
+                                    <textarea name="message" onChange={handleChange} className="form-control" rows="4"></textarea>
                                     </div>
                                 </div>
                             </div>

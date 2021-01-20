@@ -290,7 +290,7 @@ function EditFreelancer(props) {
     }
 
     const handleAdditional = (e) => {
-      console.log("----",e.target)
+      // console.log("----",e.target)
         const {name , value} = e.target   
         setState({...state,  
             additional_information_attributes: {
