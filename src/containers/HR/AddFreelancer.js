@@ -927,7 +927,6 @@ function AddFreelancer(props) {
                                                         name="pincode"
                                                         value={state.pincode}
                                                         onChange={handleChange}
-                                                        required 
                                                     />
                                                 </div>
                                             </div>
