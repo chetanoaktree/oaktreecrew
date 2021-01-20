@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Modal,Row,Col } from 'react-bootstrap';
+import React from 'react';
+import { Modal,Row,Col } from 'react-bootstrap';
 
 function EditContactFreelancer(props) {
 	// console.log("props",props)
@@ -10,7 +10,7 @@ function EditContactFreelancer(props) {
 			</Modal.Header>				
 		    <Modal.Body>
 		      <Row>
-		        <Col xs={12} md={12}>
+		        <Col xs={12} md={6}>
                     <div className="form-group">
 			            <label>Contact</label>
 			            <input 
@@ -18,6 +18,19 @@ function EditContactFreelancer(props) {
 	                        type="text" 
 	                        name="phone"
 	                        value={props.state.phone}
+	                        onChange={props.handleChange} 
+	                        required
+	                    />
+			        </div>
+		        </Col>
+		        <Col xs={12} md={6}>
+                    <div className="form-group">
+			            <label>Skype Id</label>
+			            <input 
+	                        className="form-control" 
+	                        type="text" 
+	                        name="skype_id"
+	                        value={props.state.skype_id}
 	                        onChange={props.handleChange} 
 	                        required
 	                    />

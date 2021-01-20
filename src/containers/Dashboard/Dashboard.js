@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter, Link } from "react-router-dom";
 import Select from "react-dropdown-select";
-import CATEGORY from "../../constants/category";
+// import CATEGORY from "../../constants/category";
 import SKILLS from "../../constants/skills";
 import salesforce from "../../assets/images/categories/salesforce.svg";
 import Ruby from "../../assets/images/categories/ruby.svg";

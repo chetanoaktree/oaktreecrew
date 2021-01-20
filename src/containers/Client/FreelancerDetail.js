@@ -195,6 +195,10 @@ function FreelancerDetail(props) {
                         <a href={"tel:+91"+_.get(state.detail, 'phone', [''])}><span>: {_.get(state.detail, 'phone', [''])}</span></a>
                       </li>
                       <li>
+                        Skype Id
+                        <a href={"tel:+91"+_.get(state.detail.additional_information, 'skype_id', [''])}><span>: {_.get(state.detail.additional_information, 'skype_id', [''])}</span></a>
+                      </li>
+                      <li>
                         Location
                         <span>: {_.get(state.detail, 'address', [''])}</span>
                       </li>

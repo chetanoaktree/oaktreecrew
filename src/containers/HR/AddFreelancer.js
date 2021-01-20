@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-import { withRouter, useParams } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-dropdown-select";
@@ -10,6 +10,7 @@ import { saveFreelancer } from '../../actions/hrActions';
 import LANGUAGES from "../../constants/languages";
 import CATEGORY from "../../constants/category";
 import SKILLS from "../../constants/skills";
+import DEGREE from "../../constants/degree";
 
 function AddFreelancer(props) {
 
@@ -45,6 +46,7 @@ function AddFreelancer(props) {
                             attachment: "",
                             github_link: "",
                             linkedin_link: "",
+                            skype_id: "",
                         },
                         education_informations_attributes:[],
                         experience_informations_attributes: [],
@@ -469,6 +471,7 @@ function AddFreelancer(props) {
         form_data.append("user[additional_information_attributes[attachment]]",state.additional_information_attributes.attachment)
         form_data.append("user[additional_information_attributes[github_link]]",state.additional_information_attributes.github_link)
         form_data.append("user[additional_information_attributes[linkedin_link]]",state.additional_information_attributes.linkedin_link)
+        form_data.append("user[additional_information_attributes[skype_id]]",state.additional_information_attributes.skype_id)
 
         education.map((p,index) => {
             form_data.append(`user[education_informations_attributes[${index}][education_level]]`, p.education_level)
@@ -558,18 +561,9 @@ function AddFreelancer(props) {
                               { value: 'Engineer', label: 'Engineer' },
                               { value: 'Master', label: 'Master' },
                               { value: 'Associate', label: 'Associate' },
+                              { value: 'Diploma', label: 'Diploma' },
                               { value: 'Graduate', label: 'Graduate' },
                               { value: 'Post Graduate', label: 'Post Graduate' },
-                            ]
-    const degree_title_options =  [
-                              { value: '', label: 'Select' },
-                              { value: 'BE(CSE)', label: 'BE(CSE)' },
-                              { value: 'BE(IT)', label: 'BE(IT)' },
-                              { value: 'ME', label: 'ME' },
-                              { value: 'BCA', label: 'BCA' },
-                              { value: 'MCA', label: 'MCA' },
-                              { value: 'BSC(Computer)', label: 'BSC(Computer)' },
-                              { value: 'MSC(Computer)', label: 'MSC(Computer)' },
                             ]
     const result_options =  [
                               { value: '', label: 'Select' },
@@ -1042,6 +1036,19 @@ function AddFreelancer(props) {
                                                     />
                                                 </div>
                                             </div>
+                                            
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label><i class="bx bxl-linkedin-square"></i> Skype ID</label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="skype_id"
+                                                        value={state.additional_information_attributes.skype_id}
+                                                        onChange={handleAdditional}
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -1191,7 +1198,7 @@ function AddFreelancer(props) {
                                                                 <label>Exam / Degree Title</label>
                                                                 <Select 
                                                                     name="degree_title" 
-                                                                    options={degree_title_options}
+                                                                    options={DEGREE}
                                                                     onChange={(value) => handleSelectEducation('degree_title', value, i)} 
                                                                     value={education[i].degree_title}
                                                                     required

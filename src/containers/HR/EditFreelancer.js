@@ -9,8 +9,6 @@ import EditUserFreelancer from "../EditForm/EditUserFreelancer"
 import EditAboutFreelancer from "../EditForm/EditAboutFreelancer"
 import EditContactFreelancer from "../EditForm/EditContactFreelancer"
 import EditSocialFreelancer from "../EditForm/EditSocialFreelancer"
-
-
 import EditEducationFreelancer from "../EditForm/EditEducationFreelancer"
 import EditExperienceFreelancer from "../EditForm/EditExperienceFreelancer"
 import EditProjectFreelancer from "../EditForm/EditProjectFreelancer"
@@ -81,6 +79,7 @@ function EditFreelancer(props) {
             attachment: "",
             github_link: "",
             linkedin_link: "",
+            skype_id: "",
         },
         education_informations_attributes:[],
         experience_informations_attributes: [],
@@ -173,6 +172,7 @@ function EditFreelancer(props) {
                         attachment: data.additional_information.attachment,
                         github_link: data.additional_information.github_link,
                         linkedin_link: data.additional_information.linkedin_link,
+                        skype_id: data.additional_information.skype_id,
                     },
                     experience_informations_attributes: data.experience_informations,
                     education_informations_attributes: data.education_informations,
@@ -223,6 +223,7 @@ function EditFreelancer(props) {
     const handleContactUpdate = () => {
         let data = { 
                     phone: state.phone,
+                    skype_id: state.skype_id,
                     address: state.address,
                 }
         var form_data = new FormData();
@@ -902,6 +903,10 @@ function EditFreelancer(props) {
                       <li>
                         Phone
                         <a href={"tel:+91"+state.phone}><span>: {state.phone}</span></a>
+                      </li>
+                      <li>
+                        Skype Id
+                        <a href={"tel:+91"+_.get(state.detail.additional_information, 'skype_id', [''])}><span>: {_.get(state.detail.additional_information, 'skype_id', [''])}</span></a>
                       </li>
                       <li>
                         Location

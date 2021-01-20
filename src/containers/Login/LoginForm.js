@@ -4,7 +4,7 @@ import { login, resetPassword } from '../../actions/authActions';
 // import Loader from '../../components/Loader/Loader';
 import { withRouter } from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
-import { Button, Modal,Row,Col } from 'react-bootstrap';
+import { Modal,Row,Col } from 'react-bootstrap';
 
 
 function LoginForm(props) {

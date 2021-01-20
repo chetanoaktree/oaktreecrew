@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Modal,Row,Col } from 'react-bootstrap';
+import React from 'react';
+import { Modal,Row,Col } from 'react-bootstrap';
 
 function EditSocialFreelancer(props) {
 	// console.log("props",props)

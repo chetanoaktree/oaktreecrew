@@ -5,11 +5,11 @@ import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
 import ReactTable from 'react-table-v6'
 
-import TableListingLoader from "../../components/Loader/Skelton"
+// import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
-import Tabs from 'react-responsive-tabs';
-import { Modal,Row,Col } from 'react-bootstrap';
+// import Tabs from 'react-responsive-tabs';
+import { Modal } from 'react-bootstrap';
 
 
 function Freelancer(props) {
