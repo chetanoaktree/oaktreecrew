@@ -50,7 +50,8 @@ function AddFreelancer(props) {
                         experience_informations_attributes: [],
                         project_informations_attributes:[],
                         stateArg: [],
-                        cityArg: []
+                        cityArg: [],
+                        skillArg: []
                     };
     const [state , setState] = useState(initialState)
 
@@ -214,6 +215,29 @@ function AddFreelancer(props) {
                 [name] : value
             }
         })
+    }
+
+    const handleSelectAdditionalCat = (name, value) => {
+      // console.log(name,"----",value) 
+        if(value.length === 0){
+            return false
+        }
+        setState({...state,  
+            additional_information_attributes: {
+                ...state.additional_information_attributes,
+                [name] : value[0].value
+            }
+        })
+
+        var filteredItems = SKILLS.filter(item => (
+            item.filter === value[0].value
+          ));
+        // console.log("filteredItems",filteredItems)
+        setState(prevState => ({
+            ...prevState,
+            skillArg : filteredItems
+        }))
+        
     }
 
     const handleSelectAdditional = (name, value) => {
@@ -965,7 +989,7 @@ function AddFreelancer(props) {
                                                     <Select 
                                                         name="category" 
                                                         options={CATEGORY}
-                                                        onChange={(value) => handleSelectAdditional('category', value)} 
+                                                        onChange={(value) => handleSelectAdditionalCat('category', value)} 
                                                         value={state.additional_information_attributes.category}
                                                         required
                                                     />
@@ -985,7 +1009,7 @@ function AddFreelancer(props) {
                                                     <label>Skills</label>
                                                     <Select 
                                                         name="skills" 
-                                                        options={SKILLS}
+                                                        options={state.skillArg}
                                                         onChange={(value) => handleSelectAdditional('skills', value)} 
                                                         value={state.additional_information_attributes.skills}
                                                         required

@@ -14,13 +14,31 @@ function Dashboard(props) {
     
     const [state , setState] = useState({
         skills: "",
-        category: ""
+        category: "",
+        skillArg: SKILLS
     })
 
     const selectCategory = (value) => {
+        if(state.category === value){
+            setState(prevState => ({
+                ...prevState,
+                category : '',
+                skillArg : SKILLS
+            }))    
+            return false
+        }
         setState(prevState => ({
             ...prevState,
             category : value
+        }))
+
+        var filteredItems = SKILLS.filter(item => (
+            item.filter === value
+          ));
+        // console.log("filteredItems",filteredItems)
+        setState(prevState => ({
+            ...prevState,
+            skillArg : filteredItems
         }))
     }
     const handleSelect = (name, value) => {
@@ -117,7 +135,7 @@ function Dashboard(props) {
                                       <Select 
                                           name="skills" 
                                           multi
-                                          options={SKILLS}
+                                          options={state.skillArg}
                                           onChange={(value) => handleSelect('skills', value)} 
                                           value={state.skills}
                                       />
