@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
-import {NotificationManager} from 'react-notifications';
+// import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
 import ReactTable from 'react-table-v6'
 
-import TableListingLoader from "../../components/Loader/Skelton"
+// import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchLeads } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
-import Tabs from 'react-responsive-tabs';
+// import Tabs from 'react-responsive-tabs';
 import { Modal,Row,Col } from 'react-bootstrap';
 
 
@@ -239,7 +239,7 @@ function Leads(props) {
 																								Header: 'Status',
 																								accessor: 'status',
 																								Cell: row => {
-																									return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+																									return <span><span className="status-indicator status-indicator-draft"></span> Open</span>
 																								}
 																							},
 																							{

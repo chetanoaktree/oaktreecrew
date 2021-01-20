@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-dropdown-select";
 import {NotificationManager} from 'react-notifications';
 import csc from "country-state-city";
-import { saveFreelancer, getFreelancer } from '../../actions/hrActions';
+import { saveFreelancer } from '../../actions/hrActions';
 import LANGUAGES from "../../constants/languages";
 import CATEGORY from "../../constants/category";
 import SKILLS from "../../constants/skills";

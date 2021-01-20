@@ -31,8 +31,8 @@ class Header extends Component {
 
     var isActive1 = ''
     var isActive2 = ''
-    if(path[1] === "freelancer"  || path[1] === "addfreelancer"){
-      isActive1 = "active"
+    if(path[1] === "freelancer"  || path[1] === "addfreelancer" || path[1] === "freelancer-detail" || path[1] === "editfreelancer"){
+        isActive1 = "active"
     }else if(path[1] === "leads"){
         isActive2 = "active"
     }
