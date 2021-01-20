@@ -30,8 +30,8 @@ function EditContactFreelancer(props) {
 	                        className="form-control" 
 	                        type="text" 
 	                        name="skype_id"
-	                        value={props.state.skype_id}
-	                        onChange={props.handleChange} 
+	                        value={props.state.additional_information_attributes.skype_id}
+	                        onChange={props.handleAdditional} 
 	                        required
 	                    />
 			        </div>

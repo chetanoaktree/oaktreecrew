@@ -223,13 +223,16 @@ function EditFreelancer(props) {
     const handleContactUpdate = () => {
         let data = { 
                     phone: state.phone,
-                    skype_id: state.skype_id,
                     address: state.address,
                 }
         var form_data = new FormData();
         for ( var key in data ) {
             form_data.append(`user[${key}]`, data[key])          
         }
+
+        form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
+        form_data.append("user[additional_information_attributes[skype_id]]",state.additional_information_attributes.skype_id)
+
         updateApi(form_data, id, 'contactShow');
         
     }
@@ -287,7 +290,7 @@ function EditFreelancer(props) {
     }
 
     const handleAdditional = (e) => {
-      // console.log("----",e.target)
+      console.log("----",e.target)
         const {name , value} = e.target   
         setState({...state,  
             additional_information_attributes: {
@@ -625,6 +628,7 @@ function EditFreelancer(props) {
             state = {state}
             handleClose = {handleClose}
             handleChange = {handleChange}
+            handleAdditional = {handleAdditional}
             handleContactUpdate = {handleContactUpdate}
         />
 
