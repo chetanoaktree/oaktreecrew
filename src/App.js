@@ -12,6 +12,7 @@ import RecoveryConfirmation from './containers/Password/Confirm';
 import Freelancer from './containers/HR/Freelancer';
 import AddFreelancer from './containers/HR/AddFreelancer';
 import EditFreelancer from './containers/HR/EditFreelancer';
+import Leads from './containers/HR/Leads';
 
 import Dashboard from './containers/Dashboard/Dashboard';
 import FreelancerSelect from './containers/Dashboard/FreelancerSelect';
@@ -107,6 +108,7 @@ const App = class App extends Component {
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/leads" exact component={Leads} />
 
               <Route component={NoRouteFound} />
             </Switch>

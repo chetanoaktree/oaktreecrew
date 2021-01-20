@@ -6,13 +6,13 @@ import _ from 'lodash';
 import ReactTable from 'react-table-v6'
 
 import TableListingLoader from "../../components/Loader/Skelton"
-import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
+import { fetchLeads } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 import Tabs from 'react-responsive-tabs';
 import { Modal,Row,Col } from 'react-bootstrap';
 
 
-function Freelancer(props) {
+function Leads(props) {
 
     const [state , setState] = useState({
         from_data: "",
@@ -58,23 +58,23 @@ function Freelancer(props) {
 
     const fetchData = (page, pageSize, sorted, filtered) => {
       console.log(page, pageSize, sorted, filtered)
-      let data = `?page_number=${page+1}&per_page=${pageSize}&role_name=freelancer`
+      let data = `?page_number=${page+1}&per_page=${pageSize}`
       setState(prevState => ({
                 ...prevState,
                 page: page,
                 pageSize: pageSize
               }))
       // Update the document title using the browser API
-      dispatch(fetchFreelancers(data)).then((res)=> {
+      dispatch(fetchLeads(data)).then((res)=> {
           if(res && res.status === 200) {
-            // console.log("res",res.data)
+            // console.log("res",res)
              setState(prevState => ({
                 ...prevState,
                 from_data: res.data.from_data,
                 to_data: res.data.to_data,
                 total_count: res.data.total_count,
                 total_pages: res.data.total_pages,
-                users: res.data.users
+                users: res.data.clients
             }))
           }
       })
@@ -84,13 +84,13 @@ function Freelancer(props) {
     // console.log("state.users",loader)
 
     const handleDelete = (uuid) => {
-      dispatch(deleteFreelancer(uuid)).then((res)=> {
-          if(res && res.status === 200) {
-            // console.log("res",res)
-            NotificationManager.success(res.message, 'Delete');  
-            fetchData(state.page, state.pageSize, '', '');
-          }
-      }) 
+    //   dispatch(deleteFreelancer(uuid)).then((res)=> {
+    //       if(res && res.status === 200) {
+    //         // console.log("res",res)
+    //         NotificationManager.success(res.message, 'Delete');  
+    //         fetchData(state.page, state.pageSize, '', '');
+    //       }
+    //   }) 
     }
 
     return(
@@ -102,16 +102,8 @@ function Freelancer(props) {
                       <div className="page-title-content">
                           <div className="row">
                               <div className="col-md-6">
-                                  <h2>Freelancers</h2>                    
-                              </div>
-                              <div className="col-md-6">
-                                <a href="/addfreelancer" className="default-btn float-right">
-                                        Add New Freelancer
-                                </a>
-                                {/* <a className="default-btn filter-button" href="#" role="button"  data-toggle="modal" data-target="#freelancermorefilter">
-                                        <i className='bx bx-dots-vertical-rounded'></i>
-                                </a> */}
-                              </div>                    
+                                  <h2>Leads</h2>                    
+                              </div>            
                           </div>
                       </div>
                   </div>
@@ -125,16 +117,13 @@ function Freelancer(props) {
                             <div className="">
                                 <ul className="nav nav-tabs nav-justified freelancers-list-tabs" id="pills-tab" role="tablist">
                                     <li className="nav-item">
-                                        <a className="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true"><span className="tabs-counter-value">{state.total_count}</span> All Freelancers</a>
+                                        <a className="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true"><span className="tabs-counter-value">{state.total_count}</span> All Leads</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-draft-tab" data-toggle="pill" href="#pills-draft" role="tab" aria-controls="pills-draft" aria-selected="false"><span className="tabs-counter-value">0</span> Draft</a>
+                                        <a className="nav-link" id="pills-scheduling-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">0</span> Assign To HR</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-scheduling-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">0</span> Interview Scheduling</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" id="pills-Interview-tab" data-toggle="pill" href="#pills-Interview" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">0</span> Accepted</a>
+                                        <a className="nav-link" id="pills-Interview-tab" data-toggle="pill" href="#pills-Interview" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">0</span> Interviewer</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">0</span> Rejected</a>
@@ -186,20 +175,64 @@ function Freelancer(props) {
 																										<i className="fa-tasks" /> Name
 																									</span>
 																								),
-																								accessor: 'first_name',
+																								accessor: 'name',
 																								Cell: row => {
-																									return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+																									return  <span>{row.original.name}</span>
 																								}
 																							},
 																							{
 																								Header: () => (
 																									<span>
-																										<i className="fa-tasks" /> Title
+																										<i className="fa-tasks" /> Company Name
 																									</span>
 																								),
-																								accessor: 'title',
+																								accessor: 'company_name',
 																								Cell: row => {
-																									return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+																									return  <span>{row.original.company_name}</span>
+																								}
+																							},
+																							{
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Business Email
+																									</span>
+																								),
+																								accessor: 'business_email',
+																								Cell: row => {
+																									return  <span>{row.original.business_email}</span>
+																								}
+                                                                                            },
+                                                                                            {
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Category
+																									</span>
+																								),
+																								accessor: 'category',
+																								Cell: row => {
+																									return  <span>{row.original.category}</span>
+																								}
+																							},
+                                                                                            {
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Time Zone
+																									</span>
+																								),
+																								accessor: 'timezone',
+																								Cell: row => {
+																									return  <span>{row.original.timezone}</span>
+																								}
+																							},
+                                                                                            {
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Phone
+																									</span>
+																								),
+																								accessor: 'phone_number',
+																								Cell: row => {
+																									return  <span>{row.original.phone_number}</span>
 																								}
 																							},
 																							{
@@ -225,10 +258,7 @@ function Freelancer(props) {
 																																<i className='bx bx-dots-horizontal-rounded'></i>
 																														</div>
 																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                                                            <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Schedule Interview</a>
-																															<a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-																															<a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-																															<a className="dropdown-item" href="" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                                                            
 																														</div>
 																													</div>
 																								}
@@ -247,7 +277,7 @@ function Freelancer(props) {
                                     </div>
                                     <div className="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
                                         <ReactTable
-                                            data={[]}
+                                            data={state.users}
                                             sortable={true}
                                             multiSort={true}
                                             resizable={true}
@@ -270,76 +300,117 @@ function Freelancer(props) {
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
                                             columns={[
-                                                                                            {  
-                                                                                                    Header      : 'Sr.',
-                                                                                                    accessor    : 'id',
-                                                                                                    className   : 'grid-header',
-                                                                                                    filterable  : false,
-                                                                                                    filterMethod: (filter, row) => {
-                                                                                                            return row[filter.id].includes(filter.value);
-                                                                                                    }
-                                                                                                    
+																							{  
+																									Header      : 'Sr.',
+																									accessor    : 'id',
+																									className   : 'grid-header',
+																									filterable  : false,
+																									filterMethod: (filter, row) => {
+																											return row[filter.id].includes(filter.value);
+																									}
+																									
+																							},
+																							{
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Name
+																									</span>
+																								),
+																								accessor: 'name',
+																								Cell: row => {
+																									return  <span>{row.original.name}</span>
+																								}
+																							},
+																							{
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Company Name
+																									</span>
+																								),
+																								accessor: 'company_name',
+																								Cell: row => {
+																									return  <span>{row.original.company_name}</span>
+																								}
+																							},
+																							{
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Business Email
+																									</span>
+																								),
+																								accessor: 'business_email',
+																								Cell: row => {
+																									return  <span>{row.original.business_email}</span>
+																								}
                                                                                             },
                                                                                             {
-                                                                                                Header: () => (
-                                                                                                    <span>
-                                                                                                        <i className="fa-tasks" /> Name
-                                                                                                    </span>
-                                                                                                ),
-                                                                                                accessor: 'first_name',
-                                                                                                Cell: row => {
-                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
-                                                                                                }
-                                                                                            },
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Category
+																									</span>
+																								),
+																								accessor: 'category',
+																								Cell: row => {
+																									return  <span>{row.original.category}</span>
+																								}
+																							},
                                                                                             {
-                                                                                                Header: () => (
-                                                                                                    <span>
-                                                                                                        <i className="fa-tasks" /> Title
-                                                                                                    </span>
-                                                                                                ),
-                                                                                                accessor: 'title',
-                                                                                                Cell: row => {
-                                                                                                    return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
-                                                                                                }
-                                                                                            },
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Time Zone
+																									</span>
+																								),
+																								accessor: 'timezone',
+																								Cell: row => {
+																									return  <span>{row.original.timezone}</span>
+																								}
+																							},
                                                                                             {
-                                                                                                Header: 'Status',
-                                                                                                accessor: 'status',
-                                                                                                Cell: row => {
-                                                                                                    return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
-                                                                                                }
-                                                                                            },
-                                                                                            {
-                                                                                                Header: 'Created Date',
-                                                                                                accessor: 'created_at',
-                                                                                                Cell: row => {
-                                                                                                    return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
-                                                                                                }
-                                                                                            },
-                                                                                            {
-                                                                                                Header: 'Action',
-                                                                                                accessor: 'uuid',
-                                                                                                Cell: row => {
-                                                                                                    return <div className="">
-                                                                                                                        <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                                                                <i className='bx bx-dots-horizontal-rounded'></i>
-                                                                                                                        </div>
-                                                                                                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                                                            <a className="dropdown-item" href={"#"}>Schedule Interview</a>
-                                                                                                                            <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                                                                            <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                                                                            <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                }
-                                                                                            }
-                                                                                        ]}
-                                                                                        defaultSorted={[
-                                                                                                {
-                                                                                                        id: 'first_name',
-                                                                                                        desc: false
-                                                                                                } 
-                                                                                        ]}                                                                                      
+																								Header: () => (
+																									<span>
+																										<i className="fa-tasks" /> Phone
+																									</span>
+																								),
+																								accessor: 'phone_number',
+																								Cell: row => {
+																									return  <span>{row.original.phone_number}</span>
+																								}
+																							},
+																							{
+																								Header: 'Status',
+																								accessor: 'status',
+																								Cell: row => {
+																									return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+																								}
+																							},
+																							{
+																								Header: 'Created Date',
+																								accessor: 'created_at',
+																								Cell: row => {
+																									return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+																								}
+																							},
+																							{
+																								Header: 'Action',
+																								accessor: 'uuid',
+																								Cell: row => {
+																									return <div className="">
+																														<div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																																<i className='bx bx-dots-horizontal-rounded'></i>
+																														</div>
+																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                                                            
+																														</div>
+																													</div>
+																								}
+																							}
+																						]}
+																						defaultSorted={[
+																								{
+																										id: 'first_name',
+																										desc: false
+																								} 
+																						]}																						
                                             onFetchData={(state, instance) => {
                                                 fetchData(state.page, state.pageSize, state.sorted, state.filtered);
                                             }}
@@ -1043,4 +1114,4 @@ function Freelancer(props) {
     )
 }
 
-export default withRouter(Freelancer);
+export default withRouter(Leads);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import PropTypes from 'prop-types';
@@ -30,8 +30,11 @@ class Header extends Component {
     var path = route.split('/');
 
     var isActive1 = ''
+    var isActive2 = ''
     if(path[1] === "freelancer"  || path[1] === "addfreelancer"){
       isActive1 = "active"
+    }else if(path[1] === "leads"){
+        isActive2 = "active"
     }
 
     // console.log('addfreelancer', isActive1)
@@ -63,28 +66,17 @@ class Header extends Component {
                                     <ul className="navbar-nav m-auto">
 
                                         <li className="nav-item">
-                                            <a href="/freelancer" className={"nav-link "  + isActive1}>
+                                            <Link to="/freelancer" className={"nav-link "  + isActive1}>
                                                 Freelancers
-                                            </a>
+                                            </Link>
                                         </li>
 
                                         <li className="nav-item">
-                                            <a href="#" className="nav-link">
-                                                Clients
-                                            </a>
+                                            <Link to="/leads" className={"nav-link " + isActive2}>
+                                                Leads
+                                            </Link>
                                         </li>
 
-                                        <li className="nav-item">
-                                            <a href="#" className="nav-link">
-                                                Message
-                                            </a>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <a href="#" className="nav-link">
-                                                Settings
-                                            </a>
-                                        </li>
                                     </ul>
                                     
                                     <div className="others-option">

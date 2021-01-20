@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { withRouter, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -619,7 +619,7 @@ function AddFreelancer(props) {
     // console.log("education======",education)
     // console.log("experience'======",experience)
     // console.log("project======",project)
-    
+    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
     return(
 
         <div>
@@ -1540,7 +1540,7 @@ function AddFreelancer(props) {
                                         </a>
                                     </div>
                                     <div className="col-lg-12 text-center">
-                                       <button className="default-btn" >Save </button>
+                                       <button className="default-btn" disabled={loader}>Save </button>
                                        <button className="default-btn btn-two ml-2" onClick={clearState}>Reset </button>
                                     </div>
                                 </div>
