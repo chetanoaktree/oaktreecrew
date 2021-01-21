@@ -62,16 +62,17 @@ function PublicOnlyRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => (!authed || (authed === false))
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/freelancer', state: {from: props.location}}} />}
+        : <Redirect to={{pathname: (localStorage.role === 'hr') ? '/freelancer' : '/users', state: {from: props.location}}} />}
     />
   )
 }
 
-function PrivateRoute ({component: Component, authed, ...rest}) {
+function PrivateRoute ({component: Component, authed, role, ...rest}) {
+  // console.log("role",role)
   return (
     <Route
       {...rest}
-      render={(props) => localStorage.accessToken
+      render={(props) => localStorage.accessToken && role.includes(localStorage.role) 
         ? <Component {...props} />
         : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
     />
@@ -108,15 +109,15 @@ const App = class App extends Component {
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/users/password/edit" exact component={RecoveryConfirmation} />  
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-details/:id" exact component={FreelancerDetail} />
 
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer" exact component={Freelancer} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/leads" exact component={Leads} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/users" exact component={Users} role={['admin']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer" exact component={Freelancer} role={['admin','hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} role={['hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} role={['hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} role={['admin','hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/leads" exact component={Leads} role={['admin','hr']}/>
 
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/users" exact component={Users} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/adduser" exact component={SaveUser} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/edituser/:id" exact component={SaveUser} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/adduser" exact component={SaveUser} role={['admin']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/edituser/:id" exact component={SaveUser} role={['admin']}/>
 
               <Route component={NoRouteFound} />
             </Switch>
