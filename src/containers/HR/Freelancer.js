@@ -106,7 +106,7 @@ function Freelancer(props) {
             interview_date: model.interview_date,
             from_hours: model.interview_from_time,
             to_hours: model.interview_to_time,
-            // freelancer_id: model.interview_uuid,
+            freelancer_id: model.interview_uuid,
             category: model.interview_category,
             note: model.interview_note
         }
