@@ -87,9 +87,9 @@ function FreelancerDetail(props) {
                       <div className="card mb-3">
                         <div className="card-body">
                             <ul key={i}>
-                              <li className="arts"><i class="bx bxs-graduation"></i> {row.education_level} in {row.degree_title}</li>
-                              <li className="university"><i class="bx bxs-book"></i> {row.group +' '+row.institute_name} ({row.year_of_passing})</li>
-                              <li className="summary"><i class="bx bxs-notepad"></i> {row.description}</li>
+                              <li className="arts"><i className="bx bxs-graduation"></i> {row.education_level} in {row.degree_title}</li>
+                              <li className="university"><i className="bx bxs-book"></i> {row.group +' '+row.institute_name} ({row.year_of_passing})</li>
+                              <li className="summary"><i className="bx bxs-notepad"></i> {row.description}</li>
                             </ul>
                         </div>
                       </div>
@@ -105,9 +105,9 @@ function FreelancerDetail(props) {
                             <div className="card-body">
 
                                 <ul key={i}>
-                                  <li className="arts"><i class="bx bxs-user"></i> {row.designation}</li>
-                                  <li className="university"><i class="bx bxs-building"></i> {row.company_name} ({row.employment_period_year > 0 && row.employment_period_year +" year "} { row.employment_period_month > 0 && row.employment_period_month+' month'}) in {row.company_location}</li>
-                                  <li className="summary"><i class="bx bxs-notepad"></i> {row.description}</li>
+                                  <li className="arts"><i className="bx bxs-user"></i> {row.designation}</li>
+                                  <li className="university"><i className="bx bxs-building"></i> {row.company_name} ({row.employment_period_year > 0 && row.employment_period_year +" year "} { row.employment_period_month > 0 && row.employment_period_month+' month'}) in {row.company_location}</li>
+                                  <li className="summary"><i className="bx bxs-notepad"></i> {row.description}</li>
                                 </ul>
                             </div>
                           </div>
@@ -123,10 +123,10 @@ function FreelancerDetail(props) {
                             <div className="card mb-3">
                               <div className="card-body">
                                   <ul key={i}>
-                                    <li className="arts"><i class="bx bxs-graduation"></i> {row.title}</li>
-                                    <li className="university"><i class="bx bxs-calendar"></i> Period: {row.start_date} to {row.end_date} </li>
-                                    <li className="university"><i class="bx bxs-tag"></i> Skills: {row.technologies} </li>
-                                    <li className="summary"><i class="bx bxs-notepad"></i> {row.summary}</li>
+                                    <li className="arts"><i className="bx bxs-graduation"></i> {row.title}</li>
+                                    <li className="university"><i className="bx bxs-calendar"></i> Period: {row.start_date} to {row.end_date} </li>
+                                    <li className="university"><i className="bx bxs-tag"></i> Skills: {row.technologies} </li>
+                                    <li className="summary"><i className="bx bxs-notepad"></i> {row.summary}</li>
                                   </ul>
                               </div>
                             </div>

@@ -5,6 +5,7 @@ function EditUserFreelancer(props) {
 	// console.log("props",props)
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('userShow')} className="Reset-Your-Password-Popup" centered >
+			<form className="resume-info" onSubmit={props.handleUserUpdate}>
 			<Modal.Header closeButton>
 				<Modal.Title>Edit</Modal.Title>
 			</Modal.Header>
@@ -12,7 +13,7 @@ function EditUserFreelancer(props) {
 		      <Row>
 		        <Col xs={12} md={6}>
 		        	<div className="form-group">
-			            <label>First Name</label>
+			            <label>First Name<span className="text-danger">*</span></label>
 			        	<input 
 	                        className="form-control" 
 	                        type="text" 
@@ -25,7 +26,19 @@ function EditUserFreelancer(props) {
 		        </Col>
 		        <Col xs={12} md={6}>
 		        	<div className="form-group">
-			            <label>Last Name</label>
+			            <label>Middle Name</label>
+	                    <input 
+	                        className="form-control" 
+	                        type="text" 
+	                        name="middle_name"
+	                        value={props.state.middle_name}
+	                        onChange={props.handleChange} 
+	                    />
+	                </div>    
+		        </Col>
+		        <Col xs={12} md={6}>
+		        	<div className="form-group">
+			            <label>Last Name<span className="text-danger">*</span></label>
 	                    <input 
 	                        className="form-control" 
 	                        type="text" 
@@ -38,7 +51,7 @@ function EditUserFreelancer(props) {
 		        </Col>
 		        <Col xs={12} md={6}>
                     <div className="form-group">
-			            <label>Email</label>
+			            <label>Email<span className="text-danger">*</span></label>
 			            <input 
 	                        className="form-control" 
 	                        type="email" 
@@ -51,7 +64,7 @@ function EditUserFreelancer(props) {
 		        </Col>
 		        <Col xs={12} md={6}>
                     <div className="form-group">
-			            <label>Title</label>
+			            <label>Title<span className="text-danger">*</span></label>
 			            <input 
 			                className="form-control" 
 			                type="text" 
@@ -66,9 +79,9 @@ function EditUserFreelancer(props) {
 		    </Modal.Body>
 		    <Modal.Footer>
 		      <button className="default-btn default-btn btn-two" onClick={() => props.handleClose('userShow')}>Close</button>
-		      <button className="default-btn default-btn" onClick={() => props.handleUserUpdate()}>Save</button>
+			  <button className="default-btn default-btn">Save </button>
 		    </Modal.Footer>
-
+			</form>
 		</Modal>
 	)
 }

@@ -14,6 +14,10 @@ import AddFreelancer from './containers/HR/AddFreelancer';
 import EditFreelancer from './containers/HR/EditFreelancer';
 import Leads from './containers/HR/Leads';
 
+import Users from './containers/Admin/Users';
+import SaveUser from './containers/Admin/SaveUser';
+
+
 import Dashboard from './containers/Dashboard/Dashboard';
 import FreelancerSelect from './containers/Dashboard/FreelancerSelect';
 import ClientSignup from './containers/Dashboard/ClientSignup';
@@ -109,6 +113,10 @@ const App = class App extends Component {
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/leads" exact component={Leads} />
+
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/users" exact component={Users} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/adduser" exact component={SaveUser} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/edituser/:id" exact component={SaveUser} />
 
               <Route component={NoRouteFound} />
             </Switch>

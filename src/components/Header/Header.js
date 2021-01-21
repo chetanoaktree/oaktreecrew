@@ -29,15 +29,18 @@ class Header extends Component {
     var route = this.props.location.pathname
     var path = route.split('/');
 
+    var isActive0 = ''
     var isActive1 = ''
     var isActive2 = ''
     if(path[1] === "freelancer"  || path[1] === "addfreelancer" || path[1] === "freelancer-detail" || path[1] === "editfreelancer"){
         isActive1 = "active"
     }else if(path[1] === "leads"){
         isActive2 = "active"
+    }else if(path[1] === "users" || path[1] === "adduser" || path[1] === "edituser"){
+        isActive0 = "active"
     }
 
-    // console.log('addfreelancer', isActive1)
+    // console.log('addfreelancer', localStorage.role)
     return (
         <header className="header-area">
             <div className="navbar-area is-sticky">
@@ -64,7 +67,14 @@ class Header extends Component {
                                {auth.isAuthenticated &&
                                 <React.Fragment>
                                     <ul className="navbar-nav m-auto">
-
+                                        {localStorage.role === 'admin' &&
+                                            <li className="nav-item">
+                                                <Link to="/users" className={"nav-link "  + isActive0}>
+                                                    Users
+                                                </Link>
+                                            </li>
+                                        }
+                                        
                                         <li className="nav-item">
                                             <Link to="/freelancer" className={"nav-link "  + isActive1}>
                                                 Freelancers

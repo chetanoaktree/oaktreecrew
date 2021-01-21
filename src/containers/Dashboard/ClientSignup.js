@@ -66,7 +66,7 @@ function ClientSignup(props) {
         
             // console.log("form_data",data)
         dispatch(saveLeads(data)).then((res)=> {
-            console.log("res",res)
+            // console.log("res",res)
             if(res && res.data.status === 200) {
                NotificationManager.success(res.data.message, 'Success');
                props.history.push('/');
@@ -78,7 +78,7 @@ function ClientSignup(props) {
     }
     
     const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
-    
+    // console.log("props.location.state",props.location.state)
     return(
        <section className="job-information-area ptb-100">
           <div className="container">
@@ -94,7 +94,7 @@ function ClientSignup(props) {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="form-group">
-                      <label>Name*</label>
+                      <label>Name<span className="text-danger">*</span></label>
                       <input className="form-control" type="text" name="name" onChange={handleChange} required/>
                     </div>
                   </div>
@@ -103,7 +103,7 @@ function ClientSignup(props) {
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="form-group">
-                      <label>Company Name</label>
+                      <label>Company Name<span className="text-danger">*</span></label>
                       <input className="form-control" type="text" name="company_name" onChange={handleChange} required/>
                     </div>
                   </div>
@@ -112,21 +112,21 @@ function ClientSignup(props) {
                 <div className="row">
                   <div className="col-lg-6 col-md-6">
                     <div className="form-group">
-                      <label>Business Email</label>
+                      <label>Business Email<span className="text-danger">*</span></label>
                       <input className="form-control" type="email" name="business_email" onChange={handleChange} required/>
                     </div>
                   </div>
                   
                   <div className="col-lg-6 col-md-6">
                     <div className="form-group">
-                      <label>Phone Number</label>
+                      <label>Phone Number<span className="text-danger">*</span></label>
                       <input className="form-control" type="phone" name="phone_number" onChange={handleChange} required/>
                     </div>
                   </div>              
 
                   <div className="col-lg-12 col-md-12">
                     <div className="form-group">
-                      <label>Timezone*</label>
+                      <label>Timezone<span className="text-danger">*</span></label>
                       <Select 
                           name="timezone"
                           options={TIMEZONES}

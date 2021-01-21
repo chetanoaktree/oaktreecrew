@@ -66,7 +66,7 @@ function FreelancerSelect(props) {
   };
 
     useEffect(() => {
-      // fetchData();
+      fetchData();
     }, []);
 
     const fetchData = () => {
@@ -80,7 +80,7 @@ function FreelancerSelect(props) {
       // Update the document title using the browser API
       dispatch(fetchFreelancerByCategory(data)).then((res)=> {
           if(res && res.status === 200) {
-            console.log("res",res.data)
+            // console.log("res",res.data)
              setState(prevState => ({
                 ...prevState,
                 users: res.data
@@ -105,19 +105,16 @@ function FreelancerSelect(props) {
 
 
             <Slider {...settings}>
-              {/*state.users.map((row, i) => {
+              {state.users.map((row, i) => {
                 return (<div className="" key={i}>
                         <div className="single-freelancer">
                           <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
-                          <a href={"/freelancer-details/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></a>
+                          <Link to={"/freelancer-details/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></Link>
                           <span className="profession">{row.additional_information.category}</span>
-                          <a href="#" className="default-btn" onClick={() => selectFreelancer(row)}>
-                            Select
-                          </a>
                         </div>
                       </div>)  
-              })*/}
-              
+              })}
+              {/*  
               <div className="">
                 <div className="single-freelancer">
                   <img src={freelancer1} alt="Image" />
@@ -126,7 +123,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -136,7 +132,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -146,7 +141,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -156,7 +150,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -166,7 +159,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -176,7 +168,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -186,7 +177,7 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
+              
 
               <div className="">
                 <div className="single-freelancer">
@@ -196,7 +187,7 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              
+              */}
             </Slider>
 
             <div className="row mt-5">

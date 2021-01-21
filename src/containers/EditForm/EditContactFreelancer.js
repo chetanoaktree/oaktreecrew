@@ -5,6 +5,7 @@ function EditContactFreelancer(props) {
 	// console.log("props",props)
 	return(
 		<Modal show={props.show} onHide={() => props.handleClose('contactShow')} className="Reset-Your-Password-Popup" centered >
+			<form className="resume-info" onSubmit={props.handleContactUpdate}>	
 			<Modal.Header closeButton>
 				<Modal.Title>Edit</Modal.Title>
 			</Modal.Header>				
@@ -12,7 +13,7 @@ function EditContactFreelancer(props) {
 		      <Row>
 		        <Col xs={12} md={6}>
                     <div className="form-group">
-			            <label>Contact</label>
+			            <label>Contact<span className="text-danger">*</span></label>
 			            <input 
 	                        className="form-control" 
 	                        type="text" 
@@ -32,7 +33,6 @@ function EditContactFreelancer(props) {
 	                        name="skype_id"
 	                        value={props.state.additional_information_attributes.skype_id}
 	                        onChange={props.handleAdditional} 
-	                        required
 	                    />
 			        </div>
 		        </Col>
@@ -44,7 +44,6 @@ function EditContactFreelancer(props) {
                             rows="4"
                             name="address" 
                             onChange={props.handleChange}
-                            required
                             value={props.state.address}
                         >
                         </textarea>
@@ -54,9 +53,9 @@ function EditContactFreelancer(props) {
 		    </Modal.Body>
 		    <Modal.Footer>
 		      <button className="default-btn default-btn btn-two" onClick={() => props.handleClose('contactShow')}>Close</button>
-		      <button className="default-btn default-btn" onClick={() => props.handleContactUpdate()}>Save</button>
-		    </Modal.Footer>
-
+		      <button className="default-btn default-btn">Save </button> 	
+			</Modal.Footer>
+			</form>
 		</Modal>
 	)
 }

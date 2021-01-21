@@ -122,13 +122,16 @@ function Leads(props) {
                                         <a className="nav-link" id="pills-scheduling-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">0</span> Assign To HR</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-Interview-tab" data-toggle="pill" href="#pills-Interview" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">0</span> Interviewer</a>
+                                        <a className="nav-link" id="pills-Interview-tab" data-toggle="pill" href="#pills-Interview" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">0</span> Technical Person</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">0</span> Running</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">0</span> Rejected</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-Job-offer-and-contract-tab" data-toggle="pill" href="#pills-Job-offer-and-contract" role="tab" aria-controls="pills-Job-offer-and-contract" aria-selected="false"><span className="tabs-counter-value">0</span> Job offer & contract</a>
+                                        <a className="nav-link" id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">0</span> Closed</a>
                                     </li>                                                                                                             
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">
@@ -257,7 +260,7 @@ function Leads(props) {
 																																<i className='bx bx-dots-horizontal-rounded'></i>
 																														</div>
 																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                                                            
+                                                                                                                        <a className="dropdown-item" href="">Assign</a>
 																														</div>
 																													</div>
 																								}
