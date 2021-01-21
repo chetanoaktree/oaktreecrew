@@ -6,8 +6,10 @@ import _ from 'lodash';
 import ReactTable from 'react-table-v6'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Select from 'react-select-me';
+import 'react-select-me/lib/ReactSelectMe.css';
 // import TableListingLoader from "../../components/Loader/Skelton"
-import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
+import { fetchFreelancers, deleteFreelancer, fetchInterviewerByCategory, interviewSchedule } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 // import Tabs from 'react-responsive-tabs';
 import { Modal } from 'react-bootstrap';
@@ -32,8 +34,8 @@ function Freelancer(props) {
 
     const initialModelState = {
         modelShow: false,
-        // interview_lead_id: '',
-        interviewer: '',
+        interviewerList: '',
+        interviewer_id: "",
         interview_date: '',
         interview_from_time: '',
         interview_to_time: '',
@@ -55,6 +57,17 @@ function Freelancer(props) {
             interview_phone: data.phone,
             interview_category: data.additional_information.category,
         }))
+
+        dispatch(fetchInterviewerByCategory(data.additional_information.category)).then((res)=> {
+            if(res && res.status === 200) {
+            //   console.log("res",res)
+              setModel(prevState => ({
+                  ...prevState,
+                  interviewerList: res.interviewer
+              }))
+            }
+        })
+
     }
 
     const handleClose = () => {
@@ -69,6 +82,14 @@ function Freelancer(props) {
             [name] : value
         }))
     }
+
+    const selectInterviewer = (name, value) => {
+        // console.log(name,"----",value) 
+          setModel(prevState => ({
+              ...prevState,
+              [name] : value.value
+          }))
+      }
     
     const handleDateChange = (name, time) => {
         // console.log("time",time)
@@ -76,6 +97,29 @@ function Freelancer(props) {
             ...prevState,
             [name] : time
         }))
+    }
+
+    const handleInterviewSchedule = (e) => {
+        e.preventDefault();
+        let data = { 
+            interviewer_id: model.interviewer_id,
+            interview_date: model.interview_date,
+            from_hours: model.interview_from_time,
+            to_hours: model.interview_to_time,
+            // freelancer_id: model.interview_uuid,
+            category: model.interview_category,
+            note: model.interview_note
+        }
+
+        dispatch(interviewSchedule(model.interview_uuid, {interview_schedule: data})).then((res)=> {
+            if(res && res.data.status === 200) {
+                NotificationManager.success("Successfully Interview Schedule", 'Success');
+                handleClose()
+                fetchData(state.page, state.pageSize, '', '');
+            }else{
+                NotificationManager.error(res.data.messages, 'Error');  
+            }
+        }) 
     }
 
     const dispatch = useDispatch();
@@ -120,7 +164,7 @@ function Freelancer(props) {
           }
       }) 
     }
-    // console.log("interView",model)
+    // console.log("interView",model.interviewerList)
     return(
             // Start Root Div
             <div>
@@ -943,6 +987,7 @@ function Freelancer(props) {
                 </div>    
 
                 <Modal show={model.modelShow} onHide={() => handleClose()} className="" centered >
+                    <form className="resume-info" onSubmit={handleInterviewSchedule}>
                     <Modal.Header closeButton>
                         <Modal.Title>Schedule Interview</Modal.Title>
                     </Modal.Header>			
@@ -964,13 +1009,14 @@ function Freelancer(props) {
                                 <div className="col-lg-6 col-md-6">
                                     <h6>Interviewer</h6>
                                     <div className="form-group">
-                                        <select className="height">
-                                            <option value="1">Poonam Sharma</option>
-                                            <option value="2">Shaifali Jariwala</option>
-                                            <option value="2">Alka Shakhala</option>
-                                            <option value="2">Puja Shrivastava</option>
-                                            <option value="2">Neelam Dabar</option>
-                                        </select>
+                                        <Select 
+                                            placeholder="Select"
+                                            name="interviewer_id"
+                                            options={model.interviewerList}
+                                            onChange={(value) => selectInterviewer('interviewer_id', value)} 
+                                            value={model.interviewer_id}
+                                            required
+                                        />
                                     </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6">
@@ -985,6 +1031,7 @@ function Freelancer(props) {
                                             dateFormat="yyyy-MM-dd"
                                             minDate={new Date()}
                                             dropdownMode="select"
+                                            required
                                         />
                                         </div>	
                                     </div>
@@ -1007,6 +1054,7 @@ function Freelancer(props) {
                                             dateFormat="h:mm aa"
                                             className="form-control"
                                             placeholder="12:30"
+                                            required
                                         />
                                         </div>	
                                     </div>
@@ -1028,6 +1076,7 @@ function Freelancer(props) {
                                             dateFormat="h:mm aa"
                                             className="form-control"
                                             placeholder="14:30"
+                                            required
                                         />
                                         </div>	
                                     </div>
@@ -1062,7 +1111,7 @@ function Freelancer(props) {
                                 <div className="col-lg-12">
                                     <h6>Note</h6>                          
                                     <div className="form-group">
-                                    <textarea name="message" onChange={handleChange} className="form-control" rows="4"></textarea>
+                                    <textarea name="interview_note" onChange={handleChange} className="form-control" rows="4"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1070,9 +1119,9 @@ function Freelancer(props) {
                     </Modal.Body>
                     <Modal.Footer>
                     <button className="default-btn default-btn btn-two" onClick={() => handleClose()}>Close</button>
-                    <button className="default-btn default-btn">Save</button>
+                    <button className="default-btn default-btn" disabled={loader}>Save</button>
                     </Modal.Footer>
-
+                    </form>
                 </Modal>
               </section>
               {/* End Freelancers List Area */}
