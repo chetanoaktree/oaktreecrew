@@ -34,6 +34,7 @@ function Freelancer(props) {
 
     const initialModelState = {
         modelShow: false,
+        id: '',
         interviewerList: '',
         interviewer_id: "",
         interview_date: '',
@@ -71,43 +72,37 @@ function Freelancer(props) {
     }
 
     const reschedulehandleShow = (data) => {
-        console.log("data",data)
-        setModel(prevState => ({
-            ...prevState,
-            modelShow : true,
-            // interview_uuid: data.id,
-            // interview_email: data.email,
-            // interview_phone: data.phone,
-            // interview_category: data.additional_information.category,
-        }))
+        // console.log("data",data)
 
         dispatch(getInterviewScheduleDetail(data.id)).then((res)=> {
             if(res && res.status === 200) {
-              console.log("res",res)
-            //   setModel(prevState => ({
-            //         ...prevState,
-            //         interviewer_id: "",
-            //         interview_date: '',
-            //         interview_from_time: '',
-            //         interview_to_time: '',
-            //         interview_uuid: '',
-            //         interview_email: '',
-            //         interview_phone: '',
-            //         interview_category: '',
-            //         interview_note: ''
-            //   }))
+              console.log("res",res.interview_schedule)
+              setModel(prevState => ({
+                    ...prevState,
+                    modelShow : true,
+                    id: res.interview_schedule.id,
+                    interviewer_id: res.interview_schedule.interviewer_id,
+                    interview_date: res.interview_schedule.interview_date,
+                    interview_from_time: res.interview_schedule.from_hours,
+                    interview_to_time: res.interview_schedule.to_hours,
+                    interview_uuid: res.interview_schedule.freelancer_id,
+                    interview_email: res.interview_schedule.freelancer_email,
+                    interview_phone: res.interview_schedule.freelancer_phone,
+                    interview_category: res.interview_schedule.category,
+                    interview_note: res.interview_schedule.note
+              }))
             }
         })
 
-        // dispatch(fetchInterviewerByCategory(data.additional_information.category)).then((res)=> {
-        //     if(res && res.status === 200) {
-        //     //   console.log("res",res)
-        //       setModel(prevState => ({
-        //           ...prevState,
-        //           interviewerList: res.interviewer
-        //       }))
-        //     }
-        // })
+        dispatch(fetchInterviewerByCategory(data.category)).then((res)=> {
+            if(res && res.status === 200) {
+            //   console.log("res",res)
+              setModel(prevState => ({
+                  ...prevState,
+                  interviewerList: res.interviewer
+              }))
+            }
+        })
 
     }
 
@@ -352,7 +347,7 @@ function Freelancer(props) {
                                                         Header: 'Status',
                                                         accessor: 'status',
                                                         Cell: row => {
-                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
+                                                            return <span className="all-status"><span className={`status-indicator status-indicator-${row.original.status}`}></span> {row.original.status}</span>
                                                         }
                                                     },
                                                     {
@@ -386,11 +381,11 @@ function Freelancer(props) {
                                                                     </div>
                                                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                     
-                                                                    { row.original.status === 'draft' ?
+                                                                    { row.original.status === 'draft' &&
                                                                         <>{localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Schedule Interview</a>}</>
-                                                                        :
+                                                                    }{/*
                                                                         <>{localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {reschedulehandleShow(row.original)}}>Reschedule Interview</a>}</>
-                                                                    } 
+                                                                    */} 
                                                                     <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
                                                                     {localStorage.role === 'hr' && <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>}
                                                                     <a className="dropdown-item" href="" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
@@ -927,7 +922,7 @@ function Freelancer(props) {
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                    <button className="default-btn default-btn btn-two" onClick={() => handleClose()}>Close</button>
+                    <div className="default-btn default-btn btn-two" onClick={() => handleClose()}>Close</div>
                     <button className="default-btn default-btn" disabled={loader}>Save</button>
                     </Modal.Footer>
                     </form>
