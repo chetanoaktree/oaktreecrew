@@ -114,7 +114,7 @@ function Freelancer(props) {
             if(res && res.data.status === 200) {
                 NotificationManager.success("Successfully Interview Schedule", 'Success');
                 handleClose()
-                fetchData(state.page, state.pageSize, '', '');
+                fetchData(state.page, state.pageSize, '', '', state.tab);
             }else{
                 NotificationManager.error(res.data.messages, 'Error');  
             }

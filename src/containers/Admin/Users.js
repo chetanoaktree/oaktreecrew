@@ -199,14 +199,12 @@ function Users(props) {
                                             collapseOnSortingChange={ true}
                                             columns={[
                                                     {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
-                                                            }
-                                                            
+                                                        Header      : 'Sr.',
+                                                        accessor    : 'id',
+                                                        Cell: row => {
+                                                            return(<span>{row.viewIndex+1}</span>)
+                                                        }
+                                                        
                                                     },
                                                     {
                                                         Header: () => (
@@ -293,14 +291,12 @@ function Users(props) {
                                             collapseOnSortingChange={ true}
                                             columns={[
                                                 {  
-                                                        Header      : 'Sr.',
-                                                        accessor    : 'id',
-                                                        className   : 'grid-header',
-                                                        filterable  : false,
-                                                        filterMethod: (filter, row) => {
-                                                                return row[filter.id].includes(filter.value);
-                                                        }
-                                                        
+                                                    Header      : 'Sr.',
+                                                    accessor    : 'id',
+                                                    Cell: row => {
+                                                        return(<span>{row.viewIndex+1}</span>)
+                                                    }
+                                                    
                                                 },
                                                 {
                                                     Header: () => (
@@ -399,14 +395,12 @@ function Users(props) {
                                             collapseOnSortingChange={ true}
                                             columns={[
                                                 {  
-                                                        Header      : 'Sr.',
-                                                        accessor    : 'id',
-                                                        className   : 'grid-header',
-                                                        filterable  : false,
-                                                        filterMethod: (filter, row) => {
-                                                                return row[filter.id].includes(filter.value);
-                                                        }
-                                                        
+                                                    Header      : 'Sr.',
+                                                    accessor    : 'id',
+                                                    Cell: row => {
+                                                        return(<span>{row.viewIndex+1}</span>)
+                                                    }
+                                                    
                                                 },
                                                 {
                                                     Header: () => (
