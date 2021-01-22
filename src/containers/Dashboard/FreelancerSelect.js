@@ -3,6 +3,7 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter, Link } from "react-router-dom";
 import Slider from "react-slick";
 import { fetchFreelancerByCategory } from '../../actions/hrActions';
+import {CardListingLoader} from "../../components/Loader/Skelton"
 import freelancer1 from "../../assets/images/freelancer/freelancer-1.jpg";
 import freelancer2 from "../../assets/images/freelancer/freelancer-2.jpg";
 import freelancer3 from "../../assets/images/freelancer/freelancer-3.jpg";
@@ -93,7 +94,7 @@ function FreelancerSelect(props) {
         console.log("item", item  )
     }
 
-    // const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
+    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
 
     return(
         <section className="freelancer-area pt-100 pb-70">
@@ -105,14 +106,21 @@ function FreelancerSelect(props) {
 
 
             <Slider {...settings}>
+              {!loader &&  
+                      Array.from(Array(7), (e, i) => {
+                        return (<div className="single-freelancer">
+                            <CardListingLoader />
+                          </div>)
+                    })
+              }
               {state.users.map((row, i) => {
-                return (<div className="" key={i}>
+                return (<Link to={"/freelancer-details/"+row.uuid} key={i}><div className="">
                         <div className="single-freelancer">
                           <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
-                          <Link to={"/freelancer-details/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></Link>
+                          <h3>{row.first_name +' '+row.last_name}</h3>
                           <span className="profession">{row.additional_information.category}</span>
                         </div>
-                      </div>)  
+                      </div></Link>)  
               })}
               {/*  
               <div className="">

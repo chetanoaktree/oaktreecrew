@@ -51,6 +51,7 @@ function Dashboard(props) {
             [name] :  value.map(e => e.value).join(",")
         }))
     }
+
     return(
         <section className="live-jobs-area bg-color ptb-100">
           <div className="container">
@@ -153,8 +154,10 @@ function Dashboard(props) {
                                         category: state.category,
                                         skills: state.skills
                                       }
-                                    }}>
-                                      <button className="default-btn">
+                                    }} 
+                                    disabled={(state.category === "")}
+                                    >
+                                      <button className="default-btn" disabled={(state.category === "")}>
                                           <span>Proceed</span>
                                       </button>
                                   </Link>

@@ -29,7 +29,8 @@ function Freelancer(props) {
         filtered: [],
         filterAll: '',
         page: '',
-        pageSize: ''  
+        pageSize: '',
+        tab: 'all' 
     })
 
     const initialModelState = {
@@ -128,8 +129,17 @@ function Freelancer(props) {
       // fetchData();
     }, []);
 
-    const fetchData = (page, pageSize, sorted, filtered) => {
-      console.log(page, pageSize, sorted, filtered)
+    const activeTab = (tab) => {
+        setState(prevState => ({
+            ...prevState,
+            tab: tab,
+            total_count: ""
+        }))
+        fetchData(0, 10, '', '', tab);
+    }
+
+    const fetchData = (page, pageSize, sorted, filtered, tab) => {
+      //   console.log(page, pageSize, sorted, filtered)
       let data = `?page_number=${page+1}&per_page=${pageSize}&role_name=freelancer`
       setState(prevState => ({
                 ...prevState,
@@ -160,7 +170,7 @@ function Freelancer(props) {
           if(res && res.status === 200) {
             // console.log("res",res)
             NotificationManager.success(res.message, 'Delete');  
-            fetchData(state.page, state.pageSize, '', '');
+            fetchData(state.page, state.pageSize, '', '', state.tab);
           }
       }) 
     }
@@ -199,22 +209,22 @@ function Freelancer(props) {
                             <div className="">
                                 <ul className="nav nav-tabs nav-justified freelancers-list-tabs" id="pills-tab" role="tablist">
                                     <li className="nav-item">
-                                        <a className="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true"><span className="tabs-counter-value">{state.total_count}</span> All Freelancers</a>
+                                        <a className="nav-link active" onClick={() => activeTab('all')} id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true"><span className="tabs-counter-value">{state.tab === 'all' ? state.total_count : ""}</span> All Freelancers</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-draft-tab" data-toggle="pill" href="#pills-draft" role="tab" aria-controls="pills-draft" aria-selected="false"><span className="tabs-counter-value">0</span> Draft</a>
+                                        <a className="nav-link" onClick={() => activeTab('draft')} id="pills-draft-tab" data-toggle="pill" href="#pills-draft" role="tab" aria-controls="pills-draft" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'draft' ? state.total_count : ""}</span> Draft</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-scheduling-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">0</span> Interview Scheduling</a>
+                                        <a className="nav-link" onClick={() => activeTab('schedule')} id="pills-scheduling-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'schedule' ? state.total_count : ""}</span> Interview Scheduling</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-Interview-tab" data-toggle="pill" href="#pills-Interview" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">0</span> Accepted</a>
+                                        <a className="nav-link" onClick={() => activeTab('accepted')} id="pills-Accepted-tab" data-toggle="pill" href="#pills-Accepted" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'accepted' ? state.total_count : ""}</span> Accepted</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">0</span> Rejected</a>
+                                        <a className="nav-link" onClick={() => activeTab('rejected')} id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'rejected' ? state.total_count : ""}</span> Rejected</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-Job-offer-and-contract-tab" data-toggle="pill" href="#pills-Job-offer-and-contract" role="tab" aria-controls="pills-Job-offer-and-contract" aria-selected="false"><span className="tabs-counter-value">0</span> Job offer & contract</a>
+                                        <a className="nav-link" onClick={() => activeTab('jobOffer')} id="pills-Job-offer-and-contract-tab" data-toggle="pill" href="#pills-Job-offer-and-contract" role="tab" aria-controls="pills-Job-offer-and-contract" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'jobOffer' ? state.total_count : ""}</span> Job offer & contract</a>
                                     </li>                                                                                                             
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">
@@ -316,9 +326,12 @@ function Freelancer(props) {
                                                                 id: 'first_name',
                                                                 desc: false
                                                         } 
-                                                ]}																						
+                                                ]}	
+                                            id={state.tab}    																					
                                             onFetchData={(state, instance) => {
-                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                                if(state.id === 'all'){
+                                                    fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
+                                                }
                                             }}
                                         />
                                     </div>
@@ -417,11 +430,13 @@ function Freelancer(props) {
                                                                 desc: false
                                                         } 
                                                 ]}                                                                                      
+                                            id={state.tab}    																					
                                             onFetchData={(state, instance) => {
-                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                                if(state.id === 'draft'){
+                                                    fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
+                                                }
                                             }}
                                         />
-
                                     </div>
                                     <div className="tab-pane fade" id="pills-scheduling" role="tabpanel" aria-labelledby="pills-scheduling-tab">
                                         <ReactTable
@@ -518,12 +533,15 @@ function Freelancer(props) {
                                                                 desc: false
                                                         } 
                                                 ]}                                                                                      
+                                            id={state.tab}    																					
                                             onFetchData={(state, instance) => {
-                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                                if(state.id === 'schedule'){
+                                                    fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
+                                                }
                                             }}
                                         />
                                     </div>
-                                    <div className="tab-pane fade" id="pills-Interview" role="tabpanel" aria-labelledby="pills-Interview-tab">
+                                    <div className="tab-pane fade" id="pills-Accepted" role="tabpanel" aria-labelledby="pills-Accepted-tab">
                                         <ReactTable
                                             data={[]}
                                             sortable={true}
@@ -618,8 +636,11 @@ function Freelancer(props) {
                                                                 desc: false
                                                         } 
                                                 ]}                                                                                      
+                                            id={state.tab}    																					
                                             onFetchData={(state, instance) => {
-                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                                if(state.id === 'accepted'){
+                                                    fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
+                                                }
                                             }}
                                         />                                
                                     </div>
@@ -718,166 +739,13 @@ function Freelancer(props) {
                                                                 desc: false
                                                         } 
                                                 ]}                                                                                      
+                                            id={state.tab}    																					
                                             onFetchData={(state, instance) => {
-                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                                if(state.id === 'rejected'){
+                                                    fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
+                                                }
                                             }}
                                         />                                
-                                    </div>
-                                    <div className="tab-pane fade" id="pills-Assessment" role="tabpanel" aria-labelledby="pills-Assessment-tab">
-                                        <ReactTable
-                                            data={[]}
-                                            sortable={true}
-                                            multiSort={true}
-                                            resizable={true}
-                                            loading={loader}
-                                            loadingText= {'Data Loading .......'}
-                                            noDataText="No Data Found !!"
-                                            // filterable
-                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
-                                            filtered={state.filtered}
-                                            defaultPageSize={10}
-                                            minRows= {state.users}
-                                            className="py-3 px-3"
-                                            Sorted
-                                            pages={state.total_pages}
-                                            showPagination={true}
-                                            showPaginationTop={false}
-                                            showPaginationBottom={true}
-                                            pageSizeOptions={[10, 20, 50]}
-                                            // manual // For server side pagination
-                                            showPageJump={ true}
-                                            collapseOnSortingChange={ true}
-                                            columns={[
-                                                    {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
-                                                            }
-                                                            
-                                                    },
-                                                    {
-                                                        Header: () => (
-                                                            <span>
-                                                                <i className="fa-tasks" /> Name
-                                                            </span>
-                                                        ),
-                                                        accessor: 'first_name',
-                                                        Cell: row => {
-                                                            return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: () => (
-                                                            <span>
-                                                                <i className="fa-tasks" /> Title
-                                                            </span>
-                                                        ),
-                                                        accessor: 'title',
-                                                        Cell: row => {
-                                                            return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: 'Status',
-                                                        accessor: 'status',
-                                                        Cell: row => {
-                                                            return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: 'Created Date',
-                                                        accessor: 'created_at',
-                                                        Cell: row => {
-                                                            return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: 'Action',
-                                                        accessor: 'uuid',
-                                                        Cell: row => {
-                                                            return <div className="">
-                                                                                <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                        <i className='bx bx-dots-horizontal-rounded'></i>
-                                                                                </div>
-                                                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    <a className="dropdown-item" href={"#"}>Schedule Interview</a>
-                                                                                    <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                                    <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                                    <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
-                                                                                </div>
-                                                                            </div>
-                                                        }
-                                                    }
-                                                ]}
-                                                defaultSorted={[
-                                                        {
-                                                                id: 'first_name',
-                                                                desc: false
-                                                        } 
-                                                ]}                                                                                      
-                                            onFetchData={(state, instance) => {
-                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
-                                            }}
-                                        />                                
-                                    </div>
-                                    <div className="tab-pane fade" id="pills-References" role="tabpanel" aria-labelledby="pills-References-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td colSpan="7">
-                                                        <div className="text-center"><h6>No Data Found</h6></div>
-                                                    </td>
-                                                </tr>                                                                                                                  
-                                                </tbody>
-                                            </table>
-                                        </div>                                
-                                    </div>
-                                    <div className="tab-pane fade" id="pills-Decision" role="tabpanel" aria-labelledby="pills-Decision-tab">
-                                        <div className="table-responsive">
-                                            <table className="freelancers-list-table table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col">
-                                                        <div className="checkboxs">
-                                                            <input type="checkbox" id="chb2" />
-                                                        </div>
-                                                    </th>
-                                                    <th scope="col">APPLICATION # <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">APPLICANT <i className='bx bx-sort'></i></th>
-                                                    <th scope="col">STATUS <i className='bx bx-sort'></i></th>
-                                                    
-                                                    <th scope="col">Date <i className='bx bx-sort'></i></th>
-                                                    <th scope="col"></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td colSpan="7">
-                                                        <div className="text-center"><h6>No Data Found</h6></div>
-                                                    </td>
-                                                </tr>                                                                                                                  
-                                                </tbody>
-                                            </table>
-                                        </div>                                
                                     </div>
                                     <div className="tab-pane fade" id="pills-Job-offer-and-contract" role="tabpanel" aria-labelledby="pills-Job-offer-and-contract-tab">
                                         <ReactTable
@@ -974,8 +842,11 @@ function Freelancer(props) {
                                                                 desc: false
                                                         } 
                                                 ]}                                                                                      
+                                            id={state.tab}    																					
                                             onFetchData={(state, instance) => {
-                                                fetchData(state.page, state.pageSize, state.sorted, state.filtered);
+                                                if(state.id === 'jobOffer'){
+                                                    fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
+                                                }
                                             }}
                                         />                                
                                     </div>                                                                                                                                            
