@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import PropTypes from 'prop-types';
-
+import DefaultProfileImage from "../../assets/images/profile.png";
 import logo from "../../assets/images/logo.png";
 
 
@@ -66,36 +66,53 @@ class Header extends Component {
                             <div className="collapse navbar-collapse mean-menu" >
                                {auth.isAuthenticated &&
                                 <React.Fragment>
-                                    <ul className="navbar-nav m-auto">
+                                    <ul className="navbar-nav ml-auto">
                                         {localStorage.role === 'admin' &&
                                             <li className="nav-item">
                                                 <Link to="/users" className={"nav-link "  + isActive0}>
-                                                    Users
+                                                <i className="bx bx-user-circle"></i> Users
                                                 </Link>
                                             </li>
                                         }
                                         
                                         <li className="nav-item">
                                             <Link to="/freelancer" className={"nav-link "  + isActive1}>
-                                                Freelancers
+                                            <i className="bx bx-user"></i> Freelancers
                                             </Link>
                                         </li>
 
                                         <li className="nav-item">
                                             <Link to="/leads" className={"nav-link " + isActive2}>
-                                                Leads
+                                            <i className="bx bx-sitemap"></i> Leads
                                             </Link>
                                         </li>
 
+
+
+                                        <li className="nav-item">
+                                            <a href="#" className="nav-link">
+                                               <img src={DefaultProfileImage} className="header-menu-user-profile-image"/> User Name
+                                                <i className="bx bx-chevron-down"></i>
+                                            </a>
+                
+                                            <ul className="dropdown-menu">
+                                                <li className="nav-item">
+                                                    <a href="#" className="nav-link"><i className="bx bx-edit"></i> Edit Profile</a>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <a href="#" className="nav-link danger" onClick={this.logout}><i className="bx bx-log-out"></i> Logout</a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                     
-                                    <div className="others-option">
+                                    {/* <div className="others-option">
                                         <div className="get-quote">
                                             <a href="#" onClick={this.logout} className="default-btn">
                                                 Log Out
                                             </a>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </React.Fragment>
                                }
                                {/* !auth.isAuthenticated &&
