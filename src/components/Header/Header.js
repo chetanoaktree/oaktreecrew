@@ -91,7 +91,7 @@ class Header extends Component {
 
                                         <li className="nav-item">
                                             <a href="#" className="nav-link">
-                                               <img src={DefaultProfileImage} className="header-menu-user-profile-image"/> User Name
+                                               <img src={localStorage.image !== "null" ? localStorage.image : DefaultProfileImage} className="header-menu-user-profile-image"/> {localStorage.Name}
                                                 <i className="bx bx-chevron-down"></i>
                                             </a>
                 
