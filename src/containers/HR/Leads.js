@@ -6,7 +6,7 @@ import _ from 'lodash';
 import ReactTable from 'react-table-v6'
 // import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchLeads } from '../../actions/hrActions';
-import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
+import profileImageThumbnail from "../../assets/images/profile.png"
 // import Tabs from 'react-responsive-tabs';
 import { Modal } from 'react-bootstrap';
 
@@ -161,117 +161,116 @@ function Leads(props) {
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
                                             columns={[
-																							{  
-																									Header      : 'Sr.',
-																									accessor    : 'id',
-																									className   : 'grid-header',
-																									filterable  : false,
-																									filterMethod: (filter, row) => {
-																											return row[filter.id].includes(filter.value);
-																									}
-																									
-																							},
-																							{
-																								Header: () => (
-																									<span>
-																										<i className="fa-tasks" /> Name
-																									</span>
-																								),
-																								accessor: 'name',
-																								Cell: row => {
-																									return  <span>{row.original.name}</span>
-																								}
-																							},
-																							{
-																								Header: () => (
-																									<span>
-																										<i className="fa-tasks" /> Company Name
-																									</span>
-																								),
-																								accessor: 'company_name',
-																								Cell: row => {
-																									return  <span>{row.original.company_name}</span>
-																								}
-																							},
-																							{
-																								Header: () => (
-																									<span>
-																										<i className="fa-tasks" /> Business Email
-																									</span>
-																								),
-																								accessor: 'business_email',
-																								Cell: row => {
-																									return  <span>{row.original.business_email}</span>
-																								}
-                                                                                            },
-                                                                                            {
-																								Header: () => (
-																									<span>
-																										<i className="fa-tasks" /> Category
-																									</span>
-																								),
-																								accessor: 'category',
-																								Cell: row => {
-																									return  <span>{row.original.category}</span>
-																								}
-																							},
-                                                                                            {
-																								Header: () => (
-																									<span>
-																										<i className="fa-tasks" /> Time Zone
-																									</span>
-																								),
-																								accessor: 'timezone',
-																								Cell: row => {
-																									return  <span>{row.original.timezone}</span>
-																								}
-																							},
-                                                                                            {
-																								Header: () => (
-																									<span>
-																										<i className="fa-tasks" /> Phone
-																									</span>
-																								),
-																								accessor: 'phone_number',
-																								Cell: row => {
-																									return  <span>{row.original.phone_number}</span>
-																								}
-																							},
-																							{
-																								Header: 'Status',
-																								accessor: 'status',
-																								Cell: row => {
-																									return <span><span className="status-indicator status-indicator-draft"></span> Open</span>
-																								}
-																							},
-																							{
-																								Header: 'Created Date',
-																								accessor: 'created_at',
-																								Cell: row => {
-																									return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
-																								}
-																							},
-																							{
-																								Header: 'Action',
-																								accessor: 'uuid',
-																								Cell: row => {
-																									return <div className="">
-																														<div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-																																<i className='bx bx-dots-horizontal-rounded'></i>
-																														</div>
-																														<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                                                        <a className="dropdown-item" href="">Assign</a>
-																														</div>
-																													</div>
-																								}
-																							}
-																						]}
-																						defaultSorted={[
-																								{
-																										id: 'first_name',
-																										desc: false
-																								} 
-																						]}																						
+                                                    {  
+                                                            Header      : 'Sr.',
+                                                            accessor    : 'id',
+                                                            className   : 'grid-header',
+                                                            Cell: row => {
+                                                                return(<span>{row.viewIndex+1}</span>)
+                                                            }
+                                                            
+                                                    },
+                                                    {
+                                                        Header: () => (
+                                                            <span>
+                                                                <i className="fa-tasks" /> Name
+                                                            </span>
+                                                        ),
+                                                        accessor: 'name',
+                                                        Cell: row => {
+                                                            return  <span>{row.original.name}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: () => (
+                                                            <span>
+                                                                <i className="fa-tasks" /> Company Name
+                                                            </span>
+                                                        ),
+                                                        accessor: 'company_name',
+                                                        Cell: row => {
+                                                            return  <span>{row.original.company_name}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: () => (
+                                                            <span>
+                                                                <i className="fa-tasks" /> Business Email
+                                                            </span>
+                                                        ),
+                                                        accessor: 'business_email',
+                                                        Cell: row => {
+                                                            return  <span>{row.original.business_email}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: () => (
+                                                            <span>
+                                                                <i className="fa-tasks" /> Category
+                                                            </span>
+                                                        ),
+                                                        accessor: 'category',
+                                                        Cell: row => {
+                                                            return  <span>{row.original.category}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: () => (
+                                                            <span>
+                                                                <i className="fa-tasks" /> Time Zone
+                                                            </span>
+                                                        ),
+                                                        accessor: 'timezone',
+                                                        Cell: row => {
+                                                            return  <span>{row.original.timezone}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: () => (
+                                                            <span>
+                                                                <i className="fa-tasks" /> Phone
+                                                            </span>
+                                                        ),
+                                                        accessor: 'phone_number',
+                                                        Cell: row => {
+                                                            return  <span>{row.original.phone_number}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: 'Status',
+                                                        accessor: 'status',
+                                                        Cell: row => {
+                                                            return <span><span className="status-indicator status-indicator-draft"></span> Open</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: 'Created Date',
+                                                        accessor: 'created_at',
+                                                        Cell: row => {
+                                                            return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: 'Action',
+                                                        accessor: 'uuid',
+                                                        Cell: row => {
+                                                            return <div className="">
+                                                                                <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                        <i className='bx bx-dots-horizontal-rounded'></i>
+                                                                                </div>
+                                                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                <a className="dropdown-item" href="">Assign</a>
+                                                                                </div>
+                                                                            </div>
+                                                        }
+                                                    }
+                                                ]}
+                                                defaultSorted={[
+                                                        {
+                                                                id: 'first_name',
+                                                                desc: false
+                                                        } 
+                                                ]}																						
                                             onFetchData={(state, instance) => {
                                                 fetchData(state.page, state.pageSize, state.sorted, state.filtered);
                                             }}

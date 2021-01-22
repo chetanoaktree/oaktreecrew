@@ -3,17 +3,9 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter, Link } from "react-router-dom";
 import Slider from "react-slick";
 import { fetchFreelancerByCategory } from '../../actions/hrActions';
-import {CardListingLoader} from "../../components/Loader/Skelton"
-import {TableListingLoader} from "../../components/Loader/Skelton"
-import freelancer1 from "../../assets/images/freelancer/freelancer-1.jpg";
-import freelancer2 from "../../assets/images/freelancer/freelancer-2.jpg";
-import freelancer3 from "../../assets/images/freelancer/freelancer-3.jpg";
-import freelancer4 from "../../assets/images/freelancer/freelancer-4.jpg";
-import freelancer5 from "../../assets/images/freelancer/freelancer-5.jpg";
-import freelancer6 from "../../assets/images/freelancer/freelancer-6.jpg";
-import freelancer7 from "../../assets/images/freelancer/freelancer-7.jpg";
-import freelancer8 from "../../assets/images/freelancer/freelancer-8.jpg";
+import {CardListingLoader, TableListingLoader} from "../../components/Loader/Skelton";
 
+import freelancer1 from "../../assets/images/profile.png";
 
 
 function FreelancerSelect(props) {
@@ -112,12 +104,10 @@ function FreelancerSelect(props) {
                         return (<div className="single-freelancer">
                             <CardListingLoader />
                             <TableListingLoader />
-
-                            
                           </div>)
                     })
               }
-              {state.users.map((row, i) => {
+              {state.users.length > 0 ? state.users.map((row, i) => {
                 return (<Link to={"/freelancer-details/"+row.uuid} key={i}><div className="">
                         <div className="single-freelancer">
                           <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
@@ -125,7 +115,12 @@ function FreelancerSelect(props) {
                           <span className="profession">{row.additional_information.category}</span>
                         </div>
                       </div></Link>)  
-              })}
+              })
+              :
+              <div className="single-freelancer">
+                <h5 className="mt-5 mb-5">No Data Found</h5>
+              </div>
+            }
               {/*  
               <div className="">
                 <div className="single-freelancer">

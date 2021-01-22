@@ -6,7 +6,7 @@ import _ from 'lodash';
 import ReactTable from 'react-table-v6'
 // import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
-import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
+import profileImageThumbnail from "../../assets/images/profile.png"
 // import Tabs from 'react-responsive-tabs';
 import { Modal } from 'react-bootstrap';
 
