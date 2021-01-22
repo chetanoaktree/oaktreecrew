@@ -450,7 +450,8 @@ function AddFreelancer(props) {
                     state: state.state,
                     city: state.city,
                     pincode: state.pincode,
-                    skip_password_validation: true
+                    skip_password_validation: true,
+                    status: 'draft'
                 }
         var form_data = new FormData();
         for ( var key in data ) {

@@ -8,10 +8,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
-// import TableListingLoader from "../../components/Loader/Skelton"
 import { fetchFreelancers, deleteFreelancer, fetchInterviewerByCategory, interviewSchedule } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
-// import Tabs from 'react-responsive-tabs';
 import { Modal } from 'react-bootstrap';
 
 
@@ -140,7 +138,11 @@ function Freelancer(props) {
 
     const fetchData = (page, pageSize, sorted, filtered, tab) => {
       //   console.log(page, pageSize, sorted, filtered)
+
       let data = `?page_number=${page+1}&per_page=${pageSize}&role_name=freelancer`
+      if(tab === 'draft'){
+          data = `${data}&status=${tab}`
+      }
       setState(prevState => ({
                 ...prevState,
                 page: page,
@@ -257,10 +259,8 @@ function Freelancer(props) {
                                                     {  
                                                             Header      : 'Sr.',
                                                             accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
+                                                            Cell: row => {
+                                                                return(<span>{row.viewIndex+1}</span>)
                                                             }
                                                             
                                                     },
@@ -290,7 +290,7 @@ function Freelancer(props) {
                                                         Header: 'Status',
                                                         accessor: 'status',
                                                         Cell: row => {
-                                                            return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
                                                         }
                                                     },
                                                     {
@@ -337,7 +337,7 @@ function Freelancer(props) {
                                     </div>
                                     <div className="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
                                         <ReactTable
-                                            data={[]}
+                                            data={state.users}
                                             sortable={true}
                                             multiSort={true}
                                             resizable={true}
@@ -361,14 +361,11 @@ function Freelancer(props) {
                                             collapseOnSortingChange={ true}
                                             columns={[
                                                     {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
-                                                            }
-                                                            
+                                                        Header      : 'Sr.',
+                                                        accessor    : 'id',
+                                                        Cell: row => {
+                                                            return(<span>{row.viewIndex+1}</span>)
+                                                        }  
                                                     },
                                                     {
                                                         Header: () => (
@@ -396,7 +393,7 @@ function Freelancer(props) {
                                                         Header: 'Status',
                                                         accessor: 'status',
                                                         Cell: row => {
-                                                            return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
                                                         }
                                                     },
                                                     {
@@ -499,7 +496,7 @@ function Freelancer(props) {
                                                         Header: 'Status',
                                                         accessor: 'status',
                                                         Cell: row => {
-                                                            return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
                                                         }
                                                     },
                                                     {
@@ -602,7 +599,7 @@ function Freelancer(props) {
                                                         Header: 'Status',
                                                         accessor: 'status',
                                                         Cell: row => {
-                                                            return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
                                                         }
                                                     },
                                                     {
@@ -705,7 +702,7 @@ function Freelancer(props) {
                                                         Header: 'Status',
                                                         accessor: 'status',
                                                         Cell: row => {
-                                                            return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
                                                         }
                                                     },
                                                     {
@@ -808,7 +805,7 @@ function Freelancer(props) {
                                                         Header: 'Status',
                                                         accessor: 'status',
                                                         Cell: row => {
-                                                            return <span><span className="status-indicator status-indicator-draft"></span> Draft</span>
+                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
                                                         }
                                                     },
                                                     {
