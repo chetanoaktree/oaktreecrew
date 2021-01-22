@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
-import { fetchFreelancers, deleteFreelancer, fetchInterviewerByCategory, interviewSchedule } from '../../actions/hrActions';
+import { fetchFreelancers, deleteFreelancer, fetchInterviewerByCategory, interviewSchedule, getInterviewSchedule } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
 import { Modal } from 'react-bootstrap';
 
@@ -51,7 +51,7 @@ function Freelancer(props) {
         setModel(prevState => ({
             ...prevState,
             modelShow : true,
-            interview_uuid: data.uuid,
+            interview_uuid: data.id,
             interview_email: data.email,
             interview_phone: data.phone,
             interview_category: data.additional_information.category,
@@ -110,7 +110,7 @@ function Freelancer(props) {
             note: model.interview_note
         }
 
-        dispatch(interviewSchedule(model.interview_uuid, {interview_schedule: data})).then((res)=> {
+        dispatch(interviewSchedule({interview_schedule: data})).then((res)=> {
             if(res && res.data.status === 200) {
                 NotificationManager.success("Successfully Interview Schedule", 'Success');
                 handleClose()
@@ -140,7 +140,7 @@ function Freelancer(props) {
       //   console.log(page, pageSize, sorted, filtered)
 
       let data = `?page_number=${page+1}&per_page=${pageSize}&role_name=freelancer`
-      if(tab === 'draft'){
+      if(tab !== 'all'){
           data = `${data}&status=${tab}`
       }
       setState(prevState => ({
@@ -217,7 +217,7 @@ function Freelancer(props) {
                                         <a className="nav-link" onClick={() => activeTab('draft')} id="pills-draft-tab" data-toggle="pill" href="#pills-draft" role="tab" aria-controls="pills-draft" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'draft' ? state.total_count : ""}</span> Draft</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" onClick={() => activeTab('schedule')} id="pills-scheduling-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'schedule' ? state.total_count : ""}</span> Interview Scheduling</a>
+                                        <a className="nav-link" onClick={() => activeTab('scheduled')} id="pills-scheduled-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'scheduled' ? state.total_count : ""}</span> Interview Scheduled</a>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" onClick={() => activeTab('accepted')} id="pills-Accepted-tab" data-toggle="pill" href="#pills-Accepted" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'accepted' ? state.total_count : ""}</span> Accepted</a>
@@ -230,7 +230,7 @@ function Freelancer(props) {
                                     </li>                                                                                                             
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">
-                                    <div className="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+                                    <div className={`tab-pane fade  ${(state.tab === 'all') && "show active"}`} id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                                       
                                         <ReactTable
                                             data={state.users}
@@ -335,7 +335,7 @@ function Freelancer(props) {
                                             }}
                                         />
                                     </div>
-                                    <div className="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
+                                    <div className={`tab-pane fade  ${(state.tab === 'draft') && "show active"}`} id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
                                         <ReactTable
                                             data={state.users}
                                             sortable={true}
@@ -412,10 +412,10 @@ function Freelancer(props) {
                                                                                         <i className='bx bx-dots-horizontal-rounded'></i>
                                                                                 </div>
                                                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                    {localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Schedule Interview</a>}
                                                                                     <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                                    <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                                    <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                                    {localStorage.role === 'hr' && <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>}
+                                                                                    <a className="dropdown-item" href="" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
                                                                                 </div>
                                                                             </div>
                                                         }
@@ -435,9 +435,9 @@ function Freelancer(props) {
                                             }}
                                         />
                                     </div>
-                                    <div className="tab-pane fade" id="pills-scheduling" role="tabpanel" aria-labelledby="pills-scheduling-tab">
+                                    <div className={`tab-pane fade  ${(state.tab === 'scheduled') && "show active"}`} id="pills-scheduled" role="tabpanel" aria-labelledby="pills-scheduled-tab">
                                         <ReactTable
-                                            data={[]}
+                                            data={state.users}
                                             sortable={true}
                                             multiSort={true}
                                             resizable={true}
@@ -461,14 +461,12 @@ function Freelancer(props) {
                                             collapseOnSortingChange={ true}
                                             columns={[
                                                     {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
-                                                            }
-                                                            
+                                                        Header      : 'Sr.',
+                                                        accessor    : 'id',
+                                                        Cell: row => {
+                                                            return(<span>{row.viewIndex+1}</span>)
+                                                        }
+                                                        
                                                     },
                                                     {
                                                         Header: () => (
@@ -515,10 +513,8 @@ function Freelancer(props) {
                                                                                         <i className='bx bx-dots-horizontal-rounded'></i>
                                                                                 </div>
                                                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    <a className="dropdown-item" href={"#"}>Schedule Interview</a>
+                                                                                    {localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Reschedule Interview</a>}
                                                                                     <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                                    <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                                    <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
                                                                                 </div>
                                                                             </div>
                                                         }
@@ -532,13 +528,13 @@ function Freelancer(props) {
                                                 ]}                                                                                      
                                             id={state.tab}    																					
                                             onFetchData={(state, instance) => {
-                                                if(state.id === 'schedule'){
+                                                if(state.id === 'scheduled'){
                                                     fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
                                                 }
                                             }}
                                         />
                                     </div>
-                                    <div className="tab-pane fade" id="pills-Accepted" role="tabpanel" aria-labelledby="pills-Accepted-tab">
+                                    <div className={`tab-pane fade  ${(state.tab === 'accepted') && "show active"}`} id="pills-Accepted" role="tabpanel" aria-labelledby="pills-Accepted-tab">
                                         <ReactTable
                                             data={[]}
                                             sortable={true}
@@ -641,7 +637,7 @@ function Freelancer(props) {
                                             }}
                                         />                                
                                     </div>
-                                    <div className="tab-pane fade" id="pills-Rejected" role="tabpanel" aria-labelledby="pills-Rejected-tab">
+                                    <div className={`tab-pane fade  ${(state.tab === 'rejected') && "show active"}`} id="pills-Rejected" role="tabpanel" aria-labelledby="pills-Rejected-tab">
                                         <ReactTable
                                             data={[]}
                                             sortable={true}
@@ -744,7 +740,7 @@ function Freelancer(props) {
                                             }}
                                         />                                
                                     </div>
-                                    <div className="tab-pane fade" id="pills-Job-offer-and-contract" role="tabpanel" aria-labelledby="pills-Job-offer-and-contract-tab">
+                                    <div className={`tab-pane fade  ${(state.tab === 'jobOffer') && "show active"}`} id="pills-Job-offer-and-contract" role="tabpanel" aria-labelledby="pills-Job-offer-and-contract-tab">
                                         <ReactTable
                                             data={[]}
                                             sortable={true}
