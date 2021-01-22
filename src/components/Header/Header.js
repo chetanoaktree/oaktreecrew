@@ -100,7 +100,7 @@ class Header extends Component {
                                                     <Link to="/profile" className="nav-link"><i className="bx bx-edit"></i> Edit Profile</Link>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <Link to="#" className="nav-link danger" onClick={this.logout}><i className="bx bx-log-out"></i> Logout</Link>
+                                                    <Link to="#" className="nav-link text-danger" onClick={this.logout}><i className="bx bx-log-out"></i> Logout</Link>
                                                 </li>
                                             </ul>
                                         </li>
