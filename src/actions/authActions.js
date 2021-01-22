@@ -129,14 +129,16 @@ export function login(loginData) {
           localStorage.removeItem('accessToken');
           localStorage.removeItem('accessTokenDate');
           localStorage.removeItem('userDetail');
-          localStorage.removeItem('firstName');
+          localStorage.removeItem('Name');
+          localStorage.removeItem('image');
           localStorage.removeItem('role');
 
           localStorage.setItem('accessToken', token);
           localStorage.setItem('accessTokenDate', (new Date()).getTime());
 
           localStorage.setItem('userDetail', JSON.stringify(res.data.data.user));
-          localStorage.setItem('firstName', res.data.data.user.first_name);
+          localStorage.setItem('Name', res.data.data.user.first_name +" "+ res.data.data.user.last_name);
+          localStorage.setItem('image', res.data.data.user.user_image);
           localStorage.setItem('role', res.data.data.user.current_role);
           
           dispatch(setCurrentUser(jwtdecode(token)));

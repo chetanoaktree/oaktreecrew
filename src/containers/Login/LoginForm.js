@@ -37,15 +37,19 @@ function LoginForm(props) {
         }
         dispatch(login({user: data}))
           .then((res)=> {
-            if(res && res.status === 200) {
-              // console.log(res.data.user.current_role)
-              if(res.data.user.current_role === 'hr'){
-                props.history.push('/freelancer');
+            if(res){
+              if(res.status === 200) {
+                // console.log(res.data.user.current_role)
+                if(res.data.user.current_role === 'hr'){
+                  props.history.push('/freelancer');
+                }else{
+                  props.history.push('/users');  
+                }
               }else{
-                props.history.push('/users');  
+                NotificationManager.error(res.message, 'Error');  
               }
             }else{
-               NotificationManager.error(res.message, 'Error');  
+              NotificationManager.error("Network Error", 'Error');
             }
           })
     }
