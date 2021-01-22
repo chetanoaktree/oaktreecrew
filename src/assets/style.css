@@ -7624,6 +7624,19 @@ textarea.form-control {
   text-transform: capitalize;
 }
 
+.header-menu-user-profile-image {
+  width: 24px;
+  height: 24px;
+  background: #ebebeb;
+  border-radius: 100%;
+}
+
+.navbar-area .desktop-nav .navbar ul {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .freelancers-list-profile-thumbnail {
   width: 25px;
   height: 25px;
