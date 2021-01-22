@@ -22,6 +22,9 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import FreelancerSelect from './containers/Dashboard/FreelancerSelect';
 import ClientSignup from './containers/Dashboard/ClientSignup';
 
+
+import Profile from './containers/Profile/Profile';
+
 import FreelancerDetail from './containers/Client/FreelancerDetail';
 import NoRouteFound from './components/NoRoute/NoRoute';
 
@@ -115,6 +118,7 @@ const App = class App extends Component {
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} role={['hr']}/>
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} role={['admin','hr']}/>
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/leads" exact component={Leads} role={['admin','hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/profile" exact component={Profile} role={['admin','hr']}/>
 
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/adduser" exact component={SaveUser} role={['admin']}/>
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/edituser/:id" exact component={SaveUser} role={['admin']}/>

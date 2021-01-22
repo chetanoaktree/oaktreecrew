@@ -132,6 +132,7 @@ export function login(loginData) {
           localStorage.removeItem('Name');
           localStorage.removeItem('image');
           localStorage.removeItem('role');
+          localStorage.removeItem('uuid');
 
           localStorage.setItem('accessToken', token);
           localStorage.setItem('accessTokenDate', (new Date()).getTime());
@@ -140,6 +141,7 @@ export function login(loginData) {
           localStorage.setItem('Name', res.data.data.user.first_name +" "+ res.data.data.user.last_name);
           localStorage.setItem('image', res.data.data.user.user_image);
           localStorage.setItem('role', res.data.data.user.current_role);
+          localStorage.setItem('uuid', res.data.data.user.uuid);
           
           dispatch(setCurrentUser(jwtdecode(token)));
           setAuthorizationToken(token);

@@ -131,13 +131,13 @@ function LoginForm(props) {
               
                 <div className="col-lg-6">
                   <div className="user-form-content log-in-50 pt-4">
-                    <h3>Log In to Your Account</h3>
+                    <h3 className="text-center">Log-in To Your Account</h3>
                   
                     <form className="user-form">
                       <div className="row">
                         <div className="col-12">
                           <div className="form-group">
-                            <label>Email</label>
+                            <label><i class="bx bxs-envelope"></i> Email</label>
                             <input type="email" 
                                    className="form-control" 
                                    id="email" 
@@ -150,7 +150,7 @@ function LoginForm(props) {
           
                         <div className="col-12">
                           <div className="form-group">
-                            <label>Password</label>
+                            <label><i class="bx bxs-key"></i> Password</label>
                             <input type="password" 
                                      className="form-control" 
                                      id="password" 

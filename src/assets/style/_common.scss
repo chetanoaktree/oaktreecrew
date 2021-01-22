@@ -9,8 +9,14 @@
 .status-indicator-draft{
     background-color:$indicator-yellow;
 }
-.status-indicator-in-scheduling{
+.status-indicator-scheduled{
     background-color:$indicator-blue;
+}
+.status-indicator-ready-to-work{
+    background-color:$primary-color;
+}
+.status-indicator-rejected{
+    background-color:$danger;
 }
 .do-action-button-container{
     .dropdown-toggle{
@@ -113,10 +119,10 @@
     }
 
     .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(5) {
-        text-align: center;
+        // text-align: center;
     }
     .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(6) {
-        text-align: center;
+        // text-align: center;
     }
     .table {
         margin-bottom: 0px !important;
@@ -172,6 +178,7 @@
             align-items: center;
         }
     }
-
-
+}
+.ReactTable .rt-thead .rt-tr {
+    text-align: left !important;
 }

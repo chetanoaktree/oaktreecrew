@@ -49,6 +49,23 @@ export function interviewSchedule(dataSend) {
   } 
 }
 
+export function interviewSchedulePut(dataSend, id) {
+  
+  return dispatch => {
+    dispatch(applicationIsLoading(true));
+    return axios.put(REACT_API_URL + `/api/v1/interview_schedules/${id}`, {interview_schedule: dataSend})
+      .then(res => {
+        dispatch(applicationIsLoading(false));
+        if (res.status === 200) {
+          return res;
+        }
+      }).catch((err) => {
+        dispatch(applicationIsLoading(false));
+        return err.response
+      });
+  } 
+}
+
 
 export function getInterviewSchedule(data) {
   return (dispatch) => {

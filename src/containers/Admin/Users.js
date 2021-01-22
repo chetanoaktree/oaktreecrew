@@ -162,13 +162,13 @@ function Users(props) {
                             <div className="">
                                 <ul className="nav nav-tabs nav-justified freelancers-list-tabs" id="pills-tab" role="tablist">
                                     <li className="nav-item">
-                                        <a className="nav-link active" onClick={() => activeTab('hr')} id="pills-hr-tab" data-toggle="pill" href="#pills-hr" role="tab" aria-controls="pills-hr" aria-selected="false">HR <span className="tabs-counter-value">{state.tab === 'hr' ? "("+state.total_count+")" : ""}</span> </a>
+                                        <a className="nav-link active" onClick={() => activeTab('hr')} id="pills-hr-tab" data-toggle="pill" href="#pills-hr" role="tab" aria-controls="pills-hr" aria-selected="false"><i class="bx bxs-user"></i> HR <span className="tabs-counter-value">{state.tab === 'hr' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-interviewer-tab" onClick={() => activeTab('interviewer')} data-toggle="pill" href="#pills-interviewer" role="tab" aria-controls="pills-interviewer" aria-selected="false">Interviewer <span className="tabs-counter-value">{state.tab === 'interviewer' ? "("+state.total_count+")" : ""}</span> </a>
+                                        <a className="nav-link" id="pills-interviewer-tab" onClick={() => activeTab('interviewer')} data-toggle="pill" href="#pills-interviewer" role="tab" aria-controls="pills-interviewer" aria-selected="false"><i class="bx bxs-microphone"></i> Interviewer <span className="tabs-counter-value">{state.tab === 'interviewer' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" id="pills-maker-tab" onClick={() => activeTab('matchmaker')} data-toggle="pill" href="#pills-maker" role="tab" aria-controls="pills-maker" aria-selected="false">Match Maker <span className="tabs-counter-value">{state.tab === 'matchmaker' ? "("+state.total_count+")" : ""}</span> </a>
+                                        <a className="nav-link" id="pills-maker-tab" onClick={() => activeTab('matchmaker')} data-toggle="pill" href="#pills-maker" role="tab" aria-controls="pills-maker" aria-selected="false"><i class="bx bx-transfer"></i> Match Maker <span className="tabs-counter-value">{state.tab === 'matchmaker' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>                                                                                                             
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">

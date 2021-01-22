@@ -97,10 +97,10 @@ class Header extends Component {
                 
                                             <ul className="dropdown-menu">
                                                 <li className="nav-item">
-                                                    <a href="#" className="nav-link"><i className="bx bx-edit"></i> Edit Profile</a>
+                                                    <Link to="/profile" className="nav-link"><i className="bx bx-edit"></i> Edit Profile</Link>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a href="#" className="nav-link danger" onClick={this.logout}><i className="bx bx-log-out"></i> Logout</a>
+                                                    <Link to="#" className="nav-link danger" onClick={this.logout}><i className="bx bx-log-out"></i> Logout</Link>
                                                 </li>
                                             </ul>
                                         </li>
