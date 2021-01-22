@@ -8,7 +8,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
-import { fetchFreelancers, deleteFreelancer, fetchInterviewerByCategory, interviewSchedule, getInterviewSchedule } from '../../actions/hrActions';
+import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
+import { fetchInterviewerByCategory, interviewSchedule, getInterviewSchedule, getInterviewScheduleDetail } from '../../actions/interviewerActions';
 import profileImageThumbnail from "../../assets/images/profile.png"
 import { Modal } from 'react-bootstrap';
 
@@ -66,6 +67,47 @@ function Freelancer(props) {
               }))
             }
         })
+
+    }
+
+    const reschedulehandleShow = (data) => {
+        console.log("data",data)
+        setModel(prevState => ({
+            ...prevState,
+            modelShow : true,
+            // interview_uuid: data.id,
+            // interview_email: data.email,
+            // interview_phone: data.phone,
+            // interview_category: data.additional_information.category,
+        }))
+
+        dispatch(getInterviewScheduleDetail(data.id)).then((res)=> {
+            if(res && res.status === 200) {
+              console.log("res",res)
+            //   setModel(prevState => ({
+            //         ...prevState,
+            //         interviewer_id: "",
+            //         interview_date: '',
+            //         interview_from_time: '',
+            //         interview_to_time: '',
+            //         interview_uuid: '',
+            //         interview_email: '',
+            //         interview_phone: '',
+            //         interview_category: '',
+            //         interview_note: ''
+            //   }))
+            }
+        })
+
+        // dispatch(fetchInterviewerByCategory(data.additional_information.category)).then((res)=> {
+        //     if(res && res.status === 200) {
+        //     //   console.log("res",res)
+        //       setModel(prevState => ({
+        //           ...prevState,
+        //           interviewerList: res.interviewer
+        //       }))
+        //     }
+        // })
 
     }
 
@@ -133,7 +175,11 @@ function Freelancer(props) {
             tab: tab,
             total_count: ""
         }))
-        fetchData(0, 10, '', '', tab);
+        if(tab === 'scheduled'){
+            fetchDataInterview(0, 10, '', '', tab);
+        }else{
+            fetchData(0, 10, '', '', tab);
+        }
     }
 
     const fetchData = (page, pageSize, sorted, filtered, tab) => {
@@ -159,6 +205,33 @@ function Freelancer(props) {
                 total_count: res.data.total_count,
                 total_pages: res.data.total_pages,
                 users: res.data.users
+            }))
+          }
+      })
+    }
+    const fetchDataInterview = (page, pageSize, sorted, filtered, tab) => {
+      //   console.log(page, pageSize, sorted, filtered)
+
+      let data = `?page_number=${page+1}&per_page=${pageSize}&role_name=freelancer`
+      if(tab !== 'all'){
+          data = `${data}&status=${tab}`
+      }
+      setState(prevState => ({
+                ...prevState,
+                page: page,
+                pageSize: pageSize
+              }))
+      // Update the document title using the browser API
+      dispatch(getInterviewSchedule(data)).then((res)=> {
+          if(res && res.status === 200) {
+            // console.log("res",res.data)
+             setState(prevState => ({
+                ...prevState,
+                from_data: res.data.from_data,
+                to_data: res.data.to_data,
+                total_count: res.data.total_count,
+                total_pages: res.data.total_pages,
+                users: res.data.interview_schedules
             }))
           }
       })
@@ -211,22 +284,19 @@ function Freelancer(props) {
                             <div className="">
                                 <ul className="nav nav-tabs nav-justified freelancers-list-tabs" id="pills-tab" role="tablist">
                                     <li className="nav-item">
-                                        <a className="nav-link active" onClick={() => activeTab('all')} id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true"><span className="tabs-counter-value">{state.tab === 'all' ? state.total_count : ""}</span> All Freelancers</a>
+                                        <a className="nav-link active" onClick={() => activeTab('all')} id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All Freelancers <span className="tabs-counter-value">{state.tab === 'all' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" onClick={() => activeTab('draft')} id="pills-draft-tab" data-toggle="pill" href="#pills-draft" role="tab" aria-controls="pills-draft" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'draft' ? state.total_count : ""}</span> Draft</a>
+                                        <a className="nav-link" onClick={() => activeTab('draft')} id="pills-draft-tab" data-toggle="pill" href="#pills-draft" role="tab" aria-controls="pills-draft" aria-selected="false">Draft <span className="tabs-counter-value">{state.tab === 'draft' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" onClick={() => activeTab('scheduled')} id="pills-scheduled-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'scheduled' ? state.total_count : ""}</span> Interview Scheduled</a>
+                                        <a className="nav-link" onClick={() => activeTab('scheduled')} id="pills-scheduled-tab" data-toggle="pill" href="#pills-scheduling" role="tab" aria-controls="pills-scheduling" aria-selected="false">Interview Scheduled <span className="tabs-counter-value">{state.tab === 'scheduled' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" onClick={() => activeTab('accepted')} id="pills-Accepted-tab" data-toggle="pill" href="#pills-Accepted" role="tab" aria-controls="pills-Interview" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'accepted' ? state.total_count : ""}</span> Accepted</a>
+                                        <a className="nav-link" onClick={() => activeTab('accepted')} id="pills-Accepted-tab" data-toggle="pill" href="#pills-Accepted" role="tab" aria-controls="pills-Interview" aria-selected="false">Ready To Work <span className="tabs-counter-value">{state.tab === 'accepted' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" onClick={() => activeTab('rejected')} id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'rejected' ? state.total_count : ""}</span> Rejected</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" onClick={() => activeTab('jobOffer')} id="pills-Job-offer-and-contract-tab" data-toggle="pill" href="#pills-Job-offer-and-contract" role="tab" aria-controls="pills-Job-offer-and-contract" aria-selected="false"><span className="tabs-counter-value">{state.tab === 'jobOffer' ? state.total_count : ""}</span> Job offer & contract</a>
+                                        <a className="nav-link" onClick={() => activeTab('rejected')} id="pills-Rejected-tab" data-toggle="pill" href="#pills-Rejected" role="tab" aria-controls="pills-Rejected" aria-selected="false">Rejected <span className="tabs-counter-value">{state.tab === 'rejected' ? "("+state.total_count+")" : ""}</span> </a>
                                     </li>                                                                                                             
                                 </ul>
                                 <div className="tab-content" id="pills-tabContent">
@@ -256,14 +326,6 @@ function Freelancer(props) {
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
                                             columns={[
-                                                    {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            Cell: row => {
-                                                                return(<span>{row.viewIndex+1}</span>)
-                                                            }
-                                                            
-                                                    },
                                                     {
                                                         Header: () => (
                                                             <span>
@@ -301,6 +363,20 @@ function Freelancer(props) {
                                                         }
                                                     },
                                                     {
+                                                        Header: 'Created By',
+                                                        accessor: 'created_at_name',
+                                                        Cell: row => {
+                                                            return <span>{row.original.created_by}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: 'Last Updated By',
+                                                        accessor: 'last_modefied_by_name',
+                                                        Cell: row => {
+                                                            return <span>{row.original.last_updated_by}</span>
+                                                        }
+                                                    },
+                                                    {
                                                         Header: 'Action',
                                                         accessor: 'uuid',
                                                         Cell: row => {
@@ -310,11 +386,14 @@ function Freelancer(props) {
                                                                     </div>
                                                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                     
-                                                                     
-                                                                    {localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Schedule Interview</a>}
-                                                                        <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                    { row.original.status === 'draft' ?
+                                                                        <>{localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Schedule Interview</a>}</>
+                                                                        :
+                                                                        <>{localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {reschedulehandleShow(row.original)}}>Reschedule Interview</a>}</>
+                                                                    } 
+                                                                    <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
                                                                     {localStorage.role === 'hr' && <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>}
-                                                                        <a className="dropdown-item" href="" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
+                                                                    <a className="dropdown-item" href="" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
                                                                     
                                                                     </div>
                                                                 </div>
@@ -360,13 +439,6 @@ function Freelancer(props) {
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
                                             columns={[
-                                                    {  
-                                                        Header      : 'Sr.',
-                                                        accessor    : 'id',
-                                                        Cell: row => {
-                                                            return(<span>{row.viewIndex+1}</span>)
-                                                        }  
-                                                    },
                                                     {
                                                         Header: () => (
                                                             <span>
@@ -460,48 +532,58 @@ function Freelancer(props) {
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
                                             columns={[
-                                                    {  
-                                                        Header      : 'Sr.',
-                                                        accessor    : 'id',
-                                                        Cell: row => {
-                                                            return(<span>{row.viewIndex+1}</span>)
-                                                        }
-                                                        
-                                                    },
                                                     {
                                                         Header: () => (
                                                             <span>
-                                                                <i className="fa-tasks" /> Name
+                                                                <i className="fa-tasks" /> Freelancer Name
                                                             </span>
                                                         ),
-                                                        accessor: 'first_name',
+                                                        accessor: 'freelancer_name',
                                                         Cell: row => {
-                                                            return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
+                                                            return <>{row.original.freelancer_name}</>
                                                         }
                                                     },
                                                     {
                                                         Header: () => (
                                                             <span>
-                                                                <i className="fa-tasks" /> Title
+                                                                <i className="fa-tasks" /> Interviewer Name
                                                             </span>
                                                         ),
-                                                        accessor: 'title',
+                                                        accessor: 'interviewer_name',
                                                         Cell: row => {
-                                                            return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
+                                                            return <>{row.original.interviewer_name}</>
                                                         }
                                                     },
                                                     {
-                                                        Header: 'Status',
-                                                        accessor: 'status',
+                                                        Header: () => (
+                                                            <span>
+                                                                <i className="fa-tasks" /> Category
+                                                            </span>
+                                                        ),
+                                                        accessor: 'category',
                                                         Cell: row => {
-                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
+                                                            return <>{row.original.category}</>
                                                         }
                                                     },
                                                     {
-                                                        Header: 'Created Date',
+                                                        Header: 'Interview Date',
+                                                        accessor: 'interview_date',
+                                                        Cell: row => {
+                                                            return <span>{row.original.interview_date}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: 'Interview Time',
                                                         accessor: 'created_at',
                                                         Cell: row => {
-                                                            return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
+                                                            return <span>{row.original.interview_time}</span>
+                                                        }
+                                                    },
+                                                    {
+                                                        Header: 'Note',
+                                                        accessor: 'created_at',
+                                                        Cell: row => {
+                                                            return <span>{row.original.note}</span>
                                                         }
                                                     },
                                                     {
@@ -513,8 +595,7 @@ function Freelancer(props) {
                                                                                         <i className='bx bx-dots-horizontal-rounded'></i>
                                                                                 </div>
                                                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    {localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {handleShow(row.original)}}>Reschedule Interview</a>}
-                                                                                    <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
+                                                                                    {localStorage.role === 'hr' && <a className="dropdown-item" href={"#"} onClick={() => {reschedulehandleShow(row.original)}}>Reschedule Interview</a>}
                                                                                 </div>
                                                                             </div>
                                                         }
@@ -536,7 +617,7 @@ function Freelancer(props) {
                                     </div>
                                     <div className={`tab-pane fade  ${(state.tab === 'accepted') && "show active"}`} id="pills-Accepted" role="tabpanel" aria-labelledby="pills-Accepted-tab">
                                         <ReactTable
-                                            data={[]}
+                                            data={state.users}
                                             sortable={true}
                                             multiSort={true}
                                             resizable={true}
@@ -559,16 +640,6 @@ function Freelancer(props) {
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
                                             columns={[
-                                                    {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
-                                                            }
-                                                            
-                                                    },
                                                     {
                                                         Header: () => (
                                                             <span>
@@ -614,10 +685,7 @@ function Freelancer(props) {
                                                                                         <i className='bx bx-dots-horizontal-rounded'></i>
                                                                                 </div>
                                                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    <a className="dropdown-item" href={"#"} onClick={() => handleShow(row.original)}>Schedule Interview</a>
                                                                                     <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                                    <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                                    <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
                                                                                 </div>
                                                                             </div>
                                                         }
@@ -639,7 +707,7 @@ function Freelancer(props) {
                                     </div>
                                     <div className={`tab-pane fade  ${(state.tab === 'rejected') && "show active"}`} id="pills-Rejected" role="tabpanel" aria-labelledby="pills-Rejected-tab">
                                         <ReactTable
-                                            data={[]}
+                                            data={state.users}
                                             sortable={true}
                                             multiSort={true}
                                             resizable={true}
@@ -662,16 +730,6 @@ function Freelancer(props) {
                                             showPageJump={ true}
                                             collapseOnSortingChange={ true}
                                             columns={[
-                                                    {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
-                                                            }
-                                                            
-                                                    },
                                                     {
                                                         Header: () => (
                                                             <span>
@@ -717,10 +775,7 @@ function Freelancer(props) {
                                                                                         <i className='bx bx-dots-horizontal-rounded'></i>
                                                                                 </div>
                                                                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    <a className="dropdown-item" href={"#"}>Schedule Interview</a>
                                                                                     <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                                    <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                                    <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
                                                                                 </div>
                                                                             </div>
                                                         }
@@ -740,109 +795,7 @@ function Freelancer(props) {
                                             }}
                                         />                                
                                     </div>
-                                    <div className={`tab-pane fade  ${(state.tab === 'jobOffer') && "show active"}`} id="pills-Job-offer-and-contract" role="tabpanel" aria-labelledby="pills-Job-offer-and-contract-tab">
-                                        <ReactTable
-                                            data={[]}
-                                            sortable={true}
-                                            multiSort={true}
-                                            resizable={true}
-                                            loading={loader}
-                                            loadingText= {'Data Loading .......'}
-                                            noDataText="No Data Found !!"
-                                            // filterable
-                                            defaultFilterMethod={(filter, row) =>String(row[filter.id]) === filter.value}
-                                            filtered={state.filtered}
-                                            defaultPageSize={10}
-                                            minRows= {state.users}
-                                            className="py-3 px-3"
-                                            Sorted
-                                            pages={state.total_pages}
-                                            showPagination={true}
-                                            showPaginationTop={false}
-                                            showPaginationBottom={true}
-                                            pageSizeOptions={[10, 20, 50]}
-                                            // manual // For server side pagination
-                                            showPageJump={ true}
-                                            collapseOnSortingChange={ true}
-                                            columns={[
-                                                    {  
-                                                            Header      : 'Sr.',
-                                                            accessor    : 'id',
-                                                            className   : 'grid-header',
-                                                            filterable  : false,
-                                                            filterMethod: (filter, row) => {
-                                                                    return row[filter.id].includes(filter.value);
-                                                            }
-                                                            
-                                                    },
-                                                    {
-                                                        Header: () => (
-                                                            <span>
-                                                                <i className="fa-tasks" /> Name
-                                                            </span>
-                                                        ),
-                                                        accessor: 'first_name',
-                                                        Cell: row => {
-                                                            return <a href={"/freelancer-detail/"+row.original.uuid}><img src={row.original.user_image ? row.original.user_image : profileImageThumbnail} className="freelancers-list-profile-thumbnail" /> {row.original.first_name +' '+row.original.last_name}</a>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: () => (
-                                                            <span>
-                                                                <i className="fa-tasks" /> Title
-                                                            </span>
-                                                        ),
-                                                        accessor: 'title',
-                                                        Cell: row => {
-                                                            return <a href={"/freelancer-detail/"+row.original.uuid}>{_.get(row.original.additional_information, 'title', [profileImageThumbnail])}</a>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: 'Status',
-                                                        accessor: 'status',
-                                                        Cell: row => {
-                                                            return <span className="all-status"><span className="status-indicator status-indicator-draft"></span> {row.original.status}</span>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: 'Created Date',
-                                                        accessor: 'created_at',
-                                                        Cell: row => {
-                                                            return <span><i className='bx bx-calendar' ></i> {new Date(row.original.created_at).toLocaleDateString()}</span>
-                                                        }
-                                                    },
-                                                    {
-                                                        Header: 'Action',
-                                                        accessor: 'uuid',
-                                                        Cell: row => {
-                                                            return <div className="">
-                                                                                <div className="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                                        <i className='bx bx-dots-horizontal-rounded'></i>
-                                                                                </div>
-                                                                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                                    <a className="dropdown-item" href={"#"}>Schedule Interview</a>
-                                                                                    <a className="dropdown-item" href={"/freelancer-detail/"+row.original.uuid}>View</a>
-                                                                                    <a className="dropdown-item" href={"/editfreelancer/"+row.original.uuid}>Edit</a>
-                                                                                    <a className="dropdown-item" onClick={() => handleDelete(row.original.uuid)}>Delete</a>
-                                                                                </div>
-                                                                            </div>
-                                                        }
-                                                    }
-                                                ]}
-                                                defaultSorted={[
-                                                        {
-                                                                id: 'first_name',
-                                                                desc: false
-                                                        } 
-                                                ]}                                                                                      
-                                            id={state.tab}    																					
-                                            onFetchData={(state, instance) => {
-                                                if(state.id === 'jobOffer'){
-                                                    fetchData(state.page, state.pageSize, state.sorted, state.filtered, state.id);
-                                                }
-                                            }}
-                                        />                                
-                                    </div>                                                                                                                                            
+                                                                                                                                         
                                 </div> 
                             </div>
 
@@ -860,23 +813,22 @@ function Freelancer(props) {
                         <div className="row">
                             <div className="col-lg-6 col-md-6">
                                 <h6><i class="bx bxs-envelope"></i> Email</h6>
-                                <form className="resume-info">
+                                
                                 <div className="form-group">
                                     <div className="input-group date" id="">
                                     <input type="text" className="form-control" placeholder="Email Id" disabled value={model.interview_email} />
                                     </div>	
                                 </div>
-                                </form>                          
+                                                        
                             </div>
                             <div className="col-lg-6 col-md-6">
                                 <h6><i class="bx bxs-phone"></i> Phone</h6>
-                                <form className="resume-info">
                                 <div className="form-group">
                                     <div className="input-group date" id="">
                                     <input type="text" className="form-control" placeholder="Contact Number" disabled value={model.interview_phone}/>
                                     </div>	
                                 </div>
-                                </form>                          
+                                                        
                             </div>                          
                             
                             </div> 
@@ -884,13 +836,12 @@ function Freelancer(props) {
                             <div className="row mb-2">
                                 <div className="col-lg-6 col-md-6">
                                     <h6><i class="bx bxs-graduation"></i> Category</h6>
-                                    <form className="resume-info">
+                                    
                                     <div className="form-group">
                                         <div className="input-group date" id="">
                                         <input type="text" className="form-control" placeholder="Contact Number" disabled value={model.interview_category}/>
                                         </div>	
-                                    </div>
-                                    </form>                          
+                                    </div>                          
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <h6><i class="bx bxs-user"></i> Interviewer</h6>
@@ -910,7 +861,6 @@ function Freelancer(props) {
                             <div className="row mb-2">
                                 <div className="col-lg-4 col-md-4">
                                     <h6><i class="bx bxs-calendar"></i> Interview day</h6>
-                                    <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
                                         <DatePicker
@@ -924,11 +874,10 @@ function Freelancer(props) {
                                         />
                                         </div>	
                                     </div>
-                                    </form>
+                                    
                                 </div>
                                 <div className="col-lg-4 col-md-4">
                                     <h6><i class="bx bxs-watch"></i> From hours</h6>
-                                    <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
                                         <DatePicker
@@ -945,11 +894,9 @@ function Freelancer(props) {
                                         />
                                         </div>	
                                     </div>
-                                    </form>
                                 </div>
                                 <div className="col-lg-4 col-md-4">
                                     <h6><i class="bx bxs-watch"></i> To hours</h6>
-                                    <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
                                         <DatePicker
@@ -967,11 +914,8 @@ function Freelancer(props) {
                                         />
                                         </div>	
                                     </div>
-                                    </form>
                                 </div>
                             </div>
- 
-
                             <div className="row">
                                 <div className="col-lg-12">
                                     <h6><i class="bx bxs-pencil"></i> Note</h6>                          
