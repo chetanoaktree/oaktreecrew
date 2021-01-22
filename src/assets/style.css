@@ -7456,8 +7456,16 @@ textarea.form-control {
   background-color: #ffcd00;
 }
 
-.status-indicator-in-scheduling {
+.status-indicator-scheduled {
   background-color: #3035ff;
+}
+
+.status-indicator-ready-to-work {
+  background-color: #00b074;
+}
+
+.status-indicator-rejected {
+  background-color: #dc3545;
 }
 
 .do-action-button-container .dropdown-toggle {

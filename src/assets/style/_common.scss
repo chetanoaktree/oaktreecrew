@@ -9,8 +9,14 @@
 .status-indicator-draft{
     background-color:$indicator-yellow;
 }
-.status-indicator-in-scheduling{
+.status-indicator-scheduled{
     background-color:$indicator-blue;
+}
+.status-indicator-ready-to-work{
+    background-color:$primary-color;
+}
+.status-indicator-rejected{
+    background-color:$danger;
 }
 .do-action-button-container{
     .dropdown-toggle{
