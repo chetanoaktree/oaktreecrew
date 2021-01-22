@@ -18,11 +18,11 @@ export const CardListingLoader  = () => (
 	  speed={2}
 	  height={230}
 	  width={240}
-	  viewBox="0 0 240 280"
+	//   viewBox="0 0 240 280"
 	  backgroundColor="#f3f3f3"
 	  foregroundColor="#ecebeb"
 	>
-	  <circle cx="400" cy="170" r="300" />		 
+	  <circle cx="110" cy="80" r="80" />		 
 	   
 	</ContentLoader>
 )

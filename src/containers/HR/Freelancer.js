@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
 import { fetchFreelancers, deleteFreelancer, fetchInterviewerByCategory, interviewSchedule, getInterviewSchedule } from '../../actions/hrActions';
-import profileImageThumbnail from "../../assets/images/avatar-img.jpg"
+import profileImageThumbnail from "../../assets/images/profile.png"
 import { Modal } from 'react-bootstrap';
 
 
@@ -857,9 +857,33 @@ function Freelancer(props) {
                     </Modal.Header>			
                     <Modal.Body>
                         <form className="">
+                        <div className="row">
+                            <div className="col-lg-6 col-md-6">
+                                <h6><i class="bx bxs-envelope"></i> Email</h6>
+                                <form className="resume-info">
+                                <div className="form-group">
+                                    <div className="input-group date" id="">
+                                    <input type="text" className="form-control" placeholder="Email Id" disabled value={model.interview_email} />
+                                    </div>	
+                                </div>
+                                </form>                          
+                            </div>
+                            <div className="col-lg-6 col-md-6">
+                                <h6><i class="bx bxs-phone"></i> Phone</h6>
+                                <form className="resume-info">
+                                <div className="form-group">
+                                    <div className="input-group date" id="">
+                                    <input type="text" className="form-control" placeholder="Contact Number" disabled value={model.interview_phone}/>
+                                    </div>	
+                                </div>
+                                </form>                          
+                            </div>                          
+                            
+                            </div> 
+
                             <div className="row mb-2">
                                 <div className="col-lg-6 col-md-6">
-                                    <h6>Category</h6>
+                                    <h6><i class="bx bxs-graduation"></i> Category</h6>
                                     <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
@@ -868,10 +892,8 @@ function Freelancer(props) {
                                     </div>
                                     </form>                          
                                 </div>
-                            </div>
-                            <div className="row mb-2">
                                 <div className="col-lg-6 col-md-6">
-                                    <h6>Interviewer</h6>
+                                    <h6><i class="bx bxs-user"></i> Interviewer</h6>
                                     <div className="form-group">
                                         <Select 
                                             placeholder="Select"
@@ -883,8 +905,11 @@ function Freelancer(props) {
                                         />
                                     </div>
                                 </div>
-                                <div className="col-lg-6 col-md-6">
-                                    <h6>Interview day</h6>
+
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col-lg-4 col-md-4">
+                                    <h6><i class="bx bxs-calendar"></i> Interview day</h6>
                                     <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
@@ -901,10 +926,8 @@ function Freelancer(props) {
                                     </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div className="row mb-2">
-                                <div className="col-lg-6 col-md-6">
-                                    <h6>From hours</h6>
+                                <div className="col-lg-4 col-md-4">
+                                    <h6><i class="bx bxs-watch"></i> From hours</h6>
                                     <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
@@ -924,8 +947,8 @@ function Freelancer(props) {
                                     </div>
                                     </form>
                                 </div>
-                                <div className="col-lg-6 col-md-6">
-                                    <h6>To hours</h6>
+                                <div className="col-lg-4 col-md-4">
+                                    <h6><i class="bx bxs-watch"></i> To hours</h6>
                                     <form className="resume-info">
                                     <div className="form-group">
                                         <div className="input-group date" id="">
@@ -947,33 +970,11 @@ function Freelancer(props) {
                                     </form>
                                 </div>
                             </div>
-                            <div className="row">
-                            <div className="col-lg-6 col-md-6">
-                                <h6>Email</h6>
-                                <form className="resume-info">
-                                <div className="form-group">
-                                    <div className="input-group date" id="">
-                                    <input type="text" className="form-control" placeholder="Email Id" disabled value={model.interview_email} />
-                                    </div>	
-                                </div>
-                                </form>                          
-                            </div>
-                            <div className="col-lg-6 col-md-6">
-                                <h6>Phone</h6>
-                                <form className="resume-info">
-                                <div className="form-group">
-                                    <div className="input-group date" id="">
-                                    <input type="text" className="form-control" placeholder="Contact Number" disabled value={model.interview_phone}/>
-                                    </div>	
-                                </div>
-                                </form>                          
-                            </div>                          
-                            
-                            </div>  
+ 
 
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <h6>Note</h6>                          
+                                    <h6><i class="bx bxs-pencil"></i> Note</h6>                          
                                     <div className="form-group">
                                     <textarea name="interview_note" onChange={handleChange} className="form-control" rows="4"></textarea>
                                     </div>
