@@ -7566,14 +7566,6 @@ textarea.form-control {
   text-align: center;
 }
 
-#pills-tabContent .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(5) {
-  text-align: center;
-}
-
-#pills-tabContent .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(6) {
-  text-align: center;
-}
-
 #pills-tabContent .table {
   margin-bottom: 0px !important;
 }
@@ -7637,11 +7629,16 @@ textarea.form-control {
           align-items: center;
 }
 
+.ReactTable .rt-thead .rt-tr {
+  text-align: left !important;
+}
+
 .freelancers-list-profile-thumbnail {
   width: 25px;
   height: 25px;
   border-radius: 100%;
   margin-right: 10px;
+  background: #ebebeb;
 }
 
 /* Max width 767px */
