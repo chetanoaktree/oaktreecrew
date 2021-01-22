@@ -128,26 +128,27 @@ function Dashboard(props) {
                           </div>
                           
                           	<div className="row">
-															<div className="col-lg-1 col-sm-12">
+                                <div className="col-lg-1 col-sm-12">
                               
-                              </div>															
-                              <div className="col-lg-10 col-md-12 ">
-                                  <div className="form-group">
-                                      <Select 
-                                          name="skills" 
-                                          multi
-                                          options={state.skillArg}
-                                          onChange={(value) => handleSelect('skills', value)} 
-                                          value={state.skills}
-                                      />
-                                  </div>
-                              </div>
-															<div className="col-lg-1 col-sm-12">
+                                </div>															
+                                <div className="col-lg-10 col-md-12 ">
+                                    <div className="form-group">
+                                        <Select 
+                                            name="skills" 
+                                            multi
+                                            options={state.skillArg}
+                                            onChange={(value) => handleSelect('skills', value)} 
+                                            value={state.skills}
+                                            disabled={(state.category === "")}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-lg-1 col-sm-12">
                               
-                              </div>
+                                </div>
                             </div>
                             <div className="row">      
-                              <div className="col-lg-12 col-md-12 text-center">
+                              <div className="col-lg-12 col-md-12 text-center Proceed-button-link-container">
                                   <Link to={{
                                       pathname: '/freelancers',
                                       state: {
@@ -155,6 +156,7 @@ function Dashboard(props) {
                                         skills: state.skills
                                       }
                                     }} 
+                                        
                                     disabled={(state.category === "")}
                                     >
                                       <button className="default-btn" disabled={(state.category === "")}>

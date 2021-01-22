@@ -4,6 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import Slider from "react-slick";
 import { fetchFreelancerByCategory } from '../../actions/hrActions';
 import {CardListingLoader} from "../../components/Loader/Skelton"
+import {TableListingLoader} from "../../components/Loader/Skelton"
 import freelancer1 from "../../assets/images/freelancer/freelancer-1.jpg";
 import freelancer2 from "../../assets/images/freelancer/freelancer-2.jpg";
 import freelancer3 from "../../assets/images/freelancer/freelancer-3.jpg";
@@ -106,10 +107,13 @@ function FreelancerSelect(props) {
 
 
             <Slider {...settings}>
-              {!loader &&  
+              {loader &&  
                       Array.from(Array(7), (e, i) => {
                         return (<div className="single-freelancer">
                             <CardListingLoader />
+                            <TableListingLoader />
+
+                            
                           </div>)
                     })
               }

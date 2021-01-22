@@ -7613,6 +7613,14 @@ textarea.form-control {
   background-color: #00b074;
 }
 
+.Proceed-button-link-container disabled {
+  pointer-events: none !important;
+}
+
+.all-status {
+  text-transform: capitalize;
+}
+
 .freelancers-list-profile-thumbnail {
   width: 25px;
   height: 25px;
