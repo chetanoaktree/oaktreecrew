@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Modal,Row,Col } from 'react-bootstrap';
+import React from 'react';
+import { Modal,Row,Col } from 'react-bootstrap';
 import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
-
+import DEGREE from "../../constants/degree";
 
 function EditEducationFreelancer(props) {
 	// consoEducationog("props",props)
@@ -13,16 +13,6 @@ function EditEducationFreelancer(props) {
                               { value: 'Associate', label: 'Associate' },
                               { value: 'Graduate', label: 'Graduate' },
                               { value: 'Post Graduate', label: 'Post Graduate' },
-                            ]
-    const degree_title_options =  [
-                              { value: '', label: 'Select' },
-                              { value: 'BE(CSE)', label: 'BE(CSE)' },
-                              { value: 'BE(IT)', label: 'BE(IT)' },
-                              { value: 'ME', label: 'ME' },
-                              { value: 'BCA', label: 'BCA' },
-                              { value: 'MCA', label: 'MCA' },
-                              { value: 'BSC(Computer)', label: 'BSC(Computer)' },
-                              { value: 'MSC(Computer)', label: 'MSC(Computer)' },
                             ]
     const result_options =  [
                               { value: '', label: 'Select' },
@@ -78,7 +68,7 @@ function EditEducationFreelancer(props) {
 			            <label>Exam / Degree Title</label>
                         <Select 
                             name="degree_title" 
-                            options={degree_title_options}
+                            options={DEGREE}
                             onChange={(value) => props.handleSelectEducation('degree_title', value)} 
                             value={props.state.degree_title}
                             required

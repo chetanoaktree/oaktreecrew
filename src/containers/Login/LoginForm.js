@@ -4,7 +4,7 @@ import { login, resetPassword } from '../../actions/authActions';
 // import Loader from '../../components/Loader/Loader';
 import { withRouter } from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
-import { Button, Modal,Row,Col } from 'react-bootstrap';
+import { Modal,Row,Col } from 'react-bootstrap';
 
 
 function LoginForm(props) {
@@ -37,10 +37,19 @@ function LoginForm(props) {
         }
         dispatch(login({user: data}))
           .then((res)=> {
-            if(res && res.status === 200) {
-               props.history.push('/freelancer');
+            if(res){
+              if(res.status === 200) {
+                // console.log(res.data.user.current_role)
+                if(res.data.user.current_role === 'hr'){
+                  props.history.push('/freelancer');
+                }else{
+                  props.history.push('/users');  
+                }
+              }else{
+                NotificationManager.error(res.message, 'Error');  
+              }
             }else{
-               NotificationManager.error(res.message, 'Error');  
+              NotificationManager.error("Network Error", 'Error');
             }
           })
     }
@@ -122,13 +131,13 @@ function LoginForm(props) {
               
                 <div className="col-lg-6">
                   <div className="user-form-content log-in-50 pt-4">
-                    <h3>Log In to Your Account</h3>
+                    <h3 className="text-center">Log-in To Your Account</h3>
                   
                     <form className="user-form">
                       <div className="row">
                         <div className="col-12">
                           <div className="form-group">
-                            <label>Email</label>
+                            <label><i class="bx bxs-envelope"></i> Email</label>
                             <input type="email" 
                                    className="form-control" 
                                    id="email" 
@@ -141,7 +150,7 @@ function LoginForm(props) {
           
                         <div className="col-12">
                           <div className="form-group">
-                            <label>Password</label>
+                            <label><i class="bx bxs-key"></i> Password</label>
                             <input type="password" 
                                      className="form-control" 
                                      id="password" 

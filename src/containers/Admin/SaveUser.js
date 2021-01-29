@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux'
-import { withRouter } from "react-router-dom";
+import { withRouter, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-dropdown-select";
+// import Select from "react-dropdown-select";
+import Select from 'react-select-me';
+import 'react-select-me/lib/ReactSelectMe.css';
 import {NotificationManager} from 'react-notifications';
 import csc from "country-state-city";
-import { saveFreelancer } from '../../actions/hrActions';
+import { saveFreelancer, getFreelancer, updateFreelancer } from '../../actions/hrActions';
 import LANGUAGES from "../../constants/languages";
 import CATEGORY from "../../constants/category";
 import SKILLS from "../../constants/skills";
 import DEGREE from "../../constants/degree";
 
-function AddFreelancer(props) {
+function SaveUser(props) {
 
     const initialState = {
                         avatar: "",
@@ -22,38 +24,19 @@ function AddFreelancer(props) {
                         last_name: "",
                         phone: "",
                         dob: "",
-                        nationality: "",
                         gender: "",
-                        martial_status: "",
-                        address: "",
                         languages: "",
                         total_experience: "",
-                        role_ids:[2],
+                        role_name: "",
                         skip_password_validation: true,
                         country: '',
                         state: '',
                         city: '',
                         pincode: '',
                         additional_information_attributes: {
-                            title: "",
-                            about_me:"", 
-                            presented_salary:"",
-                            expected_salary:"", 
                             category:"",
-                            skills: '',
-                            job_nature:"", 
-                            job_level: "",
-                            attachment: "",
-                            github_link: "",
-                            linkedin_link: "",
                             skype_id: "",
-                        },
-                        education_informations_attributes:[],
-                        experience_informations_attributes: [],
-                        project_informations_attributes:[],
-                        stateArg: [],
-                        cityArg: [],
-                        skillArg: []
+                        }
                     };
     const [state , setState] = useState(initialState)
 
@@ -124,13 +107,13 @@ function AddFreelancer(props) {
     }
 
     const handleSelect = (name, value) => {
-      // console.log(name,"----",value)
-      if(value.length === 0){
-        return false
-      } 
+    //   console.log(name,"----",value)
+    //   if(value.length === 0){
+    //     return false
+    //   } 
         setState(prevState => ({
             ...prevState,
-            [name] : value[0].value
+            [name] : value.value
         }))
     }
 
@@ -221,24 +204,24 @@ function AddFreelancer(props) {
 
     const handleSelectAdditionalCat = (name, value) => {
       // console.log(name,"----",value) 
-        if(value.length === 0){
-            return false
-        }
+        // if(value.length === 0){
+        //     return false
+        // }
         setState({...state,  
             additional_information_attributes: {
                 ...state.additional_information_attributes,
-                [name] : value[0].value
+                [name] : value.value
             }
         })
 
-        var filteredItems = SKILLS.filter(item => (
-            item.filter === value[0].value
-          ));
-        // console.log("filteredItems",filteredItems)
-        setState(prevState => ({
-            ...prevState,
-            skillArg : filteredItems
-        }))
+        // var filteredItems = SKILLS.filter(item => (
+        //     item.filter === value[0].value
+        //   ));
+        // // console.log("filteredItems",filteredItems)
+        // setState(prevState => ({
+        //     ...prevState,
+        //     skillArg : filteredItems
+        // }))
         
     }
 
@@ -280,13 +263,53 @@ function AddFreelancer(props) {
       
     }; 
 
+    const { id } = useParams();
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        if(id){
+          // Update the document title using the browser API
+          dispatch(getFreelancer(id)).then((res)=> {
+              if(res && res.status === 200) {
+                // console.log("res",res.data)
+                let data = res.data.user    
+                setState(prevState => ({
+                    detail: res.data.user,
+                    avatar: "",
+                    email: data.email,
+                    first_name: data.first_name,
+                    middle_name: data.middle_name,
+                    last_name: data.last_name,
+                    phone: data.phone,
+                    dob: data.dob,
+                    gender: data.gender,
+                    total_experience: data.total_experience,
+                    role_name: data.current_role,
+                    additional_information_attributes: {
+                        category: data.additional_information.category,
+                        skype_id: data.additional_information.skype_id,
+                    }
+                }))
+
+                // setEducation(data.education_informations)
+                // setExperience(data.experience_informations)
+                // setProject(data.project_informations)
+              }
+          })
+        }
+    }
+
+    
     const handleDateChange = (date) => {
         setState(prevState => ({
             ...prevState,
             dob : date
         }))
     }
+
 
     const addEducation = () => {
         let edu = {
@@ -431,6 +454,10 @@ function AddFreelancer(props) {
 
     const handleSave = (e) => {
       e.preventDefault(); 
+        if(id){
+            handleUpdate();
+            return false
+        }
         let data = { 
                    
                     email: state.email,
@@ -439,20 +466,16 @@ function AddFreelancer(props) {
                     last_name: state.last_name,
                     phone: state.phone,
                     dob: state.dob,
-                    nationality: state.nationality,
                     gender: state.gender,
-                    martial_status: state.martial_status,
-                    address: state.address,
                     languages: state.languages,
                     total_experience: state.total_experience,
-                    role_name:'freelancer',
+                    role_name: state.role_name,
                     country: state.country,
                     state: state.state,
                     city: state.city,
                     pincode: state.pincode,
-                    skip_password_validation: true,
-                    status: 'draft'
-                }
+                    skip_password_validation: true
+            }
         var form_data = new FormData();
         for ( var key in data ) {
             form_data.append(`user[${key}]`, data[key])          
@@ -460,58 +483,45 @@ function AddFreelancer(props) {
         if(state.avatar){
             form_data.append(`user[avatar]`, state.avatar)          
         }
+        if(state.role_name !== 'hr'){
+            form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
+        }
 
-        form_data.append("user[additional_information_attributes[title]]",state.additional_information_attributes.title)
-        form_data.append("user[additional_information_attributes[about_me]]",state.additional_information_attributes.about_me)
-        form_data.append("user[additional_information_attributes[presented_salary]]",state.additional_information_attributes.presented_salary)
-        form_data.append("user[additional_information_attributes[expected_salary]]",state.additional_information_attributes.expected_salary)
-        form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
-        form_data.append("user[additional_information_attributes[skills]]",state.additional_information_attributes.skills)
-        form_data.append("user[additional_information_attributes[job_nature]]",state.additional_information_attributes.job_nature)
-        form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
-        form_data.append("user[additional_information_attributes[attachment]]",state.additional_information_attributes.attachment)
-        form_data.append("user[additional_information_attributes[github_link]]",state.additional_information_attributes.github_link)
-        form_data.append("user[additional_information_attributes[linkedin_link]]",state.additional_information_attributes.linkedin_link)
         form_data.append("user[additional_information_attributes[skype_id]]",state.additional_information_attributes.skype_id)
-
-        education.map((p,index) => {
-            form_data.append(`user[education_informations_attributes[${index}][education_level]]`, p.education_level)
-            form_data.append(`user[education_informations_attributes[${index}][degree_title]]`, p.degree_title)
-            form_data.append(`user[education_informations_attributes[${index}][group]]`, p.group)
-            form_data.append(`user[education_informations_attributes[${index}][institute_name]]`, p.institute_name)
-            form_data.append(`user[education_informations_attributes[${index}][result]]`, p.result)
-            form_data.append(`user[education_informations_attributes[${index}][marks]]`, p.marks)
-            form_data.append(`user[education_informations_attributes[${index}][year_of_passing]]`, p.year_of_passing)
-            form_data.append(`user[education_informations_attributes[${index}][duration]]`, p.duration)
-            form_data.append(`user[education_informations_attributes[${index}][description]]`, p.description)
-            return p
-        })
-
-        experience.map((p,index) => {
-            form_data.append(`user[experience_informations_attributes[${index}][company_name]]`, p.company_name)
-            form_data.append(`user[experience_informations_attributes[${index}][designation]]`, p.designation)
-            form_data.append(`user[experience_informations_attributes[${index}][company_location]]`, p.company_location)
-            form_data.append(`user[experience_informations_attributes[${index}][employment_period_year]]`, p.employment_period_year)
-            form_data.append(`user[experience_informations_attributes[${index}][employment_period_month]]`, p.employment_period_month)
-            form_data.append(`user[experience_informations_attributes[${index}][description]]`, p.description)
-            return p
-        })
-
-        project.map((p,index) => {
-            form_data.append(`user[project_informations_attributes[${index}][title]]`, p.title)
-            form_data.append(`user[project_informations_attributes[${index}][start_date]]`, p.start_date)
-            form_data.append(`user[project_informations_attributes[${index}][end_date]]`, p.end_date)
-            form_data.append(`user[project_informations_attributes[${index}][technologies]]`, p.technologies)
-            form_data.append(`user[project_informations_attributes[${index}][summary]]`, p.summary)
-            form_data.append(`user[project_informations_attributes[${index}][project_link]]`, p.project_link)
-            return p
-        })
-            // console.log("form_data",form_data)
+        // console.log("form_data",form_data)
         dispatch(saveFreelancer(form_data)).then((res)=> {
-            console.log("res",res)
+            // console.log("res",res)
             if(res && res.data.status === 200) {
                NotificationManager.success("Successfully added", 'Success');
-               props.history.push('/freelancer');
+               props.history.push('/users');
+            }else{
+               NotificationManager.error(res.data.messages, 'Error');  
+            }
+        })
+    }
+    const handleUpdate = () => {
+        let data = { 
+                    email: state.email,
+                    first_name: state.first_name,
+                    last_name: state.last_name,
+                    phone: state.phone,
+                    dob: state.dob,
+                    gender: state.gender,
+                    total_experience: state.total_experience,
+                }
+        var form_data = new FormData();
+        for ( var key in data ) {
+            form_data.append(`user[${key}]`, data[key])          
+        }
+        form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
+        form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
+        form_data.append("user[additional_information_attributes[skype_id]]",state.additional_information_attributes.skype_id)
+        
+        dispatch(updateFreelancer(form_data, id)).then((res)=> {
+            // console.log("res",res)
+            if(res && res.data.status === 200) {
+               NotificationManager.success("Successfully update", 'Success');
+               props.history.push('/users');
             }else{
                NotificationManager.error(res.data.messages, 'Error');  
             }
@@ -519,9 +529,15 @@ function AddFreelancer(props) {
     }
 
     const gender_options =  [
-                              { value: '', label: 'Select' },
+                            //   { value: '', label: 'Select' },
                               { value: 'Male', label: 'Male' },
                               { value: 'Female', label: 'Female' }
+                            ]
+    const role_name_options =  [
+                            //   { value: '', label: 'Select' },
+                              { value: 'hr', label: 'HR' },
+                              { value: 'interviewer', label: 'Interviewer' },
+                              { value: 'matchmaker', label: 'Match Maker' }
                             ]
     const marital_options =  [
                               { value: '', label: 'Select' },
@@ -648,7 +664,7 @@ function AddFreelancer(props) {
                 <div className="page-title-content">
                     <div className="row">
                         <div className="col-md-12">
-                            <h2>Add New Freelancer</h2>                    
+                            <h2>{id ? "Edit User" : "Add New User"}</h2>                    
                         </div>
                     </div>
                 </div>
@@ -675,6 +691,47 @@ function AddFreelancer(props) {
                                                     <input type="file" id="avatar" name="avatar" accept="image/*" onChange={onPhotoUpload}/>
                                                 </div>
                                             </div>
+
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label>Role<span className="text-danger">*</span></label>
+                                                    <Select 
+                                                        name="role_name" 
+                                                        options={role_name_options}
+                                                        onChange={(value) => handleSelect('role_name', value)} 
+                                                        value={state.role_name}
+                                                        required
+                                                    />
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label> First Name<span className="text-danger">*</span></label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="first_name"
+                                                        value={state.first_name}
+                                                        onChange={handleChange} 
+                                                        required
+                                                    />
+                                                    <span className="error text-danger">{errors.first_name && "Enter First Name "}</span>
+                                                </div>
+                                            </div>
+                                            {/*
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label> Middle Name</label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="middle_name"
+                                                        value={state.middle_name}
+                                                        onChange={handleChange} 
+                                                    />
+                                                </div>
+                                            </div>
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="choose-img">
                                                     <p>Upload (Resume)<span className="text-danger">*</span></p>
@@ -694,35 +751,7 @@ function AddFreelancer(props) {
                                                         required
                                                     />
                                                 </div>
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <label> First Name<span className="text-danger">*</span></label>
-                                                    <input 
-                                                        className="form-control" 
-                                                        type="text" 
-                                                        name="first_name"
-                                                        value={state.first_name}
-                                                        onChange={handleChange} 
-                                                        required
-                                                    />
-                                                    <span className="error text-danger">{errors.first_name && "Enter First Name "}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <label> Middle Name</label>
-                                                    <input 
-                                                        className="form-control" 
-                                                        type="text" 
-                                                        name="middle_name"
-                                                        value={state.middle_name}
-                                                        onChange={handleChange} 
-                                                    />
-                                                </div>
-                                            </div>
+                                            </div>*/}
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
@@ -769,22 +798,6 @@ function AddFreelancer(props) {
                                                 </div>
                                             </div>
 
-                                            <div className="col-lg-12">
-                                                <div className="form-group">
-                                                    <label>About me</label>
-                                                    <textarea 
-                                                        className="form-control" 
-                                                        rows="4"
-                                                        name="about_me" 
-                                                        onChange={handleAdditional}
-                                                        value = {state.additional_information_attributes.about_me}
-                                                    >
-                                                    </textarea>
-                                                </div>
-                                            </div>
-
-
-
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Date Of Birth</label>
@@ -821,29 +834,43 @@ function AddFreelancer(props) {
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Marital status</label>
-                                                    <Select 
-                                                        name="martial_status" 
-                                                        options={marital_options}
-                                                        onChange={(value) => handleSelect('martial_status', value)} 
-                                                        value={state.martial_status}
-                                                        
+                                                    <label>Total Experience<span className="text-danger">*</span></label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="total_experience"
+                                                        value={state.total_experience}
+                                                        onChange={handleChange} 
                                                     />
                                                 </div>
                                             </div>
-
+                                            {state.role_name !== 'hr' &&
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label>Nationality<span className="text-danger">*</span></label>
+                                                    <label>Category<span className="text-danger">*</span></label>
                                                     <Select 
-                                                        name="nationality" 
-                                                        options={nationality_options}
-                                                        onChange={(value) => handleSelect('nationality', value)} 
-                                                        value={state.nationality}
+                                                        name="category" 
+                                                        options={CATEGORY}
+                                                        onChange={(value) => handleSelectAdditionalCat('category', value)} 
+                                                        value={state.additional_information_attributes.category}
                                                         required
                                                     />
                                                 </div>
                                             </div>
+                                            }
+                                            <div className="col-lg-6 col-md-6">
+                                                <div className="form-group">
+                                                    <label><i className="bx bxl-linkedin-square"></i> Skype ID</label>
+                                                    <input 
+                                                        className="form-control" 
+                                                        type="text" 
+                                                        name="skype_id"
+                                                        value={state.additional_information_attributes.skype_id}
+                                                        onChange={handleAdditional}
+                                                    />
+                                                </div>
+                                            </div>
+                                            {/*
 
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
@@ -857,25 +884,9 @@ function AddFreelancer(props) {
                                                         value={state.languages}
                                                         labelField="label"
                                                         valueField="value"
-                                                        required
                                                     />
                                                 </div>
                                             </div>
-
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <label>Total Experience<span className="text-danger">*</span></label>
-                                                    <input 
-                                                        className="form-control" 
-                                                        type="text" 
-                                                        name="total_experience"
-                                                        value={state.total_experience}
-                                                        onChange={handleChange} 
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-
                                             <div className="col-lg-6 col-md-6">
                                                 <div className="form-group">
                                                     <label>Country<span className="text-danger">*</span></label>
@@ -946,10 +957,11 @@ function AddFreelancer(props) {
                                                 </div>
                                             </div>
 
-
+                                            */}
                                         </div>
                                     </div>
                                 </div>
+                                {/*
                                 <h3><i className="bx bxs-graduation"></i> Career And Application Information</h3>
                                 <div className="card mb-3">
                                     <div className="card-body">
@@ -983,30 +995,8 @@ function AddFreelancer(props) {
                                         </div>
 
                                         <div className="row">
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <label>Category<span className="text-danger">*</span></label>
-                                                    <Select 
-                                                        name="category" 
-                                                        options={CATEGORY}
-                                                        onChange={(value) => handleSelectAdditionalCat('category', value)} 
-                                                        value={state.additional_information_attributes.category}
-                                                        required
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <label><i className="bx bxl-linkedin-square"></i> Skype ID</label>
-                                                    <input 
-                                                        className="form-control" 
-                                                        type="text" 
-                                                        name="skype_id"
-                                                        value={state.additional_information_attributes.skype_id}
-                                                        onChange={handleAdditional}
-                                                    />
-                                                </div>
-                                            </div>
+                                            
+                                            
                                             
 
                                             <div className="col-lg-12">
@@ -1156,7 +1146,7 @@ function AddFreelancer(props) {
 
                                 
                                 <h3><i className="bx bxs-graduation"></i> Education</h3>
-                                                        
+                                            
                                     
                                     {education.map((item, i) => {
                                         return (
@@ -1207,19 +1197,6 @@ function AddFreelancer(props) {
                                                             </div>
                                                         </div>
 
-                                                        {/*<div className="col-lg-6 col-md-6">
-                                                            <div className="form-group">
-                                                                <label>Major/Group</label>
-                                                                <input 
-                                                                    type="text"
-                                                                    className="form-control"
-                                                                    name="group" 
-                                                                    onChange={(e) => handleEducation(e,i)} 
-                                                                    required
-                                                                    value={education[i].group}
-                                                                />
-                                                            </div>
-                                                        </div>*/}
 
                                                         <div className="col-lg-6 col-md-6">
                                                             <div className="form-group">
@@ -1287,20 +1264,6 @@ function AddFreelancer(props) {
                                                             </div>
                                                         </div>
 
-                                                        {/*<div className="col-lg-12">
-                                                            <div className="form-group">
-                                                                <label>Description</label>
-                                                                <textarea 
-                                                                    className="form-control" 
-                                                                    rows="4"
-                                                                    name="description" 
-                                                                    onChange={(e) => handleEducation(e,i)}
-                                                                    required
-                                                                    value={education[i].description}
-                                                                >
-                                                                </textarea>
-                                                            </div>
-                                                        </div> */}
                                                         
                                                     </div>
                                                 </div>
@@ -1564,15 +1527,17 @@ function AddFreelancer(props) {
                                         )
                                     })}
                                 <div className="row">
-
+                                
                                     <div className="col-lg-12 col-md-12">
-                                        <a className="default-btn float-right mt-3 add-new-btn" onClick={addProject}>
-                                        <i className="bx bx-plus"></i> Add Project
-                                        </a>
+                                    <a className="default-btn float-right mt-3 add-new-btn" onClick={addProject}>
+                                    <i className="bx bx-plus"></i> Add Project
+                                    </a>
                                     </div>
+                                </div>*/}
+                                <div className="row">
                                     <div className="col-lg-12 text-center">
                                        <button className="default-btn" disabled={loader}>Save </button>
-                                       <button className="default-btn btn-two ml-2" onClick={clearState}>Reset </button>
+                                       {/* <button className="default-btn btn-two ml-2" onClick={clearState}>Reset </button> */}
                                     </div>
                                 </div>
                             </form>
@@ -1588,4 +1553,4 @@ function AddFreelancer(props) {
     )
 }
 
-export default withRouter(AddFreelancer);
+export default withRouter(SaveUser);

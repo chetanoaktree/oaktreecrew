@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter, Link } from "react-router-dom";
 import Select from "react-dropdown-select";
-import CATEGORY from "../../constants/category";
+// import CATEGORY from "../../constants/category";
 import SKILLS from "../../constants/skills";
 import salesforce from "../../assets/images/categories/salesforce.svg";
 import Ruby from "../../assets/images/categories/ruby.svg";
@@ -14,13 +14,31 @@ function Dashboard(props) {
     
     const [state , setState] = useState({
         skills: "",
-        category: ""
+        category: "",
+        skillArg: SKILLS
     })
 
     const selectCategory = (value) => {
+        if(state.category === value){
+            setState(prevState => ({
+                ...prevState,
+                category : '',
+                skillArg : SKILLS
+            }))    
+            return false
+        }
         setState(prevState => ({
             ...prevState,
             category : value
+        }))
+
+        var filteredItems = SKILLS.filter(item => (
+            item.filter === value
+          ));
+        // console.log("filteredItems",filteredItems)
+        setState(prevState => ({
+            ...prevState,
+            skillArg : filteredItems
         }))
     }
     const handleSelect = (name, value) => {
@@ -33,6 +51,7 @@ function Dashboard(props) {
             [name] :  value.map(e => e.value).join(",")
         }))
     }
+
     return(
         <section className="live-jobs-area bg-color ptb-100">
           <div className="container">
@@ -109,34 +128,38 @@ function Dashboard(props) {
                           </div>
                           
                           	<div className="row">
-															<div className="col-lg-1 col-sm-12">
+                                <div className="col-lg-1 col-sm-12">
                               
-                              </div>															
-                              <div className="col-lg-10 col-md-12 ">
-                                  <div className="form-group">
-                                      <Select 
-                                          name="skills" 
-                                          multi
-                                          options={SKILLS}
-                                          onChange={(value) => handleSelect('skills', value)} 
-                                          value={state.skills}
-                                      />
-                                  </div>
-                              </div>
-															<div className="col-lg-1 col-sm-12">
+                                </div>															
+                                <div className="col-lg-10 col-md-12 ">
+                                    <div className="form-group">
+                                        <Select 
+                                            name="skills" 
+                                            multi
+                                            options={state.skillArg}
+                                            onChange={(value) => handleSelect('skills', value)} 
+                                            value={state.skills}
+                                            disabled={(state.category === "")}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-lg-1 col-sm-12">
                               
-                              </div>
+                                </div>
                             </div>
                             <div className="row">      
-                              <div className="col-lg-12 col-md-12 text-center">
+                              <div className="col-lg-12 col-md-12 text-center Proceed-button-link-container">
                                   <Link to={{
                                       pathname: '/freelancers',
                                       state: {
                                         category: state.category,
                                         skills: state.skills
                                       }
-                                    }}>
-                                      <button className="default-btn">
+                                    }} 
+                                        
+                                    disabled={(state.category === "")}
+                                    >
+                                      <button className="default-btn" disabled={(state.category === "")}>
                                           <span>Proceed</span>
                                       </button>
                                   </Link>

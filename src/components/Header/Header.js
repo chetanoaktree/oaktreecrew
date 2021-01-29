@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import PropTypes from 'prop-types';
-
+import DefaultProfileImage from "../../assets/images/profile.png";
 import logo from "../../assets/images/logo.png";
 
 
@@ -29,12 +29,18 @@ class Header extends Component {
     var route = this.props.location.pathname
     var path = route.split('/');
 
+    var isActive0 = ''
     var isActive1 = ''
-    if(path[1] === "freelancer"  || path[1] === "addfreelancer"){
-      isActive1 = "active"
+    var isActive2 = ''
+    if(path[1] === "freelancer"  || path[1] === "addfreelancer" || path[1] === "freelancer-detail" || path[1] === "editfreelancer"){
+        isActive1 = "active"
+    }else if(path[1] === "leads"){
+        isActive2 = "active"
+    }else if(path[1] === "users" || path[1] === "adduser" || path[1] === "edituser"){
+        isActive0 = "active"
     }
 
-    // console.log('addfreelancer', isActive1)
+    // console.log('addfreelancer', localStorage.role)
     return (
         <header className="header-area">
             <div className="navbar-area is-sticky">
@@ -60,40 +66,53 @@ class Header extends Component {
                             <div className="collapse navbar-collapse mean-menu" >
                                {auth.isAuthenticated &&
                                 <React.Fragment>
-                                    <ul className="navbar-nav m-auto">
-
+                                    <ul className="navbar-nav ml-auto">
+                                        {localStorage.role === 'admin' &&
+                                            <li className="nav-item">
+                                                <Link to="/users" className={"nav-link "  + isActive0}>
+                                                <i className="bx bx-user-circle"></i> Users
+                                                </Link>
+                                            </li>
+                                        }
+                                        
                                         <li className="nav-item">
-                                            <a href="/freelancer" className={"nav-link "  + isActive1}>
-                                                Freelancers
-                                            </a>
+                                            <Link to="/freelancer" className={"nav-link "  + isActive1}>
+                                            <i className="bx bx-user"></i> Freelancers
+                                            </Link>
                                         </li>
 
                                         <li className="nav-item">
-                                            <a href="#" className="nav-link">
-                                                Clients
-                                            </a>
+                                            <Link to="/leads" className={"nav-link " + isActive2}>
+                                            <i className="bx bx-sitemap"></i> Leads
+                                            </Link>
                                         </li>
+
+
 
                                         <li className="nav-item">
                                             <a href="#" className="nav-link">
-                                                Message
+                                               <img src={localStorage.image !== "null" ? localStorage.image : DefaultProfileImage} className="header-menu-user-profile-image"/> {localStorage.Name}
+                                                <i className="bx bx-chevron-down"></i>
                                             </a>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <a href="#" className="nav-link">
-                                                Settings
-                                            </a>
+                
+                                            <ul className="dropdown-menu">
+                                                <li className="nav-item">
+                                                    <Link to="/profile" className="nav-link"><i className="bx bx-edit"></i> Edit Profile</Link>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <Link to="#" className="nav-link text-danger" onClick={this.logout}><i className="bx bx-log-out"></i> Logout</Link>
+                                                </li>
+                                            </ul>
                                         </li>
                                     </ul>
                                     
-                                    <div className="others-option">
+                                    {/* <div className="others-option">
                                         <div className="get-quote">
                                             <a href="#" onClick={this.logout} className="default-btn">
                                                 Log Out
                                             </a>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </React.Fragment>
                                }
                                {/* !auth.isAuthenticated &&

@@ -9,8 +9,6 @@ import EditUserFreelancer from "../EditForm/EditUserFreelancer"
 import EditAboutFreelancer from "../EditForm/EditAboutFreelancer"
 import EditContactFreelancer from "../EditForm/EditContactFreelancer"
 import EditSocialFreelancer from "../EditForm/EditSocialFreelancer"
-
-
 import EditEducationFreelancer from "../EditForm/EditEducationFreelancer"
 import EditExperienceFreelancer from "../EditForm/EditExperienceFreelancer"
 import EditProjectFreelancer from "../EditForm/EditProjectFreelancer"
@@ -54,6 +52,7 @@ function EditFreelancer(props) {
         avatar: "",
         email:"",
         first_name: "",
+        middle_name: "",
         last_name: "",
         phone: "",
         dob: "",
@@ -81,6 +80,7 @@ function EditFreelancer(props) {
             attachment: "",
             github_link: "",
             linkedin_link: "",
+            skype_id: "",
         },
         education_informations_attributes:[],
         experience_informations_attributes: [],
@@ -148,6 +148,7 @@ function EditFreelancer(props) {
                     avatar: "",
                     email: data.email,
                     first_name: data.first_name,
+                    middle_name: data.middle_name,
                     last_name: data.last_name,
                     phone: data.phone,
                     dob: data.dob,
@@ -173,6 +174,7 @@ function EditFreelancer(props) {
                         attachment: data.additional_information.attachment,
                         github_link: data.additional_information.github_link,
                         linkedin_link: data.additional_information.linkedin_link,
+                        skype_id: data.additional_information.skype_id,
                     },
                     experience_informations_attributes: data.experience_informations,
                     education_informations_attributes: data.education_informations,
@@ -187,11 +189,13 @@ function EditFreelancer(props) {
         }
     }
 
-    const handleUserUpdate = () => {
+    const handleUserUpdate = (e) => {
+      e.preventDefault();
         let data = { 
                     email: state.email,
                     first_name: state.first_name,
                     last_name: state.last_name,
+                    middle_name: state.middle_name,
                     // skip_password_validation: true
                 }
         var form_data = new FormData();
@@ -220,7 +224,8 @@ function EditFreelancer(props) {
 
         updateApi(form_data, id, 'socialShow');
     }
-    const handleContactUpdate = () => {
+    const handleContactUpdate = (e) => {
+      e.preventDefault();
         let data = { 
                     phone: state.phone,
                     address: state.address,
@@ -229,6 +234,10 @@ function EditFreelancer(props) {
         for ( var key in data ) {
             form_data.append(`user[${key}]`, data[key])          
         }
+
+        form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
+        form_data.append("user[additional_information_attributes[skype_id]]",state.additional_information_attributes.skype_id)
+
         updateApi(form_data, id, 'contactShow');
         
     }
@@ -624,6 +633,7 @@ function EditFreelancer(props) {
             state = {state}
             handleClose = {handleClose}
             handleChange = {handleChange}
+            handleAdditional = {handleAdditional}
             handleContactUpdate = {handleContactUpdate}
         />
 
@@ -694,7 +704,7 @@ function EditFreelancer(props) {
                     <div className="candidates-widget">
                         <div className="edit-profile-image-and-title">
                           {/* <div className="card"> */}
-                            {/* <div class="card-header"> */}
+                            {/* <div className="card-header"> */}
                             <h3>&nbsp;<i className="bx bx-pencil edit-icon-btn" onClick={() => handleShow('userShow')}></i></h3>
                               
                             {/* </div>   */}
@@ -708,7 +718,7 @@ function EditFreelancer(props) {
 
                                 <div className="col-lg-6">
                                   <div className="candidates-cv-content">
-                                    <h4>{_.get(state.detail, 'first_name', [''])+ ' '+ _.get(state.detail, 'last_name', [''])}</h4>
+                                    <h4>{_.get(state.detail, 'first_name', [''])} { state.detail && state.detail.middle_name || " "}{_.get(state.detail, 'last_name', [''])}</h4>
                                     <span className="sub-title">{_.get(state.detail.additional_information, 'title', [''])}</span>
                                     <ul>
                                       <li><a href="mailto:#">{_.get(state.detail, 'email', [''])}</a></li>
@@ -752,7 +762,7 @@ function EditFreelancer(props) {
                     state.detail && state.detail.education_informations.length > 0 ? state.detail.education_informations.map((row,i) => {
                     return (
                       <div className="card mb-3" key={i}>
-                        <div class="card-header">
+                        <div className="card-header">
                           <i className="bx bx-pencil" onClick={() => saveEducation(false,row)}></i> <i className="bx bx-trash" onClick={() => removeEducation(row.id)}></i>
                         </div>
 
@@ -776,7 +786,7 @@ function EditFreelancer(props) {
                   {state.detail && state.detail.experience_informations.length > 0 ? state.detail.experience_informations.map((row,i) => {
                     return (
                           <div className="card mb-3" key={i}>
-                            <div class="card-header">
+                            <div className="card-header">
                               <i className="bx bx-pencil" onClick={() => saveExperience(false,row)}></i> <i className="bx bx-trash" onClick={() => removeExperience(row.id)}></i>
                             </div>  
                             <div className="card-body">
@@ -798,7 +808,7 @@ function EditFreelancer(props) {
                   {state.detail && state.detail.project_informations.length > 0 ? state.detail.project_informations.map((row,i) => {
                     return (
                             <div className="card mb-3" key={i}>
-                              <div class="card-header">
+                              <div className="card-header">
                                 <i className="bx bx-pencil" onClick={() => saveProject(false, row)}></i> <i className="bx bx-trash" onClick={() => removeProject(row.id)}></i>
                               </div>
                               <div className="card-body">
@@ -901,11 +911,15 @@ function EditFreelancer(props) {
                       </li> */}
                       <li>
                         Phone
-                        <a href={"tel:+91"+state.phone}><span>: {state.phone}</span></a>
+                        <a href={"tel:+91"+state.phone}><span>: {state.detail.phone}</span></a>
+                      </li>
+                      <li>
+                        Skype Id
+                        <a href={"tel:+91"+_.get(state.detail.additional_information, 'skype_id', [''])}><span>: {_.get(state.detail.additional_information, 'skype_id', [''])}</span></a>
                       </li>
                       <li>
                         Location
-                        <span>: {state.address}</span>
+                        <span>: {state.detail.address}</span>
                       </li>
                     </ul>
                   </div>

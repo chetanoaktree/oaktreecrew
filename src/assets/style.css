@@ -2690,6 +2690,9 @@ textarea.form-control {
   border-radius: 50%;
   margin: 0 auto;
   margin-bottom: 15px;
+  width: 144px;
+  height: 144px;
+  background: #E4E6E5;
 }
 
 .single-freelancer h3 {
@@ -7453,8 +7456,16 @@ textarea.form-control {
   background-color: #ffcd00;
 }
 
-.status-indicator-in-scheduling {
+.status-indicator-scheduled {
   background-color: #3035ff;
+}
+
+.status-indicator-ready-to-work {
+  background-color: #00b074;
+}
+
+.status-indicator-rejected {
+  background-color: #dc3545;
 }
 
 .do-action-button-container .dropdown-toggle {
@@ -7563,14 +7574,6 @@ textarea.form-control {
   text-align: center;
 }
 
-#pills-tabContent .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(5) {
-  text-align: center;
-}
-
-#pills-tabContent .ReactTable .rt-tr-group .rt-tr .rt-td:nth-child(6) {
-  text-align: center;
-}
-
 #pills-tabContent .table {
   margin-bottom: 0px !important;
 }
@@ -7613,11 +7616,37 @@ textarea.form-control {
   background-color: #00b074;
 }
 
+.Proceed-button-link-container disabled {
+  pointer-events: none !important;
+}
+
+.all-status {
+  text-transform: capitalize;
+}
+
+.header-menu-user-profile-image {
+  width: 24px;
+  height: 24px;
+  background: #ebebeb;
+  border-radius: 100%;
+}
+
+.navbar-area .desktop-nav .navbar ul {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ReactTable .rt-thead .rt-tr {
+  text-align: left !important;
+}
+
 .freelancers-list-profile-thumbnail {
   width: 25px;
   height: 25px;
   border-radius: 100%;
   margin-right: 10px;
+  background: #ebebeb;
 }
 
 /* Max width 767px */

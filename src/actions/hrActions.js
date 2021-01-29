@@ -7,7 +7,6 @@ export function saveFreelancer(dataSend) {
     dispatch(applicationIsLoading(true));
     return axios.post(REACT_API_URL + `/api/v1/users`, dataSend)
       .then(res => {
-        // dispatch(saveHunterAction(res))
         dispatch(applicationIsLoading(false));
         if (res.status === 200) {
           return res;
@@ -24,7 +23,6 @@ export function updateFreelancer(dataSend, id) {
     dispatch(applicationIsLoading(true));
     return axios.put(REACT_API_URL + `/api/v1/users/${id}`, dataSend)
       .then(res => {
-        // dispatch(saveHunterAction(res))
         dispatch(applicationIsLoading(false));
         if (res.status === 200) {
           return res;
@@ -169,6 +167,52 @@ export function removeFromFreelancer(url) {
     return axios({
       method: "delete",
       url: REACT_API_URL + url
+    })
+    .then((response) => {
+        if((response.status !== 200) || (response.data.status === 404)) {
+          // throw Error(response.statusText);
+          return response.data;
+        } else {
+          return response.data
+        }
+      }
+    )
+    .then(freelancer => {
+      dispatch(applicationIsLoading(false));
+      // dispatch(freelancerFetchSuccess(freelancer));
+      return freelancer
+    })
+    .catch((error) => {
+      dispatch(applicationIsLoading(false));
+      console.log(error)
+      return error
+    })
+  }
+}
+
+
+export function saveLeads(dataSend) {
+  return dispatch => {
+    dispatch(applicationIsLoading(true));
+    return axios.post(REACT_API_URL + `/api/v1/clients`, dataSend)
+      .then(res => {
+        dispatch(applicationIsLoading(false));
+        if (res.status === 200) {
+          return res;
+        }
+      }).catch((err) => {
+        dispatch(applicationIsLoading(false));
+        return err.response
+      });
+  } 
+}
+
+export function fetchLeads(data) {
+  return (dispatch) => {
+    dispatch(applicationIsLoading(true));
+    return axios({
+      method: "get",
+      url: REACT_API_URL + `/api/v1/clients`+ data
     })
     .then((response) => {
         if((response.status !== 200) || (response.data.status === 404)) {

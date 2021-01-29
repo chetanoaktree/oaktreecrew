@@ -3,42 +3,6 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import axios from "axios";
 
-const Header = lazy(() => import('./components/Header/Header'));
-const Footer = lazy(() => import('./components/Footer/Footer'));
-const LoginForm = lazy(() => import('./containers/Login/LoginForm'));
-const RecoveryConfirmation = lazy(() => import('./containers/Password/Confirm'));
-
-const Freelancer = lazy(() => import('./containers/HR/Freelancer'));
-const AddFreelancer = lazy(() => import('./containers/HR/AddFreelancer'));
-const EditFreelancer = lazy(() => import('./containers/HR/EditFreelancer'));
-
-const Dashboard = lazy(() => import('./containers/Dashboard/Dashboard'));
-const FreelancerSelect = lazy(() => import('./containers/Dashboard/FreelancerSelect'));
-const ClientSignup = lazy(() => import('./containers/Dashboard/ClientSignup'));
-
-const FreelancerDetail = lazy(() => import('./containers/Client/FreelancerDetail'));
-const NoRouteFound = lazy(() => import('./components/NoRoute/NoRoute'));
-
-// import Dashboard from './containers/Dashboard/Dashboard';
-// import FreelancerSelect from './containers/Dashboard/FreelancerSelect';
-// import ClientSignup from './containers/Dashboard/ClientSignup';
-
-// import FreelancerDetail from './containers/Client/FreelancerDetail';
-// import NoRouteFound from './components/NoRoute/NoRoute';
-
-
-// import Freelancer from './containers/HR/Freelancer';
-// import AddFreelancer from './containers/HR/AddFreelancer';
-// import EditFreelancer from './containers/HR/EditFreelancer';
-
-// import Header from './components/Header/Header';
-// import Footer from './components/Footer/Footer';
-// import LoginForm from './containers/Login/LoginForm';
-// import RecoveryConfirmation from './containers/Password/Confirm';
-
-
-
-
 import './assets/style.css';
 import './assets/style/animate.min.css';
 import './assets/style/boxicons.min.css';
@@ -54,6 +18,28 @@ import 'react-table-v6/react-table.css'
 
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
+
+
+const Header = lazy(() => import('./components/Header/Header'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
+const LoginForm = lazy(() => import('./containers/Login/LoginForm'));
+const RecoveryConfirmation = lazy(() => import('./containers/Password/Confirm'));
+
+const Freelancer = lazy(() => import('./containers/HR/Freelancer'));
+const AddFreelancer = lazy(() => import('./containers/HR/AddFreelancer'));
+const EditFreelancer = lazy(() => import('./containers/HR/EditFreelancer'));
+const Leads = lazy(() => import('./containers/HR/Leads'));
+
+const Users = lazy(() => import('./containers/Admin/Users'));
+const SaveUser = lazy(() => import('./containers/Admin/SaveUser'));
+
+const Dashboard = lazy(() => import('./containers/Dashboard/Dashboard'));
+const FreelancerSelect = lazy(() => import('./containers/Dashboard/FreelancerSelect'));
+const ClientSignup = lazy(() => import('./containers/Dashboard/ClientSignup'));
+
+const Profile = lazy(() => import('./containers/Profile/Profile'));
+const FreelancerDetail = lazy(() => import('./containers/Client/FreelancerDetail'));
+const NoRouteFound = lazy(() => import('./components/NoRoute/NoRoute'));
 
 class ScrollToTop extends Component {
   componentDidUpdate(prevProps) {
@@ -76,16 +62,17 @@ function PublicOnlyRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => (!authed || (authed === false))
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/freelancer', state: {from: props.location}}} />}
+        : <Redirect to={{pathname: (localStorage.role === 'hr') ? '/freelancer' : '/users', state: {from: props.location}}} />}
     />
   )
 }
 
-function PrivateRoute ({component: Component, authed, ...rest}) {
+function PrivateRoute ({component: Component, authed, role, ...rest}) {
+  // console.log("role",role)
   return (
     <Route
       {...rest}
-      render={(props) => localStorage.accessToken
+      render={(props) => localStorage.accessToken && role.includes(localStorage.role) 
         ? <Component {...props} />
         : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
     />
@@ -111,6 +98,7 @@ const App = class App extends Component {
     // console.log("auth",auth)
     return (
       <ScrollToTop location={this.props.location}>
+        <Suspense fallback={<div id="lazzy" class="lazzy-center"></div> }>
           <React.Fragment>
             <NotificationContainer/>
             <Header location={this.props.location} authenticated={auth.isAuthenticated} history={history}/>
@@ -122,15 +110,22 @@ const App = class App extends Component {
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/users/password/edit" exact component={RecoveryConfirmation} />  
               <PublicOnlyRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-details/:id" exact component={FreelancerDetail} />
 
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer" exact component={Freelancer} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} />
-              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} />
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/users" exact component={Users} role={['admin']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer" exact component={Freelancer} role={['admin','hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} role={['hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} role={['hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} role={['admin','hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/leads" exact component={Leads} role={['admin','hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/profile" exact component={Profile} role={['admin','hr']}/>
+
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/adduser" exact component={SaveUser} role={['admin']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/edituser/:id" exact component={SaveUser} role={['admin']}/>
 
               <Route component={NoRouteFound} />
             </Switch>
             <Footer location={location} authenticated={auth.isAuthenticated}/>
           </React.Fragment>
+        </Suspense>
       </ScrollToTop>
     )
   }

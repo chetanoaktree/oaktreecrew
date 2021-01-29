@@ -3,25 +3,19 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter, Link } from "react-router-dom";
 import Slider from "react-slick";
 import { fetchFreelancerByCategory } from '../../actions/hrActions';
-import freelancer1 from "../../assets/images/freelancer/freelancer-1.jpg";
-import freelancer2 from "../../assets/images/freelancer/freelancer-2.jpg";
-import freelancer3 from "../../assets/images/freelancer/freelancer-3.jpg";
-import freelancer4 from "../../assets/images/freelancer/freelancer-4.jpg";
-import freelancer5 from "../../assets/images/freelancer/freelancer-5.jpg";
-import freelancer6 from "../../assets/images/freelancer/freelancer-6.jpg";
-import freelancer7 from "../../assets/images/freelancer/freelancer-7.jpg";
-import freelancer8 from "../../assets/images/freelancer/freelancer-8.jpg";
+import {CardListingLoader, TableListingLoader} from "../../components/Loader/Skelton";
 
+import freelancer1 from "../../assets/images/profile.png";
 
 
 function FreelancerSelect(props) {
   
-  // const [state , setState] = useState({
-  //     users: [],
-  //     skills: "",
-  //     category: "",
-  //     freelancer_ids: []
-  // })
+  const [state , setState] = useState({
+      users: [],
+      skills: "",
+      category: "",
+      freelancer_ids: []
+  })
 
 
   // console.log("props",props.location)  
@@ -66,7 +60,7 @@ function FreelancerSelect(props) {
   };
 
     useEffect(() => {
-      // fetchData();
+      fetchData();
     }, []);
 
     const fetchData = () => {
@@ -80,7 +74,7 @@ function FreelancerSelect(props) {
       // Update the document title using the browser API
       dispatch(fetchFreelancerByCategory(data)).then((res)=> {
           if(res && res.status === 200) {
-            console.log("res",res.data)
+            // console.log("res",res.data)
              setState(prevState => ({
                 ...prevState,
                 users: res.data
@@ -93,7 +87,7 @@ function FreelancerSelect(props) {
         console.log("item", item  )
     }
 
-    // const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
+    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
 
     return(
         <section className="freelancer-area pt-100 pb-70">
@@ -105,19 +99,29 @@ function FreelancerSelect(props) {
 
 
             <Slider {...settings}>
-              {/*state.users.map((row, i) => {
-                return (<div className="" key={i}>
+              {loader &&  
+                      Array.from(Array(7), (e, i) => {
+                        return (<div className="single-freelancer">
+                            <CardListingLoader />
+                            <TableListingLoader />
+                          </div>)
+                    })
+              }
+              {state.users.length > 0 ? state.users.map((row, i) => {
+                return (<Link to={"/freelancer-details/"+row.uuid} key={i}><div className="">
                         <div className="single-freelancer">
                           <img src={row.user_image ? row.user_image : freelancer1} alt="Image" />
-                          <a href={"/freelancer-details/"+row.uuid}><h3>{row.first_name +' '+row.last_name}</h3></a>
+                          <h3>{row.first_name +' '+row.last_name}</h3>
                           <span className="profession">{row.additional_information.category}</span>
-                          <a href="#" className="default-btn" onClick={() => selectFreelancer(row)}>
-                            Select
-                          </a>
                         </div>
-                      </div>)  
-              })*/}
-              
+                      </div></Link>)  
+              })
+              :
+              <div className="single-freelancer">
+                <h5 className="mt-5 mb-5">No Data Found</h5>
+              </div>
+            }
+              {/*  
               <div className="">
                 <div className="single-freelancer">
                   <img src={freelancer1} alt="Image" />
@@ -126,7 +130,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -136,7 +139,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -146,7 +148,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -156,7 +157,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -166,7 +166,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -176,7 +175,6 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
 
               <div className="">
                 <div className="single-freelancer">
@@ -186,7 +184,7 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              {/*  */}
+              
 
               <div className="">
                 <div className="single-freelancer">
@@ -196,19 +194,12 @@ function FreelancerSelect(props) {
                   
                 </div>
               </div>
-              
+              */}
             </Slider>
 
             <div className="row mt-5">
               <div className="col-lg-12 col-md-12 text-center">
-                <Link to='/client-signup'>
-                      <button className="default-btn">
-                          <span>Proceed</span>
-                      </button>
-                  </Link> 
-
-
-                  {/* <Link to={{
+                  <Link to={{
                             pathname: '/client-signup',
                             state: {
                               category: props.location.state.category,
@@ -219,7 +210,7 @@ function FreelancerSelect(props) {
                       <button className="default-btn">
                           <span>Proceed</span>
                       </button>
-                  </Link> */}
+                  </Link>
                   <div id="msgSubmit" className="h3 text-center hidden"></div>
                   <div className="clearfix"></div>
               </div>
