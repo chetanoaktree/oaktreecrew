@@ -1,24 +1,43 @@
-import React, { Component } from 'react';
+import React, { Suspense, lazy, Component } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import axios from "axios";
 
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import LoginForm from './containers/Login/LoginForm';
-import RecoveryConfirmation from './containers/Password/Confirm';
+const Header = lazy(() => import('./components/Header/Header'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
+const LoginForm = lazy(() => import('./containers/Login/LoginForm'));
+const RecoveryConfirmation = lazy(() => import('./containers/Password/Confirm'));
+
+const Freelancer = lazy(() => import('./containers/HR/Freelancer'));
+const AddFreelancer = lazy(() => import('./containers/HR/AddFreelancer'));
+const EditFreelancer = lazy(() => import('./containers/HR/EditFreelancer'));
+
+const Dashboard = lazy(() => import('./containers/Dashboard/Dashboard'));
+const FreelancerSelect = lazy(() => import('./containers/Dashboard/FreelancerSelect'));
+const ClientSignup = lazy(() => import('./containers/Dashboard/ClientSignup'));
+
+const FreelancerDetail = lazy(() => import('./containers/Client/FreelancerDetail'));
+const NoRouteFound = lazy(() => import('./components/NoRoute/NoRoute'));
+
+// import Dashboard from './containers/Dashboard/Dashboard';
+// import FreelancerSelect from './containers/Dashboard/FreelancerSelect';
+// import ClientSignup from './containers/Dashboard/ClientSignup';
+
+// import FreelancerDetail from './containers/Client/FreelancerDetail';
+// import NoRouteFound from './components/NoRoute/NoRoute';
 
 
-import Freelancer from './containers/HR/Freelancer';
-import AddFreelancer from './containers/HR/AddFreelancer';
-import EditFreelancer from './containers/HR/EditFreelancer';
+// import Freelancer from './containers/HR/Freelancer';
+// import AddFreelancer from './containers/HR/AddFreelancer';
+// import EditFreelancer from './containers/HR/EditFreelancer';
 
-import Dashboard from './containers/Dashboard/Dashboard';
-import FreelancerSelect from './containers/Dashboard/FreelancerSelect';
-import ClientSignup from './containers/Dashboard/ClientSignup';
+// import Header from './components/Header/Header';
+// import Footer from './components/Footer/Footer';
+// import LoginForm from './containers/Login/LoginForm';
+// import RecoveryConfirmation from './containers/Password/Confirm';
 
-import FreelancerDetail from './containers/Client/FreelancerDetail';
-import NoRouteFound from './components/NoRoute/NoRoute';
+
+
 
 import './assets/style.css';
 import './assets/style/animate.min.css';
