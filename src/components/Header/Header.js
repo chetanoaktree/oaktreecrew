@@ -32,12 +32,15 @@ class Header extends Component {
     var isActive0 = ''
     var isActive1 = ''
     var isActive2 = ''
+    var isActive3 = ''
     if(path[1] === "freelancer"  || path[1] === "addfreelancer" || path[1] === "freelancer-detail" || path[1] === "editfreelancer"){
         isActive1 = "active"
     }else if(path[1] === "leads"){
         isActive2 = "active"
     }else if(path[1] === "users" || path[1] === "adduser" || path[1] === "edituser"){
         isActive0 = "active"
+    }else if(path[1] === "interview" || path[1] === "freelancer-interview"){
+        isActive3 = "active"
     }
 
     // console.log('addfreelancer', localStorage.role)
@@ -75,19 +78,27 @@ class Header extends Component {
                                             </li>
                                         }
                                         
-                                        <li className="nav-item">
-                                            <Link to="/freelancer" className={"nav-link "  + isActive1}>
-                                            <i className="bx bx-user"></i> Freelancers
-                                            </Link>
-                                        </li>
+                                        {localStorage.role !== 'interviewer' ?
+                                          <React.Fragment>  
+                                            <li className="nav-item">
+                                                <Link to="/freelancer" className={"nav-link "  + isActive1}>
+                                                <i className="bx bx-user"></i> Freelancers
+                                                </Link>
+                                            </li>
 
-                                        <li className="nav-item">
-                                            <Link to="/leads" className={"nav-link " + isActive2}>
-                                            <i className="bx bx-sitemap"></i> Leads
-                                            </Link>
-                                        </li>
-
-
+                                            <li className="nav-item">
+                                                <Link to="/leads" className={"nav-link " + isActive2}>
+                                                <i className="bx bx-sitemap"></i> Leads
+                                                </Link>
+                                            </li>
+                                          </React.Fragment>
+                                        :
+                                            <li className="nav-item">
+                                                <Link to="/interview" className={"nav-link "  + isActive3}>
+                                                <i className="bx bx-user"></i> Interviews
+                                                </Link>
+                                            </li>
+                                        }
 
                                         <li className="nav-item">
                                             <a href="#" className="nav-link">

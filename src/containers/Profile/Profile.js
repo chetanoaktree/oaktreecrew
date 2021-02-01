@@ -246,6 +246,7 @@ function Profile(props) {
                                                         onChange={(value) => handleSelect('role_name', value)} 
                                                         value={state.role_name}
                                                         required
+                                                        disabled
                                                     />
                                                 </div>
                                             </div>

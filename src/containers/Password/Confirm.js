@@ -172,17 +172,16 @@ class Confirm extends Component {
                 <Col xs={12} md={1}>
 
                 </Col>
-              </Row>
-
-              <center> 
-              <Button className="btn btn-custom-primary mr-1" onClick={this.resetPassword.bind(this)}>
-                Save Changes
-              </Button>
-              <Button className="btn btn-custom-secondary-small-border-radius" onClick={this.handleClose.bind(this)}>
-                Close
-              </Button>
-              </center> 
+              </Row> 
             </Modal.Body>
+            <Modal.Footer>
+              <button className="default-btn default-btn" onClick={this.resetPassword.bind(this)}>
+                Save Changes
+              </button>
+              <button className="default-btn default-btn btn-two" onClick={this.handleClose.bind(this)}>
+                Close
+              </button>
+            </Modal.Footer>
 
           </Modal>
 
