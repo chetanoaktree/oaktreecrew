@@ -8,7 +8,7 @@ import ReactTable from 'react-table-v6'
 import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import profileImageThumbnail from "../../assets/images/profile.png"
 // import Tabs from 'react-responsive-tabs';
-import { Modal } from 'react-bootstrap';
+// import { Modal } from 'react-bootstrap';
 
 
 function Users(props) {
@@ -29,54 +29,6 @@ function Users(props) {
         role_name: 'hr',
         tab: 'hr'
     })
-
-    const initialModelState = {
-        modelShow: false,
-        // interview_lead_id: '',
-        interviewer: '',
-        interview_date: '',
-        interview_from_time: '',
-        interview_to_time: '',
-        interview_uuid: '',
-        interview_email: '',
-        interview_phone: '',
-        interview_category: '',
-        interview_note: ''
-    }
-    const [model, setModel] = useState(initialModelState)
-
-    const handleShow = (data) => {
-        // console.log("data",data)
-        setModel(prevState => ({
-            ...prevState,
-            modelShow : true,
-            interview_uuid: data.uuid,
-            interview_email: data.email,
-            interview_phone: data.phone,
-            interview_category: data.additional_information.category,
-        }))
-    }
-
-    const handleClose = () => {
-        setModel({ ...initialModelState });
-    }
-    
-    const handleChange = (e) => {
-        // console.log("time",time)
-        const {name , value} = e.target   
-        setModel(prevState => ({
-            ...prevState,
-            [name] : value
-        }))
-    }
-    
-    const handleDateChange = (name, time) => {
-        // console.log("time",time)
-        setModel(prevState => ({
-            ...prevState,
-            [name] : time
-        }))
-    }
 
     const dispatch = useDispatch();
     

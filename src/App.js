@@ -28,6 +28,7 @@ const RecoveryConfirmation = lazy(() => import('./containers/Password/Confirm'))
 const Freelancer = lazy(() => import('./containers/HR/Freelancer'));
 const AddFreelancer = lazy(() => import('./containers/HR/AddFreelancer'));
 const EditFreelancer = lazy(() => import('./containers/HR/EditFreelancer'));
+const CustomCV = lazy(() => import('./containers/HR/CustomCV'));
 const Leads = lazy(() => import('./containers/HR/Leads'));
 
 const Users = lazy(() => import('./containers/Admin/Users'));
@@ -115,6 +116,7 @@ const App = class App extends Component {
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer" exact component={Freelancer} role={['admin','hr']}/>
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/addfreelancer" exact component={AddFreelancer} role={['hr']}/>
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/editfreelancer/:id" exact component={EditFreelancer} role={['hr']}/>
+              <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/custom-cv/:id" exact component={CustomCV} role={['hr']}/>
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/freelancer-detail/:id" exact component={FreelancerDetail} role={['admin','hr']}/>
               <PrivateRoute history={history} authed={auth.isAuthenticated} location={location} path="/leads" exact component={Leads} role={['admin','hr']}/>
 

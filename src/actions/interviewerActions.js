@@ -154,3 +154,19 @@ export function getInterviews(data) {
     })
   }
 }
+
+export function interviewFeedback(dataSend, uuid) {
+  return dispatch => {
+    dispatch(applicationIsLoading(true));
+    return axios.post(REACT_API_URL + `/api/v1/users/${uuid}/ratings`, {rating: dataSend})
+      .then(res => {
+        dispatch(applicationIsLoading(false));
+        if (res.status === 200) {
+          return res;
+        }
+      }).catch((err) => {
+        dispatch(applicationIsLoading(false));
+        return err.response
+      });
+  } 
+}

@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter, useParams } from "react-router-dom";
-import { getFreelancer } from '../../actions/hrActions';
 import _ from 'lodash';
-import avatar from "../../assets/images/avatar-img.jpg";
+import {NotificationManager} from 'react-notifications';
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import { Modal,Row,Col } from 'react-bootstrap';
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
+import { getFreelancer } from '../../actions/hrActions';
+import { interviewFeedback } from '../../actions/interviewerActions';
+import avatar from "../../assets/images/avatar-img.jpg";
+
 
 
 function FreelancerDetail(props) {
@@ -33,6 +39,81 @@ function FreelancerDetail(props) {
           }
       })
     }
+
+    const [model, setModel] = useState({
+      modelShow: false,
+      rating_data: [],
+      feedback: '',
+      status: ''
+    })
+
+    const [skillObj, setSkillObj] = useState([])
+
+    const handleShow = () => {
+      let skillObj = []
+      if(state.detail && state.detail.additional_information){
+        state.detail.additional_information.skills.split(',').map(skill=> {
+          skillObj.push({skill: skill, rating: 0})
+        })
+      }
+        setModel(prevState => ({
+            ...prevState,
+            modelShow: true,
+            rating_data: skillObj,
+            feedback: '',
+            status: ''
+        }))
+        setSkillObj(skillObj)
+    }
+
+    const handleClose = () => {
+        setModel(prevState => ({
+            ...prevState,
+            modelShow : false,
+            rating_data: [],
+            feedback: '',
+            status: ''
+        }))
+    }
+
+    const handleChange = (e) => {
+        // console.log("time",time)
+        const {name , value} = e.target   
+        setModel(prevState => ({
+            ...prevState,
+            [name] : value
+        }))
+    }
+
+    const changeRating = (value, i) => {
+      const newSkillObj = [...skillObj];
+      newSkillObj[i].rating = value;
+      setSkillObj(newSkillObj)
+    }
+    
+    const handleFeedBack = (e) => {
+      e.preventDefault();
+      let data = {
+                rating_data: skillObj,
+                // rating_data: JSON.stringify(skillObj),
+                feedback: model.feedback,
+                status: model.status,
+              }
+      console.log("data",data)
+
+      dispatch(interviewFeedback(data, id)).then((res)=> {
+          if(res && res.data.status === 200) {
+             NotificationManager.success(res.data.messages, 'Success');
+             // props.history.push('/freelancer');
+             handleClose()
+          }else{
+             NotificationManager.error(res.data.messages, 'Error');  
+          }
+      })
+    }
+
+    const loader = useSelector(state => (state.applicationIsLoading), shallowEqual)
+    
     // console.log("detail",state.detail)_.get(state.detail, 'user_image', [avatar])
     return(
       <React.Fragment>
@@ -145,12 +226,11 @@ function FreelancerDetail(props) {
                             return (<div className="skill-bar" data-percentage="100%">
                                   <h5 className="progress-title-holder">
                                     <span className="progress-title">{skill}</span>
-                                    
                                   </h5>
                     
                                   <div className="progress-content-outter">
                                     <div className="progress-content" ></div>
-                                    <ProgressBar variant="success" now={45} />
+                                    <ProgressBar variant="success" now={50} />
                                   </div>
                               </div>)
                             })
@@ -185,11 +265,7 @@ function FreelancerDetail(props) {
                     <h3>Contact Information</h3>
                     
                     <ul className="overview">
-                      
-                      {/* <li>
-                        Email
-                        <a href="mailto:#"><span>: {_.get(state.detail, 'email', [''])}</span></a>
-                      </li> */}
+
                       <li>
                         Phone
                         <a href={"tel:+91"+_.get(state.detail, 'phone', [''])}><span>: {_.get(state.detail, 'phone', [''])}</span></a>
@@ -202,6 +278,34 @@ function FreelancerDetail(props) {
                         Location
                         <span>: {_.get(state.detail, 'address', [''])}</span>
                       </li>
+                      {state.detail.country &&
+                        <>
+                          <li>
+                            Country
+                            <span>: {state.detail.country}</span>
+                          </li>
+                          {state.detail.state &&
+                            <>
+                              <li>
+                                State
+                                <span>: {state.detail.state}</span>
+                              </li>
+                              {state.detail.city &&
+                                  <li>
+                                    City
+                                    <span>: {state.detail.city}</span>
+                                  </li>
+                              }
+                            </>
+                          }
+                        </>  
+                      }
+                      {state.detail.pincode &&
+                          <li>
+                            Location
+                            <span>: {state.detail.pincode}</span>
+                          </li>
+                      }
                     </ul>
                   </div>
 
@@ -216,6 +320,10 @@ function FreelancerDetail(props) {
                       <li>
                         Nationality
                         <span>: {_.get(state.detail, 'nationality', [''])}</span>
+                      </li>
+                      <li>
+                        Exp. Level
+                        <span>: {_.get(state.detail.additional_information, 'job_level', [''])}</span>
                       </li>
                       <li>
                         Job Type
@@ -242,24 +350,118 @@ function FreelancerDetail(props) {
                 
                   <div className="candidates-widget">
                     <h3>Download Resume</h3>
-                    
                     <ul className="overview download ">
-                      
-                      <li>
-                        <i className="flaticon-pdf"></i>
-                        <a href="#">PDF Formate CV</a>
-                      </li>
-                      <li>
-                        <i className="flaticon-pdf"></i>
-                        <a href="#">DOC Formate CV</a>
-                      </li>
+                      {state.detail.resume_pdf &&
+                        <li>
+                          <i className="flaticon-pdf"></i>
+                          <a href={state.detail.resume_pdf} target="_blank">PDF Formate CV</a>
+                        </li>
+                      }
+                      {state.detail.resume_doc &&
+                        <li>
+                          <i className="flaticon-pdf"></i>
+                          <a href={state.detail.resume_doc} target="_blank">DOC Formate CV</a>
+                        </li>
+                      }
                     </ul>
                   </div>
+
+                  {localStorage.role === 'interviewer' &&
+                    <div className="candidates-widget">
+                      <h3>Feed Back</h3>
+                      <ul className="overview download ">
+                        <li>
+                          <i className="flaticon-pdf"></i>
+                          <a onClick={() => handleShow()}>Feedback</a>
+                        </li>
+                      </ul>
+                    </div>
+                  }
                 
                 </div>
               </div>
             </div>
           </div>
+          <Modal show={model.modelShow} onHide={() => handleClose()} className="" centered >
+            <form className="resume-info" onSubmit={handleFeedBack}>
+              <Modal.Header closeButton>
+                  <Modal.Title>Feedback</Modal.Title>
+              </Modal.Header>     
+              <Modal.Body>
+                <form className="">
+                    <div className="row">
+                        <div className="col-lg-12">
+                          <h6>Rate Skills</h6>
+                            <div className="card mb-3">
+                                <div className="card-body">
+                                <div className="all-skill-bar">
+                                  {
+                                    skillObj.map((row, i)=>{
+                                      return (<div className="skill-bar" data-percentage="100%">
+                                            <h5 className="progress-title-holder">
+                                              <span className="progress-title">{row.skill}</span>
+                                            </h5>
+                              
+                                            <div className="progress-content-outter">
+                                              <div className="progress-content" ></div>
+                                              <InputRange
+                                                maxValue={10}
+                                                minValue={0}
+                                                value={row.rating}
+                                                onChange={value => changeRating(value, i)} 
+                                              />
+                                            </div>
+                                        </div>)
+                                      })
+                                  }
+                                </div>
+                              </div>
+                   
+                            </div> 
+                          </div> 
+                    </div> 
+                    <Col xs={12} md={12}>
+                        <div className="row mb-4 mt-4">
+                            <Col xs={12} md={6} onChange={handleChange}>
+                                <label className="single-check">
+                                    Accept
+                                    <input 
+                                        type="radio" 
+                                        checked={model.status === "accepted"} 
+                                        name="status" 
+                                        value="accepted" required/>
+                                    <span className="checkmark"></span>
+                                </label>
+                            </Col>
+                            <Col xs={12} md={6} onChange={handleChange}>
+                                <label className="single-check">
+                                    Reject
+                                    <input 
+                                        type="radio" 
+                                        checked={model.status === "rejected"}
+                                        name="status" 
+                                        value="rejected" required/>
+                                    <span className="checkmark"></span>
+                                </label>
+                            </Col>
+                        </div>
+                    </Col> 
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <h6>Note</h6>                          
+                              <div className="form-group">
+                              <textarea name="feedback" onChange={handleChange} className="form-control" rows="4">{model.feedback}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+              </Modal.Body>
+              <Modal.Footer>
+                <div className="default-btn default-btn btn-two" onClick={() => handleClose()}>Close</div>
+                <button className="default-btn default-btn" disabled={loader}>Submit</button>
+              </Modal.Footer>
+            </form>
+        </Modal>
         </section>
 
       </React.Fragment>

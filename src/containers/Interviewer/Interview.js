@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux'
 import { withRouter } from "react-router-dom";
-import {NotificationManager} from 'react-notifications';
-import _ from 'lodash';
 import ReactTable from 'react-table-v6'
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Select from 'react-select-me';
 import 'react-select-me/lib/ReactSelectMe.css';
-import { fetchFreelancers, deleteFreelancer } from '../../actions/hrActions';
 import { getInterviews } from '../../actions/interviewerActions';
-import profileImageThumbnail from "../../assets/images/profile.png"
-import { Modal } from 'react-bootstrap';
 
 
 function Interview(props) {
@@ -31,52 +24,6 @@ function Interview(props) {
         pageSize: '',
         tab: 'scheduled' 
     })
-
-    const initialModelState = {
-        modelShow: false,
-        id: '',
-        interviewerList: '',
-        interviewer_id: "",
-        interview_date: '',
-        interview_from_time: '',
-        interview_to_time: '',
-        interview_uuid: '',
-        interview_email: '',
-        interview_phone: '',
-        interview_category: '',
-        interview_note: ''
-    }
-    const [model, setModel] = useState(initialModelState)
-
-
-    const handleClose = () => {
-        setModel({ ...initialModelState });
-    }
-    
-    const handleChange = (e) => {
-        // console.log("time",time)
-        const {name , value} = e.target   
-        setModel(prevState => ({
-            ...prevState,
-            [name] : value
-        }))
-    }
-
-    const selectInterviewer = (name, value) => {
-        // console.log(name,"----",value) 
-          setModel(prevState => ({
-              ...prevState,
-              [name] : value.value
-          }))
-      }
-    
-    const handleDateChange = (name, time) => {
-        // console.log("time",time)
-        setModel(prevState => ({
-            ...prevState,
-            [name] : time
-        }))
-    }
 
     const dispatch = useDispatch();
     

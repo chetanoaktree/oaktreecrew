@@ -1,5 +1,7 @@
 import React from 'react';
 import { Modal,Row,Col } from 'react-bootstrap';
+import csc from "country-state-city";
+
 
 function EditContactFreelancer(props) {
 	// console.log("props",props)

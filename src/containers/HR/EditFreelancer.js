@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { withRouter, useParams } from "react-router-dom";
+import { withRouter, useParams, Link } from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
 import { getFreelancer, updateFreelancer, removeFromFreelancer } from '../../actions/hrActions';
 import _ from 'lodash';
@@ -255,9 +255,8 @@ function EditFreelancer(props) {
         form_data.append("user[additional_information_attributes[id]]",state.detail.additional_information.id)
         form_data.append("user[additional_information_attributes[expected_salary]]",state.additional_information_attributes.expected_salary)
         form_data.append("user[additional_information_attributes[category]]",state.additional_information_attributes.category)
-        // form_data.append("user[additional_information_attributes[skills]]",state.additional_information_attributes.skills)
         form_data.append("user[additional_information_attributes[job_nature]]",state.additional_information_attributes.job_nature)
-        // form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
+        form_data.append("user[additional_information_attributes[job_level]]",state.additional_information_attributes.job_level)
         
 
         updateApi(form_data, id, 'overviewShow');
@@ -921,6 +920,34 @@ function EditFreelancer(props) {
                         Location
                         <span>: {state.detail.address}</span>
                       </li>
+                      {state.detail.country &&
+                        <>
+                          <li>
+                            Country
+                            <span>: {state.detail.country}</span>
+                          </li>
+                          {state.detail.state &&
+                            <>
+                              <li>
+                                State
+                                <span>: {state.detail.state}</span>
+                              </li>
+                              {state.detail.city &&
+                                  <li>
+                                    City
+                                    <span>: {state.detail.city}</span>
+                                  </li>
+                              }
+                            </>
+                          }
+                        </>  
+                      }
+                      {state.detail.pincode &&
+                          <li>
+                            Location
+                            <span>: {state.detail.pincode}</span>
+                          </li>
+                      }
                     </ul>
                   </div>
 
@@ -935,6 +962,10 @@ function EditFreelancer(props) {
                       <li>
                         Nationality
                         <span>: {state.nationality}</span>
+                      </li>
+                      <li>
+                        Exp. Level
+                        <span>: {_.get(state.detail.additional_information, 'job_level', [''])}</span>
                       </li>
                       <li>
                         Job Type
@@ -960,17 +991,30 @@ function EditFreelancer(props) {
                   </div>
                 
                   <div className="candidates-widget">
-                    <h3>Download Resume <i className="bx bx-trash delete-icon-btn"></i></h3>
+                    <h3>Download Resume</h3>
                     
                     <ul className="overview download ">
-                      
+                        {state.detail.resume_pdf &&
+                            <li>
+                              <i className="flaticon-pdf"></i>
+                              <a href={state.detail.resume_pdf} target="_blank">PDF Formate CV</a>
+                            </li>
+                        }
+                        {state.detail.resume_doc &&
+                            <li>
+                              <i className="flaticon-pdf"></i>
+                              <a href={state.detail.resume_doc} target="_blank">DOC Formate CV</a>
+                            </li>
+                        }
+                    </ul>
+                  </div>
+                  <div className="candidates-widget">
+                    <h3>Create Custom Resume</h3>
+                    
+                    <ul className="overview download ">
                       <li>
                         <i className="flaticon-pdf"></i>
-                        <a href="#">PDF Formate CV</a>
-                      </li>
-                      <li>
-                        <i className="flaticon-pdf"></i>
-                        <a href="#">DOC Formate CV</a>
+                        <Link to={`/custom-cv/${id}`}>Custom CV</Link>
                       </li>
                     </ul>
                   </div>

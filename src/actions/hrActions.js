@@ -235,3 +235,41 @@ export function fetchLeads(data) {
     })
   }
 }
+
+
+export function generateFreelancerCV(data, uuid) {
+  console.log("data",data)
+  return (dispatch) => {
+    dispatch(applicationIsLoading(true));
+    axios({
+      method: "post",
+      url: REACT_API_URL + `/api/v1/users/${uuid}/resumes`,
+      data: data 
+    })
+    .then((response) => {
+        if((response.status !== 200) || (response.data.status === 404)) {
+          // throw Error(response.statusText);
+          return response.data;
+        } else {
+          // console.log("response.data",response.data.attachment_url)
+          return response.data
+        }
+      }
+    )
+    .then(res => {
+      dispatch(applicationIsLoading(false));
+        const response = {
+          file: res.attachment_url,
+          };
+          // server sent the url to the file!
+          // now, let's download:
+          window.open(response.file);
+      return res
+    })
+    .catch((error) => {
+      dispatch(applicationIsLoading(false));
+      console.log(error)
+      return error
+    })
+  }
+}

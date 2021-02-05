@@ -63,6 +63,44 @@ function EditOverviewFreelancer(props) {
 		        
 		        <Col xs={12} md={12}>
                     <div className="row mb-4 mt-4">
+                        <Col xs={12} md={4} onChange={props.handleAdditional}>
+                            <label className="single-check">
+                                Fresher
+                                <input 
+                                    type="radio" 
+                                    checked={props.state.additional_information_attributes.job_level === "Fresher"} 
+                                    name="job_level" 
+                                    value="Fresher" required/>
+                                <span className="checkmark"></span>
+                            </label>
+                        </Col>
+                        <Col xs={12} md={4} onChange={props.handleAdditional}>
+                            <label className="single-check">
+                                Intermediate
+                                <input 
+                                    type="radio" 
+                                    checked={props.state.additional_information_attributes.job_level === "Intermediate"} 
+                                    name="job_level" 
+                                    value="Intermediate" required/>
+                                <span className="checkmark"></span>
+                            </label>
+                        </Col>
+                        <Col xs={12} md={4} onChange={props.handleAdditional}>
+                            <label className="single-check">
+                                Expert
+                                <input 
+                                    type="radio" 
+                                    checked={props.state.additional_information_attributes.job_level === "Expert"} 
+                                    name="job_level" 
+                                    value="Expert" required/>
+                                <span className="checkmark"></span>
+                            </label>
+                        </Col>
+                    </div>
+                </Col> 
+
+                <Col xs={12} md={12}>
+                    <div className="row mb-4 mt-4">
                         <Col xs={12} md={3} onChange={props.handleAdditional}>
                             <label className="single-check">
                                 Full Time 
